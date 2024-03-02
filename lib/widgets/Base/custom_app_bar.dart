@@ -24,50 +24,49 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: AppColors.BaseColorBlackGround,
-      title: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: Dimens.PaddingAppBar),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            //arrow back button
-            showBackButton
-                ? IconButton(
-                    iconSize: Dimens.IconSizeAppBar,
-                    onPressed: onPressedBack ??
-                        () => {
-                              Navigator.of(context).pop(),
-                            },
-                    icon: Icon(
-                      iconLeftButton ?? Icons.arrow_back,
-                      color: AppColors.BaseColorWhite,
-                    ))
-                : Container(
-                    width: Dimens.FontSizeAppBar,
-                  ),
-            Expanded(
-              child: Center(
-                child: title != null
-                    ? Text(
-                        title!,
-                        style: const TextStyle(
-                            color: AppColors.BaseColorWhite,
-                            fontSize: Dimens.FontSizeAppBar,
-                            fontWeight: FontWeight.bold),
-                      )
-                    : Container(),
-              ),
+      title: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          //arrow back button
+          showBackButton
+              ? IconButton(
+                  iconSize: Dimens.IconSizeAppBar,
+                  onPressed: onPressedBack ??
+                      () => {
+                            Navigator.of(context).pop(),
+                          },
+                  icon: Icon(
+                    iconLeftButton ?? Icons.arrow_back,
+                    color: AppColors.BaseColorWhite,
+                  ))
+              : Container(
+                  width: Dimens.FontSizeAppBar,
+                ),
+          Expanded(
+            child: Center(
+              child: title != null
+                  ? Text(
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      title!,
+                      style: const TextStyle(
+                          color: AppColors.BaseColorWhite,
+                          fontSize: Dimens.FontSizeAppBar,
+                          fontWeight: FontWeight.bold),
+                    )
+                  : Container(),
             ),
-            iconRightButton != null
-                ? IconButton(
-                    onPressed: () => onPressedRight,
-                    iconSize: Dimens.IconSizeAppBar,
-                    icon: Icon(
-                      iconRightButton,
-                      color: AppColors.BaseColorWhite,
-                    ))
-                : Container(width: Dimens.IconSizeAppBar),
-          ],
-        ),
+          ),
+          iconRightButton != null
+              ? IconButton(
+                  onPressed: () => onPressedRight,
+                  iconSize: Dimens.IconSizeAppBar,
+                  icon: Icon(
+                    iconRightButton,
+                    color: AppColors.BaseColorWhite,
+                  ))
+              : Container(width: Dimens.IconSizeAppBar),
+        ],
       ),
     );
   }

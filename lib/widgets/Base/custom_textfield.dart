@@ -21,13 +21,14 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
+      margin: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               boxShadow: const [
@@ -46,7 +47,7 @@ class CustomTextField extends StatelessWidget {
                         color: AppColors.BaseColorWhite,
                       )
                     : const SizedBox(),
-                const SizedBox(width: 20),
+                icon != null ? const SizedBox(width: 20) : const SizedBox(),
                 Expanded(
                   child: TextFormField(
                     controller: controller,
@@ -69,7 +70,7 @@ class CustomTextField extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Container(
             height: 1,
             width: double.infinity,
