@@ -11,4 +11,5 @@ class AppColors {
 
   ///sub
   static const Color SubColorDate = Color(0xFF3B3B3B);
+  static const Color Border_Radio = Color(0xFFFCC434);
 }
