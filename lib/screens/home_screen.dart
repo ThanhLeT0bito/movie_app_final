@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_bottom_sheet.dart';
+import 'package:movie_app_final/widgets/Base/custom_item_radio.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 
 import '../widgets/Base/custom_textfield.dart';
@@ -19,6 +20,21 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     TextEditingController controller = TextEditingController();
+    List<CustomItemRadio> listItemCustom = [
+      CustomItemRadio(text: 'English', isSelected: true),
+      CustomItemRadio(text: 'Vietnamese', isSelected: false, onPressed: () {}),
+    ];
+    void setSelectedItem(CustomItemRadio customItemRadio) {
+      setState(() {
+        for (var item in listItemCustom) {
+          if (item == customItemRadio) {
+            item.isSelected = true;
+          } else {
+            item.isSelected = false;
+          }
+        }
+      });
+    }
 
     void showBottomSheet() {
       showModalBottomSheet(
@@ -26,10 +42,28 @@ class _HomeScreenState extends State<HomeScreen> {
           builder: (BuildContext context) {
             return CustomBottomSheet(
               title: 'Choose a language',
+              subTitle: 'which language do u want to use?',
               textButton: "TextButton",
               onButtonPressed: () {},
-              widget: const Text("data"),
-              subTitle: 'which language do u want to use?',
+              widget: SizedBox(
+                height: 200,
+                child: ListView.builder(
+                  itemCount: listItemCustom.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        CustomItemRadio(
+                          text: listItemCustom[index].text,
+                          isSelected: listItemCustom[index].isSelected,
+                          onPressed: () =>
+                              setSelectedItem(listItemCustom[index]),
+                        ),
+                        const SizedBox(height: 20)
+                      ],
+                    );
+                  },
+                ),
+              ),
             );
           });
     }

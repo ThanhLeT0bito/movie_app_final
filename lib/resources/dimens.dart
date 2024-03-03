@@ -11,6 +11,8 @@ class Dimens {
   static const double FontSizeBottomSheetTitle = 30;
   static const double FontSizeBottomSheetSubTitle = 14;
 
+  static const double FontSizeCustomItemRadio = 20;
+
   ///radius
   static const double RadiusButton = 30;
   static const double RadiusBottomSheet = 21;
@@ -19,7 +21,12 @@ class Dimens {
   static const double PaddingAppBar = 0;
   static const double PaddingButton = 5;
   static const double MarginButton = 5;
+  static const double PaddingRadio = 3;
 
   //TextField
   static const double FontSizeTextField = 23;
+
+  //radio
+  static const double WidthHeightRadioAround = 30;
+  static const double WidthHeightRadioChild = 20;
 }
