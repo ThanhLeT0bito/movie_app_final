@@ -35,7 +35,9 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
       onTap: () {
         setState(() {
           _isSelected = !_isSelected;
-          if (widget.onChanged != null) widget.onChanged!();
+          // if (widget.onChanged != null) widget.onChanged!();
+          // widget.isSelected = !widget.isSelected!;
+          // _isSelected = widget.isSelected!;
         });
       },
       child: Container(
