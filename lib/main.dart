@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
+import 'package:movie_app_final/screens/home_order_movie.dart';
 import 'package:movie_app_final/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         initialRoute: HomeScreen.routeName,
         routes: {
           HomeScreen.routeName: (context) => const HomeScreen(),
+          HomeOrderMovie.routeName: (context) => HomeOrderMovie(),
         },
       ),
     );
