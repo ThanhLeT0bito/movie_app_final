@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
-import 'package:movie_app_final/screens/home_order_movie.dart';
+import 'package:movie_app_final/screens/home_order_movie_screen.dart';
 import 'package:movie_app_final/screens/home_screen.dart';
+import 'package:movie_app_final/screens/home_watching_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         routes: {
           HomeScreen.routeName: (context) => const HomeScreen(),
           HomeOrderMovie.routeName: (context) => HomeOrderMovie(),
+          HomeWatchingScreen.routeName: (context) => HomeWatchingScreen(),
         },
       ),
     );
