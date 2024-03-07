@@ -2,16 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 
-class HomeProfile extends StatefulWidget {
-  const HomeProfile({Key? key}) : super(key: key);
+class HomeProfileScreens extends StatefulWidget {
+  const HomeProfileScreens({Key? key}) : super(key: key);
 
   static const routeName = '/home-profile-movie';
 
   @override
-  State<HomeProfile> createState() => _ProfileState();
+  State<HomeProfileScreens> createState() => _ProfileScreensState();
 }
 
-class _ProfileState extends State<HomeProfile> {
+class _ProfileScreensState extends State<HomeProfileScreens> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
