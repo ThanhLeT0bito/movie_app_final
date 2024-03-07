@@ -14,4 +14,8 @@ class AppColors {
   static const Color Border_Radio = Color(0xFFFCC434);
 
   // home order movie
+  //my ticket movie
+  static Color Background = const Color(0xFF1C1C1C);
+  //profile
+  
 }
