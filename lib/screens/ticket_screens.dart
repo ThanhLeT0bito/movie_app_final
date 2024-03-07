@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 
-class HomeTicketMovie extends StatefulWidget {
-  const HomeTicketMovie({Key? key}) : super(key: key);
+class TicketMovieScreens extends StatefulWidget {
+  const TicketMovieScreens({Key? key}) : super(key: key);
   static const routeName = '/home-ticket-movie';
 
   @override
-  State<HomeTicketMovie> createState() => _HomeTicketMovieState();
+  State<TicketMovieScreens> createState() => _TicketMovieScreensState();
 }
 
-class _HomeTicketMovieState extends State<HomeTicketMovie> {
+class _TicketMovieScreensState extends State<TicketMovieScreens> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
