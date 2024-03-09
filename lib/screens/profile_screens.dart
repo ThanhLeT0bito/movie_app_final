@@ -14,13 +14,12 @@ class HomeProfileScreens extends StatefulWidget {
 }
 
 
-
 class _ProfileScreensState extends State<HomeProfileScreens> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.black, // Màu nền đen
+        color: Colors.black,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
