@@ -29,4 +29,14 @@ class Dimens {
   //radio
   static const double WidthHeightRadioAround = 30;
   static const double WidthHeightRadioChild = 20;
+
+  //profile
+  static const double PaddingBackgroundProfile = 20;
+  static const double SizedBoxHeightProfile = 20;
+  static const double SizedBoxWidthProfile = 10;
+  static const double SizeIconProfile = 24;
+  static const double SizeIconArrow = 15;
+  static const double thickness = 0.3;
+  static const double fontsizetext = 18;
+  
 }

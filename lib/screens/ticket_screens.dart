@@ -88,7 +88,7 @@ class _TicketMovieScreensState extends State<TicketMovieScreens> {
                   Text(
                     movieName,
                     style: const TextStyle(
-                      fontSize: 18,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: AppColors.BaseColorTextMain,
                     ),
@@ -97,18 +97,18 @@ class _TicketMovieScreensState extends State<TicketMovieScreens> {
                    Row(
                     children: [
                       const Icon(Icons.access_time,color: AppColors.BaseColorWhite,),
-                      const SizedBox(width: 5),
+                      const SizedBox(width: 10),
                       Text(
                         '$dateTime',
                         style: const TextStyle(fontSize: 16, color:AppColors.BaseColorWhite),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
                       const Icon(Icons.location_city, color: AppColors.BaseColorWhite,),
-                      const SizedBox(width: 5),
+                      const SizedBox(width: 10),
                       Text(
                         '$theaterLocation',
                         style: const TextStyle(fontSize: 16, 
