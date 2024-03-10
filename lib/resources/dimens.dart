@@ -41,4 +41,5 @@ class Dimens {
 
   // My ticket
   static const double WidthItemTicket = 120;
+  static const double MarginTicketItem = 10;
 }
