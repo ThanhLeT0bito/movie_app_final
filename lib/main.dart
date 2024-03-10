@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
+import 'package:movie_app_final/providers/ticket_management.dart';
 import 'package:movie_app_final/providers/watching_movie_provider.dart';
 import 'package:movie_app_final/screens/home_order_movie_screen.dart';
 import 'package:movie_app_final/screens/profile_screens.dart';
@@ -20,17 +21,18 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
-        ChangeNotifierProvider(create: (_) => WatchingMovieProvider())
+        ChangeNotifierProvider(create: (_) => WatchingMovieProvider()),
+        ChangeNotifierProvider(create: (_) => TicketManagement())
       ],
       child: MaterialApp(
         title: 'MOviE',
-        initialRoute: TicketMovieScreens.routeName,
+        initialRoute: HomeScreen.routeName,
         routes: {
           HomeScreen.routeName: (context) => const HomeScreen(),
           HomeOrderMovie.routeName: (context) => HomeOrderMovie(),
           HomeWatchingScreen.routeName: (context) => HomeWatchingScreen(),
-          TicketMovieScreens.routeName:(context) => TicketMovieScreens(),
-          HomeProfileScreens.routeName:(context) => HomeProfileScreens(),
+          TicketMovieScreens.routeName: (context) => TicketMovieScreens(),
+          HomeProfileScreens.routeName: (context) => HomeProfileScreens(),
         },
       ),
     );

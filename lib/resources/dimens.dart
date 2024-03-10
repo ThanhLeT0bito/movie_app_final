@@ -38,5 +38,7 @@ class Dimens {
   static const double SizeIconArrow = 15;
   static const double thickness = 0.3;
   static const double fontsizetext = 18;
-  
+
+  // My ticket
+  static const double WidthItemTicket = 120;
 }
