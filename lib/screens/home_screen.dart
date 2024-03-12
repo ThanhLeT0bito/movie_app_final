@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app_final/models/model_widget/item_radio.dart';
 import 'package:movie_app_final/resources/app_color.dart';
-import 'package:movie_app_final/screens/home_order_movie_screen.dart';
+import 'package:movie_app_final/screens/home_watching_screen.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_bottom_sheet.dart';
 import 'package:movie_app_final/widgets/Base/custom_item_radio.dart';
-import 'package:movie_app_final/widgets/Base/custom_radio.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 
 import '../widgets/Base/custom_textfield.dart';
@@ -22,10 +22,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     TextEditingController controller = TextEditingController();
-    List<CustomRadioButton> listItemCustom = [
-      CustomRadioButton(isSelected: true),
-      CustomRadioButton(isSelected: false),
-      CustomRadioButton(isSelected: false)
+    List<ItemRadio> listItemCustom = [
+      ItemRadio(isSelected: true, text: "English"),
+      ItemRadio(isSelected: false, text: "VietNamese"),
     ];
 
     void showBottomSheet() {
@@ -37,8 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
               subTitle: 'which language do u want to use?',
               textButton: "TextButton",
               onButtonPressed: () {},
-              widget: CustomItemRadio(
-                  groupRadio: listItemCustom as List<CustomRadioButton>),
+              widget: CustomItemRadio(groupRadio: listItemCustom),
             );
           });
     }
@@ -86,7 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     text: "Continue",
                     icon: Icons.accessibility_sharp,
                     onPressed: () {
-                      Navigator.pushNamed(context, HomeOrderMovie.routeName);
+                      Navigator.pushNamed(
+                          context, HomeWatchingScreen.routeName);
                     },
                   ),
                 ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app_final/models/model_widget/item_radio.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/resources/dimens.dart';
 import 'package:movie_app_final/widgets/Base/custom_radio.dart';
@@ -8,7 +9,7 @@ class CustomItemRadio extends StatefulWidget {
   final String? image;
   //late bool? isSelected;
   final VoidCallback? onPressed;
-  final List<CustomRadioButton> groupRadio;
+  final List<ItemRadio> groupRadio;
 
   CustomItemRadio({
     Key? key,
@@ -52,7 +53,7 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
                       print(indexSelected);
                     });
                   },
-                  child: ItemRadio(
+                  child: ItemRadioCustom(
                       widget.groupRadio[index], indexSelected == index)),
               const SizedBox(height: 20)
             ],
@@ -62,21 +63,21 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
     );
   }
 
-  Padding ItemRadio(CustomRadioButton customRadioButton, bool isSelected) {
+  Padding ItemRadioCustom(ItemRadio customRadioButton, bool isSelected) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: Row(
         children: [
           // Hiển thị hình ảnh nếu có
-          if (widget.image != null) ...[
+          if (customRadioButton.img != null) ...[
             CircleAvatar(
                 child: Image.asset(widget.image!, width: 40, height: 40)),
             const SizedBox(width: 8),
           ],
           //Hiển thị văn bản
-          const Text(
-            "hello",
-            style: TextStyle(
+          Text(
+            customRadioButton.text!,
+            style: const TextStyle(
                 color: AppColors.BaseColorTextMain,
                 fontSize: Dimens.FontSizeCustomItemRadio,
                 fontWeight: FontWeight.bold),
@@ -90,14 +91,14 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: isSelected
+                color: customRadioButton.isSelected!
                     ? AppColors.Border_Radio
                     : AppColors.BaseColorWhite, // Màu viền
                 width: 2.0,
               ),
               color: Colors.transparent, // Màu nền
             ),
-            child: isSelected
+            child: customRadioButton.isSelected!
                 ? Container(
                     alignment: Alignment.center,
                     width: Dimens.WidthHeightRadioChild,
