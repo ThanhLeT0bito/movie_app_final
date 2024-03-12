@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app_final/models/ticket_item_model.dart';
+import 'package:movie_app_final/models/model_widget/ticket_item_model.dart';
 
 class TicketManagement extends ChangeNotifier {
   //Danh sách ticket

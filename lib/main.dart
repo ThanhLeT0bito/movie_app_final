@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
-import 'package:movie_app_final/providers/ticket_management.dart';
+import 'package:movie_app_final/providers/ticket_management_provider.dart';
 import 'package:movie_app_final/providers/watching_movie_provider.dart';
 import 'package:movie_app_final/screens/home_order_movie_screen.dart';
 import 'package:movie_app_final/screens/profile_screens.dart';
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'MOviE',
-        initialRoute: HomeScreen.routeName,
+        initialRoute: HomeProfileScreens.routeName,
         routes: {
           HomeScreen.routeName: (context) => const HomeScreen(),
           HomeOrderMovie.routeName: (context) => HomeOrderMovie(),
