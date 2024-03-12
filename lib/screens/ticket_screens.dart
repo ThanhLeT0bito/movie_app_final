@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/resources/app_color.dart';
-import 'package:movie_app_final/resources/dimens.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 
 class TicketMovieScreens extends StatefulWidget {
@@ -20,7 +19,7 @@ class _TicketMovieScreensState extends State<TicketMovieScreens> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const CustomAppBar(title: 'My ticket',),
+            const CustomAppBar(title: 'My ticket'),
             Expanded(
               child: ListView(
                 children: [
@@ -89,7 +88,7 @@ class _TicketMovieScreensState extends State<TicketMovieScreens> {
                   Text(
                     movieName,
                     style: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: AppColors.BaseColorTextMain,
                     ),
