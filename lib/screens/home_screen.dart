@@ -91,8 +91,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+            
           ),
         ],
+      ),
+         bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: AppColors.BaseColorBlackGround,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+            backgroundColor: AppColors.BaseColorBlackGround
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'Business',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            label: 'School',
+          ),
+        ],
+        currentIndex: 1,
+        selectedItemColor: Colors.amber[800],
+        unselectedLabelStyle: TextStyle(color: AppColors.BaseColorWhite),
+        unselectedItemColor: AppColors.BaseColorWhite,
+        //onTap: _onItemTapped,
       ),
     );
   }

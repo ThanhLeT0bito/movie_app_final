@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'MOviE',
-        initialRoute: HomeProfileScreens.routeName,
+        initialRoute: HomeScreen.routeName,
         routes: {
           HomeScreen.routeName: (context) => const HomeScreen(),
           HomeOrderMovie.routeName: (context) => HomeOrderMovie(),
