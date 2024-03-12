@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app_final/models/ticket_item_model.dart';
-import 'package:movie_app_final/providers/ticket_management.dart';
+import 'package:movie_app_final/models/model_widget/ticket_item_model.dart';
+import 'package:movie_app_final/providers/ticket_management_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/ticket_item.dart';
