@@ -23,7 +23,7 @@ class _ProfileScreensState extends State<HomeProfileScreens> {
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<AuthProvider>(context);
-    var currentUser = data.CurrentUser;/// rồi , sẽ lấy currentUser để đưa ra UI nè okok?
+    var currentUser = data.CurrentUser;
     return Scaffold(
       body: ProfileItemWidget(currentUser: currentUser,),
     );
