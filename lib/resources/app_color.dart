@@ -17,6 +17,9 @@ class AppColors {
   // home order movie
   //my ticket movie
   static Color Background = const Color(0xFF1C1C1C);
-  //profile
+  //comingsoon
+  static const Color BackgroundButton  = Color(0xFF1C1C1C);
+  static const Color Fonttextbutton = Color(0xFF000000);
+  static const Color font = Color(0xFFBFBFBF);
   
 }

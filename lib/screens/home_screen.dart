@@ -107,6 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.business),
             label: 'Business',
           ),
+          
           BottomNavigationBarItem(
             icon: Icon(Icons.school),
             label: 'School',
@@ -116,6 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedItemColor: Colors.amber[800],
         unselectedLabelStyle: TextStyle(color: AppColors.BaseColorWhite),
         unselectedItemColor: AppColors.BaseColorWhite,
+        
         //onTap: _onItemTapped,
       ),
     );
