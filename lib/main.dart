@@ -32,6 +32,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => NowplayingManagement()),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+
         title: 'MOviE',
         initialRoute: HomepageScreens.routeName,
         routes: {
