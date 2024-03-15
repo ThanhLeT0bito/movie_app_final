@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
 import 'package:movie_app_final/providers/Comingsoon_provider.dart';
+import 'package:movie_app_final/providers/Homepage_provider.dart';
 import 'package:movie_app_final/providers/Nowplaying_provider.dart';
 import 'package:movie_app_final/providers/ticket_management_provider.dart';
 import 'package:movie_app_final/providers/watching_movie_provider.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => TicketManagement()),
         ChangeNotifierProvider(create: (_) => ComingSoonManagement()),
         ChangeNotifierProvider(create: (_) => NowplayingManagement()),
+        ChangeNotifierProvider(create: (_) => HomepageManagement()),
       ],
       child: MaterialApp(
         title: 'MOviE',
