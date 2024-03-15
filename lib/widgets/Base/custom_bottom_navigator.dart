@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:movie_app_final/screens/home_order_movie.dart';
 import 'package:movie_app_final/screens/home_screen.dart';
 import 'package:movie_app_final/screens/home_watching_screen.dart';
 import '../../resources/app_color.dart';
+import '../../screens/home_order_movie_screen.dart';
 
 class CustomBottomNavigator extends StatefulWidget {
   final String ticketLabel;
@@ -41,15 +41,20 @@ class _CustomBottomNavigatorState extends State<CustomBottomNavigator> {
   Widget build(BuildContext context) {
     final List<IconData> _selectedIcons = [
       Iconsax.home_15,
-      widget.iconTicketSelected ?? Iconsax.ticket5, // Sử dụng biểu tượng mặc định nếu không được cung cấp
-      widget.iconVideoSelected ?? Iconsax.video, // Sử dụng biểu tượng mặc định nếu không được cung cấp
+      widget.iconTicketSelected ??
+          Iconsax
+              .ticket5, // Sử dụng biểu tượng mặc định nếu không được cung cấp
+      widget.iconVideoSelected ??
+          Iconsax.video, // Sử dụng biểu tượng mặc định nếu không được cung cấp
       Icons.person,
     ];
 
     final List<IconData> _unselectedIcons = [
       Iconsax.home,
-      widget.iconTicket ?? Iconsax.ticket, // Sử dụng biểu tượng mặc định nếu không được cung cấp
-      widget.iconVideo ?? Iconsax.video1, // Sử dụng biểu tượng mặc định nếu không được cung cấp
+      widget.iconTicket ??
+          Iconsax.ticket, // Sử dụng biểu tượng mặc định nếu không được cung cấp
+      widget.iconVideo ??
+          Iconsax.video1, // Sử dụng biểu tượng mặc định nếu không được cung cấp
       Iconsax.user,
     ];
 
@@ -58,19 +63,23 @@ class _CustomBottomNavigatorState extends State<CustomBottomNavigator> {
       child: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(_selectedIndex == 0 ? _selectedIcons[0] : _unselectedIcons[0]),
+            icon: Icon(
+                _selectedIndex == 0 ? _selectedIcons[0] : _unselectedIcons[0]),
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(_selectedIndex == 1 ? _selectedIcons[1] : _unselectedIcons[1]),
+            icon: Icon(
+                _selectedIndex == 1 ? _selectedIcons[1] : _unselectedIcons[1]),
             label: widget.ticketLabel,
           ),
           BottomNavigationBarItem(
-            icon: Icon(_selectedIndex == 2 ? _selectedIcons[2] : _unselectedIcons[2]),
+            icon: Icon(
+                _selectedIndex == 2 ? _selectedIcons[2] : _unselectedIcons[2]),
             label: widget.movieLabel,
           ),
           BottomNavigationBarItem(
-            icon: Icon(_selectedIndex == 3 ? _selectedIcons[3] : _unselectedIcons[3]),
+            icon: Icon(
+                _selectedIndex == 3 ? _selectedIcons[3] : _unselectedIcons[3]),
             label: "Profile",
           ),
         ],

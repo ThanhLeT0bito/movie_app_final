@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app_final/providers/AuthProvider.dart';
-import 'package:movie_app_final/providers/watching_movie_provider.dart';
-import 'package:provider/provider.dart';
 
 import '../resources/app_color.dart';
 import '../widgets/Base/custom_app_bar.dart';
