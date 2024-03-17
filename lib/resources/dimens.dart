@@ -13,6 +13,9 @@ class Dimens {
 
   static const double FontSizeCustomItemRadio = 20;
 
+  // App bar
+  static const double MarginTopAppbar = 40;
+
   ///radius
   static const double RadiusButton = 30;
   static const double RadiusBottomSheet = 21;
