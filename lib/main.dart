@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
+import 'package:movie_app_final/providers/Homepage_provider.dart';
+import 'package:movie_app_final/providers/Nowplaying_provider.dart';
 import 'package:movie_app_final/providers/ticket_management_provider.dart';
 import 'package:movie_app_final/providers/watching_movie_provider.dart';
 import 'package:movie_app_final/screens/home_order_movie_screen.dart';
 import 'package:movie_app_final/screens/home_page_screens.dart';
 import 'package:movie_app_final/screens/home_watching_screen.dart';
+import 'package:movie_app_final/screens/movie_details.dart';
 import 'package:movie_app_final/screens/profile_screens.dart';
 import 'package:movie_app_final/screens/home_screen.dart';
 import 'package:movie_app_final/screens/ticket_screens.dart';
@@ -23,12 +26,14 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => WatchingMovieProvider()),
-        ChangeNotifierProvider(create: (_) => TicketManagement())
+        ChangeNotifierProvider(create: (_) => TicketManagement()),
+        ChangeNotifierProvider(create: (_) => NowplayingManagement()),
+        ChangeNotifierProvider(create: (_) => HomepageManagement()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'MOviE',
-        initialRoute: HomepageScreens.routeName,
+        initialRoute: MoviedetailsScreens.routeName,
         routes: {
           HomeScreen.routeName: (context) => const HomeScreen(),
           HomepageScreens.routeName: (context) => HomepageScreens(),
@@ -36,6 +41,7 @@ class MyApp extends StatelessWidget {
           HomeWatching.routeName: (context) => HomeWatching(),
           TicketMovieScreens.routeName: (context) => TicketMovieScreens(),
           HomeProfileScreens.routeName: (context) => HomeProfileScreens(),
+          MoviedetailsScreens.routeName:(context) => MoviedetailsScreens(),
         },
       ),
     );
