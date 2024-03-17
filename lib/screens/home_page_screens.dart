@@ -173,9 +173,11 @@ class ItemMovieWithTitle extends StatelessWidget {
     super.key,
     required this.img,
     required this.title,
+    this.isShowTitle = true,
   });
   final String img;
   final String title;
+  final bool? isShowTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -189,22 +191,24 @@ class ItemMovieWithTitle extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           const SizedBox(height: 5),
-          Container(
-            width: 230,
-            padding: const EdgeInsets.all(5),
-            child: SizedBox(
-              height: 50,
-              child: Text(
-                title,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                style: const TextStyle(
-                    color: AppColors.BaseColorTextMain,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
-              ),
-            ),
-          )
+          isShowTitle!
+              ? Container(
+                  width: 230,
+                  padding: const EdgeInsets.all(5),
+                  child: SizedBox(
+                    height: 50,
+                    child: Text(
+                      title,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      style: const TextStyle(
+                          color: AppColors.BaseColorTextMain,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
+                  ),
+                )
+              : const SizedBox()
         ],
       ),
     );
