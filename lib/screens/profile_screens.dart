@@ -17,15 +17,13 @@ class HomeProfileScreens extends StatefulWidget {
   State<HomeProfileScreens> createState() => _ProfileScreensState();
 }
 
-
-
 class _ProfileScreensState extends State<HomeProfileScreens> {
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<AuthProvider>(context);
     var currentUser = data.CurrentUser;
-    return Scaffold(
-      body: ProfileItemWidget(currentUser: currentUser,),
+    return ProfileItemWidget(
+      currentUser: currentUser,
     );
   }
 }

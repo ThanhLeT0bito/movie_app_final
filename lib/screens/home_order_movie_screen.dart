@@ -28,7 +28,6 @@ class _HomeOrderMovieState extends State<HomeOrderMovie> {
               child: Text('Hello'),
             ),
           ),
-          CustomBottomNavigator(ticketLabel: "Ticket", movieLabel: "Movie", iconTicket: Iconsax.ticket, iconVideo: Iconsax.video, iconTicketSelected: Iconsax.ticket5, iconVideoSelected: Iconsax.video4,),
         ],
       ),
     );

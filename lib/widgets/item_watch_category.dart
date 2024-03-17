@@ -14,15 +14,16 @@ class ItemWatchCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(right: 20),
+      margin: EdgeInsets.only(right: 20),
       child: Stack(
         alignment: Alignment.center,
         children: [
           Container(
-            width: 100,
-            height: 60,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
+            width: 150,
+            height: 100,
+            decoration: BoxDecoration(
+              //shape: BoxShape.circle,
+              borderRadius: BorderRadius.circular(30),
             ),
             child: Image.asset(
               image,
@@ -32,8 +33,8 @@ class ItemWatchCategory extends StatelessWidget {
           Positioned(
             bottom: 0,
             child: Container(
-              width: 100,
-              height: 60,
+              width: 150,
+              height: 100,
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(horizontal: 4),
               color: Colors.black.withOpacity(0.5),
@@ -46,7 +47,7 @@ class ItemWatchCategory extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       color: AppColors.BaseColorWhite,
-                      fontSize: 12,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

@@ -21,172 +21,169 @@ class HomeWatching extends StatefulWidget {
 class _HomeWatchingState extends State<HomeWatching> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: AppColors.BaseColorBlackGround,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: Column(
-          children: [
-            CustomAppBar(
-              iconLeftButton: Icons.change_circle_sharp,
-              iconRightButton: Icons.notifications,
-              title: "Welcome Back",
-            ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(5),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      SizedBox(height: 10),
-                      SearchWidget(),
-                      SizedBox(height: 20),
-                      //carousel
-                      CarouselWidget(),
-                      itemcaterogy_watch(
-                        title: "Category",
-                        navogatorName: "",
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        children: [
+          CustomAppBar(
+            iconLeftButton: Icons.change_circle_sharp,
+            iconRightButton: Icons.notifications,
+            title: "Welcome Back",
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(5),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(height: 10),
+                    SearchWidget(),
+                    SizedBox(height: 20),
+                    //carousel
+                    CarouselWidget(),
+                    itemcaterogy_watch(
+                      title: "Category",
+                      navogatorName: "",
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ItemWatchCategory(
+                            title: 'Action',
+                            image: "assets/images/godzila.png",
+                          ),
+                          ItemWatchCategory(
+                            title: 'Adventure',
+                            image: "assets/images/godzila.png",
+                          ),
+                          ItemWatchCategory(
+                            title: 'Comedy',
+                            image: "assets/images/godzila.png",
+                          ),
+                          ItemWatchCategory(
+                            title: 'Vietname',
+                            image: "assets/images/godzila.png",
+                          ),
+                          ItemWatchCategory(
+                            title: 'Popular',
+                            image: "assets/images/godzila.png",
+                          ),
+                        ],
                       ),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            ItemWatchCategory(
-                              title: 'Action',
-                              image: "assets/images/godzila.png",
-                            ),
-                            ItemWatchCategory(
-                              title: 'Adventure',
-                              image: "assets/images/godzila.png",
-                            ),
-                            ItemWatchCategory(
-                              title: 'Comedy',
-                              image: "assets/images/godzila.png",
-                            ),
-                            ItemWatchCategory(
-                              title: 'Vietname',
-                              image: "assets/images/godzila.png",
-                            ),
-                            ItemWatchCategory(
-                              title: 'Popular',
-                              image: "assets/images/godzila.png",
-                            ),
-                          ],
-                        ),
+                    ),
+                    ItemCategoryWidget(
+                      title: "Continue movie",
+                      navogatorName: "",
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ItemMovieWithTitle(
+                            img: "assets/images/godzila.png",
+                            title: "The Godzila Avenger Game.",
+                            isShowTitle: false,
+                          ),
+                          ItemMovieWithTitle(
+                            img: "assets/images/godzila.png",
+                            title: "Avenger Game.",
+                            isShowTitle: false,
+                          ),
+                        ],
                       ),
-                      ItemCategoryWidget(
-                        title: "Continue movie",
-                        navogatorName: "",
+                    ),
+                    ItemCategoryWidget(
+                      title: "Popular movie",
+                      navogatorName: "",
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ItemMovieWithTitle(
+                            img: "assets/images/godzila.png",
+                            title: "The Godzila Avenger Game.",
+                            isShowTitle: false,
+                          ),
+                          ItemMovieWithTitle(
+                            img: "assets/images/godzila.png",
+                            title: "Avenger Game.",
+                            isShowTitle: false,
+                          ),
+                        ],
                       ),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            ItemMovieWithTitle(
-                              img: "assets/images/godzila.png",
-                              title: "The Godzila Avenger Game.",
-                              isShowTitle: false,
-                            ),
-                            ItemMovieWithTitle(
-                              img: "assets/images/godzila.png",
-                              title: "Avenger Game.",
-                              isShowTitle: false,
-                            ),
-                          ],
-                        ),
+                    ),
+                    ItemCategoryWidget(
+                      title: "Comedy movie",
+                      navogatorName: "",
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ItemMovieWithTitle(
+                            img: "assets/images/godzila.png",
+                            title: "The Godzila Avenger Game.",
+                            isShowTitle: false,
+                          ),
+                          ItemMovieWithTitle(
+                            img: "assets/images/godzila.png",
+                            title: "Avenger Game.",
+                            isShowTitle: false,
+                          ),
+                        ],
                       ),
-                      ItemCategoryWidget(
-                        title: "Popular movie",
-                        navogatorName: "",
+                    ),
+                    ItemCategoryWidget(
+                      title: "Vietnam movie",
+                      navogatorName: "",
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ItemMovieWithTitle(
+                            img: "assets/images/godzila.png",
+                            title: "The Godzila Avenger Game.",
+                            isShowTitle: false,
+                          ),
+                          ItemMovieWithTitle(
+                            img: "assets/images/godzila.png",
+                            title: "Avenger Game.",
+                            isShowTitle: false,
+                          ),
+                        ],
                       ),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            ItemMovieWithTitle(
-                              img: "assets/images/godzila.png",
-                              title: "The Godzila Avenger Game.",
-                              isShowTitle: false,
-                            ),
-                            ItemMovieWithTitle(
-                              img: "assets/images/godzila.png",
-                              title: "Avenger Game.",
-                              isShowTitle: false,
-                            ),
-                          ],
-                        ),
+                    ),
+                    ItemCategoryWidget(
+                      title: "Adventure movie",
+                      navogatorName: "",
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ItemMovieWithTitle(
+                            img: "assets/images/godzila.png",
+                            title: "The Godzila Avenger Game.",
+                            isShowTitle: false,
+                          ),
+                          ItemMovieWithTitle(
+                            img: "assets/images/godzila.png",
+                            title: "Avenger Game.",
+                            isShowTitle: false,
+                          ),
+                        ],
                       ),
-                      ItemCategoryWidget(
-                        title: "Comedy movie",
-                        navogatorName: "",
-                      ),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            ItemMovieWithTitle(
-                              img: "assets/images/godzila.png",
-                              title: "The Godzila Avenger Game.",
-                              isShowTitle: false,
-                            ),
-                            ItemMovieWithTitle(
-                              img: "assets/images/godzila.png",
-                              title: "Avenger Game.",
-                              isShowTitle: false,
-                            ),
-                          ],
-                        ),
-                      ),
-                      ItemCategoryWidget(
-                        title: "Vietnam movie",
-                        navogatorName: "",
-                      ),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            ItemMovieWithTitle(
-                              img: "assets/images/godzila.png",
-                              title: "The Godzila Avenger Game.",
-                              isShowTitle: false,
-                            ),
-                            ItemMovieWithTitle(
-                              img: "assets/images/godzila.png",
-                              title: "Avenger Game.",
-                              isShowTitle: false,
-                            ),
-                          ],
-                        ),
-                      ),
-                      ItemCategoryWidget(
-                        title: "Adventure movie",
-                        navogatorName: "",
-                      ),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            ItemMovieWithTitle(
-                              img: "assets/images/godzila.png",
-                              title: "The Godzila Avenger Game.",
-                              isShowTitle: false,
-                            ),
-                            ItemMovieWithTitle(
-                              img: "assets/images/godzila.png",
-                              title: "Avenger Game.",
-                              isShowTitle: false,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
