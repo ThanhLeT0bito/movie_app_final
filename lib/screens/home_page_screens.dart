@@ -6,6 +6,7 @@ import 'package:movie_app_final/widgets/Base/custom_item_category_widget.dart';
 import 'package:movie_app_final/widgets/carousel_widget.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/item_movie_cs_hp.dart';
+import 'package:movie_app_final/widgets/item_movie_title.dart';
 import 'package:movie_app_final/widgets/item_service_widget.dart';
 import 'package:movie_app_final/widgets/search_widget.dart';
 
@@ -108,7 +109,6 @@ class _HomepageScreensState extends State<HomepageScreens> {
                               ))
                         ],
                       ),
-
                       const SizedBox(height: 10),
                       const ItemCategoryWidget(
                         title: "Service",
@@ -149,10 +149,12 @@ class _HomepageScreensState extends State<HomepageScreens> {
                           ItemMovieWithTitle(
                             img: "assets/images/godzila.png",
                             title: "The Godzila Avenger Game.",
+                            //isShowTitle: false,
                           ),
                           ItemMovieWithTitle(
                             img: "assets/images/godzila.png",
                             title: "Avenger Game.",
+                            //isShowTitle: false,
                           ),
                         ]),
                       )
@@ -167,50 +169,4 @@ class _HomepageScreensState extends State<HomepageScreens> {
     );
   }
 }
-
-class ItemMovieWithTitle extends StatelessWidget {
-  const ItemMovieWithTitle({
-    super.key,
-    required this.img,
-    required this.title,
-    this.isShowTitle = true,
-  });
-  final String img;
-  final String title;
-  final bool? isShowTitle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: 20),
-      child: Column(
-        children: [
-          Image.asset(
-            img,
-            width: 230,
-            fit: BoxFit.cover,
-          ),
-          const SizedBox(height: 5),
-          isShowTitle!
-              ? Container(
-                  width: 230,
-                  padding: const EdgeInsets.all(5),
-                  child: SizedBox(
-                    height: 50,
-                    child: Text(
-                      title,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      style: const TextStyle(
-                          color: AppColors.BaseColorTextMain,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
-                    ),
-                  ),
-                )
-              : const SizedBox()
-        ],
-      ),
-    );
-  }
-}
+// chỗ này t đang tách ra fle, nên có j t push lại sau.
