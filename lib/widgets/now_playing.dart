@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app_final/models/model_widget/Nowplaying.dart';
+import 'package:movie_app_final/models/Nowplaying.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/resources/dimens.dart';
 
 class NowplayingItems extends StatelessWidget {
   final Nowplaying nowplaying;
-  const NowplayingItems({super.key,required this.nowplaying});
-
+  const NowplayingItems({super.key, required this.nowplaying});
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +41,13 @@ class NowplayingItems extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                   maxLines: 1, // Đặt maxLines thành 1 để tránh việc xuống hàng
-                  overflow: TextOverflow.ellipsis, // Sử dụng overflow để cắt chữ khi quá dài
+                  overflow: TextOverflow
+                      .ellipsis, // Sử dụng overflow để cắt chữ khi quá dài
                 ),
                 const SizedBox(height: Dimens.SizedBox_comingsoon_10),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: Dimens.vertical_comingsoon),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: Dimens.vertical_comingsoon),
                   child: Row(
                     children: [
                       Icon(
@@ -54,7 +55,9 @@ class NowplayingItems extends StatelessWidget {
                         color: AppColors.BaseColorWhite,
                         size: 16, // Kích thước của icon
                       ),
-                      SizedBox(width: Dimens.SizedBox_comingsoon), // Khoảng cách giữa icon và text
+                      SizedBox(
+                          width: Dimens
+                              .SizedBox_comingsoon), // Khoảng cách giữa icon và text
                       Expanded(
                         child: Text(
                           nowplaying.Star ?? '',
@@ -62,15 +65,17 @@ class NowplayingItems extends StatelessWidget {
                             color: AppColors.BaseColorWhite,
                             fontSize: Dimens.fontsize_comingsoon_12,
                           ),
-                          maxLines: 1, // Đặt maxLines thành 1 để tránh việc xuống hàng
+                          maxLines:
+                              1, // Đặt maxLines thành 1 để tránh việc xuống hàng
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],
                   ),
                 ),
-            Padding(
-                  padding: const EdgeInsets.symmetric(vertical: Dimens.vertical_comingsoon),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: Dimens.vertical_comingsoon),
                   child: Row(
                     children: [
                       Icon(
@@ -78,7 +83,9 @@ class NowplayingItems extends StatelessWidget {
                         color: AppColors.BaseColorWhite,
                         size: 16, // Kích thước của icon
                       ),
-                      SizedBox(width: Dimens.SizedBox_comingsoon), // Khoảng cách giữa icon và text
+                      SizedBox(
+                          width: Dimens
+                              .SizedBox_comingsoon), // Khoảng cách giữa icon và text
                       Expanded(
                         child: Text(
                           nowplaying.Time ?? '',
@@ -86,27 +93,32 @@ class NowplayingItems extends StatelessWidget {
                             color: AppColors.BaseColorWhite,
                             fontSize: Dimens.fontsize_comingsoon_12,
                           ),
-                          maxLines: 1, // Đặt maxLines thành 1 để tránh việc xuống hàng
+                          maxLines:
+                              1, // Đặt maxLines thành 1 để tránh việc xuống hàng
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],
                   ),
-            ),
+                ),
                 // Dòng thêm icon cho datetime
-                
+
                 const SizedBox(height: Dimens.SizedBox_comingsoon),
-                // Dòng thêm icon cho dịa điểm  
+                // Dòng thêm icon cho dịa điểm
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: Dimens.vertical_comingsoon),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: Dimens.vertical_comingsoon),
                   child: Row(
                     children: [
                       Icon(
                         Icons.location_on, // Icon bạn muốn sử dụng cho dịa điểm
                         color: AppColors.BaseColorWhite,
-                        size: Dimens.fontsize_comingsoon_16, // Kích thước của icon
+                        size: Dimens
+                            .fontsize_comingsoon_16, // Kích thước của icon
                       ),
-                      SizedBox(width: Dimens.SizedBox_comingsoon), // Khoảng cách giữa icon và text
+                      SizedBox(
+                          width: Dimens
+                              .SizedBox_comingsoon), // Khoảng cách giữa icon và text
                       Expanded(
                         child: Text(
                           nowplaying.Address ?? '',
@@ -127,5 +139,5 @@ class NowplayingItems extends StatelessWidget {
         ],
       ),
     );
-}
+  }
 }

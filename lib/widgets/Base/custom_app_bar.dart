@@ -22,9 +22,10 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: AppColors.BaseColorBlackGround,
-      title: Row(
+    return Container(
+      margin: const EdgeInsets.only(top: Dimens.MarginTopAppbar),
+      color: AppColors.BaseColorBlackGround,
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           //arrow back button

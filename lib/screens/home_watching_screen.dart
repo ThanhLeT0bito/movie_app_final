@@ -1,24 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app_final/providers/AuthProvider.dart';
-import 'package:movie_app_final/providers/watching_movie_provider.dart';
-import 'package:provider/provider.dart';
 
-class HomeWatchingScreen extends StatefulWidget {
-  const HomeWatchingScreen({super.key});
+import '../resources/app_color.dart';
+import '../widgets/Base/custom_app_bar.dart';
 
-  static const routeName = '/home-watching-screen';
+class HomeWatching extends StatefulWidget {
+  const HomeWatching({super.key});
+  static const routeName = '/home-watching';
 
   @override
-  State<HomeWatchingScreen> createState() => _HomeWatchingScreenState();
+  State<HomeWatching> createState() => _HomeWatchingState();
 }
 
-class _HomeWatchingScreenState extends State<HomeWatchingScreen> {
+class _HomeWatchingState extends State<HomeWatching> {
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<WatchingMovieProvider>(context);
-    print("số lượng carousel: ${data.listCarousel.length} ");
     return const Scaffold(
-      body: Center(child: Text('hello')),
+      backgroundColor: AppColors.BaseColorBlackGround,
+      body: Column(
+        children: [
+          CustomAppBar(
+            title: "Home Watching",
+          ),
+          Expanded(
+            child: Center(
+              child: Text('Hello'),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

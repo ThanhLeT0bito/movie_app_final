@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/models/model_widget/profile_model.dart';
-import 'package:movie_app_final/models/model_widget/user.dart';
+import 'package:movie_app_final/models/user.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/resources/dimens.dart';
 
@@ -10,7 +10,7 @@ class ProfileItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: Container(
         color: Colors.black, // Màu nền đen
         child: Column(
@@ -18,10 +18,14 @@ class ProfileItemWidget extends StatelessWidget {
           children: [
             const SizedBox(height: 50),
             Padding(
-              padding: const EdgeInsets.only(left: Dimens.PaddingBackgroundProfile, right: Dimens.PaddingBackgroundProfile,top:Dimens.PaddingBackgroundProfile,),
+              padding: const EdgeInsets.only(
+                left: Dimens.PaddingBackgroundProfile,
+                right: Dimens.PaddingBackgroundProfile,
+                top: Dimens.PaddingBackgroundProfile,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center, 
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Row(
                     children: [
@@ -44,26 +48,38 @@ class ProfileItemWidget extends StatelessWidget {
                         children: [
                           Text(
                             currentUser.name,
-                            style:const TextStyle(fontSize: Dimens.SizeIconProfile, fontWeight: FontWeight.bold, color: Colors.white),
+                            style: const TextStyle(
+                                fontSize: Dimens.SizeIconProfile,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                           ),
                           const SizedBox(height: Dimens.SizedBoxHeightProfile),
                           Row(
                             children: [
-                              const Icon(Icons.email, color: AppColors.BaseColorWhite, size: Dimens.SizeIconProfile),
-                              const SizedBox(width: Dimens.SizedBoxWidthProfile),
+                              const Icon(Icons.email,
+                                  color: AppColors.BaseColorWhite,
+                                  size: Dimens.SizeIconProfile),
+                              const SizedBox(
+                                  width: Dimens.SizedBoxWidthProfile),
                               Text(
                                 currentUser.mail,
-                                style: const TextStyle(fontSize: 14, color: Colors.white),
+                                style: const TextStyle(
+                                    fontSize: 14, color: Colors.white),
                               ),
                             ],
                           ),
                           Row(
                             children: [
-                              const Icon(Icons.phone, color: AppColors.BaseColorWhite, size: Dimens.SizeIconProfile),
-                              const SizedBox(width: Dimens.SizedBoxWidthProfile),
+                              const Icon(Icons.phone,
+                                  color: AppColors.BaseColorWhite,
+                                  size: Dimens.SizeIconProfile),
+                              const SizedBox(
+                                  width: Dimens.SizedBoxWidthProfile),
                               Text(
                                 currentUser.phone,
-                                style:const TextStyle(fontSize: 14, color: Colors.white),// thêm Dimens
+                                style: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white), // thêm Dimens
                               ),
                             ],
                           ),
@@ -73,14 +89,17 @@ class ProfileItemWidget extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: const Icon(Icons.edit, color: Colors.white, size: Dimens.SizeIconProfile),
+                    icon: const Icon(Icons.edit,
+                        color: Colors.white, size: Dimens.SizeIconProfile),
                   ),
                 ],
               ),
             ),
             const SizedBox(height: Dimens.SizeBoxHeightInfor),
             const Padding(
-              padding: EdgeInsets.only(left: Dimens.PaddingBackgroundProfile, right: Dimens.PaddingBackgroundProfile),
+              padding: EdgeInsets.only(
+                  left: Dimens.PaddingBackgroundProfile,
+                  right: Dimens.PaddingBackgroundProfile),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -89,88 +108,135 @@ class ProfileItemWidget extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.tiktok, size: Dimens.SizeIconProfile, color: AppColors.BaseColorWhite),
+                          Icon(Icons.tiktok,
+                              size: Dimens.SizeIconProfile,
+                              color: AppColors.BaseColorWhite),
                           SizedBox(width: Dimens.SizedBoxWidthProfile),
-                          Text('My ticket', style: TextStyle(fontSize: Dimens.fontsizetext, color: AppColors.BaseColorWhite)),
+                          Text('My ticket',
+                              style: TextStyle(
+                                  fontSize: Dimens.fontsizetext,
+                                  color: AppColors.BaseColorWhite)),
                         ],
                       ),
-                      Icon(Icons.arrow_forward_ios, size: Dimens.SizeIconArrow, color: AppColors.BaseColorWhite),
+                      Icon(Icons.arrow_forward_ios,
+                          size: Dimens.SizeIconArrow,
+                          color: AppColors.BaseColorWhite),
                     ],
                   ),
                   SizedBox(height: Dimens.SizedBoxHeightProfile),
                   Divider(
                     color: Colors.grey,
-                    thickness: Dimens.thickness, 
+                    thickness: Dimens.thickness,
                   ),
-                  SizedBox(height: Dimens.SizedBoxHeightProfile,),
+                  SizedBox(
+                    height: Dimens.SizedBoxHeightProfile,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.shopping_cart, size: Dimens.SizeIconProfile, color: AppColors.BaseColorWhite),
-                          SizedBox(width: Dimens.SizedBoxWidthProfile,),
-                          Text('Payment history', style: TextStyle(fontSize: Dimens.fontsizetext, color: AppColors.BaseColorWhite)),
+                          Icon(Icons.shopping_cart,
+                              size: Dimens.SizeIconProfile,
+                              color: AppColors.BaseColorWhite),
+                          SizedBox(
+                            width: Dimens.SizedBoxWidthProfile,
+                          ),
+                          Text('Payment history',
+                              style: TextStyle(
+                                  fontSize: Dimens.fontsizetext,
+                                  color: AppColors.BaseColorWhite)),
                         ],
                       ),
-                      Icon(Icons.arrow_forward_ios, size: Dimens.SizeIconArrow, color: AppColors.BaseColorWhite),
+                      Icon(Icons.arrow_forward_ios,
+                          size: Dimens.SizeIconArrow,
+                          color: AppColors.BaseColorWhite),
                     ],
                   ),
                   SizedBox(height: Dimens.SizedBoxHeightProfile),
-                  Divider( 
+                  Divider(
                     color: Colors.grey,
-                    thickness: Dimens.thickness, 
+                    thickness: Dimens.thickness,
                   ),
-                  SizedBox(height: Dimens.SizedBoxHeightProfile,),
-                   Row(
+                  SizedBox(
+                    height: Dimens.SizedBoxHeightProfile,
+                  ),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.language, size: Dimens.SizeIconProfile, color: AppColors.BaseColorWhite),
+                          Icon(Icons.language,
+                              size: Dimens.SizeIconProfile,
+                              color: AppColors.BaseColorWhite),
                           SizedBox(width: Dimens.SizedBoxWidthProfile),
-                          Text('Change language', style: TextStyle(fontSize: Dimens.fontsizetext, color: AppColors.BaseColorWhite)),
+                          Text('Change language',
+                              style: TextStyle(
+                                  fontSize: Dimens.fontsizetext,
+                                  color: AppColors.BaseColorWhite)),
                         ],
                       ),
-                      Icon(Icons.arrow_forward_ios, size: Dimens.SizeIconArrow, color: AppColors.BaseColorWhite),
+                      Icon(Icons.arrow_forward_ios,
+                          size: Dimens.SizeIconArrow,
+                          color: AppColors.BaseColorWhite),
                     ],
                   ),
                   SizedBox(height: Dimens.SizedBoxHeightProfile),
-                  Divider( 
+                  Divider(
                     color: Colors.grey,
-                    thickness: Dimens.thickness, 
+                    thickness: Dimens.thickness,
                   ),
-                  SizedBox(height: Dimens.SizedBoxHeightProfile,),
-                   Row(
+                  SizedBox(
+                    height: Dimens.SizedBoxHeightProfile,
+                  ),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.password_sharp, size: Dimens.SizeIconProfile, color: AppColors.BaseColorWhite),
+                          Icon(Icons.password_sharp,
+                              size: Dimens.SizeIconProfile,
+                              color: AppColors.BaseColorWhite),
                           SizedBox(width: Dimens.SizedBoxWidthProfile),
-                          Text('Change password', style: TextStyle(fontSize: Dimens.fontsizetext, color: AppColors.BaseColorWhite)),
+                          Text('Change password',
+                              style: TextStyle(
+                                  fontSize: Dimens.fontsizetext,
+                                  color: AppColors.BaseColorWhite)),
                         ],
                       ),
-                      Icon(Icons.arrow_forward_ios, size: Dimens.SizeIconArrow, color: AppColors.BaseColorWhite),
+                      Icon(Icons.arrow_forward_ios,
+                          size: Dimens.SizeIconArrow,
+                          color: AppColors.BaseColorWhite),
                     ],
                   ),
                   SizedBox(height: Dimens.SizedBoxHeightProfile),
-                  Divider( 
+                  Divider(
                     color: Colors.grey,
-                    thickness: Dimens.thickness, 
+                    thickness: Dimens.thickness,
                   ),
-                  SizedBox(height: Dimens.SizedBoxHeightProfile,),
-                   Row(
+                  SizedBox(
+                    height: Dimens.SizedBoxHeightProfile,
+                  ),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [ 
+                    children: [
                       Row(
                         children: [
-                          Icon(Icons.touch_app_outlined, size: Dimens.SizeIconProfile, color: AppColors.BaseColorWhite),
-                          SizedBox(width: Dimens.SizedBoxWidthProfile,),
-                          Text('Face ID/Touch ID', style: TextStyle(fontSize: Dimens.fontsizetext, color: AppColors.BaseColorWhite)),
+                          Icon(Icons.touch_app_outlined,
+                              size: Dimens.SizeIconProfile,
+                              color: AppColors.BaseColorWhite),
+                          SizedBox(
+                            width: Dimens.SizedBoxWidthProfile,
+                          ),
+                          Text('Face ID/Touch ID',
+                              style: TextStyle(
+                                  fontSize: Dimens.fontsizetext,
+                                  color: AppColors.BaseColorWhite)),
                         ],
                       ),
-                      Icon(Icons.arrow_forward_ios, size: Dimens.SizeIconArrow, color: AppColors.BaseColorWhite),
+                      Icon(Icons.arrow_forward_ios,
+                          size: Dimens.SizeIconArrow,
+                          color: AppColors.BaseColorWhite),
                     ],
                   ),
                 ],

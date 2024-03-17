@@ -1,12 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_app_final/models/model_widget/Homepage.dart';
-import 'package:movie_app_final/providers/Homepage_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:movie_app_final/resources/app_color.dart';
+import 'package:movie_app_final/widgets/Base/custom_item_category_widget.dart';
+import 'package:movie_app_final/widgets/carousel_widget.dart';
+import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
+import 'package:movie_app_final/widgets/item_movie_cs_hp.dart';
+import 'package:movie_app_final/widgets/item_service_widget.dart';
+import 'package:movie_app_final/widgets/search_widget.dart';
 
 class HomepageScreens extends StatefulWidget {
-  const HomepageScreens({super.key,required this.homepage});
-final Homepage homepage;
+  const HomepageScreens({Key? key}) : super(key: key);
   static const routeName = '/home-page';
 
   @override
@@ -16,116 +20,196 @@ final Homepage homepage;
 class _HomepageScreensState extends State<HomepageScreens> {
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<HomepageManagement>(context);
-    List<Homepage> listCarousel = data.listCarousel;
-
     return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      backgroundColor: AppColors.BaseColorBlackGround,
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
           children: [
-            Icon(Icons.change_circle_sharp, color: Colors.white, size: 30),
-            Text(
-              'Welcome back',
-              style: TextStyle(color: Colors.white, fontSize: 25),
+            const CustomAppBar(
+              iconLeftButton: Icons.change_circle_sharp,
+              iconRightButton: Icons.notifications,
+              title: "Welcome Back",
             ),
-            Icon(Icons.notifications, color: Colors.white, size: 30),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(5),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const SizedBox(height: 10),
+                      const SearchWidget(),
+                      const SizedBox(height: 20),
+                      const ItemCategoryWidget(
+                        title: "Now playing",
+                        navogatorName: "",
+                      ),
+                      const SizedBox(height: 20),
+                      //carousel
+                      const CarouselWidget(),
+                      const ItemCategoryWidget(
+                        title: "Comming Soon",
+                        navogatorName: "",
+                      ),
+                      //item comming soon
+                      const SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            ItemMovieWidget(),
+                            ItemMovieWidget(),
+                            ItemMovieWidget(),
+                            ItemMovieWidget(),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      const ItemCategoryWidget(
+                        title: "Promo & Discount",
+                        navogatorName: "",
+                      ),
+                      Stack(
+                        children: [
+                          Image.asset(
+                            "assets/promo.png",
+                            height: 250,
+                          ),
+                          const Positioned(
+                              top: 50,
+                              right: 20,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "30%",
+                                        style: TextStyle(
+                                          color: AppColors.BaseColorWhite,
+                                          fontSize: 55,
+                                        ),
+                                      ),
+                                      Text(
+                                        "OFF",
+                                        style: TextStyle(
+                                            color: AppColors.BaseColorTextMain,
+                                            fontSize: 45,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
+                                  Text(
+                                    "Movie voucher free",
+                                    style: TextStyle(
+                                        color: AppColors.BaseColorWhite,
+                                        fontSize: 17),
+                                  ),
+                                ],
+                              ))
+                        ],
+                      ),
+
+                      const SizedBox(height: 10),
+                      const ItemCategoryWidget(
+                        title: "Service",
+                        navogatorName: "",
+                      ),
+                      const SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            ItemServiceWidget(
+                              img: "assets/images/rental.png",
+                              title: "Rental",
+                            ),
+                            ItemServiceWidget(
+                              img: "assets/images/imax.png",
+                              title: "Imax",
+                            ),
+                            ItemServiceWidget(
+                              img: "assets/images/4dx.png",
+                              title: "4dx",
+                            ),
+                            ItemServiceWidget(
+                              img: "assets/images/double_seat.png",
+                              title: "SweatBox",
+                            )
+                          ],
+                        ),
+                      ),
+                      // movie new
+                      const SizedBox(height: 10),
+                      const ItemCategoryWidget(
+                        title: "Movie News",
+                        navogatorName: "",
+                      ),
+                      const SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(children: [
+                          ItemMovieWithTitle(
+                            img: "assets/images/godzila.png",
+                            title: "The Godzila Avenger Game.",
+                          ),
+                          ItemMovieWithTitle(
+                            img: "assets/images/godzila.png",
+                            title: "Avenger Game.",
+                          ),
+                        ]),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
-        backgroundColor: Colors.black,
-        centerTitle: true,
-        automaticallyImplyLeading: false,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SizedBox(height: 20),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(color: Colors.grey, width: 1),
-                ),
-                child: Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.search, color: Colors.white),
-                      onPressed: () {},
-                    ),
-                    Expanded(
-                      child: TextField(
-                        style: TextStyle(color: Colors.white),
-                        decoration: InputDecoration(
-                          hintText: 'Search...',
-                          hintStyle: TextStyle(color: Colors.white),
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.mic, color: Colors.white),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Now Playing',
-                    style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Row(
-                      children: [
-                        Text(
-                          'See All',
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        ),
-                        SizedBox(width: 5),
-                        Icon(Icons.arrow_forward_ios, color: Colors.white, size: 14),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              CarouselSlider.builder(
-                itemCount: listCarousel.length,
-                options: CarouselOptions(
-                  height: 200.0,
-                  enlargeCenterPage: true,
-                  autoPlay: true,
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  enableInfiniteScroll: true,
-                  autoPlayAnimationDuration: Duration(milliseconds: 800),
-                  viewportFraction: 0.8,
-                ),
-                itemBuilder: (BuildContext context, int index, int realIndex) {
-                  final image = listCarousel[index];
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.symmetric(horizontal: 5.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      image: DecorationImage(
-                        image: AssetImage('assets/img_1.jpg'), // Đường dẫn hình ảnh
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ],
+    );
+  }
+}
+
+class ItemMovieWithTitle extends StatelessWidget {
+  const ItemMovieWithTitle({
+    super.key,
+    required this.img,
+    required this.title,
+    this.isShowTitle = true,
+  });
+  final String img;
+  final String title;
+  final bool? isShowTitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(right: 20),
+      child: Column(
+        children: [
+          Image.asset(
+            img,
+            width: 230,
+            fit: BoxFit.cover,
           ),
-        ),
+          const SizedBox(height: 5),
+          isShowTitle!
+              ? Container(
+                  width: 230,
+                  padding: const EdgeInsets.all(5),
+                  child: SizedBox(
+                    height: 50,
+                    child: Text(
+                      title,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      style: const TextStyle(
+                          color: AppColors.BaseColorTextMain,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
+                  ),
+                )
+              : const SizedBox()
+        ],
       ),
     );
   }
