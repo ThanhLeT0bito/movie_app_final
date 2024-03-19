@@ -183,52 +183,48 @@ class MainContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      //height: 500,
-      child: IntrinsicHeight(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                'Movie Title',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+    return IntrinsicHeight(
+      child: Padding(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              'Movie Title',
+              style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
-              SizedBox(height: 8.0),
-              const Text(
-                'Release Date: September 30, 2022',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.white,
-                ),
+            ),
+            SizedBox(height: 8.0),
+            const Text(
+              'Release Date: September 30, 2022',
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.white,
               ),
-              SizedBox(height: 8.0),
-              const Text(
-                'Overview:',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+            ),
+            SizedBox(height: 8.0),
+            const Text(
+              'Overview:',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
-              SizedBox(height: 8.0),
-              const Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.white,
-                ),
-              ), // Fill the remaining space
-              Expanded(child: SizedBox()),
-              CustomTextButton(text: "Continue", onPressed: () {})
-            ],
-          ),
+            ),
+            SizedBox(height: 8.0),
+            const Text(
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.white,
+              ),
+            ), // Fill the remaining space
+            CustomTextButton(text: "Continue", onPressed: () {})
+          ],
         ),
       ),
     );
