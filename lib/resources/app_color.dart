@@ -9,6 +9,8 @@ class AppColors {
   static const Color BaseColorWhite = Color(0xFFF2F2F2);
   static const Color BaseColorBlackGround = Color(0xFF000000);
   static const Color BaseColorTransparent = Colors.transparent;
+  static const Color BaseColorAroundBlack = Color(0xFF1C1C1C);
+  static const Color BaseColorAroundWhite = Color(0xFFBFBFBF);
 
   ///sub
   static const Color SubColorDate = Color(0xFF3B3B3B);
@@ -18,8 +20,7 @@ class AppColors {
   //my ticket movie
   static Color Background = const Color(0xFF1C1C1C);
   //comingsoon
-  static const Color BackgroundButton  = Color(0xFF1C1C1C);
+  static const Color BackgroundButton = Color(0xFF1C1C1C);
   static const Color Fonttextbutton = Color(0xFF000000);
   static const Color font = Color(0xFFBFBFBF);
-  
 }

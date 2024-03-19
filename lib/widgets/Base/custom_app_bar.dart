@@ -24,7 +24,7 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: Dimens.MarginTopAppbar),
-      color: AppColors.BaseColorBlackGround,
+      //color: AppColors.BaseColorBlackGround,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

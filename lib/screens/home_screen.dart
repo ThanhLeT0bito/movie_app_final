@@ -4,6 +4,7 @@ import 'package:movie_app_final/models/model_widget/item_radio.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/home_page_screens.dart';
 import 'package:movie_app_final/screens/home_watching_screen.dart';
+import 'package:movie_app_final/screens/movie_details.dart';
 import 'package:movie_app_final/screens/profile_screens.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_bottom_navigator.dart';
@@ -23,7 +24,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
   late List<CustomItemBottomBar> bottomNavBarItems;
   late List<Widget> _screens;
 
@@ -34,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
     /// screen main
     _screens = [
       HomepageScreens(),
-      DemoBase(),
+      MoviedetailsScreens(),
       HomeWatching(),
       HomeProfileScreens(),
     ];
