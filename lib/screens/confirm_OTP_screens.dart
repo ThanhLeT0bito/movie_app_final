@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 
-class  ConfirmOTPScreens extends StatefulWidget {
+class ConfirmOTPScreens extends StatefulWidget {
   const ConfirmOTPScreens({Key? key}) : super(key: key);
   static const routeName = 'confirm_OTP';
 
@@ -15,38 +15,36 @@ class  ConfirmOTPScreens extends StatefulWidget {
 class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
   late List<TextEditingController> controllers;
   late List<FocusNode> focusNodes;
-  late List<bool> isFilled; 
+  late List<bool> isFilled;
   int remainingTimeInSeconds = 60;
   late Timer _timer;
 
-@override
-void initState() {
-  super.initState();
-  controllers = List.generate(4, (index) => TextEditingController());
-  focusNodes = List.generate(4, (index) => FocusNode());
-  isFilled = List.generate(4, (index) => false); 
-  startTimer();
+  @override
+  void initState() {
+    super.initState();
+    controllers = List.generate(4, (index) => TextEditingController());
+    focusNodes = List.generate(4, (index) => FocusNode());
+    isFilled = List.generate(4, (index) => false);
+    startTimer();
 
-  for (int i = 0; i < 4; i++) {
-    controllers[i].addListener(() {
-      if (controllers[i].text.length == 1) {
-        setState(() {
-          isFilled[i] = true;
-        });
-        if (i < 3) {
-          FocusScope.of(context).requestFocus(focusNodes[i + 1]);
-        } 
-      } else if (controllers[i].text.isEmpty && i > 0) {
-        setState(() {
-          isFilled[i - 1] = false;
-        });
-        FocusScope.of(context).requestFocus(focusNodes[i - 1]);
-      }
-    });
+    for (int i = 0; i < 4; i++) {
+      controllers[i].addListener(() {
+        if (controllers[i].text.length == 1) {
+          setState(() {
+            isFilled[i] = true;
+          });
+          if (i < 3) {
+            FocusScope.of(context).requestFocus(focusNodes[i + 1]);
+          }
+        } else if (controllers[i].text.isEmpty && i > 0) {
+          setState(() {
+            isFilled[i - 1] = false;
+          });
+          FocusScope.of(context).requestFocus(focusNodes[i - 1]);
+        }
+      });
+    }
   }
-}
-
-
 
   @override
   void dispose() {
@@ -71,7 +69,8 @@ void initState() {
       });
     });
   }
- @override
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
@@ -134,19 +133,22 @@ void initState() {
                         counterText: "",
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: isFilled[i] ? Colors.white : Colors.red, // Sử dụng màu đỏ khi chưa nhập
+                            color: isFilled[i]
+                                ? AppColors.BaseColorMain
+                                : Colors.white, // Sử dụng màu đỏ khi chưa nhập
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: AppColors.BaseColorMain,
+                            color: AppColors.BaseColorWhite,
                           ),
                         ),
                       ),
                       maxLength: 1,
                       onChanged: (value) {
                         if (value.isNotEmpty && i < 3) {
-                          FocusScope.of(context).requestFocus(focusNodes[i + 1]);
+                          FocusScope.of(context)
+                              .requestFocus(focusNodes[i + 1]);
                           setState(() {
                             isFilled[i] = true; // Cập nhật trạng thái đã nhập
                           });
@@ -177,7 +179,9 @@ void initState() {
             ),
             const Spacer(),
             CustomTextButton(text: "Continue", onPressed: () {}),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
           ],
         ),
       ),

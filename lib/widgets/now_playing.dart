@@ -21,11 +21,14 @@ class NowplayingItems extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(Dimens.padding_comingSoon),
-            child: Image.asset(
-              'assets/${nowplaying.Image}',
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: 250,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(
+                'assets/${nowplaying.Image}',
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: 250,
+              ),
             ),
           ),
           Padding(
@@ -52,7 +55,7 @@ class NowplayingItems extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.star, // Icon bạn muốn sử dụng cho datetime
-                        color: AppColors.BaseColorWhite,
+                        color: AppColors.BaseColorMain,
                         size: 16, // Kích thước của icon
                       ),
                       SizedBox(
