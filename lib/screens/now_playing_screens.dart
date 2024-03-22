@@ -24,77 +24,87 @@ class _NowplayingScreensState extends State<NowplayingScreens> {
   Widget build(BuildContext context) {
     final data = Provider.of<NowplayingManagement>(context);
     List<Nowplaying> listNowplaying = data.listNowplaying;
-
-    return Scaffold(
-      backgroundColor: AppColors.BaseColorBlackGround,
-      body: Column(
+    isNowPlayingSelected = data.isNowplaySelected;
+    var screenWidth = MediaQuery.of(context).size.width;
+    return Container(
+      color: AppColors.BaseColorBlackGround,
+      child: Column(
         children: [
-          const SizedBox(height: 56),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    isNowPlayingSelected = true;
-                    isComingSoonSelected = false;
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: isNowPlayingSelected
-                      ? AppColors.BaseColorMain
-                      : AppColors.BackgroundButton,
-                  onPrimary:
-                      isNowPlayingSelected ? Colors.black : AppColors.font,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    side: const BorderSide(color: Colors.grey),
+          const SizedBox(height: 50),
+          Container(
+            width: screenWidth - 20,
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            decoration: BoxDecoration(
+                color: AppColors.BackgroundButton,
+                borderRadius: BorderRadius.circular(10)),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    data.changeNowPlaySelected();
+                  },
+                  child: Container(
+                    width: 175,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 10),
+                    decoration: BoxDecoration(
+                        color: isNowPlayingSelected
+                            ? AppColors.BaseColorMain
+                            : AppColors.BaseColorTransparent,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Center(
+                      child: Text(
+                        "Now playing",
+                        style: TextStyle(
+                            color: isNowPlayingSelected
+                                ? AppColors.BaseColorBlack
+                                : Colors.grey,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: Dimens.horizontal_comingsoon_40,
-                      vertical: Dimens.vertical_comingsoon_20),
                 ),
-                child: const Text('Now Playing',
-                    style: TextStyle(fontSize: Dimens.fontsize_comingsoon_18)),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    // Navigator.pushNamed(context, ComingSoonScreens.routeName);
-                    isNowPlayingSelected = false;
-                    isComingSoonSelected = true;
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: isComingSoonSelected
-                      ? AppColors.BaseColorMain
-                      : AppColors.BackgroundButton,
-                  onPrimary:
-                      isComingSoonSelected ? Colors.black : AppColors.font,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    side: const BorderSide(color: Colors.grey),
+                GestureDetector(
+                  onTap: () {
+                    data.changeNowPlaySelected();
+                  },
+                  child: Container(
+                    width: 175,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 10),
+                    decoration: BoxDecoration(
+                        color: isNowPlayingSelected
+                            ? AppColors.BaseColorTransparent
+                            : AppColors.BaseColorMain,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Center(
+                      child: Text(
+                        "Comming Soon",
+                        style: TextStyle(
+                            color: isNowPlayingSelected
+                                ? Colors.grey
+                                : AppColors.BaseColorBlack,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: Dimens.horizontal_comingsoon_40,
-                      vertical: Dimens.vertical_comingsoon_20),
-                ),
-                child: const Text('Coming Soon',
-                    style: TextStyle(fontSize: Dimens.fontsize_comingsoon_18)),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: Dimens.SizedBox_comingsoon_10,
+                )
+              ],
+            ),
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(Dimens.padding_comingSoon),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: Dimens.padding_comingSoon),
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 8.0,
-                  mainAxisSpacing: 10.0,
+                  crossAxisSpacing: 5.0,
+                  mainAxisSpacing: 5.0,
                   childAspectRatio: 0.45,
                 ),
                 itemCount: listNowplaying.length,

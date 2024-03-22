@@ -32,4 +32,11 @@ class NowplayingManagement extends ChangeNotifier {
       Image: 'img_2.jpg',
     ),
   ];
+
+  var isNowplaySelected = true;
+
+  void changeNowPlaySelected() {
+    isNowplaySelected = !isNowplaySelected;
+    notifyListeners();
+  }
 }

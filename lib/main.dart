@@ -11,12 +11,12 @@ import 'package:movie_app_final/screens/home_order_movie_screen.dart';
 import 'package:movie_app_final/screens/home_page_screens.dart';
 import 'package:movie_app_final/screens/home_watching_screen.dart';
 import 'package:movie_app_final/screens/movie_details.dart';
-import 'package:movie_app_final/screens/now_playing_screens.dart';
 import 'package:movie_app_final/screens/profile_screens.dart';
 import 'package:movie_app_final/screens/home_screen.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
 import 'package:movie_app_final/screens/signin_screens.dart';
 import 'package:movie_app_final/screens/signin_signup_screens.dart';
+import 'package:movie_app_final/screens/ticket_screen.dart';
 import 'package:movie_app_final/screens/ticket_screens.dart';
 import 'package:provider/provider.dart';
 
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'MOviE',
-        initialRoute: ConfirmOTPScreens.routeName,
+        initialRoute: HomeScreen.routeName,
         routes: {
           HomeScreen.routeName: (context) => const HomeScreen(),
           HomepageScreens.routeName: (context) => HomepageScreens(),
@@ -52,12 +52,12 @@ class MyApp extends StatelessWidget {
           HomeProfileScreens.routeName: (context) => HomeProfileScreens(),
           MoviedetailsScreens.routeName: (context) => MoviedetailsScreens(),
           SelectSeatScreen.routeName: (context) => SelectSeatScreen(),
-          NowplayingScreens.routeName: (context) => NowplayingScreens(),
           EnterUserNameScreens.routeName: (context) => EnterUserNameScreens(),
           ConfirmOTPScreens.routeName: (context) => ConfirmOTPScreens(),
           SignInScreens.routeName: (context) => SignInScreens(),
           ChooseNeed.routeName: (context) => ChooseNeed(),
           SignIn_SignUp_Screens.routeName: (context) => SignIn_SignUp_Screens(),
+          TicketScreen.routeName: (context) => TicketScreen()
         },
       ),
     );
