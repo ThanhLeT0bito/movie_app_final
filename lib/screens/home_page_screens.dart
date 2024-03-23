@@ -1,8 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:movie_app_final/models/model_widget/item_radio.dart';
 import 'package:movie_app_final/resources/app_color.dart';
+import 'package:movie_app_final/widgets/Base/custom_bottom_sheet.dart';
 import 'package:movie_app_final/widgets/Base/custom_item_category_widget.dart';
+import 'package:movie_app_final/widgets/Base/custom_item_radio.dart';
 import 'package:movie_app_final/widgets/carousel_widget.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/item_movie_cs_hp.dart';
@@ -16,11 +19,37 @@ class HomepageScreens extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<ItemRadio> listItemCustom = [
+      ItemRadio(
+          isSelected: true,
+          text: "Booking Ticket",
+          img: "assets/images/booking.png"),
+      ItemRadio(
+          isSelected: false,
+          text: "Watching Movie",
+          img: "assets/images/watching.png"),
+    ];
+
+    void showBottomSheet() {
+      showModalBottomSheet(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomBottomSheet(
+              title: 'Choose Mode',
+              subTitle: 'which mode do u want to use?',
+              textButton: "TextButton",
+              onButtonPressed: () {},
+              widget: CustomItemRadio(groupRadio: listItemCustom),
+            );
+          });
+    }
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
-          const CustomAppBar(
+          CustomAppBar(
+            onPressedBack: showBottomSheet,
             iconLeftButton: Icons.change_circle_sharp,
             iconRightButton: Icons.notifications,
             title: "Welcome Back",

@@ -40,22 +40,32 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
         itemCount: widget.groupRadio.length,
         itemBuilder: (context, index) {
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               GestureDetector(
                   onTap: () {
                     setState(() {
                       indexSelected = index;
-                      widget.groupRadio[index].isSelected = true;
                       for (var item in widget.groupRadio) {
-                        widget.groupRadio[index].isSelected =
-                            index == indexSelected;
+                        item.isSelected = false;
                       }
-                      print(indexSelected);
+                      // Đặt trạng thái của radio được chọn thành true
+                      widget.groupRadio[index].isSelected = true;
                     });
                   },
-                  child: ItemRadioCustom(
-                      widget.groupRadio[index], indexSelected == index)),
-              const SizedBox(height: 20)
+                  child: ItemRadioCustom(widget.groupRadio[index],
+                      widget.groupRadio[index].isSelected!)),
+              const SizedBox(height: 15),
+              index < widget.groupRadio.length - 1
+                  ? const Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Divider(
+                        color: Colors.grey,
+                        height: 0.4,
+                      ),
+                    )
+                  : const SizedBox(),
+              const SizedBox(height: 15),
             ],
           );
         },
@@ -71,14 +81,18 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
           // Hiển thị hình ảnh nếu có
           if (customRadioButton.img != null) ...[
             CircleAvatar(
-                child: Image.asset(widget.image!, width: 40, height: 40)),
-            const SizedBox(width: 8),
+                backgroundColor: Colors.transparent,
+                child:
+                    Image.asset(customRadioButton.img!, width: 50, height: 50)),
+            const SizedBox(width: 10),
           ],
           //Hiển thị văn bản
           Text(
             customRadioButton.text!,
-            style: const TextStyle(
-                color: AppColors.BaseColorTextMain,
+            style: TextStyle(
+                color: isSelected
+                    ? AppColors.BaseColorTextMain
+                    : AppColors.BaseColorWhite,
                 fontSize: Dimens.FontSizeCustomItemRadio,
                 fontWeight: FontWeight.bold),
           ),

@@ -23,7 +23,7 @@ class _NowplayingScreensState extends State<NowplayingScreens> {
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<NowplayingManagement>(context);
-    List<Nowplaying> listNowplaying = data.listNowplaying;
+    List<Nowplaying> listNowplaying = data.listMovies;
     isNowPlayingSelected = data.isNowplaySelected;
     var screenWidth = MediaQuery.of(context).size.width;
     return Container(
@@ -43,7 +43,9 @@ class _NowplayingScreensState extends State<NowplayingScreens> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    data.changeNowPlaySelected();
+                    if (!isNowPlayingSelected) {
+                      data.changeNowPlaySelected();
+                    }
                   },
                   child: Container(
                     width: 175,
@@ -69,7 +71,9 @@ class _NowplayingScreensState extends State<NowplayingScreens> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    data.changeNowPlaySelected();
+                    if (isNowPlayingSelected) {
+                      data.changeNowPlaySelected();
+                    }
                   },
                   child: Container(
                     width: 175,
