@@ -26,7 +26,7 @@ class CustomTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BoxDecoration? decoration;
-    if (backgroundColor == Colors.transparent) {
+    if (backgroundColor == AppColors.BaseColorTransparent) {
       if (textColor == AppColors.BaseColorBlackGround) {
         textColor = AppColors.BaseColorWhite;
       }
@@ -57,11 +57,10 @@ class CustomTextButton extends StatelessWidget {
             children: [
               if (icon is IconData)
                 Icon(icon as IconData,
-                    size: Dimens.fontSizeTextButton, color: textColor),
+                    size: Dimens.fontSizeIcon, color: textColor),
               if (icon is String)
                 Image.asset(icon as String,
-                    height: Dimens.fontSizeTextButton,
-                    width: Dimens.fontSizeTextButton),
+                    height: Dimens.fontSizeIcon, width: Dimens.fontSizeIcon),
               icon != null ? const SizedBox(width: 10) : const SizedBox(),
               Text(
                 text,
@@ -74,8 +73,6 @@ class CustomTextButton extends StatelessWidget {
     );
   }
 }
-
-
 
 class CustomTextButton2 extends StatelessWidget {
   final String text;

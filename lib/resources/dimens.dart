@@ -7,6 +7,7 @@ class Dimens {
   static const double FontSizeAppBar = 25;
   static const double IconSizeAppBar = 30;
   static const double fontSizeTextButton = 20;
+  static const double fontSizeIcon = 25;
 
   static const double FontSizeBottomSheetTitle = 30;
   static const double FontSizeBottomSheetSubTitle = 14;

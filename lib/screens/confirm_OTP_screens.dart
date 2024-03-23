@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/resources/app_color.dart';
+import 'package:movie_app_final/screens/enter_Username_screens.dart';
+import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 
 class ConfirmOTPScreens extends StatefulWidget {
@@ -74,116 +76,136 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: AppColors.BaseColorBlackGround,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.BaseColorWhite),
-          onPressed: () {},
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              'Confirm OTP code',
-              style: TextStyle(
-                color: AppColors.BaseColorTextMain,
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
+      resizeToAvoidBottomInset: true,
+      body: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            child: CustomAppBar(),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 0, left: 20, right: 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Confirm OTP code',
+                        style: TextStyle(
+                          color: AppColors.BaseColorTextMain,
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      const Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'You just need to enter the OTP sent to the registered phone number (704) 555-0127.',
+                              style: TextStyle(
+                                color: AppColors.BaseColorWhite,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 40),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          for (int i = 0; i < 4; i++)
+                            SizedBox(
+                              width: 60,
+                              height: 80,
+                              child: TextField(
+                                controller: controllers[i],
+                                focusNode: focusNodes[i],
+                                keyboardType: TextInputType.number,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  color: AppColors.BaseColorWhite,
+                                  fontSize: 20,
+                                ),
+                                decoration: InputDecoration(
+                                  counterText: "",
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: isFilled[i]
+                                          ? AppColors.BaseColorMain
+                                          : Colors
+                                              .white, // Sử dụng màu đỏ khi chưa nhập
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: AppColors.BaseColorWhite,
+                                    ),
+                                  ),
+                                ),
+                                maxLength: 1,
+                                onChanged: (value) {
+                                  if (value.isNotEmpty && i < 3) {
+                                    FocusScope.of(context)
+                                        .requestFocus(focusNodes[i + 1]);
+                                    setState(() {
+                                      isFilled[i] =
+                                          true; // Cập nhật trạng thái đã nhập
+                                    });
+                                  }
+                                  // if (value.length > 1) {
+                                  //       FocusScope.of(context).requestFocus(focusNodes[i - 1]);
+                                  //       setState(() {
+                                  //       isFilled[i] = false; // Cập nhật trạng thái đã nhập
+                                  //   });
+                                  // }
+                                },
+                              ),
+                            ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            '00: ${remainingTimeInSeconds > 9 ? remainingTimeInSeconds : '0$remainingTimeInSeconds'}',
+                            style: const TextStyle(
+                              color: AppColors.BaseColorWhite,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  //const Spacer(),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CustomTextButton(
+                          text: "Continue",
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context, EnterUserNameScreens.routeName);
+                          }),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 10),
-            const Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'You just need to enter the OTP sent to the registered phone number (704) 555-0127.',
-                    style: TextStyle(
-                      color: AppColors.BaseColorWhite,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                for (int i = 0; i < 4; i++)
-                  SizedBox(
-                    width: 60,
-                    height: 70,
-                    child: TextField(
-                      controller: controllers[i],
-                      focusNode: focusNodes[i],
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: AppColors.BaseColorWhite,
-                        fontSize: 20,
-                      ),
-                      decoration: InputDecoration(
-                        counterText: "",
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: isFilled[i]
-                                ? AppColors.BaseColorMain
-                                : Colors.white, // Sử dụng màu đỏ khi chưa nhập
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: AppColors.BaseColorWhite,
-                          ),
-                        ),
-                      ),
-                      maxLength: 1,
-                      onChanged: (value) {
-                        if (value.isNotEmpty && i < 3) {
-                          FocusScope.of(context)
-                              .requestFocus(focusNodes[i + 1]);
-                          setState(() {
-                            isFilled[i] = true; // Cập nhật trạng thái đã nhập
-                          });
-                        }
-                        // if (value.length > 1) {
-                        //       FocusScope.of(context).requestFocus(focusNodes[i - 1]);
-                        //       setState(() {
-                        //       isFilled[i] = false; // Cập nhật trạng thái đã nhập
-                        //   });
-                        // }
-                      },
-                    ),
-                  ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  '00: $remainingTimeInSeconds',
-                  style: const TextStyle(
-                    color: AppColors.BaseColorWhite,
-                    fontSize: 16,
-                  ),
-                ),
-              ],
-            ),
-            const Spacer(),
-            CustomTextButton(text: "Continue", onPressed: () {}),
-            SizedBox(
-              height: 10,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

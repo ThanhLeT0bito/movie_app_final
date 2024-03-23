@@ -12,6 +12,7 @@ class AppColors {
   static const Color BaseColorTransparent = Colors.transparent;
   static const Color BaseColorAroundBlack = Color(0xFF1C1C1C);
   static const Color BaseColorAroundWhite = Color(0xFFBFBFBF);
+  static const Color BaseColorGrey = Colors.grey;
 
   ///sub
   static const Color SubColorDate = Color(0xFF3B3B3B);
@@ -32,4 +33,7 @@ class AppColors {
   static const BackGroundItemDate = Color(0xFF1C1C1C);
   static const BackGroundItemDay = Color(0xFF3B3B3B);
   static const BackGroundTimeSelected = Color(0xFF261D08);
+
+  //signin up
+  static const BackgroundButtonFBAndGG = Color(0xFF1A1A1A);
 }
