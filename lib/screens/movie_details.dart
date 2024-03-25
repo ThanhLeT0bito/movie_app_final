@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/resources/app_color.dart';
+import 'package:movie_app_final/screens/select_seat_screen.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 
@@ -19,27 +20,21 @@ class MoviedetailsScreens extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  Stack(
-                    children: [
-                      Image.asset(
-                        "assets/img_3.jpg",
-                        width: double.infinity,
-                        height: 300,
-                        fit: BoxFit.cover,
-                      ),
-                    ],
+                  Image.asset(
+                    "assets/img_3.jpg",
+                    width: double.infinity,
+                    height: 300,
+                    fit: BoxFit.cover,
                   ),
                   const SizedBox(height: 150),
                   MainContent(screenWidth: screenWidth),
                 ],
               ),
               Positioned(
-                  top: 250,
-                  left: 0,
-                  right: 0,
-                  child: Align(
-                      alignment: Alignment.center,
-                      child: PositionedItem(screenWidth: screenWidth)))
+                  top: 230,
+                  left: 10,
+                  right: 10,
+                  child: PositionedItem(screenWidth: screenWidth))
             ],
           ),
         ),
@@ -56,9 +51,9 @@ class MoviedetailsScreens extends StatelessWidget {
 
 class PositionedItem extends StatelessWidget {
   const PositionedItem({
-    super.key,
+    Key? key,
     required this.screenWidth,
-  });
+  }) : super(key: key);
 
   final double screenWidth;
 
@@ -67,7 +62,7 @@ class PositionedItem extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       width: screenWidth - 40,
-      height: 200,
+      height: 220,
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -75,21 +70,24 @@ class PositionedItem extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
             "Mai",
             style: TextStyle(
-              decoration: TextDecoration.none,
+                decoration: TextDecoration.none,
                 fontSize: 25,
                 color: AppColors.BaseColorWhite,
                 fontWeight: FontWeight.bold),
           ),
           const Text(
             "2h11m* 10.02.2024",
-            style:
-                TextStyle(color: AppColors.BaseColorAroundWhite, fontSize: 15,decoration: TextDecoration.none),
+            style: TextStyle(
+                color: AppColors.BaseColorAroundWhite,
+                fontSize: 15,
+                decoration: TextDecoration.none),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 30),
           const Row(
             children: [
               Text(
@@ -108,9 +106,15 @@ class PositionedItem extends StatelessWidget {
               ),
               Text(
                 "4.8 (1.222)",
-                style: TextStyle(color: AppColors.BaseColorWhite, fontSize: 17,decoration: TextDecoration.none),
+                style: TextStyle(
+                    color: AppColors.BaseColorWhite,
+                    fontSize: 17,
+                    decoration: TextDecoration.none),
               ),
             ],
+          ),
+          const SizedBox(
+            height: 10,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -178,499 +182,544 @@ class PositionedItem extends StatelessWidget {
 
 class MainContent extends StatelessWidget {
   const MainContent({
-    super.key,
+    Key? key, // Thay đổi đây
     required this.screenWidth,
-  });
+  }) : super(key: key); // Thay đổi đây
 
   final double screenWidth;
 
-@override
-Widget build(BuildContext context) {
-  return SingleChildScrollView(
-    child: Padding(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Row(
-            children: [
-              Expanded(
-                child: Text(
-                  'Movie genre:',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontWeight: FontWeight.normal,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  'Romance, psychology', // Chữ thêm vào
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20,),
-          const Row(
-            children: [
-              Expanded(
-                child: Text(
-                  'Censorship:',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontWeight: FontWeight.normal,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  '18+',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20,),
-          const Row(
-            children: [
-              Expanded(
-                child: Text(
-                  'Language:',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontWeight: FontWeight.normal,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  'Vietnamese',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 40,),
-          const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Storyline',
-                style: TextStyle(
-                  decoration: TextDecoration.none,
-                  fontSize: 24,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 20), 
-              Text(
-                '"Mai" is the story of Mai, a masseuse with a special fate. She often faces criticism from society and her meeting with Duong - a flower boy, awakens in her a desire for a new life...',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                  decoration: TextDecoration.none,
-                  fontWeight: FontWeight.normal,
-                ),
-                softWrap: true,
-                textAlign: TextAlign.justify,
-              ),
-              SizedBox(height: 5), // Khoảng cách giữa nội dung và "See more"
-              Text(
-                'See more',
-                style: TextStyle(
-                  color: AppColors.BaseColorTextMain,
-                  fontSize: 16, 
-                  decoration: TextDecoration.none,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20,),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Director',
-                style: TextStyle(
-                  decoration: TextDecoration.none,
-                  fontSize: 24,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 20), 
-              Container(
-                width: 200,
-                height: 70,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade900,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(100), // Bo tròn hình ảnh theo đường viền của Container
-                      child: Container(
-                        width: 50, // Đặt kích thước của hình ảnh tại đây
-                        height: 50, // Đặt kích thước của hình ảnh tại đây
-                        child: Image.asset('assets/tran-thanh.jpg',fit: BoxFit.cover,), // Thay đổi đường dẫn hình ảnh tại đây
-                      ),
-                    ),
-                    const SizedBox(width: 10), // Khoảng cách giữa hình ảnh và văn bản
-                    const Positioned.fill(
-                      child: Align(
-                        alignment: Alignment.center,
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Row(
+                    children: [
+                      Expanded(
                         child: Text(
-                          'Trấn Thành',
+                          'Movie genre:',
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.white,
-                            decoration: TextDecoration.none,
                             fontWeight: FontWeight.normal,
-                          )
+                            decoration: TextDecoration.none,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+                      Expanded(
+                        child: Text(
+                          'Romance, psychology', // Chữ thêm vào
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Censorship:',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.normal,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          '18+',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Language:',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.normal,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          'Vietnamese',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Storyline',
+                        style: TextStyle(
+                          decoration: TextDecoration.none,
+                          fontSize: 24,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        '"Mai" is the story of Mai, a masseuse with a special fate. She often faces criticism from society and her meeting with Duong - a flower boy, awakens in her a desire for a new life...',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          decoration: TextDecoration.none,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        softWrap: true,
+                        textAlign: TextAlign.justify,
+                      ),
+                      SizedBox(
+                          height: 5), // Khoảng cách giữa nội dung và "See more"
+                      Text(
+                        'See more',
+                        style: TextStyle(
+                          color: AppColors.BaseColorTextMain,
+                          fontSize: 16,
+                          decoration: TextDecoration.none,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Director',
+                        style: TextStyle(
+                          decoration: TextDecoration.none,
+                          fontSize: 24,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Container(
+                        width: 200,
+                        height: 70,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade900,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(
+                                  100), // Bo tròn hình ảnh theo đường viền của Container
+                              child: Container(
+                                width:
+                                    50, // Đặt kích thước của hình ảnh tại đây
+                                height:
+                                    50, // Đặt kích thước của hình ảnh tại đây
+                                child: Image.asset(
+                                  'assets/tran-thanh.jpg',
+                                  fit: BoxFit.cover,
+                                ), // Thay đổi đường dẫn hình ảnh tại đây
+                              ),
+                            ),
+                            const SizedBox(
+                                width:
+                                    10), // Khoảng cách giữa hình ảnh và văn bản
+                            const Align(
+                              alignment: Alignment.center,
+                              child: Text('Trấn Thành',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    decoration: TextDecoration.none,
+                                    fontWeight: FontWeight.normal,
+                                  )),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Actor',
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            fontSize: 24,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              Container(
+                                constraints: const BoxConstraints(
+                                    maxWidth: 200, maxHeight: 70),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade900,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                padding: const EdgeInsets.all(10),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: Container(
+                                        width: 50,
+                                        height: 50,
+                                        child: Image.asset(
+                                          'assets/tran-thanh.jpg',
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    const Expanded(
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Robert Downey Jr.',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.white,
+                                            decoration: TextDecoration.none,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                          softWrap: true,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 20),
+                              Container(
+                                constraints: const BoxConstraints(
+                                    maxWidth: 200, maxHeight: 70),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade900,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                padding: const EdgeInsets.all(10),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: Container(
+                                        width: 50,
+                                        height: 50,
+                                        child: Image.asset(
+                                          'assets/tran-thanh.jpg',
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    const Expanded(
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Robert Downey Jr.',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.white,
+                                            decoration: TextDecoration.none,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                          softWrap: true,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 20),
+                              Container(
+                                constraints: const BoxConstraints(
+                                    maxWidth: 200, maxHeight: 70),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade900,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                padding: const EdgeInsets.all(10),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: Container(
+                                        width: 50,
+                                        height: 50,
+                                        child: Image.asset(
+                                          'assets/tran-thanh.jpg',
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    const Expanded(
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Robert Downey Jr.',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.white,
+                                            decoration: TextDecoration.none,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                          softWrap: true,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ]),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Cinema',
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.white,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Container(
+                        width: 500,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade900,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Vincom Ocean Park CGV',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Text(
+                                    '4.55 km | Da Ton, Gia Lam, Ha Noi',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.white,
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 10), // Khoảng cách giữa chữ và logo
+                            Container(
+                              width: 50, // Điều chỉnh kích thước của logo
+                              height: 20, // Điều chỉnh kích thước của logo
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/cgv.jpg'), // Đường dẫn tới logo
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        width: 500,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade900,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Vincom Ocean Park CGV',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Text(
+                                    '4.55 km | Da Ton, Gia Lam, Ha Noi',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.white,
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 10), // Khoảng cách giữa chữ và logo
+                            Container(
+                              width: 50, // Điều chỉnh kích thước của logo
+                              height: 20, // Điều chỉnh kích thước của logo
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/cgv.jpg'), // Đường dẫn tới logo
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        width: 500,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade900,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Vincom Ocean Park CGV',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Text(
+                                    '4.55 km | Da Ton, Gia Lam, Ha Noi',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.white,
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 10), // Khoảng cách giữa chữ và logo
+                            Container(
+                              width: 50, // Điều chỉnh kích thước của logo
+                              height: 20, // Điều chỉnh kích thước của logo
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/cgv.jpg'), // Đường dẫn tới logo
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      CustomTextButton(
+                          text: 'Continue',
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context, SelectSeatScreen.routeName);
+                          }),
+                    ],
+                  ),
+                ]),
           ),
-           const SizedBox(height: 20,),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Actor',
-                style: TextStyle(
-                  decoration: TextDecoration.none,
-                  fontSize: 24,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 20), 
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    Container(
-                      constraints: const BoxConstraints(maxWidth: 200, maxHeight: 70),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade900,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      padding: const EdgeInsets.all(10),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: Container(
-                              width: 50,
-                              height: 50,
-                              child: Image.asset('assets/tran-thanh.jpg',fit: BoxFit.cover,),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          const Expanded(
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                'Robert Downey Jr.',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  decoration: TextDecoration.none,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                                softWrap: true,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    Container(
-                      constraints: const BoxConstraints(maxWidth: 200, maxHeight: 70),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade900,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      padding: const EdgeInsets.all(10),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: Container(
-                              width: 50,
-                              height: 50,
-                              child: Image.asset('assets/tran-thanh.jpg',fit: BoxFit.cover,),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          const Expanded(
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                'Robert Downey Jr.',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  decoration: TextDecoration.none,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                                softWrap: true,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    Container(
-                      constraints: const BoxConstraints(maxWidth: 200, maxHeight: 70),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade900,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      padding: const EdgeInsets.all(10),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: Container(
-                              width: 50,
-                              height: 50,
-                              child: Image.asset('assets/tran-thanh.jpg',fit: BoxFit.cover,),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          const Expanded(
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                'Robert Downey Jr.',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  decoration: TextDecoration.none,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                                softWrap: true,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              )         
-            ]
-          ),
-          const SizedBox(height: 20,),
-          Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Cinema',
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.white,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-                SizedBox(height: 20),
-              Container(
-                    width: 500,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade900,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    padding: EdgeInsets.all(20),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Vincom Ocean Park CGV',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                  decoration: TextDecoration.none,
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                '4.55 km | Da Ton, Gia Lam, Ha Noi',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.white,
-                                  decoration: TextDecoration.none,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width:10), // Khoảng cách giữa chữ và logo
-                        Container(
-                          width: 50, // Điều chỉnh kích thước của logo
-                          height: 20, // Điều chỉnh kích thước của logo
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/cgv.jpg'), // Đường dẫn tới logo
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                SizedBox(height: 20,),
-                 Container(
-                    width: 500,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade900,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    padding: EdgeInsets.all(20),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Vincom Ocean Park CGV',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                  decoration: TextDecoration.none,
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                '4.55 km | Da Ton, Gia Lam, Ha Noi',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.white,
-                                  decoration: TextDecoration.none,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width:10), // Khoảng cách giữa chữ và logo
-                        Container(
-                          width: 50, // Điều chỉnh kích thước của logo
-                          height: 20, // Điều chỉnh kích thước của logo
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/cgv.jpg'), // Đường dẫn tới logo
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                SizedBox(height: 20,),
-                 Container(
-                    width: 500,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade900,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    padding: EdgeInsets.all(20),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Vincom Ocean Park CGV',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                  decoration: TextDecoration.none,
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                '4.55 km | Da Ton, Gia Lam, Ha Noi',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.white,
-                                  decoration: TextDecoration.none,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width:10), // Khoảng cách giữa chữ và logo
-                        Container(
-                          width: 50, // Điều chỉnh kích thước của logo
-                          height: 20, // Điều chỉnh kích thước của logo
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/cgv.jpg'), // Đường dẫn tới logo
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                SizedBox(height: 20,),
-                CustomTextButton(text: 'Continue', onPressed: (){}),
-              ],
-            ),
-          ]
         ),
-      ),
+      ],
     );
   }
 }

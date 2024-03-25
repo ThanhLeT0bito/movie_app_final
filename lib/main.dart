@@ -44,14 +44,14 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'MOviE',
-        initialRoute: MoviedetailsScreens.routeName,
+        initialRoute: HomeScreen.routeName,
         routes: {
           HomeScreen.routeName: (context) => const HomeScreen(),
           HomepageScreens.routeName: (context) => HomepageScreens(),
           HomeOrderMovie.routeName: (context) => HomeOrderMovie(),
           HomeWatching.routeName: (context) => HomeWatching(),
           TicketMovieScreens.routeName: (context) => TicketMovieScreens(),
-          NowplayingScreens.routeName:(context) => NowplayingScreens(),
+          NowplayingScreens.routeName: (context) => NowplayingScreens(),
           HomeProfileScreens.routeName: (context) => HomeProfileScreens(),
           MoviedetailsScreens.routeName: (context) => MoviedetailsScreens(),
           SelectSeatScreen.routeName: (context) => SelectSeatScreen(),
@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
           ChooseNeed.routeName: (context) => ChooseNeed(),
           SignIn_SignUp_Screens.routeName: (context) => SignIn_SignUp_Screens(),
           TicketScreen.routeName: (context) => TicketScreen(),
-          PaymentScreens.routeName:(context) => PaymentScreens()
+          PaymentScreens.routeName: (context) => PaymentScreens()
         },
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/resources/app_color.dart';
+import 'package:movie_app_final/screens/payment_screens.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 
@@ -21,6 +22,8 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
         listSeats.add(String.fromCharCode(i) + j.toString());
       }
     }
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
       body: Padding(
@@ -33,22 +36,12 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
             SizedBox(height: 20),
             Container(
               height: 5,
-              width: double.infinity,
+              width: screenWidth - 60,
               color: AppColors.BaseColorMain,
             ),
-            Container(
-              width: double.infinity,
-              height: 80,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color.fromARGB(255, 236, 139, 49),
-                    Colors.black,
-                  ],
-                ),
-              ),
+            CustomPaint(
+              size: Size(screenWidth, 70),
+              painter: MyPainter(),
             ),
             Container(
               height: 340,
@@ -188,7 +181,11 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                   ),
                   Expanded(
                       child: CustomTextButton(
-                          text: "Buy Ticket", onPressed: () {}))
+                          text: "Buy Ticket",
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context, PaymentScreens.routeName);
+                          }))
                 ],
               ),
             )
@@ -196,6 +193,38 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
         ),
       ),
     );
+  }
+}
+
+class MyPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Rect rect =
+        Rect.fromPoints(Offset(0, 0), Offset(size.width, size.height));
+    final Paint paint = Paint()
+      ..shader = LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          Color.fromARGB(120, 255, 123, 0),
+          Colors.black54
+        ], // Gradient colors
+      ).createShader(rect)
+      ..style = PaintingStyle.fill;
+
+    final path = Path()
+      ..moveTo(20, 0) // Điểm bắt đầu ở trên cùng bên trái
+      ..lineTo(0, size.height) // Điểm dưới cùng bên trái
+      ..lineTo(size.width, size.height) // Điểm dưới cùng bên phải
+      ..lineTo(size.width - 20, 0) // Điểm bắt đầu ở trên cùng bên phải
+      ..close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
   }
 }
 
@@ -244,7 +273,7 @@ class ItemDate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 110,
-      width: 50,
+      width: 60,
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       padding: EdgeInsets.all(5),
       decoration: BoxDecoration(
@@ -270,7 +299,7 @@ class ItemDate extends StatelessWidget {
             ),
           ),
           Container(
-            width: 40,
+            width: 50,
             height: 50,
             padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
@@ -281,7 +310,10 @@ class ItemDate extends StatelessWidget {
             child: const Center(
                 child: Text(
               "10",
-              style: TextStyle(color: AppColors.BaseColorWhite),
+              style: TextStyle(
+                  color: AppColors.BaseColorWhite,
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold),
             )),
           )
         ],

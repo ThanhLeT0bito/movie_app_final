@@ -72,8 +72,8 @@ class _SignInSignUpScreensState extends State<SignIn_SignUp_Screens> {
                     showBottomSheet();
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: AppColors.BaseColorBlackGround,
-                    onPrimary: AppColors.BaseColorWhite,
+                    foregroundColor: AppColors.BaseColorWhite,
+                    backgroundColor: AppColors.BaseColorBlackGround,
                     side: const BorderSide(color: AppColors.BaseColorWhite),
                   ),
                   child: const Row(
