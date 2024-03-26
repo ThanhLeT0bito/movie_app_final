@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
 import 'package:movie_app_final/providers/Homepage_provider.dart';
 import 'package:movie_app_final/providers/Nowplaying_provider.dart';
+import 'package:movie_app_final/providers/seats_provider.dart';
 import 'package:movie_app_final/providers/ticket_management_provider.dart';
 import 'package:movie_app_final/providers/watching_movie_provider.dart';
 import 'package:movie_app_final/screens/Enter_Username_screens.dart';
@@ -38,13 +39,14 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => TicketManagement()),
         ChangeNotifierProvider(create: (_) => NowplayingManagement()),
         ChangeNotifierProvider(create: (_) => HomepageManagement()),
+        ChangeNotifierProvider(create: (_) => SeatsProviders()),
 
         /// sang tha
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'MOviE',
-        initialRoute: HomeScreen.routeName,
+        initialRoute: SelectSeatScreen.routeName,
         routes: {
           HomeScreen.routeName: (context) => const HomeScreen(),
           HomepageScreens.routeName: (context) => HomepageScreens(),
