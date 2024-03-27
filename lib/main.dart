@@ -21,6 +21,7 @@ import 'package:movie_app_final/screens/signin_screens.dart';
 import 'package:movie_app_final/screens/signin_signup_screens.dart';
 import 'package:movie_app_final/screens/ticket_screen.dart';
 import 'package:movie_app_final/screens/ticket_screens.dart';
+import 'package:movie_app_final/screens/watching_movie_detail.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -46,9 +47,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'MOviE',
-        initialRoute: SelectSeatScreen.routeName,
+        initialRoute: WatchingDetailsScreens.routeName,
         routes: {
-          HomeScreen.routeName: (context) => const HomeScreen(),
+          HomeScreen.routeName: (context) => HomeScreen(),
           HomepageScreens.routeName: (context) => HomepageScreens(),
           HomeOrderMovie.routeName: (context) => HomeOrderMovie(),
           HomeWatching.routeName: (context) => HomeWatching(),
@@ -63,7 +64,8 @@ class MyApp extends StatelessWidget {
           ChooseNeed.routeName: (context) => ChooseNeed(),
           SignIn_SignUp_Screens.routeName: (context) => SignIn_SignUp_Screens(),
           TicketScreen.routeName: (context) => TicketScreen(),
-          PaymentScreens.routeName: (context) => PaymentScreens()
+          PaymentScreens.routeName: (context) => PaymentScreens(),
+          WatchingDetailsScreens.routeName: (context) => WatchingDetailsScreens()
         },
       ),
     );
