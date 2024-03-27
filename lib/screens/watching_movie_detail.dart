@@ -56,26 +56,32 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
 
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Image.asset(
-              "assets/img_3.jpg",
-              width: double.infinity,
-              height: 237,
-              fit: BoxFit.cover,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                Image.asset(
+                  "assets/images/img_3.jpg",
+                  width: double.infinity,
+                  height: 237,
+                  fit: BoxFit.cover,
+                ),
+                MainContent(
+                  screenWidth: screenWidth,
+                  bottomNavBarItems: bottomNavBarItems,
+                  onItemTapped: _onItemTapped,
+                ),
+              ],
             ),
-            MainContent(
-              screenWidth: screenWidth,
-              bottomNavBarItems: bottomNavBarItems,
-              onItemTapped: _onItemTapped,
-            ),
-          ],
-        ),
+          ),
+          const Positioned(
+            top: 0,
+            left: 5,
+            right: 0,
+            child: CustomAppBar(),
+          )
+        ],
       ),
     );
   }
@@ -93,7 +99,7 @@ Widget _buildItemWithBar(String text, bool hasBar) {
       ),
       if (hasBar) // Chỉ hiển thị thanh màu cam nếu có
         Positioned(
-          top: -8, // Điều chỉnh vị trí của thanh màu cam
+          top: -10, // Điều chỉnh vị trí của thanh màu cam
           left: 0,
           right: 0,
           child: Container(
@@ -296,9 +302,8 @@ class MainContent extends StatelessWidget {
                   physics: NeverScrollableScrollPhysics(),
                   children: List.generate(9, (index) {
                     return GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         // Xử lý khi nhấn vào hình ảnh
-
                       },
                       child: Container(
                         margin: EdgeInsets.all(5),

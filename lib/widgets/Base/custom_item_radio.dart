@@ -83,7 +83,7 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
             CircleAvatar(
                 backgroundColor: Colors.transparent,
                 child:
-                    Image.asset(customRadioButton.img!, width: 50, height: 50)),
+                    Image.asset(customRadioButton.img!, width: 40, height: 40)),
             const SizedBox(width: 10),
           ],
           //Hiển thị văn bản

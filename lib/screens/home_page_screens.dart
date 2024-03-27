@@ -33,11 +33,12 @@ class HomepageScreens extends StatelessWidget {
     void showBottomSheet() {
       showModalBottomSheet(
           context: context,
+          isScrollControlled: true,
           builder: (BuildContext context) {
             return CustomBottomSheet(
               title: 'Choose Mode',
               subTitle: 'which mode do u want to use?',
-              textButton: "TextButton",
+              textButton: "Use it",
               onButtonPressed: () {},
               widget: CustomItemRadio(groupRadio: listItemCustom),
             );
@@ -80,9 +81,24 @@ class HomepageScreens extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          ItemMovieWidget(img: 'assets/images/doraemon.jpg', name: 'Avatar 2: The Way Of Water',title: 'Adventure, Sci-fi',time: '20.12.2022',),
-                          ItemMovieWidget(img: 'assets/images/spy.png', name: 'Ant Man Wasp: Quantumania',title: 'Adventure, Sci-fi',time: '25.12.2022',),
-                          ItemMovieWidget(img: 'assets/images/fox.png', name: 'Fox puss in Boots: The last Wish',title: 'Adventure, Sci-fi',time: '27.12.2022',),
+                          ItemMovieWidget(
+                            img: 'assets/images/doraemon.jpg',
+                            name: 'Avatar 2: The Way Of Water',
+                            title: 'Adventure, Sci-fi',
+                            time: '20.12.2022',
+                          ),
+                          ItemMovieWidget(
+                            img: 'assets/images/spy.png',
+                            name: 'Ant Man Wasp: Quantumania',
+                            title: 'Adventure, Sci-fi',
+                            time: '25.12.2022',
+                          ),
+                          ItemMovieWidget(
+                            img: 'assets/images/fox.png',
+                            name: 'Fox puss in Boots: The last Wish',
+                            title: 'Adventure, Sci-fi',
+                            time: '27.12.2022',
+                          ),
                         ],
                       ),
                     ),
@@ -94,7 +110,7 @@ class HomepageScreens extends StatelessWidget {
                     Stack(
                       children: [
                         Image.asset(
-                          "assets/promo.png",
+                          "assets/images/promo.png",
                           height: 250,
                         ),
                         const Positioned(
@@ -170,14 +186,16 @@ class HomepageScreens extends StatelessWidget {
                       child: Row(children: [
                         ItemMovieWithTitle(
                           img: "assets/images/godzila.png",
-                          title: "When The Batman 2 Starts Filming Reportedly Revealed",
+                          title:
+                              "When The Batman 2 Starts Filming Reportedly Revealed",
                         ),
                         ItemMovieWithTitle(
                           img: "assets/images/doraemon_movienew.png",
-                          title: "6 Epic Hulk Fights That Can Happen In The MCU's Future.",
+                          title:
+                              "6 Epic Hulk Fights That Can Happen In The MCU's Future.",
                         ),
                       ]),
-                    ) 
+                    )
                   ],
                 ),
               ),

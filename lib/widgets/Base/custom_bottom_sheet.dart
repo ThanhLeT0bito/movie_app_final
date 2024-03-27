@@ -24,6 +24,7 @@ class CustomBottomSheet extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return Container(
       color: AppColors.BaseColorBlackGround,
+      height: MediaQuery.of(context).size.height * 0.45,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -45,14 +46,18 @@ class CustomBottomSheet extends StatelessWidget {
                   fontWeight: FontWeight.bold),
             ),
             subtitle: subTitle != null
-                ? Text(
-                    subTitle!,
-                    style: const TextStyle(
-                        fontSize: Dimens.FontSizeBottomSheetSubTitle,
-                        color: AppColors.BaseColorWhite),
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 5, left: 5),
+                    child: Text(
+                      subTitle!,
+                      style: const TextStyle(
+                          fontSize: Dimens.FontSizeBottomSheetSubTitle,
+                          color: AppColors.BaseColorWhite),
+                    ),
                   )
                 : null,
           ),
+          const SizedBox(height: 20),
           Expanded(
             child: SingleChildScrollView(child: widget),
           ),

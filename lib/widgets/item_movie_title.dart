@@ -6,7 +6,8 @@ class ItemMovieWithTitle extends StatelessWidget {
     super.key,
     required this.img,
     required this.title,
-    this.isShowTitle = true,// hiện tại mấy cái , page mới mấy chỗ category á thì chỉ cần thêm, isShowtitle = false là okok
+    this.isShowTitle =
+        true, // hiện tại mấy cái , page mới mấy chỗ category á thì chỉ cần thêm, isShowtitle = false là okok
   });
   final String img;
   final String title;
@@ -17,10 +18,11 @@ class ItemMovieWithTitle extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(right: 20),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.asset(
             img,
-            width: 300,
+            width: 250,
             height: 150,
             fit: BoxFit.cover,
           ),
@@ -36,9 +38,7 @@ class ItemMovieWithTitle extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       style: const TextStyle(
-                          color: AppColors.BaseColorTextMain,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
+                          color: AppColors.BaseColorTextMain, fontSize: 18),
                     ),
                   ),
                 )

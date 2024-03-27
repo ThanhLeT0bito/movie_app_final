@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'MOviE',
-        initialRoute: HomeWatching.routeName,
+        initialRoute: HomeScreen.routeName,
         routes: {
           HomeScreen.routeName: (context) => HomeScreen(),
           HomepageScreens.routeName: (context) => HomepageScreens(),
