@@ -39,7 +39,7 @@ class ProfileItemWidget extends StatelessWidget {
                         ),
                         child: const CircleAvatar(
                           radius: 50,
-                          backgroundImage: AssetImage('assets/avatar.jpg'),
+                          backgroundImage: AssetImage('assets/images/avatar.jpg'),
                         ),
                       ),
                       const SizedBox(width: Dimens.SizedBoxHeightProfile),
@@ -194,7 +194,7 @@ class ProfileItemWidget extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.password_sharp,
+                          Icon(Icons.lock,
                               size: Dimens.SizeIconProfile,
                               color: AppColors.BaseColorWhite),
                           SizedBox(width: Dimens.SizedBoxWidthProfile),

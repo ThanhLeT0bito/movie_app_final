@@ -7,7 +7,7 @@ class AuthProvider extends ChangeNotifier {
 
   User CurrentUser = User(
       id: "123",
-      name: "Nghĩa Đần",
+      name: "Nghĩa",
       phone: "+8412345678",
       mail: "NghiaDan@gmail.com");
 }

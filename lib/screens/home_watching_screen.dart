@@ -21,7 +21,9 @@ class HomeWatching extends StatefulWidget {
 class _HomeWatchingState extends State<HomeWatching> {
   @override
   Widget build(BuildContext context) {
-    return const Padding(
+    return Scaffold(
+      backgroundColor: AppColors.BaseColorBlackGround,
+    body:Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
@@ -51,24 +53,37 @@ class _HomeWatchingState extends State<HomeWatching> {
                       child: Row(
                         children: [
                           ItemWatchCategory(
-                            title: 'Action',
-                            image: "assets/images/godzila.png",
+                          //  title: 'Action',
+                            image: "assets/images/category_1.png",
                           ),
                           ItemWatchCategory(
-                            title: 'Adventure',
-                            image: "assets/images/godzila.png",
+                           // title: 'Adventure',
+                            image: "assets/images/category_2.png",
                           ),
                           ItemWatchCategory(
-                            title: 'Comedy',
-                            image: "assets/images/godzila.png",
+                           // title: 'Comedy',
+                            image: "assets/images/category_3.png",
                           ),
-                          ItemWatchCategory(
-                            title: 'Vietname',
-                            image: "assets/images/godzila.png",
+                        ],
+                      ),
+                    ),
+                    ItemCategoryWidget(
+                      title: "Coming soon",
+                      navogatorName: "",
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ItemMovieWithTitle(
+                            img: "assets/images/me4.png",
+                            title: "The Godzila Avenger Game.",
+                            isShowTitle: false,
                           ),
-                          ItemWatchCategory(
-                            title: 'Popular',
-                            image: "assets/images/godzila.png",
+                          ItemMovieWithTitle(
+                            img: "assets/images/doraemon.jpg",
+                            title: "Avenger Game.",
+                            isShowTitle: false,
                           ),
                         ],
                       ),
@@ -82,12 +97,12 @@ class _HomeWatchingState extends State<HomeWatching> {
                       child: Row(
                         children: [
                           ItemMovieWithTitle(
-                            img: "assets/images/godzila.png",
+                            img: "assets/images/t4.png",
                             title: "The Godzila Avenger Game.",
                             isShowTitle: false,
                           ),
                           ItemMovieWithTitle(
-                            img: "assets/images/godzila.png",
+                            img: "assets/images/ngan.png",
                             title: "Avenger Game.",
                             isShowTitle: false,
                           ),
@@ -103,12 +118,12 @@ class _HomeWatchingState extends State<HomeWatching> {
                       child: Row(
                         children: [
                           ItemMovieWithTitle(
-                            img: "assets/images/godzila.png",
+                            img: "assets/images/panda.png",
                             title: "The Godzila Avenger Game.",
                             isShowTitle: false,
                           ),
                           ItemMovieWithTitle(
-                            img: "assets/images/godzila.png",
+                            img: "assets/images/spy.png",
                             title: "Avenger Game.",
                             isShowTitle: false,
                           ),
@@ -124,12 +139,12 @@ class _HomeWatchingState extends State<HomeWatching> {
                       child: Row(
                         children: [
                           ItemMovieWithTitle(
-                            img: "assets/images/godzila.png",
+                            img: "assets/images/spy.png",
                             title: "The Godzila Avenger Game.",
                             isShowTitle: false,
                           ),
                           ItemMovieWithTitle(
-                            img: "assets/images/godzila.png",
+                            img: "assets/images/popstar.png",
                             title: "Avenger Game.",
                             isShowTitle: false,
                           ),
@@ -145,12 +160,12 @@ class _HomeWatchingState extends State<HomeWatching> {
                       child: Row(
                         children: [
                           ItemMovieWithTitle(
-                            img: "assets/images/godzila.png",
+                            img: "assets/images/img_3.jpg",
                             title: "The Godzila Avenger Game.",
                             isShowTitle: false,
                           ),
                           ItemMovieWithTitle(
-                            img: "assets/images/godzila.png",
+                            img: "assets/images/img_1.jpg",
                             title: "Avenger Game.",
                             isShowTitle: false,
                           ),
@@ -166,12 +181,12 @@ class _HomeWatchingState extends State<HomeWatching> {
                       child: Row(
                         children: [
                           ItemMovieWithTitle(
-                            img: "assets/images/godzila.png",
+                            img: "assets/images/adventure_1.png",
                             title: "The Godzila Avenger Game.",
                             isShowTitle: false,
                           ),
                           ItemMovieWithTitle(
-                            img: "assets/images/godzila.png",
+                            img: "assets/images/adventure_2.png",
                             title: "Avenger Game.",
                             isShowTitle: false,
                           ),
@@ -185,6 +200,7 @@ class _HomeWatchingState extends State<HomeWatching> {
           ),
         ],
       ),
+    ),
     );
   }
 }
