@@ -4,8 +4,17 @@ import 'package:movie_app_final/resources/app_color.dart';
 
 class ItemMovieWidget extends StatelessWidget {
   const ItemMovieWidget({
-    super.key,
-  });
+    Key? key,
+    required this.img,
+    required this.name,
+    required this.title,
+    required this.time,
+  }) : super(key: key);
+
+  final String img;
+  final String name;
+  final String title;
+  final String time;
 
   @override
   Widget build(BuildContext context) {
@@ -18,27 +27,28 @@ class ItemMovieWidget extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Image.asset(
-              "assets/img_1.jpg",
+              img,
               fit: BoxFit.cover,
               width: 150,
               height: 200,
             ),
           ),
-          const SizedBox(
+           SizedBox(
             width: 150,
             child: Padding(
               padding: EdgeInsets.all(5.0),
               child: Text(
-                "Doreamon: The Way of Water",
+                name,
                 maxLines: 2,
                 style: TextStyle(
-                    color: AppColors.BaseColorMain,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
+                  color: AppColors.BaseColorMain,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
-          const SizedBox(
+           SizedBox(
             width: 150,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -50,7 +60,7 @@ class ItemMovieWidget extends StatelessWidget {
                 ),
                 SizedBox(width: 5),
                 Text(
-                  "Adventure, Dci-fi",
+                  title,
                   maxLines: 1,
                   style: TextStyle(color: AppColors.BaseColorWhite),
                 )
@@ -58,7 +68,7 @@ class ItemMovieWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 5),
-          const SizedBox(
+           SizedBox(
             width: 150,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -70,7 +80,7 @@ class ItemMovieWidget extends StatelessWidget {
                 ),
                 SizedBox(width: 5),
                 Text(
-                  "18.03.2024",
+                  time,
                   maxLines: 1,
                   style: TextStyle(color: AppColors.BaseColorWhite),
                 )

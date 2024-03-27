@@ -12,22 +12,22 @@ class CarouselWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     late List<Widget> listCarousel = [
       const ItemCarouselWidget(
-        img: "assets/img_3.jpg",
+        img: "assets/images/img_3.jpg",
         Name: "Mai",
         Description: "2h11m. Roman, psychology",
       ),
       const ItemCarouselWidget(
-        img: "assets/img_1.jpg",
+        img: "assets/images/img_1.jpg",
         Name: "Đào Phở, Piano",
         Description: "2h11m. Roman, psychology, History, Hero",
       ),
       const ItemCarouselWidget(
-        img: "assets/img_3.jpg",
+        img: "assets/images/img_3.jpg",
         Name: "Mai",
         Description: "2h11m. Roman, psychology,..",
       ),
       const ItemCarouselWidget(
-        img: "assets/img_1.jpg",
+        img: "assets/images/img_1.jpg",
         Name: "Đào Phở, Piano",
         Description: "2h11m. Roman, psychology, History, Hero",
       ),

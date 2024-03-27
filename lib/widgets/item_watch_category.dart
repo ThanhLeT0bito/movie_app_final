@@ -4,11 +4,11 @@ import 'package:movie_app_final/resources/app_color.dart';
 class ItemWatchCategory extends StatelessWidget {
   const ItemWatchCategory({
     Key? key,
-    required this.title,
+   // required this.title,
     required this.image,
   }) : super(key: key);
 
-  final String title;
+ // final String title;
   final String image;
 
   @override
@@ -38,21 +38,21 @@ class ItemWatchCategory extends StatelessWidget {
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(horizontal: 4),
               color: Colors.black.withOpacity(0.5),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Text(
-                    title,
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: AppColors.BaseColorWhite,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
+              // child: Stack(
+              //   alignment: Alignment.center,
+              //   children: [
+              //     Text(
+              //       title,
+              //       maxLines: 1,
+              //       textAlign: TextAlign.center,
+              //       style: const TextStyle(
+              //         color: AppColors.BaseColorWhite,
+              //         fontSize: 18,
+              //         fontWeight: FontWeight.bold,
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ),
           ),
         ],

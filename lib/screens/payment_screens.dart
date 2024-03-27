@@ -49,7 +49,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
                         bottomLeft: Radius.circular(Dimens.circular),
                       ),
                       child: Image.asset(
-                        'assets/img_3.jpg',
+                        'assets/images/img_3.jpg',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -299,24 +299,24 @@ class _PaymentScreensState extends State<PaymentScreens> {
                 SizedBox(
                   height: 20,
                 ),
-                PaymentMethod(img: 'assets/zalo.jpg', title: 'Zalo Pay'),
+                PaymentMethod(img: 'assets/images/zalo.jpg', title: 'Zalo Pay'),
                 SizedBox(
                   height: 20,
                 ),
-                PaymentMethod(img: 'assets/momo.png', title: 'Momo'),
+                PaymentMethod(img: 'assets/images/momo.png', title: 'Momo'),
                 SizedBox(
                   height: 20,
                 ),
-                PaymentMethod(img: 'assets/shoppe.png', title: 'Shoppe Pay'),
+                PaymentMethod(img: 'assets/images/shoppe.png', title: 'Shoppe Pay'),
                 SizedBox(
                   height: 20,
                 ),
-                PaymentMethod(img: 'assets/atm card.png', title: 'ATM Card'),
+                PaymentMethod(img: 'assets/images/atm card.png', title: 'ATM Card'),
                 SizedBox(
                   height: 20,
                 ),
                 PaymentMethod(
-                    img: 'assets/atm.png', title: 'International payments'),
+                    img: 'assets/images/atm.png', title: 'International payments'),
                 SizedBox(
                   height: 20,
                 ),

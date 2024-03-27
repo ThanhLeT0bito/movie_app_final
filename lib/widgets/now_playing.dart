@@ -25,7 +25,7 @@ class NowplayingItems extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Image.asset(
-                  'assets/${nowplaying.Image}',
+                  nowplaying.Image??'',
                   fit: BoxFit.cover,
                   width: double.infinity,
                   height: 250,
