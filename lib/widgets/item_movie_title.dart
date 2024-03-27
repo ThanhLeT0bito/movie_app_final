@@ -20,7 +20,8 @@ class ItemMovieWithTitle extends StatelessWidget {
         children: [
           Image.asset(
             img,
-            width: 230,
+            width: 300,
+            height: 150,
             fit: BoxFit.cover,
           ),
           const SizedBox(height: 5),

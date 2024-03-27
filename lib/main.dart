@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app_final/models/model_widget/profile_model.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
 import 'package:movie_app_final/providers/Homepage_provider.dart';
 import 'package:movie_app_final/providers/Nowplaying_provider.dart';
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'MOviE',
-        initialRoute: WatchingDetailsScreens.routeName,
+        initialRoute: HomeWatching.routeName,
         routes: {
           HomeScreen.routeName: (context) => HomeScreen(),
           HomepageScreens.routeName: (context) => HomepageScreens(),

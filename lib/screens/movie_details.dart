@@ -21,7 +21,7 @@ class MoviedetailsScreens extends StatelessWidget {
               Column(
                 children: [
                   Image.asset(
-                    "assets/img_3.jpg",
+                    "assets/images/img_3.jpg",
                     width: double.infinity,
                     height: 300,
                     fit: BoxFit.cover,
@@ -359,7 +359,7 @@ class MainContent extends StatelessWidget {
                                 height:
                                     50, // Đặt kích thước của hình ảnh tại đây
                                 child: Image.asset(
-                                  'assets/tran-thanh.jpg',
+                                  'assets/images/tran-thanh.jpg',
                                   fit: BoxFit.cover,
                                 ), // Thay đổi đường dẫn hình ảnh tại đây
                               ),
@@ -419,7 +419,7 @@ class MainContent extends StatelessWidget {
                                         width: 50,
                                         height: 50,
                                         child: Image.asset(
-                                          'assets/tran-thanh.jpg',
+                                          'assets/images/robert.png',
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -461,7 +461,7 @@ class MainContent extends StatelessWidget {
                                         width: 50,
                                         height: 50,
                                         child: Image.asset(
-                                          'assets/tran-thanh.jpg',
+                                          'assets/images/chiris.png',
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -471,7 +471,7 @@ class MainContent extends StatelessWidget {
                                       child: Align(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          'Robert Downey Jr.',
+                                          'Chris Hemsworth',
                                           style: TextStyle(
                                             fontSize: 16,
                                             color: Colors.white,
@@ -503,7 +503,7 @@ class MainContent extends StatelessWidget {
                                         width: 50,
                                         height: 50,
                                         child: Image.asset(
-                                          'assets/tran-thanh.jpg',
+                                          'assets/images/evans.png',
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -513,7 +513,7 @@ class MainContent extends StatelessWidget {
                                       child: Align(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          'Robert Downey Jr.',
+                                          'Chris Evans',
                                           style: TextStyle(
                                             fontSize: 16,
                                             color: Colors.white,
@@ -553,7 +553,7 @@ class MainContent extends StatelessWidget {
                           color: Colors.grey.shade900,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        padding: EdgeInsets.all(20),
+                        padding: EdgeInsets.all(10),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -587,10 +587,15 @@ class MainContent extends StatelessWidget {
                               width: 50, // Điều chỉnh kích thước của logo
                               height: 20, // Điều chỉnh kích thước của logo
                               decoration: BoxDecoration(
+                                color: Colors.red,
                                 image: DecorationImage(
                                   image: AssetImage(
-                                      'assets/cgv.jpg'), // Đường dẫn tới logo
+                                      'assets/images/cgv.png'), 
+                                      // Đường dẫn tới logo
                                   fit: BoxFit.cover,
+                                   colorFilter: ColorFilter.mode(
+                                    Colors.white,
+                                    BlendMode.dstIn)
                                 ),
                               ),
                             ),
@@ -607,7 +612,7 @@ class MainContent extends StatelessWidget {
                           color: Colors.grey.shade900,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        padding: EdgeInsets.all(20),
+                        padding: EdgeInsets.all(10),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -617,7 +622,7 @@ class MainContent extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'Vincom Ocean Park CGV',
+                                    'Aeon Mall CGV',
                                     style: TextStyle(
                                       fontSize: 20,
                                       color: Colors.white,
@@ -626,12 +631,13 @@ class MainContent extends StatelessWidget {
                                   ),
                                   SizedBox(height: 10),
                                   Text(
-                                    '4.55 km | Da Ton, Gia Lam, Ha Noi',
+                                    '9.32 km | 27 Co Linh, Long Bien, Ha Noi',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Colors.white,
                                       decoration: TextDecoration.none,
                                     ),
+                                    softWrap: true,
                                   ),
                                 ],
                               ),
@@ -641,10 +647,14 @@ class MainContent extends StatelessWidget {
                               width: 50, // Điều chỉnh kích thước của logo
                               height: 20, // Điều chỉnh kích thước của logo
                               decoration: BoxDecoration(
+                                color: Colors.red,
                                 image: DecorationImage(
                                   image: AssetImage(
-                                      'assets/cgv.jpg'), // Đường dẫn tới logo
+                                      'assets/images/cgv.png'), // Đường dẫn tới logo
                                   fit: BoxFit.cover,
+                                   colorFilter: ColorFilter.mode(
+                                    Colors.white,
+                                    BlendMode.dstIn)
                                 ),
                               ),
                             ),
@@ -661,7 +671,7 @@ class MainContent extends StatelessWidget {
                           color: Colors.grey.shade900,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        padding: EdgeInsets.all(20),
+                        padding: EdgeInsets.all(10),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -671,7 +681,7 @@ class MainContent extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'Vincom Ocean Park CGV',
+                                    'Lotte Cinema Long Bien',
                                     style: TextStyle(
                                       fontSize: 20,
                                       color: Colors.white,
@@ -680,13 +690,15 @@ class MainContent extends StatelessWidget {
                                   ),
                                   SizedBox(height: 10),
                                   Text(
-                                    '4.55 km | Da Ton, Gia Lam, Ha Noi',
+                                    '14.3 km | 7-9 Nguyen Van Linh, Long Bien, Ha Noi',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Colors.white,
                                       decoration: TextDecoration.none,
                                     ),
+                                    softWrap: true,
                                   ),
+                                  
                                 ],
                               ),
                             ),
@@ -697,7 +709,7 @@ class MainContent extends StatelessWidget {
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: AssetImage(
-                                      'assets/cgv.jpg'), // Đường dẫn tới logo
+                                      'assets/images/lotte.png'), // Đường dẫn tới logo
                                   fit: BoxFit.cover,
                                 ),
                               ),

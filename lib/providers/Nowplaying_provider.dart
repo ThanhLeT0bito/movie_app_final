@@ -4,63 +4,63 @@ import 'package:movie_app_final/models/Nowplaying.dart';
 class NowplayingManagement extends ChangeNotifier {
   List<Nowplaying> listNowplaying = [
     Nowplaying(
-      Name: 'Doraemon movie 43',
-      Time: '20.12.2022',
+      Name: 'Mai',
+      Time: '2 hour 5 minutes',
       Address: 'Adventure, Sci-fi',
       Star: '4.0',
-      Image: 'img_1.jpg',
+      Image: 'assets/img_3.jpg',
     ),
     Nowplaying(
-      Name: 'Doraemon movie 77',
-      Time: '20.12.2022',
+      Name: 'Phở, đào và piano',
+      Time: '2 hour 10 minutes',
       Address: 'Adventure, Sci-fi',
       Star: '4.0',
-      Image: 'img_3.jpg',
+      Image: 'assets/img_1.jpg',
     ),
     Nowplaying(
-      Name: 'Doraemon movie 11',
-      Time: '20.12.2022',
+      Name: 'Gặp lại chị bầu',
+      Time: '2 hour 29 minutes',
       Address: 'Adventure, Sci-fi',
       Star: '4.0',
-      Image: 'img_2.jpg',
+      Image: 'assets/img_2.jpg',
     ),
     Nowplaying(
-      Name: 'Doraemon movie 20',
-      Time: '20.12.2022',
+      Name: 'Bà thím báo thù',
+      Time: '2 hour 10 minutes',
       Address: 'Adventure, Sci-fi',
       Star: '4.0',
-      Image: 'img_2.jpg',
+      Image: 'assets/images/ba_thim.jpg',
     ),
   ];
 
   List<Nowplaying> listCommingSoon = [
     Nowplaying(
-      Name: 'Mai',
+      Name: 'Doraemon movie 43',
       Time: '20.12.2023',
       Address: 'Adventure, Sci-fi',
       Star: '4.0',
-      Image: 'img_3.jpg',
+      Image: 'assets/images/doraemon.jpg',
     ),
     Nowplaying(
-      Name: 'Spy family',
+      Name: 'Spy x family CODE: White',
+      Time: '25.12.2022',
+      Address: 'Adventure, Sci-fi',
+      Star: '4.0',
+      Image: 'assets/images/spy.png',
+    ),
+    Nowplaying(
+      Name: 'Shazam: Fury of the Gods',
       Time: '20.12.2022',
       Address: 'Adventure, Sci-fi',
       Star: '4.0',
-      Image: 'img_1.jpg',
+      Image: 'assets/images/popstar.png',
     ),
     Nowplaying(
-      Name: 'Doraemon movie 11',
+      Name: 'Fox puss in Boots: The last Wish',
       Time: '20.12.2022',
       Address: 'Adventure, Sci-fi',
       Star: '4.0',
-      Image: 'img_2.jpg',
-    ),
-    Nowplaying(
-      Name: 'Doraemon movie 20',
-      Time: '20.12.2022',
-      Address: 'Adventure, Sci-fi',
-      Star: '4.0',
-      Image: 'img_1.jpg',
+      Image: 'assets/images/tom_jerry.png',
     ),
   ];
 

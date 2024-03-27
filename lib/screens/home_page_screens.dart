@@ -80,10 +80,9 @@ class HomepageScreens extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          ItemMovieWidget(),
-                          ItemMovieWidget(),
-                          ItemMovieWidget(),
-                          ItemMovieWidget(),
+                          ItemMovieWidget(img: 'assets/images/doraemon.jpg', name: 'Avatar 2: The Way Of Water',title: 'Adventure, Sci-fi',time: '20.12.2022',),
+                          ItemMovieWidget(img: 'assets/images/spy.png', name: 'Ant Man Wasp: Quantumania',title: 'Adventure, Sci-fi',time: '25.12.2022',),
+                          ItemMovieWidget(img: 'assets/images/fox.png', name: 'Fox puss in Boots: The last Wish',title: 'Adventure, Sci-fi',time: '27.12.2022',),
                         ],
                       ),
                     ),
@@ -171,14 +170,14 @@ class HomepageScreens extends StatelessWidget {
                       child: Row(children: [
                         ItemMovieWithTitle(
                           img: "assets/images/godzila.png",
-                          title: "The Godzila Avenger Game.",
+                          title: "When The Batman 2 Starts Filming Reportedly Revealed",
                         ),
                         ItemMovieWithTitle(
-                          img: "assets/images/godzila.png",
-                          title: "Avenger Game.",
+                          img: "assets/images/doraemon_movienew.png",
+                          title: "6 Epic Hulk Fights That Can Happen In The MCU's Future.",
                         ),
                       ]),
-                    )
+                    ) 
                   ],
                 ),
               ),
@@ -189,4 +188,3 @@ class HomepageScreens extends StatelessWidget {
     );
   }
 }
-// chỗ này t đang tách ra fle, nên có j t push lại sau.
