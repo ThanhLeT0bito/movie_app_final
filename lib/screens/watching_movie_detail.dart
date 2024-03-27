@@ -4,6 +4,7 @@ import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
+import 'package:movie_app_final/widgets/list_widget.dart';
 
 import '../widgets/Base/custom_bottom_navigator.dart';
 import '../widgets/custom_item_bottom__bar.dart';
@@ -296,34 +297,37 @@ class MainContent extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10),
-                GridView.count(
-                  crossAxisCount: 3,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: List.generate(9, (index) {
-                    return GestureDetector(
-                      onTap: () {
-                        // Xử lý khi nhấn vào hình ảnh
-                      },
-                      child: Container(
-                        margin: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.grey, // Màu nền của hình ảnh
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Image ${index + 1}', // Hiển thị văn bản hoặc hình ảnh thực tế tại đây
-                            style: TextStyle(
-                              color: Colors.white, // Màu văn bản hoặc hình ảnh
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-                ),
+                // GridView.count(
+                //   crossAxisCount: 3,
+                //   shrinkWrap: true,
+                //   physics: NeverScrollableScrollPhysics(),
+                //   children: List.generate(9, (index) {
+                //     return GestureDetector(
+                //       onTap: () {
+                //         // Xử lý khi nhấn vào hình ảnh
+                //       },
+                //       child: Container(
+                //         margin: EdgeInsets.all(5),
+                //         decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(10),
+                //           color: Colors.grey, // Màu nền của hình ảnh
+                //         ),
+                //         child: Center(
+                //           child: Text(
+                //             'Image ${index + 1}', // Hiển thị văn bản hoặc hình ảnh thực tế tại đây
+                //             style: TextStyle(
+                //               color: Colors.white, // Màu văn bản hoặc hình ảnh
+                //               fontWeight: FontWeight.bold,
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     );
+                //   }),
+                // ),
+
+                const ListWidget(),
+
               ],
             ),
           ),
