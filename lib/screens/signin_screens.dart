@@ -15,6 +15,13 @@ class SignInScreens extends StatefulWidget {
 class _SignInScreensState extends State<SignInScreens> {
   @override
   Widget build(BuildContext context) {
+    final ModalRoute route = ModalRoute.of(context)!;
+    final args = route.settings.arguments;
+
+    String title = "Sign in";
+    if (args != null) {
+      title = args as String;
+    }
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
       body: Column(
@@ -22,7 +29,7 @@ class _SignInScreensState extends State<SignInScreens> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: CustomAppBar(
-              title: "Sign In",
+              title: title,
             ),
           ),
           Expanded(
@@ -63,7 +70,7 @@ class _SignInScreensState extends State<SignInScreens> {
                       Navigator.pushNamed(context, ConfirmOTPScreens.routeName);
                     },
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -89,7 +96,7 @@ class _SignInScreensState extends State<SignInScreens> {
                     ],
                   ),
                   const SizedBox(
-                    height: 40,
+                    height: 20,
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -112,7 +119,7 @@ class _SignInScreensState extends State<SignInScreens> {
                     ],
                   ),
                   SizedBox(
-                    height: 40,
+                    height: 20,
                   ),
                   Text(
                       'By sign in or sign up, you agree to our Terms of Service and Privacy Policy',

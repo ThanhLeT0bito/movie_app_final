@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
@@ -17,7 +18,7 @@ class WatchingDetailsScreens extends StatefulWidget {
 }
 
 class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
   late List<CustomItemBottomBar> bottomNavBarItems;
 
   @override
@@ -50,6 +51,20 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
     });
   }
 
+  late List<ItemwithLineTopWidget> listTypes = [
+    ItemwithLineTopWidget(text: 'Epside', hasBar: false),
+    ItemwithLineTopWidget(text: 'More', hasBar: true),
+    ItemwithLineTopWidget(text: 'Trailer', hasBar: false),
+  ];
+  void changeItemType(ItemwithLineTopWidget selectedItem) {
+    setState(() {
+      for (var item in listTypes) {
+        item.hasBar = (item == selectedItem);
+      }
+      print(selectedItem.text);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -71,6 +86,8 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
                   screenWidth: screenWidth,
                   bottomNavBarItems: bottomNavBarItems,
                   onItemTapped: _onItemTapped,
+                  listTypes: listTypes,
+                  func: changeItemType,
                 ),
               ],
             ),
@@ -87,43 +104,67 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
   }
 }
 
-Widget _buildItemWithBar(String text, bool hasBar) {
-  return Stack(
-    children: [
-      Text(
-        text,
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      if (hasBar) // Chỉ hiển thị thanh màu cam nếu có
-        Positioned(
-          top: -10, // Điều chỉnh vị trí của thanh màu cam
-          left: 0,
-          right: 0,
-          child: Container(
-            height: 12, // Điều chỉnh chiều cao của thanh màu cam
-            width: 104, // Điều chỉnh chiều dài của thanh màu cam
-            color: Colors.orangeAccent,
+class ItemwithLineTopWidget extends StatelessWidget {
+  ItemwithLineTopWidget({
+    super.key,
+    required this.text,
+    required this.hasBar,
+  });
+  final String text;
+  late bool hasBar;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(right: 40),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 70,
+            height: 5,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: hasBar
+                  ? AppColors.BaseColorMain
+                  : AppColors.BaseColorTransparent,
+            ),
           ),
-        ),
-    ],
-  );
+          const SizedBox(height: 5),
+          Text(
+            text,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
-class MainContent extends StatelessWidget {
-  const MainContent({
+class MainContent extends StatefulWidget {
+  MainContent({
     Key? key,
     required this.screenWidth,
     required this.bottomNavBarItems,
     required this.onItemTapped,
+    required this.listTypes,
+    required this.func,
   }) : super(key: key);
 
   final double screenWidth;
   final List<CustomItemBottomBar> bottomNavBarItems;
   final Function(int) onItemTapped;
+  final List<ItemwithLineTopWidget> listTypes;
+  final Function(ItemwithLineTopWidget) func;
 
+  @override
+  State<MainContent> createState() => _MainContentState();
+}
+
+class _MainContentState extends State<MainContent> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -263,6 +304,8 @@ class MainContent extends StatelessWidget {
                     Expanded(
                       child: Text(
                         'Phương Anh Đào, Tuấn Trần, Trấn Thành...',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 16,
                           color: AppColors.BaseColorAroundWhite,
@@ -276,8 +319,8 @@ class MainContent extends StatelessWidget {
                   height: 40,
                 ),
                 CustomBottomNavigationBar(
-                  bottomNavBarItems: bottomNavBarItems,
-                  onItemTapped: onItemTapped,
+                  bottomNavBarItems: widget.bottomNavBarItems,
+                  onItemTapped: widget.onItemTapped,
                   selectedIndex: 0, // Chỉ số này có thể được thay
                 ),
                 SizedBox(height: 20),
@@ -287,48 +330,61 @@ class MainContent extends StatelessWidget {
                   ),
                   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _buildItemWithBar('Epside', true),
-                      _buildItemWithBar('More', false),
-                      _buildItemWithBar('Trailer', false),
-                    ],
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: widget.listTypes
+                        .map((e) => GestureDetector(
+                            onTap: () {
+                              widget.func(e);
+                            },
+                            child: e))
+                        .toList(),
                   ),
                 ),
                 SizedBox(height: 10),
-                GridView.count(
-                  crossAxisCount: 3,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: List.generate(9, (index) {
-                    return GestureDetector(
-                      onTap: () {
-                        // Xử lý khi nhấn vào hình ảnh
-                      },
-                      child: Container(
-                        margin: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.grey, // Màu nền của hình ảnh
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Image ${index + 1}', // Hiển thị văn bản hoặc hình ảnh thực tế tại đây
-                            style: TextStyle(
-                              color: Colors.white, // Màu văn bản hoặc hình ảnh
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-                ),
+                EpsideWidget(),
               ],
             ),
           ),
         ),
       ],
+    );
+  }
+}
+
+class EpsideWidget extends StatelessWidget {
+  const EpsideWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      crossAxisCount: 3,
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      children: List.generate(9, (index) {
+        return GestureDetector(
+          onTap: () {
+            // Xử lý khi nhấn vào hình ảnh
+          },
+          child: Container(
+            margin: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.grey, // Màu nền của hình ảnh
+            ),
+            child: Center(
+              child: Text(
+                'Image ${index + 1}', // Hiển thị văn bản hoặc hình ảnh thực tế tại đây
+                style: TextStyle(
+                  color: Colors.white, // Màu văn bản hoặc hình ảnh
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        );
+      }),
     );
   }
 }

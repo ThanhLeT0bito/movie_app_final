@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/models/model_widget/item_radio.dart';
+import 'package:movie_app_final/providers/manager_all_widget.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/resources/dimens.dart';
-import 'package:movie_app_final/widgets/Base/custom_radio.dart';
+import 'package:provider/provider.dart';
 
 class CustomItemRadio extends StatefulWidget {
-  //final String text;
-  final String? image;
-  //late bool? isSelected;
   final VoidCallback? onPressed;
   final List<ItemRadio> groupRadio;
 
   CustomItemRadio({
     Key? key,
-    //required this.text,
-    //this.isSelected,
-    this.image,
     this.onPressed,
     required this.groupRadio,
   }) : super(key: key);
@@ -34,6 +29,8 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
   int indexSelected = 1;
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<ManagerAllWidget>(context);
+    indexSelected = data.startModeTemp;
     return Container(
       height: double.maxFinite,
       child: ListView.builder(
@@ -44,14 +41,7 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
             children: [
               GestureDetector(
                   onTap: () {
-                    setState(() {
-                      indexSelected = index;
-                      for (var item in widget.groupRadio) {
-                        item.isSelected = false;
-                      }
-                      // Đặt trạng thái của radio được chọn thành true
-                      widget.groupRadio[index].isSelected = true;
-                    });
+                    data.changeStartModeTemp(index);
                   },
                   child: ItemRadioCustom(widget.groupRadio[index],
                       widget.groupRadio[index].isSelected!)),
