@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/resources/app_color.dart';
+import 'package:movie_app_final/screens/movie_details.dart';
 import 'package:movie_app_final/widgets/item_carousel_widget.dart';
 
 class CarouselWidget extends StatelessWidget {
@@ -48,7 +49,11 @@ class CarouselWidget extends StatelessWidget {
       items: listCarousel.map((item) {
         return Builder(
           builder: (BuildContext context) {
-            return item;
+            return GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, MoviedetailsScreens.routeName);
+                },
+                child: item);
           },
         );
       }).toList(),

@@ -10,6 +10,7 @@ import 'package:movie_app_final/screens/movie_details.dart';
 import 'package:movie_app_final/screens/now_playing_screens.dart';
 import 'package:movie_app_final/screens/profile_screens.dart';
 import 'package:movie_app_final/screens/signin_signup_screens.dart';
+import 'package:movie_app_final/screens/ticket_screens.dart';
 import 'package:movie_app_final/widgets/Base/custom_bottom_navigator.dart';
 import 'package:movie_app_final/widgets/Base/custom_bottom_sheet.dart';
 import 'package:movie_app_final/widgets/Base/custom_item_radio.dart';
@@ -62,6 +63,7 @@ class ManagerAllWidget extends ChangeNotifier {
 
   void changeStartModeTemp(int start) {
     startModeTemp = start;
+    print("Temp Mode: $start");
     for (var i = 0; i < listItemCustom.length; i++) {
       listItemCustom[i] = ItemRadio(
         img: listItemCustom[i].img,
@@ -97,7 +99,7 @@ class ManagerAllWidget extends ChangeNotifier {
         builder: (BuildContext context) {
           return CustomBottomSheet(
             title: 'Choose Mode',
-            subTitle: 'which mode do u want to use?',
+            subTitle: 'which mode do you want to use?',
             textButton: "Use it",
             onButtonPressed: () => changeMode,
             widget: CustomItemRadio(groupRadio: listItemCustom),
@@ -107,24 +109,24 @@ class ManagerAllWidget extends ChangeNotifier {
   }
 
   void changeMode() {
-    print("hello");
-    //SaveStartMode();
     _selectedIndex = 0;
+    //startMode = startModeTemp;
     bottomnavigations = startMode == 0 ? _screensBooking : _screensWatching;
     bottomNavBarItems =
         startMode == 0 ? bottomNavBarItemsBooking : bottomNavBarItemsWatching;
+    print("Start Mode: $startMode");
     notifyListeners();
   }
 
   List<Widget> _screensBooking = [
     HomepageScreens(),
-    MoviedetailsScreens(),
+    TicketMovieScreens(),
     NowplayingScreens(),
     HomeProfileScreens(),
   ];
   List<Widget> _screensWatching = [
     HomeWatching(),
-    MoviedetailsScreens(),
+    TicketMovieScreens(),
     NowplayingScreens(),
     HomeProfileScreens(),
   ];

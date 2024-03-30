@@ -68,10 +68,10 @@ class MyApp extends StatelessWidget {
             ChooseNeed.routeName: (context) => ChooseNeed(),
             SignIn_SignUp_Screens.routeName: (context) =>
                 SignIn_SignUp_Screens(),
-            TicketScreen.routeName: (context) => TicketScreen(),
+            TicketScreen.routeName: (context) => const TicketScreen(),
             PaymentScreens.routeName: (context) => PaymentScreens(),
             WatchingDetailsScreens.routeName: (context) =>
-                WatchingDetailsScreens()
+                WatchingDetailsScreens(),
           },
         );
       }),

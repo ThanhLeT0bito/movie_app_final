@@ -1,15 +1,14 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/resources/app_color.dart';
+import 'package:movie_app_final/screens/home_screen.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'dart:math' as math;
 
 class TicketScreen extends StatelessWidget {
   const TicketScreen({super.key});
 
-  static const routeName = '/ticket-screen';
+  static const String routeName = "/ticket-screen";
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +19,11 @@ class TicketScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          const CustomAppBar(
+          CustomAppBar(
             title: "My Ticket",
+            onPressedBack: () {
+              Navigator.pushNamed(context, HomeScreen.routeName);
+            },
           ),
           const SizedBox(
             height: 30,

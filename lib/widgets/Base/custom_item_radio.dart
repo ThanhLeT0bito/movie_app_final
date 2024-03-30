@@ -51,7 +51,7 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
                   ? const Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Divider(
-                        color: Colors.grey,
+                        color: Color.fromARGB(146, 190, 180, 180),
                         height: 0.4,
                       ),
                     )

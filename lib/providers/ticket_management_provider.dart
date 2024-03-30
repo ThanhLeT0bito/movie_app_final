@@ -8,19 +8,19 @@ class TicketManagement extends ChangeNotifier {
       MovieName: 'Mai',
       DateTime: '14h15 . 16.12.2022',
       TheaterLocation: 'Vincom Ocean Park CGV',
-      Image: 'assets/img_3.jpg', // Đường dẫn tới hình ảnh
+      Image: 'assets/images/img_3.jpg', // Đường dẫn tới hình ảnh
     ),
     Ticket(
       MovieName: 'Gặp lại chị bầu',
       DateTime: '2h15 . 22.12.2022',
       TheaterLocation: 'Vincom Ocean Park CGV',
-      Image: 'assets/img_2.jpg', // Đường dẫn tới hình ảnh
+      Image: 'assets/images/img_2.jpg', // Đường dẫn tới hình ảnh
     ),
     Ticket(
       MovieName: 'Phở, đào và piano',
       DateTime: '14h15 . 29.12.2022',
       TheaterLocation: 'Vincom Ocean Park CGV',
-      Image: 'assets/img_1.jpg', // Đường dẫn tới hình ảnh
+      Image: 'assets/images/img_1.jpg', // Đường dẫn tới hình ảnh
     ),
   ];
 }
