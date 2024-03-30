@@ -47,7 +47,7 @@ class ManagerAllWidget extends ChangeNotifier {
         isSelected: i == index,
       );
     }
-    bottomNavBarItems[index].isSelected = true;
+    
     CustomBottomnavi = CustomBottomNavigationBar(
       bottomNavBarItems: bottomNavBarItems,
       onItemTapped: setBottomItem,
