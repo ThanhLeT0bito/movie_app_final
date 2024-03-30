@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class CustomItemRadio extends StatefulWidget {
   final VoidCallback? onPressed;
-  final List<ItemRadio> groupRadio;
+  late List<ItemRadio> groupRadio;
 
   CustomItemRadio({
     Key? key,
@@ -31,10 +31,11 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
   Widget build(BuildContext context) {
     final data = Provider.of<ManagerAllWidget>(context);
     indexSelected = data.startModeTemp;
+    List<ItemRadio> groupRadio1 = data.listItemCustom;
     return Container(
       height: double.maxFinite,
       child: ListView.builder(
-        itemCount: widget.groupRadio.length,
+        itemCount: groupRadio1.length,
         itemBuilder: (context, index) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -44,7 +45,7 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
                     data.changeStartModeTemp(index);
                   },
                   child: ItemRadioCustom(widget.groupRadio[index],
-                      widget.groupRadio[index].isSelected!)),
+                      groupRadio1[index].isSelected!)),
               const SizedBox(height: 15),
               index < widget.groupRadio.length - 1
                   ? const Padding(

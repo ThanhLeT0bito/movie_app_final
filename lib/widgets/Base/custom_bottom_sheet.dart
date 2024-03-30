@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app_final/providers/manager_all_widget.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/resources/dimens.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
+import 'package:provider/provider.dart';
 
 class CustomBottomSheet extends StatelessWidget {
   final String title;
@@ -21,6 +23,7 @@ class CustomBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<ManagerAllWidget>(context);
     double screenWidth = MediaQuery.of(context).size.width;
     return Container(
       color: AppColors.BaseColorBlackGround,
@@ -63,7 +66,8 @@ class CustomBottomSheet extends StatelessWidget {
           ),
           CustomTextButton(
             onPressed: () {
-              onButtonPressed;
+              data.SaveStartMode();
+              //onButtonPressed;
               Navigator.of(context).pop();
             },
             text: textButton,

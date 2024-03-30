@@ -253,7 +253,7 @@ class ImageAndTitleWidget extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: Image.asset(
-            'assets/img_3.jpg',
+            'assets/images/img_3.jpg',
             width: 120,
             height: 200,
             fit: BoxFit.cover,

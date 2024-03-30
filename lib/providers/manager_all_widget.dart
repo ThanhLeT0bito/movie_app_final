@@ -16,8 +16,8 @@ import 'package:movie_app_final/widgets/Base/custom_item_radio.dart';
 import 'package:movie_app_final/widgets/custom_item_bottom__bar.dart';
 
 class ManagerAllWidget extends ChangeNotifier {
-  //String startScreen = SignIn_SignUp_Screens.routeName;
-  String startScreen = HomeScreen.routeName;
+  String startScreen = SignIn_SignUp_Screens.routeName;
+  //String startScreen = HomeScreen.routeName;
   //mode
   bool isBookingScreen = false;
 
@@ -62,11 +62,19 @@ class ManagerAllWidget extends ChangeNotifier {
 
   void changeStartModeTemp(int start) {
     startModeTemp = start;
+    for (var i = 0; i < listItemCustom.length; i++) {
+      listItemCustom[i] = ItemRadio(
+        img: listItemCustom[i].img,
+        text: listItemCustom[i].text,
+        isSelected: start == i,
+      );
+    }
     notifyListeners();
   }
 
   void SaveStartMode() {
     startMode = startModeTemp;
+    changeMode();
     notifyListeners();
   }
 
@@ -91,25 +99,16 @@ class ManagerAllWidget extends ChangeNotifier {
             title: 'Choose Mode',
             subTitle: 'which mode do u want to use?',
             textButton: "Use it",
-            onButtonPressed: () => changeMode(false),
+            onButtonPressed: () => changeMode,
             widget: CustomItemRadio(groupRadio: listItemCustom),
           );
         });
     notifyListeners();
   }
 
-  void changeMode(bool isBooking) {
-    for (var i = 0; i < listItemCustom.length; i++) {
-      listItemCustom[i] = ItemRadio(
-        img: listItemCustom[i].img,
-        text: listItemCustom[i].text,
-        isSelected: false,
-      );
-    }
-    listItemCustom[1].isSelected = true;
-
-    print(startMode == 0 ? "true" : "false");
-    isBookingScreen = isBooking;
+  void changeMode() {
+    print("hello");
+    //SaveStartMode();
     _selectedIndex = 0;
     bottomnavigations = startMode == 0 ? _screensBooking : _screensWatching;
     bottomNavBarItems =

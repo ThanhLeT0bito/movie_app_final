@@ -22,20 +22,6 @@ class HomepageScreens extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<ManagerAllWidget>(context);
-    List<ItemRadio> listItemCustom = [
-      ItemRadio(
-          isSelected: true,
-          text: "Booking Ticket",
-          img: "assets/images/booking.png"),
-      ItemRadio(
-          isSelected: false,
-          text: "Watching Movie",
-          img: "assets/images/watching.png"),
-    ];
-
-    late bool isFirst;
-
-    void showBottomSheet() {}
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
