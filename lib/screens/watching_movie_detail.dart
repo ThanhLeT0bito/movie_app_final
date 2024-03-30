@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
@@ -165,6 +166,11 @@ class MainContent extends StatefulWidget {
 }
 
 class _MainContentState extends State<MainContent> {
+  List<Widget> listWidgetType = [
+    EpisodeWidget(),
+    MovieWidget(),
+  ];
+  int index =0;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -329,19 +335,25 @@ class _MainContentState extends State<MainContent> {
                     borderRadius: BorderRadius.circular(5),
                   ),
                   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: widget.listTypes
-                        .map((e) => GestureDetector(
-                            onTap: () {
-                              widget.func(e);
-                            },
-                            child: e))
-                        .toList(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              index==0;
+                            });
+                          },
+                          child: 
+                         ItemwithLineTopWidget(text: 'Episode', hasBar: index == 0),
+                      ),
+                        ItemwithLineTopWidget(text: 'More', hasBar: index == 1),
+                        ItemwithLineTopWidget(text: 'Trailer', hasBar: index == 2),
+                      ],
+                    ),
                   ),
-                ),
                 SizedBox(height: 10),
-                EpsideWidget(),
+                listWidgetType[index]
               ],
             ),
           ),
@@ -351,12 +363,12 @@ class _MainContentState extends State<MainContent> {
   }
 }
 
-class EpsideWidget extends StatelessWidget {
-  const EpsideWidget({
+class MovieWidget extends StatelessWidget {
+  const MovieWidget({
     super.key,
   });
 
-  @override
+  @override 
   Widget build(BuildContext context) {
     return GridView.count(
       crossAxisCount: 3,
@@ -387,4 +399,112 @@ class EpsideWidget extends StatelessWidget {
       }),
     );
   }
+}
+
+class EpisodeWidget extends StatelessWidget {
+  const EpisodeWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var screensWidth=MediaQuery.of(context).size.width;
+    return SingleChildScrollView(
+      child: ListView(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        children: <Widget>[
+          _buildEpisodeItem(
+            imageUrl: 'assets/images/t4.png',
+            episodeTitle: 'Episode 1',
+            time:'25m',
+            actor:'Romance, psychology',
+            screensWidth: screensWidth
+          ),
+          _buildEpisodeItem(
+            imageUrl: 'assets/images/t4.png',
+            episodeTitle: 'Episode 2',
+            time:'25m',
+            actor:'Romance, psychology',
+            screensWidth: screensWidth
+
+          ),
+          _buildEpisodeItem(
+            imageUrl: 'assets/images/t4.png',
+            episodeTitle: 'Episode 3',
+            time:'25m',
+            actor:'Romance, psychology',
+            screensWidth: screensWidth
+
+          ),
+          // Add more episodes if needed
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEpisodeItem({required String imageUrl, required String episodeTitle, required String time, required String actor,required double screensWidth}) {
+  return Container(
+    width: screensWidth,
+    padding: EdgeInsets.all(8.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              // Image on the left
+              Container(
+                width: 150,
+                height: 100,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(imageUrl),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              SizedBox(width: 16), // Add some space between image and text
+              // Text on the right
+              Container(
+                width: 170, // Set a fixed width for the column
+                height: 100, // Set a fixed height for the column
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      episodeTitle,
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+
+                    ),
+                    SizedBox(height: 10), // Add some space
+                    Text(
+                      time,
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(height: 10), // Add some space
+                    Text(
+                      actor,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+              //SizedBox(width: 10), // Add some space between text and icon
+              // Download icon
+              Icon(Icons.file_download_outlined, color: Colors.white),
+            ],
+          ),
+        ),
+        // Icon centered vertically
+      ],
+    ),
+  );
+}
 }
