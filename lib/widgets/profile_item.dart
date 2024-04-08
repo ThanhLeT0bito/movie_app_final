@@ -10,8 +10,7 @@ class ProfileItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    return Container(
         color: Colors.black, // Màu nền đen
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +38,8 @@ class ProfileItemWidget extends StatelessWidget {
                         ),
                         child: const CircleAvatar(
                           radius: 50,
-                          backgroundImage: AssetImage('assets/images/avatar.jpg'),
+                          backgroundImage:
+                              AssetImage('assets/images/avatar.jpg'),
                         ),
                       ),
                       const SizedBox(width: Dimens.SizedBoxHeightProfile),
@@ -62,7 +62,7 @@ class ProfileItemWidget extends StatelessWidget {
                               const SizedBox(
                                   width: Dimens.SizedBoxWidthProfile),
                               Text(
-                                currentUser.mail,
+                                currentUser.mail!,
                                 style: const TextStyle(
                                     fontSize: 14, color: Colors.white),
                               ),
@@ -243,8 +243,6 @@ class ProfileItemWidget extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ),
-    );
+        ));
   }
 }
