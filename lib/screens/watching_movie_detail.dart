@@ -6,6 +6,7 @@ import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
+import 'package:movie_app_final/widgets/list_widget.dart';
 
 import '../widgets/Base/custom_bottom_navigator.dart';
 import '../widgets/custom_item_bottom__bar.dart';
