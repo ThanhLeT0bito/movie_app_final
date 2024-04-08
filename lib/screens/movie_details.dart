@@ -13,38 +13,41 @@ class MoviedetailsScreens extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
 
-    return Stack(
-      children: [
-        SingleChildScrollView(
-          child: Stack(
-            children: [
-              Column(
-                children: [
-                  Image.asset(
-                    "assets/images/img_3.jpg",
-                    width: double.infinity,
-                    height: 300,
-                    fit: BoxFit.cover,
-                  ),
-                  const SizedBox(height: 150),
-                  MainContent(screenWidth: screenWidth),
-                ],
-              ),
-              Positioned(
-                  top: 230,
-                  left: 10,
-                  right: 10,
-                  child: PositionedItem(screenWidth: screenWidth))
-            ],
+    return Scaffold(
+      backgroundColor: AppColors.BaseColorBlackGround,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Stack(
+              children: [
+                Column(
+                  children: [
+                    Image.asset(
+                      "assets/images/img_3.jpg",
+                      width: double.infinity,
+                      height: 300,
+                      fit: BoxFit.cover,
+                    ),
+                    const SizedBox(height: 150),
+                    MainContent(screenWidth: screenWidth),
+                  ],
+                ),
+                Positioned(
+                    top: 230,
+                    left: 10,
+                    right: 10,
+                    child: PositionedItem(screenWidth: screenWidth))
+              ],
+            ),
           ),
-        ),
-        const Positioned(
-          top: 0,
-          left: 10,
-          right: 0,
-          child: CustomAppBar(),
-        ),
-      ],
+          const Positioned(
+            top: 0,
+            left: 10,
+            right: 0,
+            child: CustomAppBar(),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -589,14 +592,11 @@ class MainContent extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Colors.red,
                                 image: DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/cgv.png'), 
-                                      // Đường dẫn tới logo
-                                  fit: BoxFit.cover,
-                                   colorFilter: ColorFilter.mode(
-                                    Colors.white,
-                                    BlendMode.dstIn)
-                                ),
+                                    image: AssetImage('assets/images/cgv.png'),
+                                    // Đường dẫn tới logo
+                                    fit: BoxFit.cover,
+                                    colorFilter: ColorFilter.mode(
+                                        Colors.white, BlendMode.dstIn)),
                               ),
                             ),
                           ],
@@ -649,13 +649,11 @@ class MainContent extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Colors.red,
                                 image: DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/cgv.png'), // Đường dẫn tới logo
-                                  fit: BoxFit.cover,
-                                   colorFilter: ColorFilter.mode(
-                                    Colors.white,
-                                    BlendMode.dstIn)
-                                ),
+                                    image: AssetImage(
+                                        'assets/images/cgv.png'), // Đường dẫn tới logo
+                                    fit: BoxFit.cover,
+                                    colorFilter: ColorFilter.mode(
+                                        Colors.white, BlendMode.dstIn)),
                               ),
                             ),
                           ],
@@ -698,7 +696,6 @@ class MainContent extends StatelessWidget {
                                     ),
                                     softWrap: true,
                                   ),
-                                  
                                 ],
                               ),
                             ),

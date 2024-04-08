@@ -38,11 +38,6 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
           if (i < 3) {
             FocusScope.of(context).requestFocus(focusNodes[i + 1]);
           }
-        } else if (controllers[i].text.isEmpty && i > 0) {
-          setState(() {
-            isFilled[i - 1] = false;
-          });
-          FocusScope.of(context).requestFocus(focusNodes[i - 1]);
         }
       });
     }

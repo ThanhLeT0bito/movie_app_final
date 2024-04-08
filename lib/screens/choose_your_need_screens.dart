@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app_final/providers/manager_all_widget.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/home_page_screens.dart';
+import 'package:movie_app_final/screens/home_screen.dart';
 import 'package:movie_app_final/screens/home_watching_screen.dart';
+import 'package:provider/provider.dart';
 
 class ChooseNeed extends StatefulWidget {
   const ChooseNeed({Key? key}) : super(key: key);
@@ -13,6 +16,8 @@ class ChooseNeed extends StatefulWidget {
 class _ChooseNeedState extends State<ChooseNeed> {
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<ManagerAllWidget>(context);
+
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
       appBar: AppBar(
@@ -44,13 +49,23 @@ class _ChooseNeedState extends State<ChooseNeed> {
                     iconSize: 100,
                     onPressed: () {
                       // Xử lý khi biểu tượng được nhấn
-                      Navigator.pushNamed(context, HomepageScreens.routeName);
+                      data.changeStartModeTemp(0);
+                      data.SaveStartMode();
+                      Navigator.pushNamed(context, HomeScreen.routeName);
                     },
                   ),
                 ),
               ),
-              SizedBox(height: 20,),
-              Text('Watching movie',style: TextStyle(color: AppColors.BaseColorWhite,fontSize: 20,fontWeight: FontWeight.bold),),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Watching movie',
+                style: TextStyle(
+                    color: AppColors.BaseColorWhite,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
               SizedBox(height: 150),
               SizedBox(
                 width: 300,
@@ -63,13 +78,23 @@ class _ChooseNeedState extends State<ChooseNeed> {
                     iconSize: 100,
                     onPressed: () {
                       // Xử lý khi biểu tượng được nhấn
-                      Navigator.pushNamed(context, HomeWatching.routeName);
+                      data.changeStartModeTemp(1);
+                      data.SaveStartMode();
+                      Navigator.pushNamed(context, HomeScreen.routeName);
                     },
                   ),
                 ),
               ),
-               SizedBox(height: 20,),
-              Text('Booking ticket',style: TextStyle(color: AppColors.BaseColorWhite,fontSize: 20,fontWeight: FontWeight.bold),),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Booking ticket',
+                style: TextStyle(
+                    color: AppColors.BaseColorWhite,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
             ],
           ),
         ),

@@ -3,6 +3,8 @@ import 'package:movie_app_final/models/model_widget/profile_model.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
 import 'package:movie_app_final/providers/Homepage_provider.dart';
 import 'package:movie_app_final/providers/Nowplaying_provider.dart';
+import 'package:movie_app_final/providers/manager_all_widget.dart';
+import 'package:movie_app_final/providers/orders_provider.dart';
 import 'package:movie_app_final/providers/seats_provider.dart';
 import 'package:movie_app_final/providers/ticket_management_provider.dart';
 import 'package:movie_app_final/providers/watching_movie_provider.dart';
@@ -36,39 +38,45 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => ManagerAllWidget()),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => WatchingMovieProvider()),
         ChangeNotifierProvider(create: (_) => TicketManagement()),
         ChangeNotifierProvider(create: (_) => NowplayingManagement()),
         ChangeNotifierProvider(create: (_) => HomepageManagement()),
         ChangeNotifierProvider(create: (_) => SeatsProviders()),
+        ChangeNotifierProvider(create: (_) => OrdersProvider()),
 
         /// sang tha
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'MOviE',
-        initialRoute: HomeScreen.routeName,
-        routes: {
-          HomeScreen.routeName: (context) => HomeScreen(),
-          HomepageScreens.routeName: (context) => HomepageScreens(),
-          HomeOrderMovie.routeName: (context) => HomeOrderMovie(),
-          HomeWatching.routeName: (context) => HomeWatching(),
-          TicketMovieScreens.routeName: (context) => TicketMovieScreens(),
-          NowplayingScreens.routeName: (context) => NowplayingScreens(),
-          HomeProfileScreens.routeName: (context) => HomeProfileScreens(),
-          MoviedetailsScreens.routeName: (context) => MoviedetailsScreens(),
-          SelectSeatScreen.routeName: (context) => SelectSeatScreen(),
-          EnterUserNameScreens.routeName: (context) => EnterUserNameScreens(),
-          ConfirmOTPScreens.routeName: (context) => ConfirmOTPScreens(),
-          SignInScreens.routeName: (context) => SignInScreens(),
-          ChooseNeed.routeName: (context) => ChooseNeed(),
-          SignIn_SignUp_Screens.routeName: (context) => SignIn_SignUp_Screens(),
-          TicketScreen.routeName: (context) => TicketScreen(),
-          PaymentScreens.routeName: (context) => PaymentScreens(),
-          WatchingDetailsScreens.routeName: (context) => WatchingDetailsScreens()
-        },
-      ),
+      child: Consumer<ManagerAllWidget>(builder: (context, manager, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'MOviE',
+          initialRoute: manager.startScreen,
+          routes: {
+            HomeScreen.routeName: (context) => HomeScreen(),
+            HomepageScreens.routeName: (context) => HomepageScreens(),
+            HomeOrderMovie.routeName: (context) => HomeOrderMovie(),
+            HomeWatching.routeName: (context) => HomeWatching(),
+            TicketMovieScreens.routeName: (context) => TicketMovieScreens(),
+            NowplayingScreens.routeName: (context) => NowplayingScreens(),
+            HomeProfileScreens.routeName: (context) => HomeProfileScreens(),
+            MoviedetailsScreens.routeName: (context) => MoviedetailsScreens(),
+            SelectSeatScreen.routeName: (context) => SelectSeatScreen(),
+            EnterUserNameScreens.routeName: (context) => EnterUserNameScreens(),
+            ConfirmOTPScreens.routeName: (context) => ConfirmOTPScreens(),
+            SignInScreens.routeName: (context) => SignInScreens(),
+            ChooseNeed.routeName: (context) => ChooseNeed(),
+            SignIn_SignUp_Screens.routeName: (context) =>
+                SignIn_SignUp_Screens(),
+            TicketScreen.routeName: (context) => const TicketScreen(),
+            PaymentScreens.routeName: (context) => PaymentScreens(),
+            WatchingDetailsScreens.routeName: (context) =>
+                WatchingDetailsScreens(),
+          },
+        );
+      }),
     );
   }
 }

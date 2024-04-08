@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
@@ -18,7 +20,7 @@ class WatchingDetailsScreens extends StatefulWidget {
 }
 
 class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
   late List<CustomItemBottomBar> bottomNavBarItems;
 
   @override
@@ -51,6 +53,20 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
     });
   }
 
+  late List<ItemwithLineTopWidget> listTypes = [
+    ItemwithLineTopWidget(text: 'Epside', hasBar: false),
+    ItemwithLineTopWidget(text: 'More', hasBar: true),
+    ItemwithLineTopWidget(text: 'Trailer', hasBar: false),
+  ];
+  void changeItemType(ItemwithLineTopWidget selectedItem) {
+    setState(() {
+      for (var item in listTypes) {
+        item.hasBar = (item == selectedItem);
+      }
+      print(selectedItem.text);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -72,6 +88,8 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
                   screenWidth: screenWidth,
                   bottomNavBarItems: bottomNavBarItems,
                   onItemTapped: _onItemTapped,
+                  listTypes: listTypes,
+                  func: changeItemType,
                 ),
               ],
             ),
@@ -88,43 +106,72 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
   }
 }
 
-Widget _buildItemWithBar(String text, bool hasBar) {
-  return Stack(
-    children: [
-      Text(
-        text,
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      if (hasBar) // Chỉ hiển thị thanh màu cam nếu có
-        Positioned(
-          top: -10, // Điều chỉnh vị trí của thanh màu cam
-          left: 0,
-          right: 0,
-          child: Container(
-            height: 12, // Điều chỉnh chiều cao của thanh màu cam
-            width: 104, // Điều chỉnh chiều dài của thanh màu cam
-            color: Colors.orangeAccent,
+class ItemwithLineTopWidget extends StatelessWidget {
+  ItemwithLineTopWidget({
+    super.key,
+    required this.text,
+    required this.hasBar,
+  });
+  final String text;
+  late bool hasBar;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(right: 40),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 70,
+            height: 5,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: hasBar
+                  ? AppColors.BaseColorMain
+                  : AppColors.BaseColorTransparent,
+            ),
           ),
-        ),
-    ],
-  );
+          const SizedBox(height: 5),
+          Text(
+            text,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
-class MainContent extends StatelessWidget {
-  const MainContent({
+class MainContent extends StatefulWidget {
+  MainContent({
     Key? key,
     required this.screenWidth,
     required this.bottomNavBarItems,
     required this.onItemTapped,
+    required this.listTypes,
+    required this.func,
   }) : super(key: key);
 
   final double screenWidth;
   final List<CustomItemBottomBar> bottomNavBarItems;
   final Function(int) onItemTapped;
+  final List<ItemwithLineTopWidget> listTypes;
+  final Function(ItemwithLineTopWidget) func;
 
+  @override
+  State<MainContent> createState() => _MainContentState();
+}
+
+class _MainContentState extends State<MainContent> {
+  List<Widget> listWidgetType = [
+    EpisodeWidget(),
+    MovieWidget(),
+  ];
+  int index =0;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -264,6 +311,8 @@ class MainContent extends StatelessWidget {
                     Expanded(
                       child: Text(
                         'Phương Anh Đào, Tuấn Trần, Trấn Thành...',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 16,
                           color: AppColors.BaseColorAroundWhite,
@@ -277,8 +326,8 @@ class MainContent extends StatelessWidget {
                   height: 40,
                 ),
                 CustomBottomNavigationBar(
-                  bottomNavBarItems: bottomNavBarItems,
-                  onItemTapped: onItemTapped,
+                  bottomNavBarItems: widget.bottomNavBarItems,
+                  onItemTapped: widget.onItemTapped,
                   selectedIndex: 0, // Chỉ số này có thể được thay
                 ),
                 SizedBox(height: 20),
@@ -287,47 +336,25 @@ class MainContent extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5),
                   ),
                   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _buildItemWithBar('Epside', true),
-                      _buildItemWithBar('More', false),
-                      _buildItemWithBar('Trailer', false),
-                    ],
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              index==0;
+                            });
+                          },
+                          child: 
+                         ItemwithLineTopWidget(text: 'Episode', hasBar: index == 0),
+                      ),
+                        ItemwithLineTopWidget(text: 'More', hasBar: index == 1),
+                        ItemwithLineTopWidget(text: 'Trailer', hasBar: index == 2),
+                      ],
+                    ),
                   ),
-                ),
                 SizedBox(height: 10),
-                // GridView.count(
-                //   crossAxisCount: 3,
-                //   shrinkWrap: true,
-                //   physics: NeverScrollableScrollPhysics(),
-                //   children: List.generate(9, (index) {
-                //     return GestureDetector(
-                //       onTap: () {
-                //         // Xử lý khi nhấn vào hình ảnh
-                //       },
-                //       child: Container(
-                //         margin: EdgeInsets.all(5),
-                //         decoration: BoxDecoration(
-                //           borderRadius: BorderRadius.circular(10),
-                //           color: Colors.grey, // Màu nền của hình ảnh
-                //         ),
-                //         child: Center(
-                //           child: Text(
-                //             'Image ${index + 1}', // Hiển thị văn bản hoặc hình ảnh thực tế tại đây
-                //             style: TextStyle(
-                //               color: Colors.white, // Màu văn bản hoặc hình ảnh
-                //               fontWeight: FontWeight.bold,
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //     );
-                //   }),
-                // ),
-
-                const ListWidget(),
-
+                listWidgetType[index]
               ],
             ),
           ),
@@ -335,4 +362,150 @@ class MainContent extends StatelessWidget {
       ],
     );
   }
+}
+
+class MovieWidget extends StatelessWidget {
+  const MovieWidget({
+    super.key,
+  });
+
+  @override 
+  Widget build(BuildContext context) {
+    return GridView.count(
+      crossAxisCount: 3,
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      children: List.generate(9, (index) {
+        return GestureDetector(
+          onTap: () {
+            // Xử lý khi nhấn vào hình ảnh
+          },
+          child: Container(
+            margin: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.grey, // Màu nền của hình ảnh
+            ),
+            child: Center(
+              child: Text(
+                'Image ${index + 1}', // Hiển thị văn bản hoặc hình ảnh thực tế tại đây
+                style: TextStyle(
+                  color: Colors.white, // Màu văn bản hoặc hình ảnh
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        );
+      }),
+    );
+  }
+}
+
+class EpisodeWidget extends StatelessWidget {
+  const EpisodeWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var screensWidth=MediaQuery.of(context).size.width;
+    return SingleChildScrollView(
+      child: ListView(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        children: <Widget>[
+          _buildEpisodeItem(
+            imageUrl: 'assets/images/t4.png',
+            episodeTitle: 'Episode 1',
+            time:'25m',
+            actor:'Romance, psychology',
+            screensWidth: screensWidth
+          ),
+          _buildEpisodeItem(
+            imageUrl: 'assets/images/t4.png',
+            episodeTitle: 'Episode 2',
+            time:'25m',
+            actor:'Romance, psychology',
+            screensWidth: screensWidth
+
+          ),
+          _buildEpisodeItem(
+            imageUrl: 'assets/images/t4.png',
+            episodeTitle: 'Episode 3',
+            time:'25m',
+            actor:'Romance, psychology',
+            screensWidth: screensWidth
+
+          ),
+          // Add more episodes if needed
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEpisodeItem({required String imageUrl, required String episodeTitle, required String time, required String actor,required double screensWidth}) {
+  return Container(
+    width: screensWidth,
+    padding: EdgeInsets.all(8.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              // Image on the left
+              Container(
+                width: 150,
+                height: 100,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(imageUrl),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              SizedBox(width: 16), // Add some space between image and text
+              // Text on the right
+              Container(
+                width: 170, // Set a fixed width for the column
+                height: 100, // Set a fixed height for the column
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      episodeTitle,
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+
+                    ),
+                    SizedBox(height: 10), // Add some space
+                    Text(
+                      time,
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(height: 10), // Add some space
+                    Text(
+                      actor,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+              //SizedBox(width: 10), // Add some space between text and icon
+              // Download icon
+              Icon(Icons.file_download_outlined, color: Colors.white),
+            ],
+          ),
+        ),
+        // Icon centered vertically
+      ],
+    ),
+  );
+}
 }

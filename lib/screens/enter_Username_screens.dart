@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/resources/app_color.dart';
+import 'package:movie_app_final/screens/choose_your_need_screens.dart';
+import 'package:movie_app_final/screens/home_screen.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 import 'package:movie_app_final/widgets/Base/custom_textfield.dart';
@@ -62,7 +64,12 @@ class _EnterUserNameScreensState extends State<EnterUserNameScreens> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        CustomTextButton(text: "Done", onPressed: () {}),
+                        CustomTextButton(
+                            text: "Done",
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, ChooseNeed.routeName);
+                            }),
                         const SizedBox(height: 10),
                       ],
                     ),

@@ -10,17 +10,16 @@ class carousel_signin_signup extends StatelessWidget {
   Widget build(BuildContext context) {
     late List<Widget> listCarousel = [
       const item_carousel_signin_signup(
-        img: "assets/img_3.jpg",
+        img: "assets/images/img_3.jpg",
       ),
       const item_carousel_signin_signup(
-        img: "assets/img_1.jpg",
+        img: "assets/images/img_1.jpg",
       ),
       const item_carousel_signin_signup(
-        img: "assets/img_3.jpg",
+        img: "assets/images/img_3.jpg",
       ),
       const item_carousel_signin_signup(
-        img: "assets/img_1.jpg",
-
+        img: "assets/images/img_1.jpg",
       ),
     ];
     return CarouselSlider(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/models/model_widget/item_radio.dart';
+import 'package:movie_app_final/providers/manager_all_widget.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/home_page_screens.dart';
 import 'package:movie_app_final/screens/home_watching_screen.dart';
@@ -13,6 +14,7 @@ import 'package:movie_app_final/widgets/Base/custom_bottom_sheet.dart';
 import 'package:movie_app_final/widgets/Base/custom_item_radio.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 import 'package:movie_app_final/widgets/custom_item_bottom__bar.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/Base/custom_textfield.dart';
 
@@ -25,74 +27,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
-  late List<CustomItemBottomBar> bottomNavBarItems;
-  late List<Widget> _screens;
-
-  @override
-  void initState() {
-    super.initState();
-
-    /// screen main /// m muốn xexescreen nào?
-    _screens = [
-      HomepageScreens(),
-      MoviedetailsScreens(),
-      NowplayingScreens(),
-      HomeProfileScreens(),
-    ];
-
-    ///Item bottom navigation
-    bottomNavBarItems = [
-      CustomItemBottomBar(
-        icon: Iconsax.home_15,
-        label: "Home",
-        isSelected: _selectedIndex == 0,
-      ),
-      CustomItemBottomBar(
-        icon: Iconsax.ticket,
-        label: "Ticket",
-        isSelected: _selectedIndex == 1,
-      ),
-      CustomItemBottomBar(
-        icon: Iconsax.video4,
-        label: "Movie",
-        isSelected: _selectedIndex == 2,
-      ),
-      CustomItemBottomBar(
-        icon: Iconsax.profile_circle,
-        label: "Profile",
-        isSelected: _selectedIndex == 2,
-      ),
-    ];
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      for (int i = 0; i < bottomNavBarItems.length; i++) {
-        bottomNavBarItems[i] = CustomItemBottomBar(
-          icon: bottomNavBarItems[i].icon,
-          label: bottomNavBarItems[i].label,
-          isSelected: i == index,
-        );
-      }
-      print(index);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<ManagerAllWidget>(context);
+    var _screens = data.bottomnavigations;
+    var bottomItems = data.bottomNavBarItems;
+    var startIndexScreen = data.selectedIndex;
+    var CustomBottomnavi = data.CustomBottomnavi;
+
     double screenWidth = MediaQuery.of(context).size.width;
     TextEditingController controller = TextEditingController();
 
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
-      body: _screens[_selectedIndex],
-      bottomNavigationBar: CustomBottomNavigationBar(
-        bottomNavBarItems: bottomNavBarItems,
-        onItemTapped: _onItemTapped,
-        selectedIndex: _selectedIndex,
-      ),
+      body: _screens[startIndexScreen],
+      bottomNavigationBar: CustomBottomnavi,
     );
   }
 }
