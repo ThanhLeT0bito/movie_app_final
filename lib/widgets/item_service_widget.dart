@@ -19,20 +19,28 @@ class ItemServiceWidget extends StatelessWidget {
           Container(
             width: 80,
             height: 80,
-            decoration: const BoxDecoration(shape: BoxShape.circle),
-            child: Image.asset(
-              img,
-              width: 80,
-              height: 80,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.transparent, // Đặt màu nền là trong suốt để hình tròn hiển thị đúng
+            ),
+            child: ClipOval(
+              child: Image.asset(
+                img,
+                width: 80,
+                height: 80,
+                fit: BoxFit.cover, // Đảm bảo hình ảnh phù hợp với kích thước hình tròn
+              ),
             ),
           ),
+          const SizedBox(height: 8),
           Text(
             title,
             maxLines: 1,
             style: const TextStyle(
-                color: AppColors.BaseColorWhite,
-                fontSize: 18,
-                fontWeight: FontWeight.bold),
+              color: AppColors.BaseColorWhite,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
           )
         ],
       ),

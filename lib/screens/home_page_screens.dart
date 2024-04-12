@@ -49,9 +49,12 @@ class HomepageScreens extends StatelessWidget {
                       title: "Now playing",
                       navogatorName: "",
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
                     //carousel
-                    const CarouselWidget(),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.76, // Đặt chiều cao cố định cho Container
+                      child: CarouselWidget(), // Bọc CarouselWidget trong Container
+                    ),
                     const ItemCategoryWidget(
                       title: "Comming Soon",
                       navogatorName: "",
@@ -62,20 +65,20 @@ class HomepageScreens extends StatelessWidget {
                       child: Row(
                         children: [
                           ItemMovieWidget(
-                            img: 'assets/images/doraemon.jpg',
+                            img: 'assets/images/avatar_2.jpg',
                             name: 'Avatar 2: The Way Of Water',
                             title: 'Adventure, Sci-fi',
                             time: '20.12.2022',
                           ),
                           ItemMovieWidget(
-                            img: 'assets/images/spy.png',
+                            img: 'assets/images/ant_man.jpg',
                             name: 'Ant Man Wasp: Quantumania',
                             title: 'Adventure, Sci-fi',
                             time: '25.12.2022',
                           ),
                           ItemMovieWidget(
-                            img: 'assets/images/fox.png',
-                            name: 'Fox puss in Boots: The last Wish',
+                            img: 'assets/images/cat.jpg',
+                            name: 'Puss in Boots: The last Wish',
                             title: 'Adventure, Sci-fi',
                             time: '27.12.2022',
                           ),
@@ -165,12 +168,12 @@ class HomepageScreens extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       child: Row(children: [
                         ItemMovieWithTitle(
-                          img: "assets/images/godzila.png",
+                          img: "assets/images/2023.png",
                           title:
                               "When The Batman 2 Starts Filming Reportedly Revealed",
                         ),
                         ItemMovieWithTitle(
-                          img: "assets/images/doraemon_movienew.png",
+                          img: "assets/images/2024.png",
                           title:
                               "6 Epic Hulk Fights That Can Happen In The MCU's Future.",
                         ),
