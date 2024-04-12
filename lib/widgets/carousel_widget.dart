@@ -13,24 +13,24 @@ class CarouselWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     late List<Widget> listCarousel = [
       const ItemCarouselWidget(
-        img: "assets/images/img_3.jpg",
+        img: "assets/images/img_1.jpg",
         Name: "Mai",
-        Description: "2h11m. Roman, psychology",
+        Description: "2h11m. Roman, Psychology",
       ),
       const ItemCarouselWidget(
-        img: "assets/images/img_1.jpg",
+        img: "assets/images/img_2.jpg",
         Name: "Đào Phở, Piano",
         Description: "2h11m. Roman, psychology, History, Hero",
       ),
       const ItemCarouselWidget(
         img: "assets/images/img_3.jpg",
-        Name: "Mai",
-        Description: "2h11m. Roman, psychology,..",
+        Name: "Gặp lại chị bầu",
+        Description: "2h14m. Family, Comedy, Romance",
       ),
       const ItemCarouselWidget(
-        img: "assets/images/img_1.jpg",
-        Name: "Đào Phở, Piano",
-        Description: "2h11m. Roman, psychology, History, Hero",
+        img: "assets/images/img_4.jpg",
+        Name: "Quật mộ trùng ma",
+        Description: "2h30m. Horror, Sensational, Mystical",
       ),
     ];
     return CarouselSlider(
@@ -53,7 +53,14 @@ class CarouselWidget extends StatelessWidget {
                 onTap: () {
                   Navigator.pushNamed(context, MoviedetailsScreens.routeName);
                 },
-                child: item);
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width - 20, // Độ rộng của mỗi mục
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10), // Khoảng cách giữa các mục
+                  child: item,
+                ),
+              ),
+            );
           },
         );
       }).toList(),

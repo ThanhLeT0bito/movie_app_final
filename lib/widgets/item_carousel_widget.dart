@@ -26,7 +26,7 @@ class ItemCarouselWidget extends StatelessWidget {
             height: 400,
           ),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 10),
         Text(
           Name,
           style: const TextStyle(
@@ -37,14 +37,21 @@ class ItemCarouselWidget extends StatelessWidget {
         ),
         SizedBox(
           width: 200,
-          child: Text(
-            Description,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-            style: const TextStyle(
-              color: AppColors.BaseColorWhite,
-              fontSize: 15,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Text(
+                  Description,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: const TextStyle(
+                    color: AppColors.BaseColorWhite,
+                    fontSize: 15,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],
