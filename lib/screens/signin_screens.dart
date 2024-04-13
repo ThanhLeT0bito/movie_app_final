@@ -34,7 +34,7 @@ class _SignInScreensState extends State<SignInScreens> {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+              padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
