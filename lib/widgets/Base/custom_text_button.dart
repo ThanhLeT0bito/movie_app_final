@@ -10,6 +10,8 @@ class CustomTextButton extends StatelessWidget {
   late Color textColor;
   final double borderRadius;
   final TextStyle style;
+  final double? heightbutton;
+  final bool isMargin;
 
   CustomTextButton({
     required this.text,
@@ -20,6 +22,8 @@ class CustomTextButton extends StatelessWidget {
     this.borderRadius = Dimens.RadiusButton,
     this.style = const TextStyle(
         fontSize: Dimens.fontSizeTextButton, fontWeight: FontWeight.bold),
+    this.heightbutton,
+    this.isMargin = true,
     Key? key,
   }) : super(key: key);
 
@@ -36,8 +40,9 @@ class CustomTextButton extends StatelessWidget {
       );
     }
     return Container(
-      margin: const EdgeInsets.all(Dimens.MarginButton),
+      margin: EdgeInsets.all(isMargin! ? Dimens.MarginButton : 0),
       width: double.infinity,
+      height: heightbutton,
       decoration: decoration,
       child: TextButton(
         onPressed: onPressed,

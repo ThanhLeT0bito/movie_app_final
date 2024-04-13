@@ -6,6 +6,7 @@ import 'package:movie_app_final/providers/seats_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/payment_screens.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
+import 'package:movie_app_final/widgets/Base/custom_popup.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 import 'package:provider/provider.dart';
 
@@ -204,6 +205,9 @@ class ItemSeat extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         data.changeStatusSeat(seat);
+        if (seat.status == Status.resered) {
+          CustomDialogHelper.showCustomDialog(context, "Warning");
+        }
       },
       child: Container(
         decoration: BoxDecoration(
