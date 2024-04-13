@@ -18,6 +18,7 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
   late List<TextEditingController> controllers;
   late List<FocusNode> focusNodes;
   late List<bool> isFilled;
+  late FocusNode firstTextFieldFocusNode;
   int remainingTimeInSeconds = 60;
   late Timer _timer;
 
@@ -29,19 +30,24 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
     isFilled = List.generate(4, (index) => false);
     startTimer();
 
-    for (int i = 0; i < 4; i++) {
-      controllers[i].addListener(() {
-        if (controllers[i].text.length == 1) {
-          setState(() {
-            isFilled[i] = true;
-          });
-          if (i < 3) {
-            FocusScope.of(context).requestFocus(focusNodes[i + 1]);
-          }
-        }
+  for (int i = 0; i < 4; i++) {
+  controllers[i].addListener(() {
+    if (controllers[i].text.length == 1) {
+      setState(() {
+        isFilled[i] = true;
       });
+      if (i < 3) {
+        FocusScope.of(context).requestFocus(focusNodes[i + 1]);
+      }
+      else {
+        setState(() {
+          isFilled[3]=false;
+        });
+      }
     }
+  });
   }
+}
 
   @override
   void dispose() {
@@ -52,7 +58,6 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
     for (var focusNode in focusNodes) {
       focusNode.dispose();
     }
-    super.dispose();
   }
 
   void startTimer() {
@@ -66,6 +71,15 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
       });
     });
   }
+  void handleBackspace(int index) {
+  if (index > 0 && controllers[index].text.isEmpty) {
+    setState(() {
+     // controllers[index - 1].text = ''; // Xóa ký tự ở ô trước đó
+      isFilled[index - 1] = false; // Cập nhật trạng thái
+    });
+    FocusScope.of(context).requestFocus(focusNodes[index - 1]); // Di chuyển focus về ô trước đó
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -141,8 +155,8 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: AppColors.BaseColorWhite,
-                                    ),
+                                      color: AppColors.BaseColorMain,
+                                    ),  
                                   ),
                                 ),
                                 maxLength: 1,
@@ -151,16 +165,14 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
                                     FocusScope.of(context)
                                         .requestFocus(focusNodes[i + 1]);
                                     setState(() {
-                                      isFilled[i] =
-                                          true; // Cập nhật trạng thái đã nhập
+                                      isFilled[i] =true; // Cập nhật trạng thái đã nhập
+                                    });
+                                  } else {
+                                    handleBackspace(i);
+                                    setState(() {
+                                      isFilled[i] =false; // Cập nhật trạng thái đã nhập
                                     });
                                   }
-                                  // if (value.length > 1) {
-                                  //       FocusScope.of(context).requestFocus(focusNodes[i - 1]);
-                                  //       setState(() {
-                                  //       isFilled[i] = false; // Cập nhật trạng thái đã nhập
-                                  //   });
-                                  // }
                                 },
                               ),
                             ),
