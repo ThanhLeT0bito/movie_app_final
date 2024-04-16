@@ -94,7 +94,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 SizedBox(height: 20),
                 // Nút ""
                 CustomTextButton(
-                  text: 'Cancel',
+                  text: 'Save',
                   onPressed: () {
                     Navigator.pop(context);
                   },
