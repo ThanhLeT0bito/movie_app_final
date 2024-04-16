@@ -8,8 +8,12 @@ import 'package:movie_app_final/providers/seats_provider.dart';
 import 'package:movie_app_final/providers/ticket_management_provider.dart';
 import 'package:movie_app_final/providers/watching_movie_provider.dart';
 import 'package:movie_app_final/screens/Enter_Username_screens.dart';
+import 'package:movie_app_final/screens/change_password_screen.dart';
+import 'package:movie_app_final/screens/change_password_screens.dart';
 import 'package:movie_app_final/screens/choose_your_need_screens.dart';
 import 'package:movie_app_final/screens/confirm_OTP_screens.dart';
+import 'package:movie_app_final/screens/delete_account_screens.dart';
+import 'package:movie_app_final/screens/edit_profile_screen.dart';
 import 'package:movie_app_final/screens/home_order_movie_screen.dart';
 import 'package:movie_app_final/screens/home_page_screens.dart';
 import 'package:movie_app_final/screens/home_watching_screen.dart';
@@ -25,6 +29,7 @@ import 'package:movie_app_final/screens/ticket_screen.dart';
 import 'package:movie_app_final/screens/ticket_screens.dart';
 import 'package:movie_app_final/screens/watching_movie_detail.dart';
 import 'package:provider/provider.dart';
+import 'package:movie_app_final/screens/edit_profile_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -72,6 +77,10 @@ class MyApp extends StatelessWidget {
             PaymentScreens.routeName: (context) => PaymentScreens(),
             WatchingDetailsScreens.routeName: (context) =>
                 WatchingDetailsScreens(),
+            EditProfileScreen.routeName: (context) => EditProfileScreen(),
+            ChangePasswordScreens.routeName:(context) => ChangePasswordScreens(),
+            ChangePasswordScreen.routeName: (context) => ChangePasswordScreen(),
+            DeleteAccountScreens.routeName: (context) => DeleteAccountScreens(),
           },
         );
       }),
