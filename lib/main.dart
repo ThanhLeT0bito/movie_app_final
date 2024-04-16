@@ -4,6 +4,7 @@ import 'package:movie_app_final/providers/AuthProvider.dart';
 import 'package:movie_app_final/providers/Homepage_provider.dart';
 import 'package:movie_app_final/providers/Nowplaying_provider.dart';
 import 'package:movie_app_final/providers/manager_all_widget.dart';
+import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/providers/orders_provider.dart';
 import 'package:movie_app_final/providers/seats_provider.dart';
 import 'package:movie_app_final/providers/ticket_management_provider.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => HomepageManagement()),
         ChangeNotifierProvider(create: (_) => SeatsProviders()),
         ChangeNotifierProvider(create: (_) => OrdersProvider()),
+        ChangeNotifierProvider(create: (_) => Movieproviders())
 
         /// sang tha
       ],
@@ -80,8 +82,8 @@ class MyApp extends StatelessWidget {
             WatchingDetailsScreens.routeName: (context) =>
                 WatchingDetailsScreens(),
             EditProfileScreen.routeName: (context) => EditProfileScreen(),
-            ChangePasswordScreens.routeName:(context) => ChangePasswordScreens(),
-            ChangePasswordScreen.routeName: (context) => ChangePasswordScreen(),
+            ChangePasswordScreens.routeName: (context) =>
+                ChangePasswordScreens(),
             DeleteAccountScreens.routeName: (context) => DeleteAccountScreens(),
           },
         );

@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/models/model_widget/profile_model.dart';
 import 'package:movie_app_final/models/user.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/resources/dimens.dart';
+import 'package:movie_app_final/screens/change_password_screens.dart';
 
 class ProfileItemWidget extends StatelessWidget {
   const ProfileItemWidget({super.key, required this.currentUser});
@@ -96,7 +98,7 @@ class ProfileItemWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: Dimens.SizeBoxHeightInfor),
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(
                   left: Dimens.PaddingBackgroundProfile,
                   right: Dimens.PaddingBackgroundProfile),
@@ -189,25 +191,31 @@ class ProfileItemWidget extends StatelessWidget {
                   SizedBox(
                     height: Dimens.SizedBoxHeightProfile,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(Icons.lock,
-                              size: Dimens.SizeIconProfile,
-                              color: AppColors.BaseColorWhite),
-                          SizedBox(width: Dimens.SizedBoxWidthProfile),
-                          Text('Change password',
-                              style: TextStyle(
-                                  fontSize: Dimens.fontsizetext,
-                                  color: AppColors.BaseColorWhite)),
-                        ],
-                      ),
-                      Icon(Icons.arrow_forward_ios,
-                          size: Dimens.SizeIconArrow,
-                          color: AppColors.BaseColorWhite),
-                    ],
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, ChangePasswordScreens.routeName);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.lock,
+                                size: Dimens.SizeIconProfile,
+                                color: AppColors.BaseColorWhite),
+                            SizedBox(width: Dimens.SizedBoxWidthProfile),
+                            Text('Change password',
+                                style: TextStyle(
+                                    fontSize: Dimens.fontsizetext,
+                                    color: AppColors.BaseColorWhite)),
+                          ],
+                        ),
+                        Icon(Icons.arrow_forward_ios,
+                            size: Dimens.SizeIconArrow,
+                            color: AppColors.BaseColorWhite),
+                      ],
+                    ),
                   ),
                   SizedBox(height: Dimens.SizedBoxHeightProfile),
                   Divider(
