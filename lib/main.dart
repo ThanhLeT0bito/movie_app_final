@@ -24,6 +24,7 @@ import 'package:movie_app_final/screens/now_playing_screens.dart';
 import 'package:movie_app_final/screens/payment_screens.dart';
 import 'package:movie_app_final/screens/profile_screens.dart';
 import 'package:movie_app_final/screens/home_screen.dart';
+import 'package:movie_app_final/screens/rate_screen.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
 import 'package:movie_app_final/screens/signin_screens.dart';
 import 'package:movie_app_final/screens/signin_signup_screens.dart';
@@ -85,6 +86,7 @@ class MyApp extends StatelessWidget {
             ChangePasswordScreens.routeName: (context) =>
                 ChangePasswordScreens(),
             DeleteAccountScreens.routeName: (context) => DeleteAccountScreens(),
+            RateScreen.routeName: (context) => RateScreen(),
           },
         );
       }),
