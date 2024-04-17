@@ -52,7 +52,7 @@ class TicketItem extends StatelessWidget {
                     Text(
                       ticket.MovieName,
                       style: const TextStyle(
-                        fontSize: 24,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: AppColors.BaseColorTextMain,
                       ),
@@ -81,11 +81,15 @@ class TicketItem extends StatelessWidget {
                           color: AppColors.BaseColorWhite,
                         ),
                         const SizedBox(width: Dimens.Sizedbox),
-                        Text(
-                          ticket.TheaterLocation,
-                          style: const TextStyle(
+                        Expanded(
+                          child: Text(
+                            ticket.TheaterLocation,
+                            overflow: TextOverflow.ellipsis, // Cắt văn bản nếu quá dài
+                            style: const TextStyle(
                               fontSize: Dimens.fontsize,
-                              color: AppColors.BaseColorWhite),
+                              color: AppColors.BaseColorWhite,
+                            ),
+                          ),
                         ),
                       ],
                     )

@@ -49,18 +49,18 @@ class NowplayingManagement extends ChangeNotifier {
       Image: 'assets/images/spy.png',
     ),
     Nowplaying(
-      Name: 'Shazam: Fury of the Gods',
+      Name: 'Inside out 2',
       Time: '20.12.2022',
       Address: 'Adventure, Sci-fi',
       Star: '4.0',
-      Image: 'assets/images/popstar.png',
+      Image: 'assets/images/insite_out.png',
     ),
     Nowplaying(
-      Name: 'Fox puss in Boots: The last Wish',
+      Name: 'Puss in Boots: The last Wish',
       Time: '20.12.2022',
       Address: 'Adventure, Sci-fi',
       Star: '4.0',
-      Image: 'assets/images/tom_jerry.png',
+      Image: 'assets/images/cat.jpg',
     ),
   ];
 

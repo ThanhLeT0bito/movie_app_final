@@ -25,6 +25,7 @@ import 'package:movie_app_final/screens/signin_signup_screens.dart';
 import 'package:movie_app_final/screens/ticket_screen.dart';
 import 'package:movie_app_final/screens/ticket_screens.dart';
 import 'package:movie_app_final/screens/watching_movie_detail.dart';
+import 'package:movie_app_final/screens/list_category.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -74,6 +75,7 @@ class MyApp extends StatelessWidget {
             PaymentScreens.routeName: (context) => PaymentScreens(),
             WatchingDetailsScreens.routeName: (context) =>
                 WatchingDetailsScreens(),
+            CategoryScreens.routeName: (context) => CategoryScreens(),
           },
         );
       }),
