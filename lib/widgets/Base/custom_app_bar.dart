@@ -65,7 +65,10 @@ class CustomAppBar extends StatelessWidget {
                   icon: Icon(
                     iconRightButton,
                     color: AppColors.BaseColorWhite,
-                  ))
+                  )
+          )
+
+
               : Container(width: Dimens.IconSizeAppBar),
         ],
       ),

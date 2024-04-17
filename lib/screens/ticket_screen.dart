@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/home_screen.dart';
+import 'package:movie_app_final/screens/rate_screen.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'dart:math' as math;
+
+import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 
 class TicketScreen extends StatelessWidget {
   const TicketScreen({super.key});
@@ -26,13 +29,13 @@ class TicketScreen extends StatelessWidget {
             },
           ),
           const SizedBox(
-            height: 30,
+            height: 15,
           ),
           Stack(
             children: [
               Container(
                 width: screenWidth - 40,
-                height: screenheight * 0.8,
+                height: screenheight * 0.75,
                 decoration: BoxDecoration(
                     color: AppColors.BaseColorWhite,
                     borderRadius: BorderRadius.circular(10)),
@@ -93,7 +96,14 @@ class TicketScreen extends StatelessWidget {
                     ],
                   ))
             ],
-          )
+          ),
+          Spacer(),
+          CustomTextButton(
+              text: "Rate Movie",
+              onPressed: () {
+                Navigator.pushNamed(context, RateScreen.routeName);
+              }),
+          const SizedBox(height: 5)
         ]),
       ),
     );

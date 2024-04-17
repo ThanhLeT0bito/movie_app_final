@@ -50,13 +50,15 @@ class CarouselWidget extends StatelessWidget {
         return Builder(
           builder: (BuildContext context) {
             return GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, MoviedetailsScreens.routeName);
-                },
+              onTap: () {
+                Navigator.pushNamed(context, MoviedetailsScreens.routeName);
+              },
               child: SizedBox(
-                width: MediaQuery.of(context).size.width - 20, // Độ rộng của mỗi mục
+                width: MediaQuery.of(context).size.width -
+                    20, // Độ rộng của mỗi mục
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10), // Khoảng cách giữa các mục
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10), // Khoảng cách giữa các mục
                   child: item,
                 ),
               ),

@@ -52,8 +52,10 @@ class HomepageScreens extends StatelessWidget {
                     const SizedBox(height: 10),
                     //carousel
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.76, // Đặt chiều cao cố định cho Container
-                      child: CarouselWidget(), // Bọc CarouselWidget trong Container
+                      height: MediaQuery.of(context).size.height *
+                          0.6, // Đặt chiều cao cố định cho Container
+                      child:
+                          CarouselWidget(), // Bọc CarouselWidget trong Container
                     ),
                     const ItemCategoryWidget(
                       title: "Comming Soon",

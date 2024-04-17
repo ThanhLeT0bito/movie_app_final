@@ -116,14 +116,14 @@ class _SignInSignUpScreensState extends State<SignIn_SignUp_Screens> {
                 text: 'Sign in',
                 onPressed: () {
                   Navigator.pushNamed(context, SignInScreens.routeName,
-                      arguments: "Sign in");
+                      arguments: "Sign In");
                 }),
             SizedBox(height: 10),
             CustomTextButton(
               text: 'Sign up',
               onPressed: () {
                 Navigator.pushNamed(context, SignInScreens.routeName,
-                    arguments: "Sign up");
+                    arguments: "Sign Up");
               },
               backgroundColor: Colors.transparent,
             ),
