@@ -18,6 +18,9 @@ class MovieModel {
   final double reviewPoint;
   final String createdBy;
   final DateTime createdAt;
+  final bool isWatching;
+  final String videoUrl;
+  final String thumbnailLandscape;
 
   MovieModel({
     required this.id,
@@ -39,6 +42,9 @@ class MovieModel {
     required this.reviewPoint,
     required this.createdBy,
     required this.createdAt,
+    required this.isWatching,
+    required this.videoUrl,
+    required this.thumbnailLandscape,
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
@@ -59,11 +65,15 @@ class MovieModel {
       duration: json['duration'] ?? '',
       startTime: DateTime.parse(json['startTime']) ?? DateTime.now(),
       endTime: DateTime.parse(json['endTime']) ?? DateTime.now(),
-      reviewPoint: json['reviewPoint'].toDouble() ?? '',
+      reviewPoint: json['reviewPoint'].toDouble() ?? 0.0,
       createdBy: json['createdBy'] ?? '',
       createdAt: DateTime.parse(json['createdAt']) ?? DateTime.now(),
+      isWatching: json['isWatching'] ?? false,
+      videoUrl: json['videoUrl'] ?? '',
+      thumbnailLandscape: json['thumbnailLandscape'] ?? '',
     );
   }
+
   Map<String, dynamic> toJson() {
     return {
       '_id': id,
@@ -85,6 +95,9 @@ class MovieModel {
       'reviewPoint': reviewPoint,
       'createdBy': createdBy,
       'createdAt': createdAt.toIso8601String(),
+      'isWatching': isWatching,
+      'videoUrl': videoUrl,
+      'thumbnailLandscape': thumbnailLandscape,
     };
   }
 }
