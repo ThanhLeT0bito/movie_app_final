@@ -8,6 +8,12 @@ class Movieproviders extends ChangeNotifier {
   static const String urlApi = ApiService.urlApi;
   List<MovieModel> listAllMovie = [];
 
+  void addListMovies() {
+    for (var i in listMovies) {
+      addMovie(i);
+    }
+  }
+
   Future<void> fetchAllMovies() async {
     try {
       final response = await http.get(
@@ -101,4 +107,30 @@ class Movieproviders extends ChangeNotifier {
     print('createdBy: ${movie.createdBy}');
     print('createdAt: ${movie.createdAt}');
   }
+
+  List<MovieModel> listMovies = [
+    MovieModel(
+        name: "name",
+        slug: "slug",
+        trailerUrl: "https://www.youtube.com/watch?v=WLEhociPWzA",
+        description: "description",
+        content: "content",
+        thumbnail: "images// nằm dọc",
+        category: "category",
+        director: "actorID",
+        actor: "actorID",
+        language: "language",
+        publish: "publish",
+        censorship: "censorship",
+        duration: "duration",
+        startTime: DateTime.now(),
+        endTime: DateTime.now(),
+        reviewPoint: 4,
+        createdBy: "Admin",
+        createdAt: DateTime.now(),
+        isWatching: false,
+        videoUrl:
+            "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/videos%2Fkung-fu-panda-4-official-trailer.mp4?alt=media&token=53325b62-57d5-4fd9-bb05-17efbe7393ae",
+        thumbnailLandscape: "images// nằm ngang")
+  ];
 }

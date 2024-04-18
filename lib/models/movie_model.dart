@@ -1,5 +1,5 @@
 class MovieModel {
-  final String id;
+  final String? id;
   final String name;
   final String slug;
   final String trailerUrl;
@@ -23,7 +23,7 @@ class MovieModel {
   final String thumbnailLandscape;
 
   MovieModel({
-    required this.id,
+    this.id,
     required this.name,
     required this.slug,
     required this.trailerUrl,
@@ -76,7 +76,6 @@ class MovieModel {
 
   Map<String, dynamic> toJson() {
     return {
-      '_id': id,
       'name': name,
       'slug': slug,
       'trailerUrl': trailerUrl,
