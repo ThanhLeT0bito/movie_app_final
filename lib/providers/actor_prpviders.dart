@@ -11,6 +11,10 @@ class ActorProviders extends ChangeNotifier {
     Actor(
         name: "Khoa Dan",
         images:
+            "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2FScreenshot%202023-04-12%20152726.png?alt=media&token=a0b93cec-a33e-49f4-8eea-411a378e3549"),
+    Actor(
+        name: "Khoa Dan",
+        images:
             "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2FScreenshot%202023-04-12%20152726.png?alt=media&token=a0b93cec-a33e-49f4-8eea-411a378e3549")
   ];
   String linkytb = " https://www.youtube.com/watch?v=WLEhociPWzA";
