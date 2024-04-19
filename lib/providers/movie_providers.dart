@@ -118,7 +118,7 @@ class Movieproviders extends ChangeNotifier {
         thumbnail: "images// nằm dọc",
         category: "category",
         director: "actorID",
-        actor: "actorID",
+        actor: "6622a046ae30f9d340778130, ",
         language: "language",
         publish: "publish",
         censorship: "censorship",
