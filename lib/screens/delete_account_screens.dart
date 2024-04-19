@@ -13,8 +13,15 @@ class DeleteAccountScreens extends StatefulWidget {
 
 class _DeleteAccountScreensState extends State<DeleteAccountScreens> {
   bool _isChecked = false;
+
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      body: _buildBody(),
+    );
+  }
+
+  Widget _buildBody() {
     List<Widget> numberedTexts = [
       _buildNumberedText(
           'You will be logged out of your account on all devices', 1),
@@ -128,7 +135,7 @@ class _DeleteAccountScreensState extends State<DeleteAccountScreens> {
             ),
             SizedBox(height: 10),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20), // Điều chỉnh padding theo ý muốn của bạn
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -156,7 +163,7 @@ class _DeleteAccountScreensState extends State<DeleteAccountScreens> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20), // Khoảng cách giữa hai dòng
+                  SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -178,14 +185,14 @@ class _DeleteAccountScreensState extends State<DeleteAccountScreens> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 10), // Khoảng trống giữa hai nút
+                      SizedBox(width: 10),
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
                             // Xử lý khi nút Delete account được nhấn
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.BaseColorMain, // Màu nền của nút Delete Account
+                            backgroundColor: AppColors.BaseColorMain,
                           ),
                           child: Text(
                             'Delete account',
@@ -229,8 +236,8 @@ class _DeleteAccountScreensState extends State<DeleteAccountScreens> {
             height: 30,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: AppColors.BaseColorMain, // Màu cam
-              borderRadius: BorderRadius.circular(15), // Bo tròn
+              color: AppColors.BaseColorMain,
+              borderRadius: BorderRadius.circular(15),
             ),
             child: Text(
               number.toString(),
