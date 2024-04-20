@@ -230,7 +230,7 @@ class ProfileItemWidget extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.touch_app_outlined,
+                          Icon(Icons.toggle_off,
                               size: Dimens.SizeIconProfile,
                               color: AppColors.BaseColorWhite),
                           SizedBox(
