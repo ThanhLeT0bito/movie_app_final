@@ -15,6 +15,21 @@ class PaymentScreens extends StatefulWidget {
 }
 
 class _PaymentScreensState extends State<PaymentScreens> {
+  late List<bool> _isSelectedList;
+
+  @override
+  void initState() {
+    super.initState();
+    _isSelectedList = [false, false, false, false, false]; // Khởi tạo danh sách trạng thái
+  }
+  void _updateSelectedIndex(int index) {
+    setState(() {
+      for (int i = 0; i < _isSelectedList.length; i++) {
+        _isSelectedList[i] = i == index;
+      }
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
@@ -299,24 +314,58 @@ class _PaymentScreensState extends State<PaymentScreens> {
                 SizedBox(
                   height: 20,
                 ),
-                PaymentMethod(img: 'assets/images/zalo.jpg', title: 'Zalo Pay'),
-                SizedBox(
-                  height: 20,
-                ),
-                PaymentMethod(img: 'assets/images/momo.png', title: 'Momo'),
-                SizedBox(
-                  height: 20,
-                ),
-                PaymentMethod(img: 'assets/images/shoppe.png', title: 'Shoppe Pay'),
-                SizedBox(
-                  height: 20,
-                ),
-                PaymentMethod(img: 'assets/images/atm card.png', title: 'ATM Card'),
+                PaymentMethod(
+                img: 'assets/images/zalo.jpg',
+                title: 'Zalo Pay',
+                isSelected: _isSelectedList[0],
+                onTap: () {
+                  _updateSelectedIndex(0);
+                },
+              ),
                 SizedBox(
                   height: 20,
                 ),
                 PaymentMethod(
-                    img: 'assets/images/atm.png', title: 'International payments'),
+                  img: 'assets/images/momo.png',
+                  title: 'Momo',
+                  isSelected: _isSelectedList[1],
+                  onTap: (){
+                     _updateSelectedIndex(1);
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                PaymentMethod(
+                  img: 'assets/images/shoppe.png',
+                  title: 'Shoppe Pay',
+                  isSelected: _isSelectedList[2],
+                  onTap: (){
+                     _updateSelectedIndex(2);
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                PaymentMethod(
+                  img: 'assets/images/atm card.png',
+                  title: 'ATM Card',
+                  isSelected: _isSelectedList[3],
+                  onTap: (){
+                     _updateSelectedIndex(3);
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                PaymentMethod(
+                    img: 'assets/images/atm.png', 
+                    title: 'International payments',
+                    isSelected: _isSelectedList[4],
+                    onTap: (){
+                       _updateSelectedIndex(4);
+                  },
+                ),
                 SizedBox(
                   height: 20,
                 ),
