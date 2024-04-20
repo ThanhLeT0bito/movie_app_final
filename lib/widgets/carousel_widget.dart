@@ -14,23 +14,31 @@ class CarouselWidget extends StatelessWidget {
     late List<Widget> listCarousel = [
       const ItemCarouselWidget(
         img: "assets/images/img_1.jpg",
-        Name: "Mai",
-        Description: "2h11m. Roman, Psychology",
+        name: "Mai",
+        description: "2h11m. Roman, Psychology",
+        star:5,
+        view: (1.232),
       ),
       const ItemCarouselWidget(
         img: "assets/images/img_2.jpg",
-        Name: "Đào Phở, Piano",
-        Description: "2h11m. Roman, psychology, History, Hero",
+        name: "Đào Phở, Piano",
+        description: "2h11m. Roman, psychology, History, Hero",
+        star: 4,
+        view: (925),
       ),
       const ItemCarouselWidget(
         img: "assets/images/img_3.jpg",
-        Name: "Gặp lại chị bầu",
-        Description: "2h14m. Family, Comedy, Romance",
+        name: "Gặp lại chị bầu",
+        description: "2h14m. Family, Comedy, Romance",
+        star:4,
+        view: (2.313),
       ),
       const ItemCarouselWidget(
         img: "assets/images/img_4.jpg",
-        Name: "Quật mộ trùng ma",
-        Description: "2h30m. Horror, Sensational, Mystical",
+        name: "Quật mộ trùng ma",
+        description: "2h30m. Horror, Sensational, Mystical",
+        star: 5,
+        view:( 1.054),
       ),
     ];
     return CarouselSlider(

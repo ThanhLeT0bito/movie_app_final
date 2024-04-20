@@ -36,4 +36,8 @@ class AppColors {
 
   //signin up
   static const BackgroundButtonFBAndGG = Color(0xFF1A1A1A);
+
+  //signin up
+  static const BackgroundSelectCinema = Color(0xFF261D08);
+  
 }

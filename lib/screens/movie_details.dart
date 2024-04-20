@@ -5,6 +5,7 @@ import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
+import 'package:movie_app_final/widgets/item_review_widget.dart';
 
 import '../widgets/Base/custom_cinema_movie_detail.dart';
 
@@ -541,6 +542,10 @@ class MainContent extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
+                  ItemReviewWidget(img: "assets/images/cat.jpg", name: "Thanh ngu", title: "Phim hay", time: "12 seconds", star: "star"),
+                  const SizedBox(
+                    height: 20,
+                  ),
                      ChooseCinema(),
                       SizedBox(
                         height: 20,
@@ -552,10 +557,10 @@ class MainContent extends StatelessWidget {
                                 context, SelectSeatScreen.routeName);
                           }),
                     ],
-                  ),
-                ),
-          ),        
-      ],
+                  ),      
+            ),  
+          ),
+      ]
     );
   }
 }

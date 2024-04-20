@@ -3,15 +3,19 @@ import 'package:movie_app_final/resources/app_color.dart';
 
 class ItemCarouselWidget extends StatelessWidget {
   const ItemCarouselWidget({
-    super.key,
+    Key? key,
     required this.img,
-    required this.Description,
-    required this.Name,
-  });
-  final String img;
-  final String Description;
-  final String Name;
+    required this.description,
+    required this.name,
+    required this.star,
+    required this.view,
+  }) : super(key: key);
 
+  final String img;
+  final String description;
+  final String name;
+  final int star;
+  final double view;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,7 +32,7 @@ class ItemCarouselWidget extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         Text(
-          Name,
+          name,
           style: const TextStyle(
             color: AppColors.BaseColorWhite,
             fontSize: 26,
@@ -42,7 +46,7 @@ class ItemCarouselWidget extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  Description,
+                  description,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: const TextStyle(
@@ -51,8 +55,41 @@ class ItemCarouselWidget extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 5,
+              ),
             ],
           ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (star > 0)
+              Icon(
+                Icons.star,
+                color: AppColors.BaseColorMain,
+              ),
+            SizedBox(
+                width:
+                    5), // Adjust the spacing between the star icon and the text
+            Text(
+              '$star',
+              style: TextStyle(
+                color: AppColors.BaseColorWhite,
+                fontSize: 16,
+              ),
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              '($view)',
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 14,
+              ),
+            ),
+          ],
         ),
       ],
     );
