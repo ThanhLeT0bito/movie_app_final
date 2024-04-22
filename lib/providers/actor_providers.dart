@@ -1,7 +1,40 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/models/actor.dart';
+import 'package:http/http.dart' as http;
+import 'package:movie_app_final/services/api_services.dart';
 
 class ActorProviders extends ChangeNotifier {
+  static const String urlApi = ApiService.urlApi;
+
+  void addListActors() {
+    for (var i in listActors) {
+      insertActor(i);
+    }
+  }
+
+  Future<void> insertActor(Actor actor) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$urlApi/insertActor'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(actor.toJson()),
+      );
+
+      if (response.statusCode == 201) {
+        // Diễn viên được thêm thành công
+        print('Actor inserted successfully');
+      } else {
+        print('Failed to insert actor: ${response.body}');
+      }
+    } catch (error) {
+      print('Error inserting actor: $error');
+    }
+  }
+
   List<Actor> listActors = [
 
     //phim mai

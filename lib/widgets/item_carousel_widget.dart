@@ -4,10 +4,12 @@ import 'package:movie_app_final/resources/app_color.dart';
 class ItemCarouselWidget extends StatelessWidget {
   const ItemCarouselWidget({
     super.key,
+    required this.id,
     required this.img,
     required this.Description,
     required this.Name,
   });
+  final String id;
   final String img;
   final String Description;
   final String Name;
@@ -19,7 +21,7 @@ class ItemCarouselWidget extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(20),
-          child: Image.asset(
+          child: Image.network(
             img,
             fit: BoxFit.cover,
             width: 270,
@@ -29,29 +31,23 @@ class ItemCarouselWidget extends StatelessWidget {
         const SizedBox(height: 10),
         Text(
           Name,
+          maxLines: 1,
           style: const TextStyle(
             color: AppColors.BaseColorWhite,
             fontSize: 26,
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(
-          width: 200,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Text(
-                  Description,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: const TextStyle(
-                    color: AppColors.BaseColorWhite,
-                    fontSize: 15,
-                  ),
-                ),
-              ),
-            ],
+        const SizedBox(
+          height: 5,
+        ),
+        Text(
+          Description,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          style: const TextStyle(
+            color: AppColors.BaseColorWhite,
+            fontSize: 16,
           ),
         ),
       ],

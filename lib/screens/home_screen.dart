@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/models/model_widget/item_radio.dart';
 import 'package:movie_app_final/providers/manager_all_widget.dart';
+import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/resources/app_color.dart';
-import 'package:movie_app_final/screens/home_page_screens.dart';
 import 'package:movie_app_final/screens/home_watching_screen.dart';
-import 'package:movie_app_final/screens/movie_details.dart';
-import 'package:movie_app_final/screens/now_playing_screens.dart';
-import 'package:movie_app_final/screens/profile_screens.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
-import 'package:movie_app_final/widgets/Base/custom_bottom_navigator.dart';
 import 'package:movie_app_final/widgets/Base/custom_bottom_sheet.dart';
 import 'package:movie_app_final/widgets/Base/custom_item_radio.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
-import 'package:movie_app_final/widgets/custom_item_bottom__bar.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/Base/custom_textfield.dart';
@@ -27,6 +21,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    //init all data movie from server
+    // Provider.of<Movieproviders>(context, listen: false).fetchAllMovies();
+    Provider.of<Movieproviders>(context, listen: false).InitListCarousel();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<ManagerAllWidget>(context);
