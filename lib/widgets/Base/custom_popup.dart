@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,7 +24,8 @@ class _CustomDialogState extends State<CustomDialog> {
       contentPadding: EdgeInsets.zero,
       content: Container(
         width: 220,
-        height: 300,
+        height: 320,
+        //constraints: BoxConstraints(minHeight: 100, maxHeight: 500),
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         decoration: BoxDecoration(
           color: AppColors.BaseColorBlack,
@@ -55,10 +57,10 @@ class _CustomDialogState extends State<CustomDialog> {
               ],
             ),
             SvgPicture.asset(
-              './assets/icons/warning-error.svg',
-              width: 120,
-              height: 150,
-              color: AppColors.BaseColorAroundWhite,
+              './assets/icons/close.svg',
+              width: 100,
+              height: 130,
+              color: AppColors.BaseColorWhite,
             ),
             Expanded(
               child: Container(
@@ -66,15 +68,17 @@ class _CustomDialogState extends State<CustomDialog> {
                 child: const Center(
                   child: Text(
                     "please seleted another seat!",
+                    textAlign: TextAlign.center,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: AppColors.BaseColorWhite),
+                    style: TextStyle(
+                        color: AppColors.BaseColorWhite, fontSize: 17),
                   ),
                 ),
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             CustomTextButton(
                 text: "Ok",
@@ -84,7 +88,10 @@ class _CustomDialogState extends State<CustomDialog> {
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                 onPressed: () {
                   Navigator.of(context).pop();
-                })
+                }),
+            const SizedBox(
+              height: 10,
+            )
           ],
         ),
       ),

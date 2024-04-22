@@ -5,6 +5,7 @@ import 'package:movie_app_final/models/movie_model.dart';
 import 'package:movie_app_final/models/order_model.dart';
 import 'package:movie_app_final/models/user.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
+import 'package:movie_app_final/providers/actor_providers.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/providers/orders_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
@@ -27,7 +28,9 @@ class _ProfileScreensState extends State<HomeProfileScreens> {
   void initState() {
     super.initState();
     Provider.of<AuthProvider>(context, listen: false).fetchUsers();
-    Provider.of<Movieproviders>(context, listen: false).fetchAllMovies();
+    //Provider.of<ActorProviders>(context, listen: false).addListActors();
+    //Provider.of<Movieproviders>(context, listen: false).addListMovies();
+    //Provider.of<Movieproviders>(context, listen: false).fetchAllMovies();
     // Provider.of<OrdersProvider>(context, listen: false).insertOrder(OrderModel(
     //     userId: "1234",
     //     movieId: "123",

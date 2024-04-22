@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/providers/manager_all_widget.dart';
 import 'package:movie_app_final/resources/app_color.dart';
-import 'package:movie_app_final/screens/home_page_screens.dart';
 import 'package:movie_app_final/screens/home_screen.dart';
-import 'package:movie_app_final/screens/home_watching_screen.dart';
 import 'package:provider/provider.dart';
 
 class ChooseNeed extends StatefulWidget {

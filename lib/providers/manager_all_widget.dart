@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/models/model_widget/item_radio.dart';
+import 'package:movie_app_final/providers/movie_providers.dart';
+import 'package:movie_app_final/screens/choose_your_need_screens.dart';
 import 'package:movie_app_final/screens/home_page_screens.dart';
 import 'package:movie_app_final/screens/home_screen.dart';
 import 'package:movie_app_final/screens/home_watching_screen.dart';
@@ -19,6 +22,7 @@ import 'package:movie_app_final/widgets/custom_item_bottom__bar.dart';
 class ManagerAllWidget extends ChangeNotifier {
   //String startScreen = SignIn_SignUp_Screens.routeName;
   String startScreen = HomeScreen.routeName;
+  //String startScreen = ChooseNeed.routeName;
   //mode
   bool isBookingScreen = false;
 
@@ -48,7 +52,7 @@ class ManagerAllWidget extends ChangeNotifier {
         isSelected: i == index,
       );
     }
-    
+
     CustomBottomnavi = CustomBottomNavigationBar(
       bottomNavBarItems: bottomNavBarItems,
       onItemTapped: setBottomItem,

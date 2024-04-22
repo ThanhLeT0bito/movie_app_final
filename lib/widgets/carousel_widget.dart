@@ -1,38 +1,43 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/movie_details.dart';
 import 'package:movie_app_final/widgets/item_carousel_widget.dart';
+import 'package:provider/provider.dart';
 
 class CarouselWidget extends StatelessWidget {
   const CarouselWidget({
     super.key,
+    required this.listCarousel,
   });
-
+  final List<ItemCarouselWidget> listCarousel;
   @override
   Widget build(BuildContext context) {
-    late List<Widget> listCarousel = [
-      const ItemCarouselWidget(
-        img: "assets/images/img_1.jpg",
-        Name: "Mai",
-        Description: "2h11m. Roman, Psychology",
-      ),
-      const ItemCarouselWidget(
-        img: "assets/images/img_2.jpg",
-        Name: "Đào Phở, Piano",
-        Description: "2h11m. Roman, psychology, History, Hero",
-      ),
-      const ItemCarouselWidget(
-        img: "assets/images/img_3.jpg",
-        Name: "Gặp lại chị bầu",
-        Description: "2h14m. Family, Comedy, Romance",
-      ),
-      const ItemCarouselWidget(
-        img: "assets/images/img_4.jpg",
-        Name: "Quật mộ trùng ma",
-        Description: "2h30m. Horror, Sensational, Mystical",
-      ),
-    ];
+    //var dataMovie = Provider.of<Movieproviders>(context);
+    //List<ItemCarouselWidget> listCarousel = dataMovie.listCarousel;
+    //     [
+    //   const ItemCarouselWidget(
+    //     img: "assets/images/img_1.jpg",
+    //     Name: "Mai",
+    //     Description: "2h11m. Roman, Psychology",
+    //   ),
+    //   const ItemCarouselWidget(
+    //     img: "assets/images/img_2.jpg",
+    //     Name: "Đào Phở, Piano",
+    //     Description: "2h11m. Roman, psychology, History, Hero",
+    //   ),
+    //   const ItemCarouselWidget(
+    //     img: "assets/images/img_3.jpg",
+    //     Name: "Gặp lại chị bầu",
+    //     Description: "2h14m. Family, Comedy, Romance",
+    //   ),
+    //   const ItemCarouselWidget(
+    //     img: "assets/images/img_4.jpg",
+    //     Name: "Quật mộ trùng ma",
+    //     Description: "2h30m. Horror, Sensational, Mystical",
+    //   ),
+    // ];
     return CarouselSlider(
       options: CarouselOptions(
         height: null,
@@ -51,7 +56,8 @@ class CarouselWidget extends StatelessWidget {
           builder: (BuildContext context) {
             return GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, MoviedetailsScreens.routeName);
+                Navigator.pushNamed(context, MoviedetailsScreens.routeName,
+                    arguments: item.id);
               },
               child: SizedBox(
                 width: MediaQuery.of(context).size.width -

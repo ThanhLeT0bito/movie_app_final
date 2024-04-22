@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/models/model_widget/item_radio.dart';
 import 'package:movie_app_final/providers/manager_all_widget.dart';
+import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/widgets/Base/custom_bottom_sheet.dart';
 import 'package:movie_app_final/widgets/Base/custom_item_category_widget.dart';
 import 'package:movie_app_final/widgets/Base/custom_item_radio.dart';
 import 'package:movie_app_final/widgets/carousel_widget.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
+import 'package:movie_app_final/widgets/item_carousel_widget.dart';
 import 'package:movie_app_final/widgets/item_movie_cs_hp.dart';
 import 'package:movie_app_final/widgets/item_movie_title.dart';
 import 'package:movie_app_final/widgets/item_service_widget.dart';
@@ -22,6 +24,8 @@ class HomepageScreens extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<ManagerAllWidget>(context);
+    var dataMovie = Provider.of<Movieproviders>(context);
+    List<ItemCarouselWidget> listCarousel = dataMovie.listCarousel;
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
@@ -54,8 +58,9 @@ class HomepageScreens extends StatelessWidget {
                     Container(
                       height: MediaQuery.of(context).size.height *
                           0.6, // Đặt chiều cao cố định cho Container
-                      child:
-                          CarouselWidget(), // Bọc CarouselWidget trong Container
+                      child: CarouselWidget(
+                        listCarousel: listCarousel,
+                      ), // Bọc CarouselWidget trong Container
                     ),
                     const ItemCategoryWidget(
                       title: "Comming Soon",

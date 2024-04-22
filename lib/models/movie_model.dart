@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class MovieModel {
   final String? id;
   final String name;
@@ -98,5 +100,9 @@ class MovieModel {
       'videoUrl': videoUrl,
       'thumbnailLandscape': thumbnailLandscape,
     };
+  }
+
+  static String getFormattedDate(DateTime date) {
+    return DateFormat('dd-MM-yyyy').format(date);
   }
 }

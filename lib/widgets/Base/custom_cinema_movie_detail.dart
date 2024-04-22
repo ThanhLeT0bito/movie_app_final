@@ -9,7 +9,8 @@ class ChooseCinema extends StatefulWidget {
 }
 
 class _ChooseCinemaState extends State<ChooseCinema> {
-  int _selectedContainerIndex = -1; // Khởi tạo biến để lưu trạng thái container được chọn
+  int _selectedContainerIndex =
+      -1; // Khởi tạo biến để lưu trạng thái container được chọn
 
   @override
   Widget build(BuildContext context) {
@@ -28,20 +29,21 @@ class _ChooseCinemaState extends State<ChooseCinema> {
         GestureDetector(
           onTap: () {
             setState(() {
-              _selectedContainerIndex = 0; // Cập nhật trạng thái container khi được chọn
+              _selectedContainerIndex =
+                  0; // Cập nhật trạng thái container khi được chọn
             });
           },
           child: Container(
             width: 500,
             height: 100,
             decoration: BoxDecoration(
-              color: Colors.grey.shade900,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: _selectedContainerIndex ==0 ? AppColors.BaseColorMain : Colors.grey.shade900,
-                width: 2
-              )
-            ),
+                color: Colors.grey.shade900,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                    color: _selectedContainerIndex == 0
+                        ? AppColors.BaseColorMain
+                        : Colors.grey.shade900,
+                    width: 2)),
             padding: EdgeInsets.all(10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,8 +83,8 @@ class _ChooseCinemaState extends State<ChooseCinema> {
                       image: AssetImage('assets/images/cgv.png'),
                       // Đường dẫn tới logo
                       fit: BoxFit.cover,
-                      colorFilter: ColorFilter.mode(
-                          Colors.white, BlendMode.dstIn),
+                      colorFilter:
+                          ColorFilter.mode(Colors.white, BlendMode.dstIn),
                     ),
                   ),
                 ),
@@ -96,20 +98,22 @@ class _ChooseCinemaState extends State<ChooseCinema> {
         GestureDetector(
           onTap: () {
             setState(() {
-              _selectedContainerIndex = 1; // Cập nhật trạng thái container khi được chọn
+              _selectedContainerIndex =
+                  1; // Cập nhật trạng thái container khi được chọn
             });
           },
           child: Container(
             width: 500,
             height: 100,
             decoration: BoxDecoration(
-              color:  Colors.grey.shade900,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color:_selectedContainerIndex == 1 ? AppColors.BaseColorMain : Colors.grey.shade900,
-                width: 2,
-              )
-            ),
+                color: Colors.grey.shade900,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: _selectedContainerIndex == 1
+                      ? AppColors.BaseColorMain
+                      : Colors.grey.shade900,
+                  width: 2,
+                )),
             padding: EdgeInsets.all(10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,8 +154,8 @@ class _ChooseCinemaState extends State<ChooseCinema> {
                       image: AssetImage(
                           'assets/images/cgv.png'), // Đường dẫn tới logo
                       fit: BoxFit.cover,
-                      colorFilter: ColorFilter.mode(
-                          Colors.white, BlendMode.dstIn),
+                      colorFilter:
+                          ColorFilter.mode(Colors.white, BlendMode.dstIn),
                     ),
                   ),
                 ),
@@ -165,20 +169,22 @@ class _ChooseCinemaState extends State<ChooseCinema> {
         GestureDetector(
           onTap: () {
             setState(() {
-              _selectedContainerIndex = 2; // Cập nhật trạng thái container khi được chọn
+              _selectedContainerIndex =
+                  2; // Cập nhật trạng thái container khi được chọn
             });
           },
           child: Container(
             width: 500,
             height: 100,
             decoration: BoxDecoration(
-              color: Colors.grey.shade900,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: _selectedContainerIndex == 2 ? AppColors.BaseColorMain : Colors.grey.shade900,
-                width: 2,
-              )
-            ),
+                color: Colors.grey.shade900,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: _selectedContainerIndex == 2
+                      ? AppColors.BaseColorMain
+                      : Colors.grey.shade900,
+                  width: 2,
+                )),
             padding: EdgeInsets.all(10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
