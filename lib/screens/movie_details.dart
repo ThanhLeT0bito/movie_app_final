@@ -104,7 +104,7 @@ class PositionedItem extends StatelessWidget {
                 fontWeight: FontWeight.bold),
           ),
           Text(
-            "${movie.duration}* ${movie.createdAt.toString()}",
+            "${movie.duration}* ${MovieModel.getFormattedDate(movie.createdAt)}",
             style: const TextStyle(
                 color: AppColors.BaseColorAroundWhite,
                 fontSize: 15,

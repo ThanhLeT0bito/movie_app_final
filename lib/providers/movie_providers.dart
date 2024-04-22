@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/models/movie_model.dart';
 import 'package:movie_app_final/services/api_services.dart';
