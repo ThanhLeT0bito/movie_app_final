@@ -376,7 +376,7 @@ class Movieproviders extends ChangeNotifier {
         createdAt: DateTime.now(),
         isWatching: false,
         videoUrl:
-        "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/videos%2FQU%E1%BA%ACT%20M%E1%BB%98%20TR%C3%99NG%20MA%20-%20Teaser%20Trailer%20_%20KC_%2015.03.2024.mp4?alt=media&token=1bf8bd96-7419-4f97-b23f-7e47dc532a40",
+        "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/videos%2FM%E1%BA%AFt%20Bi%E1%BA%BFc.mp4?alt=media&token=2621c133-41c4-47f8-93cc-5d2125c1a258",
         thumbnailLandscape:
         "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhngang%2Fposter_mat_biec.png?alt=media&token=7ca73c1e-ce52-423d-9291-1d83a1f9b79f"),
 
@@ -433,6 +433,168 @@ class Movieproviders extends ChangeNotifier {
         "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/videos%2Fnha-ba-nu.mp4?alt=media&token=186aa3b2-38db-4a6d-97f2-a77d0c610002",
         thumbnailLandscape:
         "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhngang%2Fnhabanu.png?alt=media&token=bf010e2b-0ca2-4ad7-b05f-2f89c6930699"),
+
+    MovieModel(
+        name: "Cái giá của hạnh phúc",
+        slug: "slug",
+        trailerUrl: "https://www.youtube.com/watch?v=U46X1pXfolk",
+        description:
+        "The story revolves around the home of the businessman couple Đinh Công Thoại (played by Thái Hòa) and Võ Thùy Dương (played by Xuân Lan). On the surface, they have a wealthy and happy life, admired by many.",
+        content: "Beneath their glamorous facade, Mrs. Dương and Mr. Thoại always strive to build an image of a successful and respectable family in the eyes of everyone. However, beneath this surface lies a tumultuous and troubled family with many hidden flaws.",
+        thumbnail:
+        "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhdoc%2Fcai-gia-cua-hanh-phuc-poster.png?alt=media&token=fcfc2b30-7301-4623-ad28-4d44fc488ef5",
+        category: "Psychology",
+        director: "6622b094a48e47dcc7cb57d8",
+        actor: "6622b094a48e47dcc7cb57d2",
+        language: "Vietnamese",
+        publish: "publish",
+        censorship: "18+",
+        duration: "1h55",
+        startTime: DateTime.now(),
+        endTime: DateTime.now(),
+        reviewPoint: 4,
+        createdBy: "Admin",
+        createdAt: DateTime.now(),
+        isWatching: false,
+        videoUrl:
+        "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/videos%2Fcai_gia_cua_hanh_phuc.mp4?alt=media&token=6e3700ae-889a-4dc7-bfb8-489e4f59e1ff",
+        thumbnailLandscape:
+        "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhngang%2Fcai_gia_cua_hanh_phuc.png?alt=media&token=914b57a7-99b8-4eb1-ab77-6341fadaef2c"),
+
+    MovieModel(
+        name: "Mùa hè của Luca",
+        slug: "slug",
+        trailerUrl: "https://www.youtube.com/watch?v=FzV3gRevq4Q",
+        description:
+        "'Luca's Summer tells the story of young Luca's journey to the beautiful island of Portorosso, located in the Mediterranean Sea in Italy. Here, he meets and befriends new small friends and enjoys a sunny summer.",
+        content: "'Mùa Hè Của Luca' tells the story of Luca's journey on the beautiful island of Portorosso in the Mediterranean Sea in Italy. Here, he makes friends and bonds with new small friends and enjoys a summer full of sunshine, Gelato ice cream, and the famous Italian pasta.",
+        thumbnail:
+        "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhdoc%2Fmua_he_cua_luca.png?alt=media&token=7d920a70-946a-475b-b499-5af3932da4f9",
+        category: "Comedy, Cartoon",
+        director: "6622b094a48e47dcc7cb57d8",
+        actor: "6622b094a48e47dcc7cb57d2",
+        language: "English",
+        publish: "publish",
+        censorship: "13+",
+        duration: "1h39",
+        startTime: DateTime.now(),
+        endTime: DateTime.now(),
+        reviewPoint: 4,
+        createdBy: "Admin",
+        createdAt: DateTime.now(),
+        isWatching: false,
+        videoUrl:
+        "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/videos%2FWatch%20Luca%20Full%20Movie.mp4?alt=media&token=8ef72ae1-9ac9-442a-8182-0697ecccc582",
+        thumbnailLandscape:
+        "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhngang%2Fmua_he_cua_luca.png?alt=media&token=3f20a7e8-3ab1-42b2-9759-a46d0f3bc916"),
+
+    MovieModel(
+        name: "Anh hùng bàn phím",
+        slug: "slug",
+        trailerUrl: "https://www.youtube.com/watch?v=fX0pDW1PD94",
+        description:
+        "The movie delves deep into the hot topic of social manipulation through unethical tactics that has been rampant recently.",
+        content: "Im Sang-jin - a social affairs reporter, was suspended from work after a biased investigative report about the controversies of the Manjun conglomerate. Thinking he had to bear the injustice for life, Im Sang-jin suddenly received anonymous information asserting that he was not wrong, but everything was manipulated by an online 'army'.",
+        thumbnail:
+        "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhdoc%2Fposter-anh-hung-ban-phim.png?alt=media&token=a8bed1ed-1caf-475c-a2e4-6788cbd43b5e",
+        category: "Criminal",
+        director: "6622b094a48e47dcc7cb57d8",
+        actor: "6622b094a48e47dcc7cb57d2",
+        language: "Korea",
+        publish: "publish",
+        censorship: "16+",
+        duration: "1h46",
+        startTime: DateTime.now(),
+        endTime: DateTime.now(),
+        reviewPoint: 4,
+        createdBy: "Admin",
+        createdAt: DateTime.now(),
+        isWatching: false,
+        videoUrl:
+        "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/videos%2FReview%20Anh%20H%C3%B9ng%20B%C3%A0n%20Ph%C3%ADm.mp4?alt=media&token=477177c4-5d72-4911-a5bb-3ff5c66389fa",
+        thumbnailLandscape:
+        "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhngang%2Fanh_hung_ban_phim.png?alt=media&token=1af86104-2352-4bd4-ba0a-2f4ebd447b82"),
+
+    MovieModel(
+        name: "Thanh xuân 18x2: Lữ trình hướng về em",
+        slug: "slug",
+        trailerUrl: "https://www.youtube.com/watch?v=8Pq08VsVUFk",
+        description:
+        "That's the journey of Hua Quang Han searching for his first love in the movie 'Youth 18x2: Journey Back to You.' It's a journey back to the past, yet it makes people look forward to the future.",
+        content: "Memories of first love flood back when Jimmy receives a postcard from Ami. He decides to board a train to Japan alone to reunite with the girl he missed 18 years ago. Will their youthful romance find a happy ending when they reunite?",
+        thumbnail:
+        "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhdoc%2Fthanh-xuan-poster.png?alt=media&token=3ca38df6-033d-4094-aeaf-d97aee79dc24",
+        category: "Romantic",
+        director: "6622b094a48e47dcc7cb57d8",
+        actor: "6622b094a48e47dcc7cb57d2",
+        language: "China and Japan",
+        publish: "publish",
+        censorship: "13+",
+        duration: "2h3",
+        startTime: DateTime.now(),
+        endTime: DateTime.now(),
+        reviewPoint: 4,
+        createdBy: "Admin",
+        createdAt: DateTime.now(),
+        isWatching: false,
+        videoUrl:
+        "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/videos%2FReview%20THANH%20XU%C3%82N%2018x2_%20L%E1%BB%AE%20TR%C3%8CNH%20H%C6%AF%E1%BB%9ANG%20V%E1%BB%80%20EM.mp4?alt=media&token=715f1580-3d4c-4399-98bb-2e777f314d4c",
+        thumbnailLandscape:
+        "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhngang%2Fposter_thanh_xuan.png?alt=media&token=e878eace-121e-4bdc-b0c8-7cbe0cad7b91"),
+
+    MovieModel(
+        name: "Ngày tàn của đế quốc",
+        slug: "slug",
+        trailerUrl: "https://www.youtube.com/watch?v=QGlgPf9jGMA",
+        description:
+        "In the near future, a group of journalists is traveling across the United States during the Second American Civil War, which is rapidly escalating and plunging the country into chaos, between the U.S. government and the 'West Coast Forces.",
+        content: "In a near future, a group of courageous war correspondents must struggle against time and dangerous bombs to reach the White House amidst the escalating civil war in the United States.",
+        thumbnail:
+        "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhdoc%2FNgay-tan-cua-de-quoc-poster.png?alt=media&token=ce3d6fe2-5303-4596-b46b-0f429d85dcb3",
+        category: "Science fiction",
+        director: "6622b094a48e47dcc7cb57d8",
+        actor: "6622b094a48e47dcc7cb57d2",
+        language: "English",
+        publish: "publish",
+        censorship: "18+",
+        duration: "1h49",
+        startTime: DateTime.now(),
+        endTime: DateTime.now(),
+        reviewPoint: 4,
+        createdBy: "Admin",
+        createdAt: DateTime.now(),
+        isWatching: false,
+        videoUrl:
+        "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/videos%2FREVIEW%20CIVIL%20WAR%20_%20NG%C3%80Y%20T%C3%80N%20C%E1%BB%A6A%20%C4%90%E1%BA%BE%20QU%E1%BB%90C.mp4?alt=media&token=e11cd267-e37d-47c0-b930-b907c4071dd8",
+        thumbnailLandscape:
+        "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhngang%2FNgay-tan-cua-de-quoc.png?alt=media&token=13138b46-bd36-4e74-af37-594814b40fbb"),
+
+    MovieModel(
+        name: "Trạng quỳnh",
+        slug: "slug",
+        trailerUrl: "https://www.youtube.com/watch?v=ikXMNocYUeY",
+        description:
+        "A movie based on an iconic folk sotry - Trang Quynh",
+        content: "'Trạng Quỳnh' will revolve around the journey to rescue Master Doan, as well as the life of Điềm, a conflicted and comical father, and the struggles of ordinary people in the feudal society oppressed by unjust officials.",
+        thumbnail:
+        "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhdoc%2Fcai-gia-cua-hanh-phuc-poster.png?alt=media&token=fcfc2b30-7301-4623-ad28-4d44fc488ef5",
+        category: "Science fiction",
+        director: "6622b094a48e47dcc7cb57d8",
+        actor: "6622b094a48e47dcc7cb57d2",
+        language: "Vietnamese",
+        publish: "publish",
+        censorship: "13+",
+        duration: "1h38",
+        startTime: DateTime.now(),
+        endTime: DateTime.now(),
+        reviewPoint: 4,
+        createdBy: "Admin",
+        createdAt: DateTime.now(),
+        isWatching: false,
+        videoUrl:
+        "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/videos%2Fnha-ba-nu.mp4?alt=media&token=186aa3b2-38db-4a6d-97f2-a77d0c610002",
+        thumbnailLandscape:
+        "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhngang%2Fcai_gia_cua_hanh_phuc.png?alt=media&token=914b57a7-99b8-4eb1-ab77-6341fadaef2c"),
 
   ];
 }
