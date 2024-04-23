@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/models/model_widget/item_radio.dart';
+import 'package:movie_app_final/providers/AuthProvider.dart';
 import 'package:movie_app_final/providers/manager_all_widget.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/resources/app_color.dart';
@@ -26,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //init all data movie from server
     // Provider.of<Movieproviders>(context, listen: false).fetchAllMovies();
     Provider.of<Movieproviders>(context, listen: false).InitListCarousel();
+    Provider.of<AuthProvider>(context, listen: false).TestFirebase();
 
     super.initState();
   }

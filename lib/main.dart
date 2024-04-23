@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
 import 'package:movie_app_final/providers/Homepage_provider.dart';
 import 'package:movie_app_final/providers/Nowplaying_provider.dart';
@@ -34,7 +36,9 @@ import 'package:movie_app_final/screens/list_category.dart';
 import 'package:provider/provider.dart';
 import 'package:movie_app_final/screens/edit_profile_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
