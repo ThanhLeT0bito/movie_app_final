@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import '../models/user.dart';
 import 'package:http/http.dart' as http;
@@ -10,6 +11,12 @@ class AuthProvider extends ChangeNotifier {
   List<User> list = [];
   List<User> _users = [];
   List<User> get users => _users;
+
+  final databaseReference = FirebaseDatabase.instance.reference();
+
+  void TestFirebase() {
+    databaseReference.child('alooo').set("Nghia Dan");
+  }
 
   Future<void> fetchUsers() async {
     try {
