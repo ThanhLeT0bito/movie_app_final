@@ -131,7 +131,7 @@ class AuthProvider extends ChangeNotifier {
   Future<void> requestOTP(String phoneNumber) async {
     try {
       await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: "+84" +phoneNumber,
+        phoneNumber: "+84" + phoneNumber,
         verificationCompleted: (PhoneAuthCredential credential) async {
           await FirebaseAuth.instance.signInWithCredential(credential);
           print('Đăng nhập thành công');
@@ -145,23 +145,26 @@ class AuthProvider extends ChangeNotifier {
         },
         codeSent: (String verificationId, [int? resendToken]) {
           localVerificationId = verificationId;
+          print(verificationId);
         },
         codeAutoRetrievalTimeout: (String verificationId) {
           // Mã xác minh đã hết hạn
           print('Mã xác minh đã hết hạn');
         },
-        timeout: Duration(seconds: 60), // Thời gian chờ để nhận mã OTP (tính bằng giây)
+        timeout: Duration(
+            seconds: 120), // Thời gian chờ để nhận mã OTP (tính bằng giây)
       );
     } catch (e) {
       print('Yêu cầu gửi mã OTP thất bại: $e');
       // Xử lý lỗi khi yêu cầu gửi mã OTP thất bại
     }
   }
+
 ////  check auth
   ///
-  Future<bool> signIn(String vid, String code) async {
-    PhoneAuthCredential credential =
-        PhoneAuthProvider.credential(verificationId: vid, smsCode: code);
+  Future<bool> signIn(String code) async {
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: localVerificationId, smsCode: code);
     try {
       final UserCredential userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);

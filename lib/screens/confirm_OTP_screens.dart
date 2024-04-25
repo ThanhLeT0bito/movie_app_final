@@ -1,12 +1,13 @@
 import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
+import 'package:provider/provider.dart';
+import 'package:movie_app_final/providers/AuthProvider.dart';
 
-import '../utils/wrapper.dart';
+//import '../utils/wrapper.dart';
 
 class ConfirmOTPScreens extends StatefulWidget {
   //final String vid;
@@ -92,6 +93,7 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
 
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<AuthProvider>(context);
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
       resizeToAvoidBottomInset: true,
@@ -209,8 +211,21 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
                     children: [
                       CustomTextButton(
                           text: "Continue",
-                          onPressed: () {
+                          onPressed: () async {
                             //signIn();
+                            String otp = "";
+                            for (var ctr in controllers) {
+                              otp += ctr.text;
+                            }
+                            print(otp);
+                            if (otp != '') {
+                              bool check = await data.signIn(otp);
+                              if (check) {
+                                print("OTPPPPP OKKKK");
+                              } else {
+                                print("OTP NHƯ shittt");
+                              }
+                            }
                           }),
                       const SizedBox(
                         height: 10,

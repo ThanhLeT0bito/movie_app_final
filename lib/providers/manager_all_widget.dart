@@ -20,8 +20,8 @@ import 'package:movie_app_final/widgets/Base/custom_item_radio.dart';
 import 'package:movie_app_final/widgets/custom_item_bottom__bar.dart';
 
 class ManagerAllWidget extends ChangeNotifier {
-  //String startScreen = SignIn_SignUp_Screens.routeName;
-  String startScreen = HomeScreen.routeName;
+  String startScreen = SignIn_SignUp_Screens.routeName;
+  //String startScreen = HomeScreen.routeName;
   //String startScreen = ChooseNeed.routeName;
   //mode
   bool isBookingScreen = false;

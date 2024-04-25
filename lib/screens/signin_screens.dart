@@ -9,7 +9,7 @@ import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 import 'package:provider/provider.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
 
-import '../widgets/Base/Otp.dart';
+//import '../widgets/Base/Otp.dart';
 
 class SignInScreens extends StatefulWidget {
   const SignInScreens({super.key});
