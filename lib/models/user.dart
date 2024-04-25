@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-class User with ChangeNotifier {
+class Users with ChangeNotifier {
   final String? id;
   final String name;
   final String phone;
   final String? mail;
   final String? urlImage;
-  User(
+  Users(
       {this.id,
       required this.name,
       required this.phone,
       this.mail,
       this.urlImage});
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  factory Users.fromJson(Map<String, dynamic> json) {
+    return Users(
         id: json['_id'],
         name: json['name'],
         phone: json['phone'],
