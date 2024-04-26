@@ -67,7 +67,7 @@ class _ProfileScreensState extends State<HomeProfileScreens> {
             ),
             TextButton(
                 onPressed: () async {
-                  User newUser = User(
+                  Users newUser = Users(
                       name: "Lê Tiến Thành",
                       phone: "0904962412",
                       mail: "ltthanh@gmail.com",

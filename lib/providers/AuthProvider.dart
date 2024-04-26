@@ -1,16 +1,32 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import '../models/user.dart';
 import 'package:http/http.dart' as http;
 import '../services/api_services.dart';
 
 class AuthProvider extends ChangeNotifier {
   static const String urlApi = ApiService.urlApi;
-  List<User> list = [];
-  List<User> _users = [];
-  List<User> get users => _users;
+  List<Users> list = [];
+  List<Users> _users = [];
+  List<Users> get users => _users;
+  late User? _firebaseUser;
+  late String localVerificationId;
+
+  User? get firebaseUser => _firebaseUser;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  UserProvider() {
+    _auth.authStateChanges().listen((User? user) {
+      _firebaseUser = user;
+      notifyListeners();
+    });
+  }
 
   final databaseReference = FirebaseDatabase.instance.reference();
 
@@ -23,7 +39,7 @@ class AuthProvider extends ChangeNotifier {
       final response = await http.get(Uri.parse('$urlApi/getUsers'));
       if (response.statusCode == 200) {
         final List<dynamic> responseData = json.decode(response.body);
-        _users = responseData.map((json) => User.fromJson(json)).toList();
+        _users = responseData.map((json) => Users.fromJson(json)).toList();
         for (var element in _users) {
           print(element.name);
         }
@@ -36,7 +52,7 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> insertUser(User user) async {
+  Future<void> insertUser(Users user) async {
     try {
       final response = await http.post(
         Uri.parse('$urlApi/insertUser'),
@@ -104,9 +120,64 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  User CurrentUser = User(
+  Users CurrentUser = Users(
       id: "123",
       name: "Nghĩa",
       phone: "+8412345678",
       mail: "NghiaDan@gmail.com");
+
+//// send otp
+
+  Future<void> requestOTP(String phoneNumber) async {
+    try {
+      await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: "+84" + phoneNumber,
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          await FirebaseAuth.instance.signInWithCredential(credential);
+          print('Đăng nhập thành công');
+        },
+        verificationFailed: (FirebaseAuthException e) {
+          if (e.code == 'invalid-phone-number') {
+            print('Số điện thoại không hợp lệ');
+          } else {
+            print('Lỗi không xác định: ${e.message}');
+          }
+        },
+        codeSent: (String verificationId, [int? resendToken]) {
+          localVerificationId = verificationId;
+          print(verificationId);
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          // Mã xác minh đã hết hạn
+          print('Mã xác minh đã hết hạn');
+        },
+        timeout: Duration(
+            seconds: 120), // Thời gian chờ để nhận mã OTP (tính bằng giây)
+      );
+    } catch (e) {
+      print('Yêu cầu gửi mã OTP thất bại: $e');
+      // Xử lý lỗi khi yêu cầu gửi mã OTP thất bại
+    }
+  }
+
+////  check auth
+  ///
+  Future<bool> signIn(String code) async {
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: localVerificationId, smsCode: code);
+    try {
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      if (userCredential.user != null) {
+        return true;
+      } else {
+        return false;
+      }
+    } on FirebaseAuthException catch (e) {
+      Get.snackbar("Error", e.code);
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
+    }
+    return false;
+  }
 }

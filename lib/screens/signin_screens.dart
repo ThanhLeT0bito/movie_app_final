@@ -1,9 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/confirm_OTP_screens.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
-import 'package:movie_app_final/widgets/Base/custom_textfield.dart';
+import 'package:provider/provider.dart';
+import 'package:movie_app_final/providers/AuthProvider.dart';
+
+//import '../widgets/Base/Otp.dart';
 
 class SignInScreens extends StatefulWidget {
   const SignInScreens({super.key});
@@ -13,8 +19,23 @@ class SignInScreens extends StatefulWidget {
 }
 
 class _SignInScreensState extends State<SignInScreens> {
+  final TextEditingController phoneNumber = TextEditingController();
+
+  Country selectCountry = Country(
+      phoneCode: "+84",
+      countryCode: "VN",
+      e164Sc: 0,
+      geographic: true,
+      level: 1,
+      name: "VietNam",
+      example: "VietNam",
+      displayName: "VietNam",
+      displayNameNoCountryCode: "IN",
+      e164Key: "");
+
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<AuthProvider>(context);
     final ModalRoute route = ModalRoute.of(context)!;
     final args = route.settings.arguments;
 
@@ -38,35 +59,75 @@ class _SignInScreensState extends State<SignInScreens> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: Column(
-                      children: [
-                        CustomTextField(
-                          icon: Icons.phone,
-                          hintText: '(+84) 904-962-412',
-                          controller: new TextEditingController(),
-                          isNumber: true,
-                        ),
-                        const SizedBox(height: 20),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              'Enter OTP code ?',
-                              style: TextStyle(
+                  Row(children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            keyboardType: TextInputType.number,
+                            controller: phoneNumber,
+                            onChanged: (value) {
+                              setState(() {
+                                phoneNumber.text = value;
+                              });
+                            },
+                            style: TextStyle(
                                 color: AppColors.BaseColorWhite,
-                                fontSize: 14,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                            decoration: InputDecoration(
+                              hintText: "Enter phone number",
+                              hintStyle:
+                                  TextStyle(color: AppColors.BaseColorWhite),
+                              prefixIcon: Container(
+                                padding: EdgeInsets.only(
+                                    top: 13, right: 20, left: 10),
+                                child: InkWell(
+                                  onTap: () {
+                                    showCountryPicker(
+                                        context: context,
+                                        countryListTheme: CountryListThemeData(
+                                            bottomSheetHeight: 550),
+                                        onSelect: (value) {
+                                          setState(() {
+                                            selectCountry = value;
+                                          });
+                                        });
+                                  },
+                                  child: Text(
+                                    "${selectCountry.flagEmoji} ${(selectCountry.phoneCode)}",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: AppColors.BaseColorWhite,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
                               ),
                             ),
-                          ],
-                        ),
-                      ],
+                          ),
+                          const SizedBox(height: 20),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                'Enter OTP code ?',
+                                style: TextStyle(
+                                  color: AppColors.BaseColorWhite,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
+                  ]),
                   //const SizedBox(height: 200),
                   CustomTextButton(
-                    text: 'Coutinue',
+                    text: 'Continue',
                     onPressed: () {
+                      //sendCode();
+                      data.requestOTP(phoneNumber.text);
                       Navigator.pushNamed(context, ConfirmOTPScreens.routeName);
                     },
                   ),
@@ -133,4 +194,26 @@ class _SignInScreensState extends State<SignInScreens> {
       ),
     );
   }
+  // sendCode() async {
+  //   try {
+  //     await FirebaseAuth.instance.verifyPhoneNumber(
+  //         phoneNumber: phoneNumber.text,
+  //         verificationCompleted: (PhoneAuthCredential credential) {},
+  //         verificationFailed: (FirebaseAuthException e) {
+  //           Get.snackbar("Error", e.code);
+  //         },
+  //         codeSent: (String vid, int? token) {
+  //           Get.to(
+  //             OtpPage(
+  //               vid: vid,
+  //             ),
+  //           );
+  //         },
+  //         codeAutoRetrievalTimeout: (vid) {});
+  //   } on FirebaseAuthException catch (e) {
+  //     Get.snackbar("Error", e.code);
+  //   } catch (e) {
+  //     Get.snackbar("Error", e.toString());
+  //   }
+  // }
 }
