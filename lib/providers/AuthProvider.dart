@@ -11,6 +11,9 @@ import '../services/api_services.dart';
 
 class AuthProvider extends ChangeNotifier {
   static const String urlApi = ApiService.urlApi;
+
+  String currentUserId = "66117c988b3a5f94e2eed80a";
+
   List<Users> list = [];
   List<Users> _users = [];
   List<Users> get users => _users;

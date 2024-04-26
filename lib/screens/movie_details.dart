@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/models/movie_model.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
+import 'package:movie_app_final/providers/orders_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
+import 'package:movie_app_final/widgets/Base/custom_popup.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 import 'package:provider/provider.dart';
 
@@ -17,12 +19,15 @@ class MoviedetailsScreens extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var dataMovie = Provider.of<Movieproviders>(context);
+    var dataOrder = Provider.of<OrdersProvider>(context, listen: false);
 
     late String movieId = ModalRoute.of(context)!.settings.arguments as String;
     movieId ??= "662672c978a71af977967c0f";
 
     MovieModel movie = dataMovie.findMovieById(movieId);
     dataMovie.printMovieModelProperties(movie);
+
+    dataOrder.currentMovieId = movieId;
 
     double screenWidth = MediaQuery.of(context).size.width;
 
@@ -215,6 +220,7 @@ class MainContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var dataOrder = Provider.of<OrdersProvider>(context);
     return Stack(
       children: [
         SingleChildScrollView(
@@ -562,6 +568,11 @@ class MainContent extends StatelessWidget {
                 CustomTextButton(
                     text: 'Continue',
                     onPressed: () {
+                      if (dataOrder.currentSelectedCinema == -1) {
+                        CustomDialogHelper.showCustomDialog(
+                            context, "Please Select Cinema!", "cinema.svg");
+                        return;
+                      }
                       Navigator.pushNamed(context, SelectSeatScreen.routeName);
                     }),
               ],

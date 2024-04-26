@@ -12,6 +12,7 @@ class OrderModel with ChangeNotifier {
   final String nameCinema;
   final String locationCinema;
   final DateTime? created;
+  final String paymentType;
 
   OrderModel(
       {this.id,
@@ -24,7 +25,8 @@ class OrderModel with ChangeNotifier {
       required this.prices,
       required this.nameCinema,
       required this.locationCinema,
-      this.created});
+      this.created,
+      required this.paymentType});
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     return OrderModel(
@@ -39,6 +41,7 @@ class OrderModel with ChangeNotifier {
       nameCinema: json['nameCinema'],
       locationCinema: json['locationCinema'],
       created: json['created'],
+      paymentType: json['paymentType'],
     );
   }
 
@@ -54,6 +57,7 @@ class OrderModel with ChangeNotifier {
       'nameCinema': nameCinema,
       'locationCinema': locationCinema,
       'created': created,
+      'paymentType': paymentType
     };
   }
 }

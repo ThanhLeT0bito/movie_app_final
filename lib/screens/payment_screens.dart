@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app_final/providers/orders_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/resources/dimens.dart';
 import 'package:movie_app_final/screens/ticket_screen.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_payment_method.dart';
+import 'package:movie_app_final/widgets/Base/custom_popup.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
+import 'package:provider/provider.dart';
 
 class PaymentScreens extends StatefulWidget {
   const PaymentScreens({Key, key}) : super(key: key);
-  static const routeName = 'payment';
+  static const routeName = '/payment';
 
   @override
   State<PaymentScreens> createState() => _PaymentScreensState();
@@ -20,18 +23,30 @@ class _PaymentScreensState extends State<PaymentScreens> {
   @override
   void initState() {
     super.initState();
-    _isSelectedList = [false, false, false, false, false]; // Khởi tạo danh sách trạng thái
+    _isSelectedList = [
+      false,
+      false,
+      false,
+      false,
+      false
+    ]; // Khởi tạo danh sách trạng thái
   }
-  void _updateSelectedIndex(int index) {
+
+  void _updateSelectedIndex(int index, BuildContext context) {
+    var dataOrder = Provider.of<OrdersProvider>(context, listen: false);
+    dataOrder.currentSelectedPaymentType = index;
+
     setState(() {
       for (int i = 0; i < _isSelectedList.length; i++) {
         _isSelectedList[i] = i == index;
       }
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
+    var dataOrder = Provider.of<OrdersProvider>(context);
+
     var screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
@@ -39,7 +54,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
           child: Column(children: [
-            CustomAppBar(
+            const CustomAppBar(
               title: "Payment",
             ),
             SizedBox(height: 20),
@@ -72,65 +87,65 @@ class _PaymentScreensState extends State<PaymentScreens> {
                   const SizedBox(
                     width: 10,
                   ),
-                  Expanded(
+                  const Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(5),
+                      padding: EdgeInsets.all(5),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             'Mai',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                               color: AppColors.BaseColorTextMain,
                             ),
                           ),
-                          const SizedBox(height: Dimens.Sizedbox),
+                          SizedBox(height: Dimens.Sizedbox),
                           Row(
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.play_arrow,
                                 color: AppColors.BaseColorWhite,
                               ),
-                              const SizedBox(width: Dimens.Sizedbox),
+                              SizedBox(width: Dimens.Sizedbox),
                               Text(
                                 'Emotional, psychological',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: Dimens.fontsize,
                                   color: AppColors.BaseColorWhite,
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(height: Dimens.Sizedbox),
+                          SizedBox(height: Dimens.Sizedbox),
                           Row(
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.location_city,
                                 color: AppColors.BaseColorWhite,
                               ),
-                              const SizedBox(width: Dimens.Sizedbox),
+                              SizedBox(width: Dimens.Sizedbox),
                               Text(
                                 'Vincom Ocean Park CGV',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: Dimens.fontsize,
                                   color: AppColors.BaseColorWhite,
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(height: Dimens.Sizedbox),
+                          SizedBox(height: Dimens.Sizedbox),
                           Row(
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.access_time,
                                 color: AppColors.BaseColorWhite,
                               ),
-                              const SizedBox(width: Dimens.Sizedbox),
+                              SizedBox(width: Dimens.Sizedbox),
                               Text(
                                 '28.02.2024 • 14:15',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: Dimens.fontsize,
                                   color: AppColors.BaseColorWhite,
                                 ),
@@ -144,11 +159,11 @@ class _PaymentScreensState extends State<PaymentScreens> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -170,11 +185,11 @@ class _PaymentScreensState extends State<PaymentScreens> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -216,7 +231,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
                           width: 175, // Đảm bảo Container có kích thước cụ thể
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 0),
-                          child: Row(
+                          child: const Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Icon(
@@ -241,13 +256,13 @@ class _PaymentScreensState extends State<PaymentScreens> {
                         onTap: () {},
                         child: Container(
                           width: 120, // Đảm bảo Container có kích thước cụ thể
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: AppColors.BaseColorMain,
                           ),
-                          child: Center(
+                          child: const Center(
                             child: Text(
                               "Apply",
                               style: TextStyle(
@@ -261,18 +276,18 @@ class _PaymentScreensState extends State<PaymentScreens> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Divider(
+                const Divider(
                   color: AppColors.BaseColorAroundWhite,
                   thickness: 0.5,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -295,8 +310,8 @@ class _PaymentScreensState extends State<PaymentScreens> {
                   ),
                 ),
                 SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -315,13 +330,13 @@ class _PaymentScreensState extends State<PaymentScreens> {
                   height: 20,
                 ),
                 PaymentMethod(
-                img: 'assets/images/zalo.jpg',
-                title: 'Zalo Pay',
-                isSelected: _isSelectedList[0],
-                onTap: () {
-                  _updateSelectedIndex(0);
-                },
-              ),
+                  img: 'assets/images/zalo.jpg',
+                  title: 'Zalo Pay',
+                  isSelected: _isSelectedList[0],
+                  onTap: () {
+                    _updateSelectedIndex(0, context);
+                  },
+                ),
                 SizedBox(
                   height: 20,
                 ),
@@ -329,8 +344,8 @@ class _PaymentScreensState extends State<PaymentScreens> {
                   img: 'assets/images/momo.png',
                   title: 'Momo',
                   isSelected: _isSelectedList[1],
-                  onTap: (){
-                     _updateSelectedIndex(1);
+                  onTap: () {
+                    _updateSelectedIndex(1, context);
                   },
                 ),
                 SizedBox(
@@ -340,8 +355,8 @@ class _PaymentScreensState extends State<PaymentScreens> {
                   img: 'assets/images/shoppe.png',
                   title: 'Shoppe Pay',
                   isSelected: _isSelectedList[2],
-                  onTap: (){
-                     _updateSelectedIndex(2);
+                  onTap: () {
+                    _updateSelectedIndex(2, context);
                   },
                 ),
                 SizedBox(
@@ -351,19 +366,19 @@ class _PaymentScreensState extends State<PaymentScreens> {
                   img: 'assets/images/atm card.png',
                   title: 'ATM Card',
                   isSelected: _isSelectedList[3],
-                  onTap: (){
-                     _updateSelectedIndex(3);
+                  onTap: () {
+                    _updateSelectedIndex(3, context);
                   },
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 PaymentMethod(
-                    img: 'assets/images/atm.png', 
-                    title: 'International payments',
-                    isSelected: _isSelectedList[4],
-                    onTap: (){
-                       _updateSelectedIndex(4);
+                  img: 'assets/images/atm.png',
+                  title: 'International payments',
+                  isSelected: _isSelectedList[4],
+                  onTap: () {
+                    _updateSelectedIndex(4, context);
                   },
                 ),
                 SizedBox(
@@ -375,7 +390,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
                     color: Colors.grey.shade900,
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
@@ -400,7 +415,15 @@ class _PaymentScreensState extends State<PaymentScreens> {
             ),
             CustomTextButton(
                 text: 'Continue',
-                onPressed: () {
+                onPressed: () async {
+                  if (dataOrder.currentSelectedPaymentType == -1) {
+                    CustomDialogHelper.showCustomDialog(
+                        context, "Please Select Payment Type!", "payment.svg");
+                    return;
+                  }
+
+                  // insert new order to server
+                  await dataOrder.createNewOrder();
                   Navigator.pushNamed(context, TicketScreen.routeName);
                 }),
           ]),
