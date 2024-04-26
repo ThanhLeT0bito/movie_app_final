@@ -24,7 +24,9 @@ class TicketScreen extends StatelessWidget {
         child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           CustomAppBar(
             title: "My Ticket",
-            onPressedBack: () {
+            showBackButton: false,
+            iconRightButton: Icons.close,
+            onPressedRight: () {
               Navigator.pushNamed(context, HomeScreen.routeName);
             },
           ),

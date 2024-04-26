@@ -4,18 +4,19 @@ import 'package:movie_app_final/resources/app_color.dart';
 class ItemCarouselWidget extends StatelessWidget {
   const ItemCarouselWidget({
     Key? key,
+    required this.id,
     required this.img,
     required this.description,
     required this.name,
-    required this.star,
-    required this.view,
+    this.star = 4,
+    this.view = 1878,
   }) : super(key: key);
-
+  final String id;
   final String img;
   final String description;
   final String name;
-  final int star;
-  final double view;
+  final int? star;
+  final double? view;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,7 +24,7 @@ class ItemCarouselWidget extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(20),
-          child: Image.asset(
+          child: Image.network(
             img,
             fit: BoxFit.cover,
             width: 270,
@@ -33,6 +34,7 @@ class ItemCarouselWidget extends StatelessWidget {
         const SizedBox(height: 10),
         Text(
           name,
+          maxLines: 1,
           style: const TextStyle(
             color: AppColors.BaseColorWhite,
             fontSize: 26,
@@ -64,7 +66,7 @@ class ItemCarouselWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (star > 0)
+            if (star! > 0)
               Icon(
                 Icons.star,
                 color: AppColors.BaseColorMain,
@@ -83,7 +85,7 @@ class ItemCarouselWidget extends StatelessWidget {
               width: 5,
             ),
             Text(
-              '($view)',
+              '(${view!})',
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 14,

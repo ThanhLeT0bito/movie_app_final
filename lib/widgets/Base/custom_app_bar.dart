@@ -60,15 +60,12 @@ class CustomAppBar extends StatelessWidget {
           ),
           iconRightButton != null
               ? IconButton(
-                  onPressed: () => onPressedRight,
+                  onPressed: onPressedRight,
                   iconSize: Dimens.IconSizeAppBar,
                   icon: Icon(
                     iconRightButton,
                     color: AppColors.BaseColorWhite,
-                  )
-          )
-
-
+                  ))
               : Container(width: Dimens.IconSizeAppBar),
         ],
       ),

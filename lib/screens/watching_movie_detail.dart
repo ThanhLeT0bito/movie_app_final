@@ -8,17 +8,20 @@ import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 
 import '../widgets/Base/custom_bottom_navigator.dart';
+import '../widgets/Base/custom_item_radio.dart';
 import '../widgets/custom_item_bottom__bar.dart';
 import '../widgets/episode_widget.dart';
 import '../widgets/movie_widget.dart';
 import '../widgets/trailer_widget.dart';
+import 'bottom_sheet_comment.dart';
 
 class WatchingDetailsScreens extends StatefulWidget {
   const WatchingDetailsScreens({Key? key}) : super(key: key);
   static const routeName = '/watching-details-screen';
 
   @override
-  State<WatchingDetailsScreens> createState() => _WatchingDetailsScreensState();
+  State<WatchingDetailsScreens> createState() =>
+      _WatchingDetailsScreensState();
 }
 
 class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
@@ -97,7 +100,8 @@ class ItemWithLineTopWidget extends StatelessWidget {
   final bool hasBar;
 
   const ItemWithLineTopWidget(
-      {super.key, required this.text, required this.hasBar});
+      {Key? key, required this.text, required this.hasBar})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -192,7 +196,8 @@ class _MainContentState extends State<MainContent> {
                     text: 'Play',
                     icon: Icons.play_arrow_rounded,
                     onPressed: () {
-                      Navigator.pushNamed(context, SelectSeatScreen.routeName);
+                      Navigator.pushNamed(
+                          context, SelectSeatScreen.routeName);
                     }),
                 const SizedBox(height: 20),
                 const Column(
@@ -210,7 +215,8 @@ class _MainContentState extends State<MainContent> {
                       textAlign: TextAlign.justify,
                     ),
                     SizedBox(
-                        height: 5), // Khoảng cách giữa nội dung và "See more"
+                        height:
+                        5), // Khoảng cách giữa nội dung và "See more"
                     Text(
                       'See more',
                       style: TextStyle(
@@ -314,6 +320,8 @@ class _MainContentState extends State<MainContent> {
                   selectedIndex: 0, // Chỉ số này có thể được thay
                 ),
                 const SizedBox(height: 20),
+                _buildBody("assets/images/img_1.jpg"),
+                const SizedBox(height: 20),
                 // content tab view preview movie
                 _buildTabBar(),
                 // listWidgetType[index]
@@ -361,7 +369,8 @@ class _MainContentState extends State<MainContent> {
                 child: Text(
                   title,
                   style: TextStyle(
-                    color: _selectedIndex == index ? Colors.yellow : Colors.white,
+                    color: _selectedIndex == index ? Colors.yellow : Colors
+                        .white,
                     fontSize: 16,
                   ),
                 ),
@@ -377,13 +386,168 @@ class _MainContentState extends State<MainContent> {
       child: Center(
         child: index == 0
             ? const EpisodeWidget()
-            : index == 1
-                ? const MovieWidget()
-                : const TrailerWidget(),
+            : index == 1 ? const MovieWidget() : const TrailerWidget(),
+      ),
+    );
+  }
+
+  Widget _buildBody(String imagePath) {
+    return GestureDetector(
+      onTap: () {
+        showModalBottomSheet(
+          context: context,
+          builder: (BuildContext context) {
+            return Container(
+              color: Colors.black,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    width: MediaQuery.of(context).size.width / 3,
+                    height: 7,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40),
+                      color: AppColors.BaseColorMain,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Container(
+                    padding: EdgeInsets.all(16.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 5.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Review',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.BaseColorWhite,
+                                ),
+                              ),
+                              SizedBox(height: 20.0),
+                              Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Container(
+                                    width: 25.0,
+                                    height: 25.0,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                          color: AppColors.BaseColorWhite,
+                                          width: 2.0),
+                                    ),
+                                  ),
+                                  ClipOval(
+                                    child: Image.asset(
+                                      imagePath,
+                                      width: 78.0,
+                                      height: 78.0,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(width: 4),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 50.0),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'AngeLina',
+                                    style: TextStyle(
+                                      color: AppColors.BaseColorWhite,
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    '12 seconds',
+                                    style: TextStyle(
+                                      color: AppColors.BaseColorWhite,
+                                      fontSize: 12.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 4.0),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Nice movie!!!',
+                                  style: TextStyle(
+                                    color: AppColors.BaseColorWhite,
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 10.0),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Love',
+                                    style: TextStyle(
+                                      color: AppColors.BaseColorGrey,
+                                      fontSize: 12.0,
+                                    ),
+                                  ),
+                                  SizedBox(width: 20.0),
+                                  Text(
+                                    'Comment',
+                                    style: TextStyle(
+                                      color: AppColors.BaseColorGrey,
+                                      fontSize: 12.0,
+                                    ),
+                                  ),
+                                  SizedBox(height: 8.0),
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        ClipOval(
+                                          child: Icon(
+                                            Icons.favorite_border,
+                                            color: AppColors.BaseColorWhite,
+                                            size: 20.0,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+      child: CommentWidget(
+        imagePath: imagePath,
+        name: 'AngeLina',
+        time: '12 seconds',
+        comment: 'Nice movie!!!',
       ),
     );
   }
 }
-
-
-

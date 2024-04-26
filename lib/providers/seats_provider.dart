@@ -8,6 +8,9 @@ class SeatsProviders extends ChangeNotifier {
   List<DateSeat> _listDate = [];
   List<TimeSeat> _listTime = [];
 
+  DateSeat? currentDateSeat;
+  TimeSeat? currentTimeSeat;
+
   //Public
   List<Seat> get listSeat => _listSeat;
   List<DateSeat> get listDate => _listDate;
@@ -33,9 +36,18 @@ class SeatsProviders extends ChangeNotifier {
     _listSeat[11].status = Status.resered;
     _listSeat[12].status = Status.resered;
     _listSeat[10].status = Status.resered;
-    _listSeat[16].status = Status.selected;
     _listSeat[18].status = Status.resered;
-    _listSeat[20].status = Status.selected;
+  }
+
+  String getListSeatSelected() {
+    var listSelected = _listSeat.where((e) => e.status == Status.selected);
+
+    var result = '';
+    for (var seat in listSelected) {
+      result += "${seat.name}, ";
+    }
+
+    return result;
   }
 
   void changeStatusSeat(Seat seat) {
@@ -70,6 +82,8 @@ class SeatsProviders extends ChangeNotifier {
 
     if (findDate == -1) return;
 
+    currentDateSeat = date;
+
     for (var element in _listDate) {
       element.isSelected = false;
       if (element == date) element.isSelected = true;
@@ -81,6 +95,8 @@ class SeatsProviders extends ChangeNotifier {
     var findTime = _listTime.indexWhere((element) => element == time);
 
     if (findTime == -1) return;
+
+    currentTimeSeat = time;
 
     for (var element in _listTime) {
       element.isSelected = false;
@@ -127,6 +143,37 @@ class SeatsProviders extends ChangeNotifier {
         return 'Dec';
       default:
         return '';
+    }
+  }
+
+  int getMonthValue(String month) {
+    switch (month) {
+      case 'Jan':
+        return 1;
+      case 'Feb':
+        return 2;
+      case 'Mar':
+        return 3;
+      case 'Apr':
+        return 4;
+      case 'May':
+        return 5;
+      case 'Jun':
+        return 6;
+      case 'Jul':
+        return 7;
+      case 'Aug':
+        return 8;
+      case 'Sep':
+        return 9;
+      case 'Oct':
+        return 10;
+      case 'Nov':
+        return 11;
+      case 'Dec':
+        return 12;
+      default:
+        return 0;
     }
   }
 }

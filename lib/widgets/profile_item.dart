@@ -8,7 +8,7 @@ import 'package:movie_app_final/screens/change_password_screens.dart';
 
 class ProfileItemWidget extends StatelessWidget {
   const ProfileItemWidget({super.key, required this.currentUser});
-  final User currentUser;
+  final Users currentUser;
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app_final/models/model_widget/date.dart';
 import 'package:movie_app_final/models/model_widget/seat.dart';
 import 'package:movie_app_final/models/model_widget/time.dart';
+import 'package:movie_app_final/providers/orders_provider.dart';
 import 'package:movie_app_final/providers/seats_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/payment_screens.dart';
@@ -25,6 +26,8 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     // data
     final data = Provider.of<SeatsProviders>(context);
+    final dataOrder = Provider.of<OrdersProvider>(context);
+
     final listSeats = data.listSeat;
     final listDates = data.listDate;
     final listTimes = data.listTime;
@@ -34,7 +37,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
           child: Column(children: [
-            CustomAppBar(
+            const CustomAppBar(
               title: "Select Seat",
             ),
             SizedBox(height: 20),
@@ -167,6 +170,29 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                       child: CustomTextButton(
                           text: "Buy Ticket",
                           onPressed: () {
+                            if (data.getListSeatSelected() == '') {
+                              CustomDialogHelper.showCustomDialog(
+                                  context, "Please Select Seat!", "seat.svg");
+                              return;
+                            }
+
+                            if (data.currentDateSeat == null) {
+                              CustomDialogHelper.showCustomDialog(
+                                  context, "Please Select Date!", "date.svg");
+                              return;
+                            }
+
+                            if (data.currentTimeSeat == null) {
+                              CustomDialogHelper.showCustomDialog(
+                                  context, "Please Select Time!", "time.svg");
+                              return;
+                            }
+
+                            dataOrder.currentSeats = data.getListSeatSelected();
+                            dataOrder.currentDateMovie =
+                                "${data.currentDateSeat!.day}/${data.getMonthValue(data.currentDateSeat!.month).toString()}/${DateTime.now().year}";
+                            dataOrder.currentTimeMovie =
+                                data.currentTimeSeat!.time;
                             Navigator.pushNamed(
                                 context, PaymentScreens.routeName);
                           }))
@@ -191,6 +217,7 @@ class ItemSeat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<SeatsProviders>(context);
+    final dataOrder = Provider.of<OrdersProvider>(context);
 
     Color background = AppColors.ItemSeatBackGroundAvailable;
     Color textColor = AppColors.BaseColorWhite;
@@ -206,7 +233,8 @@ class ItemSeat extends StatelessWidget {
       onTap: () {
         data.changeStatusSeat(seat);
         if (seat.status == Status.resered) {
-          CustomDialogHelper.showCustomDialog(context, "Warning");
+          CustomDialogHelper.showCustomDialog(
+              context, "please seleted another seat!", '');
         }
       },
       child: Container(
@@ -231,7 +259,7 @@ class MyPainter extends CustomPainter {
     final Rect rect =
         Rect.fromPoints(Offset(0, 0), Offset(size.width, size.height));
     final Paint paint = Paint()
-      ..shader = LinearGradient(
+      ..shader = const LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [

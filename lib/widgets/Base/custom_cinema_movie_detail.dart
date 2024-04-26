@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app_final/providers/orders_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
+import 'package:provider/provider.dart';
 
 class ChooseCinema extends StatefulWidget {
   const ChooseCinema({super.key});
@@ -9,14 +11,16 @@ class ChooseCinema extends StatefulWidget {
 }
 
 class _ChooseCinemaState extends State<ChooseCinema> {
-  int _selectedContainerIndex = -1; // Khởi tạo biến để lưu trạng thái container được chọn
+  int _selectedContainerIndex =
+      -1; // Khởi tạo biến để lưu trạng thái container được chọn
 
   @override
   Widget build(BuildContext context) {
+    var dataOrder = Provider.of<OrdersProvider>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           'Cinema',
           style: TextStyle(
             fontSize: 24,
@@ -29,7 +33,9 @@ class _ChooseCinemaState extends State<ChooseCinema> {
         GestureDetector(
           onTap: () {
             setState(() {
-              _selectedContainerIndex = 0; // Cập nhật trạng thái container khi được chọn
+              _selectedContainerIndex =
+                  0; // Cập nhật trạng thái container khi được chọn
+              dataOrder.currentSelectedCinema = 0;
             });
           },
           child: Container(
@@ -47,7 +53,7 @@ class _ChooseCinemaState extends State<ChooseCinema> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
+                const Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -76,14 +82,14 @@ class _ChooseCinemaState extends State<ChooseCinema> {
                 Container(
                   width: 50, // Điều chỉnh kích thước của logo
                   height: 20, // Điều chỉnh kích thước của logo
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.red,
                     image: DecorationImage(
                       image: AssetImage('assets/images/cgv.png'),
                       // Đường dẫn tới logo
                       fit: BoxFit.cover,
-                      colorFilter: ColorFilter.mode(
-                          Colors.white, BlendMode.dstIn),
+                      colorFilter:
+                          ColorFilter.mode(Colors.white, BlendMode.dstIn),
                     ),
                   ),
                 ),
@@ -97,7 +103,9 @@ class _ChooseCinemaState extends State<ChooseCinema> {
         GestureDetector(
           onTap: () {
             setState(() {
-              _selectedContainerIndex = 1; // Cập nhật trạng thái container khi được chọn
+              _selectedContainerIndex =
+                  1; // Cập nhật trạng thái container khi được chọn
+              dataOrder.currentSelectedCinema = 1;
             });
           },
           child: Container(
@@ -115,7 +123,7 @@ class _ChooseCinemaState extends State<ChooseCinema> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
+                const Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -145,14 +153,14 @@ class _ChooseCinemaState extends State<ChooseCinema> {
                 Container(
                   width: 50, // Điều chỉnh kích thước của logo
                   height: 20, // Điều chỉnh kích thước của logo
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.red,
                     image: DecorationImage(
                       image: AssetImage(
                           'assets/images/cgv.png'), // Đường dẫn tới logo
                       fit: BoxFit.cover,
-                      colorFilter: ColorFilter.mode(
-                          Colors.white, BlendMode.dstIn),
+                      colorFilter:
+                          ColorFilter.mode(Colors.white, BlendMode.dstIn),
                     ),
                   ),
                 ),
@@ -166,7 +174,9 @@ class _ChooseCinemaState extends State<ChooseCinema> {
         GestureDetector(
           onTap: () {
             setState(() {
-              _selectedContainerIndex = 2; // Cập nhật trạng thái container khi được chọn
+              _selectedContainerIndex =
+                  2; // Cập nhật trạng thái container khi được chọn
+              dataOrder.currentSelectedCinema = 2;
             });
           },
           child: Container(
@@ -184,7 +194,7 @@ class _ChooseCinemaState extends State<ChooseCinema> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
+                const Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -210,11 +220,11 @@ class _ChooseCinemaState extends State<ChooseCinema> {
                     ],
                   ),
                 ),
-                SizedBox(width: 10), // Khoảng cách giữa chữ và logo
+                const SizedBox(width: 10), // Khoảng cách giữa chữ và logo
                 Container(
                   width: 50, // Điều chỉnh kích thước của logo
                   height: 20, // Điều chỉnh kích thước của logo
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(
                           'assets/images/lotte.png'), // Đường dẫn tới logo

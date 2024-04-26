@@ -1,13 +1,20 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:movie_app_final/resources/app_color.dart';
-import 'package:movie_app_final/screens/enter_Username_screens.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
+import 'package:provider/provider.dart';
+import 'package:movie_app_final/providers/AuthProvider.dart';
+
+//import '../utils/wrapper.dart';
 
 class ConfirmOTPScreens extends StatefulWidget {
-  const ConfirmOTPScreens({Key? key}) : super(key: key);
+  //final String vid;
+  const ConfirmOTPScreens({
+    Key? key,
+    //required this.vid
+  }) : super(key: key);
   static const routeName = 'confirm_OTP';
 
   @override
@@ -21,43 +28,44 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
   late FocusNode firstTextFieldFocusNode;
   int remainingTimeInSeconds = 60;
   late Timer _timer;
+  late TextEditingController otpController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    controllers = List.generate(4, (index) => TextEditingController());
-    focusNodes = List.generate(4, (index) => FocusNode());
-    isFilled = List.generate(4, (index) => false);
+    controllers = List.generate(6, (index) => TextEditingController());
+    focusNodes = List.generate(6, (index) => FocusNode());
+    isFilled = List.generate(6, (index) => false);
     startTimer();
 
-  for (int i = 0; i < 4; i++) {
-  controllers[i].addListener(() {
-    if (controllers[i].text.length == 1) {
-      setState(() {
-        isFilled[i] = true;
+    for (int i = 0; i < 6; i++) {
+      controllers[i].addListener(() {
+        if (controllers[i].text.length == 1) {
+          setState(() {
+            isFilled[i] = true;
+          });
+          if (i < 5) {
+            FocusScope.of(context).requestFocus(focusNodes[i + 1]);
+          } else {
+            setState(() {
+              isFilled[5] = false;
+            });
+          }
+        }
       });
-      if (i < 3) {
-        FocusScope.of(context).requestFocus(focusNodes[i + 1]);
-      }
-      else {
-        setState(() {
-          isFilled[3]=false;
-        });
-      }
     }
-  });
   }
-}
 
   @override
   void dispose() {
-    _timer.cancel(); // Hủy timer trước khi dispose State
+    _timer.cancel(); // Cancel the timer before disposing state
     for (var controller in controllers) {
       controller.dispose();
     }
     for (var focusNode in focusNodes) {
       focusNode.dispose();
     }
+    super.dispose(); // Call super.dispose() to properly dispose of resources
   }
 
   void startTimer() {
@@ -71,18 +79,21 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
       });
     });
   }
+
   void handleBackspace(int index) {
-  if (index > 0 && controllers[index].text.isEmpty) {
-    setState(() {
-     // controllers[index - 1].text = ''; // Xóa ký tự ở ô trước đó
-      isFilled[index - 1] = false; // Cập nhật trạng thái
-    });
-    FocusScope.of(context).requestFocus(focusNodes[index - 1]); // Di chuyển focus về ô trước đó
+    if (index > 0 && controllers[index].text.isEmpty) {
+      setState(() {
+        // controllers[index - 1].text = ''; // Xóa ký tự ở ô trước đó
+        isFilled[index - 1] = false; // Cập nhật trạng thái
+      });
+      FocusScope.of(context)
+          .requestFocus(focusNodes[index - 1]); // Di chuyển focus về ô trước đó
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<AuthProvider>(context);
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
       resizeToAvoidBottomInset: true,
@@ -117,7 +128,7 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
                         children: [
                           Expanded(
                             child: Text(
-                              'You just need to enter the OTP sent to the registered phone number (704) 555-0127.',
+                              'You just need to enter the OTP sent to the registered phone number ${"vid"}',
                               style: TextStyle(
                                 color: AppColors.BaseColorWhite,
                                 fontSize: 16,
@@ -130,7 +141,7 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          for (int i = 0; i < 4; i++)
+                          for (int i = 0; i < 6; i++)
                             SizedBox(
                               width: 60,
                               height: 80,
@@ -153,24 +164,26 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
                                               .white, // Sử dụng màu đỏ khi chưa nhập
                                     ),
                                   ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                  focusedBorder: const OutlineInputBorder(
+                                    borderSide: const BorderSide(
                                       color: AppColors.BaseColorMain,
-                                    ),  
+                                    ),
                                   ),
                                 ),
                                 maxLength: 1,
                                 onChanged: (value) {
-                                  if (value.isNotEmpty && i < 3) {
+                                  if (value.isNotEmpty && i < 5) {
                                     FocusScope.of(context)
                                         .requestFocus(focusNodes[i + 1]);
                                     setState(() {
-                                      isFilled[i] =true; // Cập nhật trạng thái đã nhập
+                                      isFilled[i] =
+                                          true; // Cập nhật trạng thái đã nhập
                                     });
                                   } else {
                                     handleBackspace(i);
                                     setState(() {
-                                      isFilled[i] =false; // Cập nhật trạng thái đã nhập
+                                      isFilled[i] =
+                                          false; // Cập nhật trạng thái đã nhập
                                     });
                                   }
                                 },
@@ -193,17 +206,28 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
                       ),
                     ],
                   ),
-                  //const Spacer(),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       CustomTextButton(
                           text: "Continue",
-                          onPressed: () {
-                            Navigator.pushNamed(
-                                context, EnterUserNameScreens.routeName);
+                          onPressed: () async {
+                            //signIn();
+                            String otp = "";
+                            for (var ctr in controllers) {
+                              otp += ctr.text;
+                            }
+                            print(otp);
+                            if (otp != '') {
+                              bool check = await data.signIn(otp);
+                              if (check) {
+                                print("OTPPPPP OKKKK");
+                              } else {
+                                print("OTP NHƯ shittt");
+                              }
+                            }
                           }),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                     ],
@@ -217,3 +241,37 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
     );
   }
 }
+
+// class OtpPage extends StatefulWidget {
+//   final String vid;
+
+//   const OtpPage({super.key, required this.vid});
+
+//   @override
+//   State<OtpPage> createState() => _OtpPageState();
+// }
+
+// class _OtpPageState extends State<OtpPage> {
+//   var code = '';
+
+//   void signIn() async {
+//     PhoneAuthCredential credential =
+//         PhoneAuthProvider.credential(verificationId: widget.vid, smsCode: code);
+//     try {
+//       await FirebaseAuth.instance
+//           .signInWithCredential(credential)
+//           .then((value) {
+//         Get.offAll(const Wrapper());
+//       });
+//     } on FirebaseAuthException catch (e) {
+//       Get.snackbar("Error", e.code);
+//     } catch (e) {
+//       Get.snackbar("Error", e.toString());
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return const Scaffold(body: ConfirmOTPScreens());
+//   }
+//}

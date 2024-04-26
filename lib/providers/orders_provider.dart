@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/models/order_model.dart';
+import 'package:movie_app_final/providers/AuthProvider.dart';
 import 'package:movie_app_final/services/api_services.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,6 +11,51 @@ class OrdersProvider extends ChangeNotifier {
 
   List<OrderModel> _allOrder = [];
   List<OrderModel> get allOrder => _allOrder;
+
+  String currentUserId = "66117c988b3a5f94e2eed80a"; // chuaw set
+  String currentMovieId = ""; // done
+  String currentTimeMovie = ""; // done
+  String currentDateMovie = ""; // done
+  int currentSelectedCinema = -1; // done
+  int currentSection = 5; //hardcode
+  String currentSeats = ""; // done
+  double currentTotalPrice = 200000; // hardcode
+  int currentSelectedPaymentType = -1; // done
+
+  List<String> listNameCinema = [
+    "Vincom Ocean Park CGV",
+    " Mall CGV",
+    "Lotte Cinema Long Bien"
+  ];
+  List<String> listLocationCinema = [
+    "4.55 km | Da Ton, Gia Lam, Ha Noi",
+    "9.32 km | 27 Co Linh, Long Bien, Ha Noi",
+    "14.3 km | 7-9 Nguyen Van Linh, Long Bien, Ha Noi"
+  ];
+
+  List<String> listPaymentType = [
+    "Zalo Pay",
+    "MoMo",
+    "Shoppe Pay",
+    "ATM Card",
+    "International payments"
+  ];
+
+  Future<void> createNewOrder() async {
+    OrderModel newOM = OrderModel(
+        userId: currentUserId,
+        movieId: currentMovieId,
+        dateMovie: currentDateMovie,
+        timeMovie: currentTimeMovie,
+        section: currentSection,
+        seats: currentSeats,
+        prices: currentTotalPrice,
+        nameCinema: listNameCinema[currentSelectedCinema],
+        locationCinema: listLocationCinema[currentSelectedCinema],
+        paymentType: listPaymentType[currentSelectedPaymentType]);
+
+    await insertOrder(newOM);
+  }
 
   Future<void> fetchAllOrder() async {
     try {

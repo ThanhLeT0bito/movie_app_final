@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/providers/manager_all_widget.dart';
+import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/home_page_screens.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_item_category_widget.dart';
 import 'package:movie_app_final/widgets/Base/custom_watch_category_hp.dart';
 import 'package:movie_app_final/widgets/carousel_widget.dart';
+import 'package:movie_app_final/widgets/item_carousel_widget.dart';
 import 'package:movie_app_final/widgets/item_movie_cs_hp.dart';
 import 'package:movie_app_final/widgets/item_movie_title.dart';
 import 'package:movie_app_final/widgets/item_watch_category.dart';
@@ -24,6 +26,8 @@ class _HomeWatchingState extends State<HomeWatching> {
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<ManagerAllWidget>(context);
+    var dataMovie = Provider.of<Movieproviders>(context);
+    List<ItemCarouselWidget> listCarousel = dataMovie.listCarousel;
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
@@ -49,8 +53,11 @@ class _HomeWatchingState extends State<HomeWatching> {
                     SizedBox(height: 20),
                     //carousel
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.76, // Đặt chiều cao cố định cho Container
-                      child: CarouselWidget(), // Bọc CarouselWidget trong Container
+                      height: MediaQuery.of(context).size.height *
+                          0.6, // Đặt chiều cao cố định cho Container
+                      child: CarouselWidget(
+                        listCarousel: listCarousel,
+                      ), // Bọc CarouselWidget65rong Container
                     ),
                     itemcaterogy_watch(
                       title: "Category",
@@ -61,7 +68,7 @@ class _HomeWatchingState extends State<HomeWatching> {
                       child: Row(
                         children: [
                           ItemWatchCategory(
-                             title: 'Action',
+                            title: 'Action',
                             image: "assets/images/category_1.png",
                           ),
                           ItemWatchCategory(

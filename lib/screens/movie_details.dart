@@ -1,10 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:movie_app_final/models/movie_model.dart';
+import 'package:movie_app_final/providers/movie_providers.dart';
+import 'package:movie_app_final/providers/orders_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
+import 'package:movie_app_final/widgets/Base/custom_popup.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
+import 'package:provider/provider.dart';
 import 'package:movie_app_final/widgets/item_review_widget.dart';
 
 import '../widgets/Base/custom_cinema_movie_detail.dart';
@@ -15,8 +19,18 @@ class MoviedetailsScreens extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var dataMovie = Provider.of<Movieproviders>(context);
+    var dataOrder = Provider.of<OrdersProvider>(context, listen: false);
+
+    late String movieId = ModalRoute.of(context)!.settings.arguments as String;
+    movieId ??= "662672c978a71af977967c0f";
+
+    MovieModel movie = dataMovie.findMovieById(movieId);
+    dataMovie.printMovieModelProperties(movie);
+
+    dataOrder.currentMovieId = movieId;
+
     double screenWidth = MediaQuery.of(context).size.width;
- 
 
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
@@ -27,8 +41,8 @@ class MoviedetailsScreens extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    Image.asset(
-                      "assets/images/img_3.jpg",
+                    Image.network(
+                      movie.thumbnailLandscape,
                       width: double.infinity,
                       height: 300,
                       fit: BoxFit.cover,
@@ -38,10 +52,13 @@ class MoviedetailsScreens extends StatelessWidget {
                   ],
                 ),
                 Positioned(
-                    top: 230,
-                    left: 10,
-                    right: 10,
-                    child: PositionedItem(screenWidth: screenWidth))
+                    top: 220,
+                    left: 17,
+                    right: 17,
+                    child: PositionedItem(
+                      screenWidth: screenWidth,
+                      movie: movie,
+                    ))
               ],
             ),
           ),
@@ -61,16 +78,18 @@ class PositionedItem extends StatelessWidget {
   const PositionedItem({
     Key? key,
     required this.screenWidth,
+    required this.movie,
   }) : super(key: key);
 
   final double screenWidth;
+  final MovieModel movie;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
       width: screenWidth - 40,
-      height: 220,
+      height: 240,
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -80,25 +99,27 @@ class PositionedItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
-            "Mai",
-            style: TextStyle(
+          Text(
+            movie.name,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
                 decoration: TextDecoration.none,
                 fontSize: 25,
                 color: AppColors.BaseColorWhite,
                 fontWeight: FontWeight.bold),
           ),
-          const Text(
-            "2h11m* 10.02.2024",
-            style: TextStyle(
+          Text(
+            "${movie.duration}* ${MovieModel.getFormattedDate(movie.createdAt)}",
+            style: const TextStyle(
                 color: AppColors.BaseColorAroundWhite,
                 fontSize: 15,
                 decoration: TextDecoration.none),
           ),
           const SizedBox(height: 30),
-          const Row(
+          Row(
             children: [
-              Text(
+              const Text(
                 'Review',
                 style: TextStyle(
                   decoration: TextDecoration.none,
@@ -107,14 +128,16 @@ class PositionedItem extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(width: 10),
-              Icon(
+              const SizedBox(width: 10),
+              const Icon(
                 Iconsax.star5,
                 color: AppColors.BaseColorMain,
               ),
               Text(
-                "4.8 (1.222)",
-                style: TextStyle(
+                "${movie.reviewPoint} (1.222)",
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: const TextStyle(
                     color: AppColors.BaseColorWhite,
                     fontSize: 17,
                     decoration: TextDecoration.none),
@@ -198,369 +221,366 @@ class MainContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var dataOrder = Provider.of<OrdersProvider>(context);
     return Stack(
       children: [
         SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'Movie genre:',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontWeight: FontWeight.normal,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          'Romance, psychology', // Chữ thêm vào
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'Censorship:',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontWeight: FontWeight.normal,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          '18+',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'Language:',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontWeight: FontWeight.normal,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          'Vietnamese',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Storyline',
-                        style: TextStyle(
-                          decoration: TextDecoration.none,
-                          fontSize: 24,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      Text(
-                        '"Mai" is the story of Mai, a masseuse with a special fate. She often faces criticism from society and her meeting with Duong - a flower boy, awakens in her a desire for a new life...',
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Movie genre:',
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
-                          decoration: TextDecoration.none,
                           fontWeight: FontWeight.normal,
+                          decoration: TextDecoration.none,
                         ),
-                        softWrap: true,
-                        textAlign: TextAlign.justify,
                       ),
-                      SizedBox(
-                          height: 5), // Khoảng cách giữa nội dung và "See more"
-                      Text(
-                        'See more',
+                    ),
+                    Expanded(
+                      child: Text(
+                        'Romance, psychology', // Chữ thêm vào
                         style: TextStyle(
-                          color: AppColors.BaseColorTextMain,
                           fontSize: 16,
-                          decoration: TextDecoration.none,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Director',
-                        style: TextStyle(
-                          decoration: TextDecoration.none,
-                          fontSize: 24,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.none,
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      Container(
-                        width: 200,
-                        height: 70,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade900,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                  100), // Bo tròn hình ảnh theo đường viền của Container
-                              child: Container(
-                                width:
-                                    50, // Đặt kích thước của hình ảnh tại đây
-                                height:
-                                    50, // Đặt kích thước của hình ảnh tại đây
-                                child: Image.asset(
-                                  'assets/images/tran-thanh.jpg',
-                                  fit: BoxFit.cover,
-                                ), // Thay đổi đường dẫn hình ảnh tại đây
-                              ),
-                            ),
-                            const SizedBox(
-                                width:
-                                    10), // Khoảng cách giữa hình ảnh và văn bản
-                            const Align(
-                              alignment: Alignment.center,
-                              child: Text('Trấn Thành',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    decoration: TextDecoration.none,
-                                    fontWeight: FontWeight.normal,
-                                  )),
-                            ),
-                          ],
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Censorship:',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                          decoration: TextDecoration.none,
                         ),
                       ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Actor',
-                          style: TextStyle(
-                            decoration: TextDecoration.none,
-                            fontSize: 24,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                    ),
+                    Expanded(
+                      child: Text(
+                        '18+',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Language:',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        'Vietnamese',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Storyline',
+                      style: TextStyle(
+                        decoration: TextDecoration.none,
+                        fontSize: 24,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      '"Mai" is the story of Mai, a masseuse with a special fate. She often faces criticism from society and her meeting with Duong - a flower boy, awakens in her a desire for a new life...',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        decoration: TextDecoration.none,
+                        fontWeight: FontWeight.normal,
+                      ),
+                      softWrap: true,
+                      textAlign: TextAlign.justify,
+                    ),
+                    SizedBox(
+                        height: 5), // Khoảng cách giữa nội dung và "See more"
+                    Text(
+                      'See more',
+                      style: TextStyle(
+                        color: AppColors.BaseColorTextMain,
+                        fontSize: 16,
+                        decoration: TextDecoration.none,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Director',
+                      style: TextStyle(
+                        decoration: TextDecoration.none,
+                        fontSize: 24,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      width: 200,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade900,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: const EdgeInsets.all(10),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(
+                                100), // Bo tròn hình ảnh theo đường viền của Container
+                            child: Container(
+                              width: 50, // Đặt kích thước của hình ảnh tại đây
+                              height: 50, // Đặt kích thước của hình ảnh tại đây
+                              child: Image.asset(
+                                'assets/images/tran-thanh.jpg',
+                                fit: BoxFit.cover,
+                              ), // Thay đổi đường dẫn hình ảnh tại đây
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 20),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
+                          const SizedBox(
+                              width:
+                                  10), // Khoảng cách giữa hình ảnh và văn bản
+                          const Align(
+                            alignment: Alignment.center,
+                            child: Text('Trấn Thành',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  decoration: TextDecoration.none,
+                                  fontWeight: FontWeight.normal,
+                                )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  const Text(
+                    'Actor',
+                    style: TextStyle(
+                      decoration: TextDecoration.none,
+                      fontSize: 24,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        Container(
+                          constraints: const BoxConstraints(
+                              maxWidth: 200, maxHeight: 70),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade900,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: const EdgeInsets.all(10),
                           child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                constraints: const BoxConstraints(
-                                    maxWidth: 200, maxHeight: 70),
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.shade900,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                padding: const EdgeInsets.all(10),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(100),
-                                      child: Container(
-                                        width: 50,
-                                        height: 50,
-                                        child: Image.asset(
-                                          'assets/images/robert.png',
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    const Expanded(
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          'Robert Downey Jr.',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: Colors.white,
-                                            decoration: TextDecoration.none,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                          softWrap: true,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Container(
+                                  width: 50,
+                                  height: 50,
+                                  child: Image.asset(
+                                    'assets/images/robert.png',
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                              const SizedBox(width: 20),
-                              Container(
-                                constraints: const BoxConstraints(
-                                    maxWidth: 200, maxHeight: 70),
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.shade900,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                padding: const EdgeInsets.all(10),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(100),
-                                      child: Container(
-                                        width: 50,
-                                        height: 50,
-                                        child: Image.asset(
-                                          'assets/images/chiris.png',
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
+                              const SizedBox(width: 10),
+                              const Expanded(
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Robert Downey Jr.',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      decoration: TextDecoration.none,
+                                      fontWeight: FontWeight.normal,
                                     ),
-                                    const SizedBox(width: 10),
-                                    const Expanded(
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          'Chris Hemsworth',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: Colors.white,
-                                            decoration: TextDecoration.none,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                          softWrap: true,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(width: 20),
-                              Container(
-                                constraints: const BoxConstraints(
-                                    maxWidth: 200, maxHeight: 70),
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.shade900,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                padding: const EdgeInsets.all(10),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(100),
-                                      child: Container(
-                                        width: 50,
-                                        height: 50,
-                                        child: Image.asset(
-                                          'assets/images/evans.png',
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    const Expanded(
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          'Chris Evans',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: Colors.white,
-                                            decoration: TextDecoration.none,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                          softWrap: true,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                    softWrap: true,
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                        )
-                      ]),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  ItemReviewWidget(img: "assets/images/cat.jpg", name: "Thanh ngu", title: "Phim hay", time: "12 seconds", star: "star"),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                     ChooseCinema(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      CustomTextButton(
-                          text: 'Continue',
-                          onPressed: () {
-                            Navigator.pushNamed(
-                                context, SelectSeatScreen.routeName);
-                          }),
-                    ],
-                  ),      
-            ),  
+                        ),
+                        const SizedBox(width: 20),
+                        Container(
+                          constraints: const BoxConstraints(
+                              maxWidth: 200, maxHeight: 70),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade900,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Container(
+                                  width: 50,
+                                  height: 50,
+                                  child: Image.asset(
+                                    'assets/images/chiris.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              const Expanded(
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Chris Hemsworth',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      decoration: TextDecoration.none,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                    softWrap: true,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        Container(
+                          constraints: const BoxConstraints(
+                              maxWidth: 200, maxHeight: 70),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade900,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Container(
+                                  width: 50,
+                                  height: 50,
+                                  child: Image.asset(
+                                    'assets/images/evans.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              const Expanded(
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Chris Evans',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      decoration: TextDecoration.none,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                    softWrap: true,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ]),
+                const SizedBox(
+                  height: 20,
+                ),
+                ChooseCinema(),
+                SizedBox(
+                  height: 20,
+                ),
+                CustomTextButton(
+                    text: 'Continue',
+                    onPressed: () {
+                      if (dataOrder.currentSelectedCinema == -1) {
+                        CustomDialogHelper.showCustomDialog(
+                            context, "Please Select Cinema!", "cinema.svg");
+                        return;
+                      }
+                      Navigator.pushNamed(context, SelectSeatScreen.routeName);
+                    }),
+              ],
+            ),
           ),
-      ]
+        ),
+      ],
     );
   }
 }
