@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:movie_app_final/models/order_model.dart';
+import 'package:movie_app_final/providers/orders_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/home_screen.dart';
 import 'package:movie_app_final/screens/rate_screen.dart';
@@ -7,6 +9,7 @@ import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'dart:math' as math;
 
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
+import 'package:provider/provider.dart';
 
 class TicketScreen extends StatelessWidget {
   const TicketScreen({super.key});
@@ -17,6 +20,22 @@ class TicketScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     var screenheight = MediaQuery.of(context).size.height;
+    var dataOrder = Provider.of<OrdersProvider>(context, listen: false);
+    var arg = ModalRoute.of(context)!.settings.arguments;
+
+    late String orderId;
+    late OrderModel orderModel;
+
+    if (arg is String) {
+      orderId = arg;
+      // ignore: unnecessary_null_comparison
+      if (dataOrder.fetchOrderById(orderId) != null) {
+        orderModel = dataOrder.fetchOrderById(orderId) as OrderModel;
+      }
+    } else if (arg is OrderModel) {
+      orderModel = arg;
+    }
+
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
       body: Padding(
@@ -60,7 +79,7 @@ class TicketScreen extends StatelessWidget {
                 left: -55,
                 bottom: 140,
                 child: CustomPaint(
-                  size: Size(50, 50),
+                  size: const Size(50, 50),
                   painter: HalfCirclePainter(isRight: true),
                 ),
               ),
@@ -69,7 +88,8 @@ class TicketScreen extends StatelessWidget {
                 left: 0,
                 bottom: 165,
                 child: CustomPaint(
-                  size: Size(double.infinity, 1), // Kích thước của gạch đứt
+                  size:
+                      const Size(double.infinity, 1), // Kích thước của gạch đứt
                   painter: DashedLinePainter(),
                 ),
               ),
@@ -77,7 +97,7 @@ class TicketScreen extends StatelessWidget {
                 right: -55,
                 bottom: 140,
                 child: CustomPaint(
-                  size: Size(50, 50),
+                  size: const Size(50, 50),
                   painter: HalfCirclePainter(isRight: false),
                 ),
               ),
@@ -99,7 +119,7 @@ class TicketScreen extends StatelessWidget {
                   ))
             ],
           ),
-          Spacer(),
+          const Spacer(),
           CustomTextButton(
               text: "Rate Movie",
               onPressed: () {

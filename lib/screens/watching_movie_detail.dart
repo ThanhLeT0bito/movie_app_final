@@ -20,8 +20,7 @@ class WatchingDetailsScreens extends StatefulWidget {
   static const routeName = '/watching-details-screen';
 
   @override
-  State<WatchingDetailsScreens> createState() =>
-      _WatchingDetailsScreensState();
+  State<WatchingDetailsScreens> createState() => _WatchingDetailsScreensState();
 }
 
 class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
@@ -196,8 +195,7 @@ class _MainContentState extends State<MainContent> {
                     text: 'Play',
                     icon: Icons.play_arrow_rounded,
                     onPressed: () {
-                      Navigator.pushNamed(
-                          context, SelectSeatScreen.routeName);
+                      Navigator.pushNamed(context, SelectSeatScreen.routeName);
                     }),
                 const SizedBox(height: 20),
                 const Column(
@@ -215,8 +213,7 @@ class _MainContentState extends State<MainContent> {
                       textAlign: TextAlign.justify,
                     ),
                     SizedBox(
-                        height:
-                        5), // Khoảng cách giữa nội dung và "See more"
+                        height: 5), // Khoảng cách giữa nội dung và "See more"
                     Text(
                       'See more',
                       style: TextStyle(
@@ -369,8 +366,8 @@ class _MainContentState extends State<MainContent> {
                 child: Text(
                   title,
                   style: TextStyle(
-                    color: _selectedIndex == index ? Colors.yellow : Colors
-                        .white,
+                    color:
+                        _selectedIndex == index ? Colors.yellow : Colors.white,
                     fontSize: 16,
                   ),
                 ),
@@ -386,7 +383,9 @@ class _MainContentState extends State<MainContent> {
       child: Center(
         child: index == 0
             ? const EpisodeWidget()
-            : index == 1 ? const MovieWidget() : const TrailerWidget(),
+            : index == 1
+                ? const MovieWidget()
+                : const TrailerWidget(),
       ),
     );
   }
@@ -463,8 +462,9 @@ class _MainContentState extends State<MainContent> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(height: 50.0),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              const Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'AngeLina',
@@ -486,7 +486,7 @@ class _MainContentState extends State<MainContent> {
                               SizedBox(height: 4.0),
                               Container(
                                 alignment: Alignment.centerLeft,
-                                child: Text(
+                                child: const Text(
                                   'Nice movie!!!',
                                   style: TextStyle(
                                     color: AppColors.BaseColorWhite,
@@ -496,7 +496,7 @@ class _MainContentState extends State<MainContent> {
                                 ),
                               ),
                               SizedBox(height: 10.0),
-                              Row(
+                              const Row(
                                 children: [
                                   Text(
                                     'Love',

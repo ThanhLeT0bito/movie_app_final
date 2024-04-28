@@ -12,6 +12,8 @@ class OrdersProvider extends ChangeNotifier {
   List<OrderModel> _allOrder = [];
   List<OrderModel> get allOrder => _allOrder;
 
+  OrderModel? currentOrderModel;
+
   String currentUserId = "66117c988b3a5f94e2eed80a"; // chuaw set
   String currentMovieId = ""; // done
   String currentTimeMovie = ""; // done
@@ -53,6 +55,8 @@ class OrdersProvider extends ChangeNotifier {
         nameCinema: listNameCinema[currentSelectedCinema],
         locationCinema: listLocationCinema[currentSelectedCinema],
         paymentType: listPaymentType[currentSelectedPaymentType]);
+
+    currentOrderModel = newOM;
 
     await insertOrder(newOM);
   }

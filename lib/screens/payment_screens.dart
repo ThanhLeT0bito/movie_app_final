@@ -424,7 +424,9 @@ class _PaymentScreensState extends State<PaymentScreens> {
 
                   // insert new order to server
                   await dataOrder.createNewOrder();
-                  Navigator.pushNamed(context, TicketScreen.routeName);
+                  // ignore: use_build_context_synchronously
+                  Navigator.pushNamed(context, TicketScreen.routeName,
+                      arguments: dataOrder.currentOrderModel);
                 }),
           ]),
         ),

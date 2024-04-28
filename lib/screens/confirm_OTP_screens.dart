@@ -2,7 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movie_app_final/resources/app_color.dart';
+import 'package:movie_app_final/screens/enter_Username_screens.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
+import 'package:movie_app_final/widgets/Base/custom_popup.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 import 'package:provider/provider.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
@@ -222,8 +224,13 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
                               bool check = await data.signIn(otp);
                               if (check) {
                                 print("OTPPPPP OKKKK");
+                                Navigator.pushNamed(
+                                    context, EnterUserNameScreens.routeName);
                               } else {
                                 print("OTP NHƯ shittt");
+                                CustomDialogHelper.showCustomDialog(
+                                    context, "OTP Incorect!", "otp.svg");
+                                return;
                               }
                             }
                           }),

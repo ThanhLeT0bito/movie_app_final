@@ -23,7 +23,6 @@ class TicketItem extends StatelessWidget {
         ),
         child: GestureDetector(
           onTap: () {
-            print("Con lợn KHOA");
             Navigator.pushNamed(context, TicketScreen.routeName,
                 arguments: "hello");
           },
@@ -85,7 +84,8 @@ class TicketItem extends StatelessWidget {
                           Expanded(
                             child: Text(
                               ticket.TheaterLocation,
-                              overflow: TextOverflow.ellipsis, // Cắt văn bản nếu quá dài
+                              overflow: TextOverflow
+                                  .ellipsis, // Cắt văn bản nếu quá dài
                               style: const TextStyle(
                                 fontSize: Dimens.fontsize,
                                 color: AppColors.BaseColorWhite,
