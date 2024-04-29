@@ -33,7 +33,7 @@ class Movieproviders extends ChangeNotifier {
     }
   }
 
-  MovieModel findMovieById(String movieId) {
+  MovieModel? findMovieById(String movieId) {
     return _listAllMovie.firstWhere((element) => element.id == movieId);
   }
 

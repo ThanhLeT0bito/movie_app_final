@@ -24,7 +24,7 @@ class TicketItem extends StatelessWidget {
         child: GestureDetector(
           onTap: () {
             Navigator.pushNamed(context, TicketScreen.routeName,
-                arguments: "hello");
+                arguments: ticket.id as String);
           },
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +37,7 @@ class TicketItem extends StatelessWidget {
                     topLeft: Radius.circular(Dimens.circular),
                     bottomLeft: Radius.circular(Dimens.circular),
                   ),
-                  child: Image.asset(
+                  child: Image.network(
                     ticket.Image,
                     fit: BoxFit.cover,
                   ),
@@ -51,6 +51,8 @@ class TicketItem extends StatelessWidget {
                     children: [
                       Text(
                         ticket.MovieName,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,

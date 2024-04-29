@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
+import 'package:movie_app_final/models/data_local/UserPreferences%20.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
 import 'package:movie_app_final/providers/Homepage_provider.dart';
 import 'package:movie_app_final/providers/Nowplaying_provider.dart';
@@ -38,31 +39,35 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  final preferences = await UserPreferences.getUserId();
+  runApp(MyApp(preferences: preferences));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.preferences});
+
+  final String preferences;
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ManagerAllWidget()),
+        ChangeNotifierProvider(create: (_) => ManagerAllWidget(preferences)),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => Movieproviders()),
+        ChangeNotifierProvider(create: (_) => OrdersProvider()),
         ChangeNotifierProvider(create: (_) => WatchingMovieProvider()),
         ChangeNotifierProvider(create: (_) => TicketManagement()),
         ChangeNotifierProvider(create: (_) => NowplayingManagement()),
         ChangeNotifierProvider(create: (_) => HomepageManagement()),
         ChangeNotifierProvider(create: (_) => SeatsProviders()),
-        ChangeNotifierProvider(create: (_) => OrdersProvider()),
-        ChangeNotifierProvider(create: (_) => Movieproviders()),
         ChangeNotifierProvider(create: (_) => ActorProviders())
       ],
       child: Consumer<ManagerAllWidget>(builder: (context, manager, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'MOviE',
+          // ignore: unrelated_type_equality_checks
           initialRoute: manager.startScreen,
           routes: {
             HomeScreen.routeName: (context) => HomeScreen(),

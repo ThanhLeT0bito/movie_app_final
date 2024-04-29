@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:movie_app_final/models/data_local/UserPreferences%20.dart';
 import 'package:provider/provider.dart';
 import '../models/user.dart';
 import 'package:http/http.dart' as http;
@@ -12,7 +14,12 @@ import '../services/api_services.dart';
 class AuthProvider extends ChangeNotifier {
   static const String urlApi = ApiService.urlApi;
 
+  bool IsSign = true;
+
   String currentUserId = "66117c988b3a5f94e2eed80a";
+
+  String currentPhone = '';
+  String currentName = '';
 
   List<Users> list = [];
   List<Users> _users = [];
@@ -37,6 +44,19 @@ class AuthProvider extends ChangeNotifier {
     databaseReference.child('alooo').set("Nghia Dan");
   }
 
+  Future<void> setSharePreferenceUserId(String phone) async {
+    var user = await fetchUserByPhone(phone);
+    if (user != null) {
+      if (user.id != null) {
+        String UserId = user.id ?? '';
+        print(",,,,,,,,,,,,,,,");
+        print(UserId);
+        await UserPreferences.setUserId(UserId);
+      }
+    }
+    notifyListeners();
+  }
+
   Future<void> fetchUsers() async {
     try {
       final response = await http.get(Uri.parse('$urlApi/getUsers'));
@@ -52,6 +72,23 @@ class AuthProvider extends ChangeNotifier {
       }
     } catch (e) {
       print('Error loading users: $e');
+    }
+  }
+
+  Future<Users?> fetchUserByPhone(String phone) async {
+    try {
+      final response =
+          await http.get(Uri.parse('$urlApi/getUserByPhone/$phone'));
+      if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        return Users.fromJson(responseData);
+      } else {
+        print('Failed to load user: ${response.statusCode}');
+        return null;
+      }
+    } catch (e) {
+      print('Error loading user: $e');
+      return null;
     }
   }
 
@@ -134,7 +171,7 @@ class AuthProvider extends ChangeNotifier {
   Future<void> requestOTP(String phoneNumber) async {
     try {
       await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: "+84" + phoneNumber,
+        phoneNumber: "+84$phoneNumber",
         verificationCompleted: (PhoneAuthCredential credential) async {
           await FirebaseAuth.instance.signInWithCredential(credential);
           print('Đăng nhập thành công');

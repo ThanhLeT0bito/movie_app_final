@@ -31,16 +31,6 @@ class _ProfileScreensState extends State<HomeProfileScreens> {
     //Provider.of<ActorProviders>(context, listen: false).addListActors();
     //Provider.of<Movieproviders>(context, listen: false).addListMovies();
     //Provider.of<Movieproviders>(context, listen: false).fetchAllMovies();
-    // Provider.of<OrdersProvider>(context, listen: false).insertOrder(OrderModel(
-    //     userId: "1234",
-    //     movieId: "123",
-    //     dateMovie: "04/08/2024",
-    //     timeMovie: "2h14'",
-    //     section: 4,
-    //     seats: "H7, H8",
-    //     prices: 127000,
-    //     nameCinema: "Cinema TPHCM",
-    //     locationCinema: "HCM"));
   }
 
   @override

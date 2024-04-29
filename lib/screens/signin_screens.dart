@@ -71,23 +71,24 @@ class _SignInScreensState extends State<SignInScreens> {
                                 phoneNumber.text = value;
                               });
                             },
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: AppColors.BaseColorWhite,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold),
                             decoration: InputDecoration(
                               hintText: "Enter phone number",
-                              hintStyle:
-                                  TextStyle(color: AppColors.BaseColorWhite),
+                              hintStyle: const TextStyle(
+                                  color: AppColors.BaseColorWhite),
                               prefixIcon: Container(
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                     top: 13, right: 20, left: 10),
                                 child: InkWell(
                                   onTap: () {
                                     showCountryPicker(
                                         context: context,
-                                        countryListTheme: CountryListThemeData(
-                                            bottomSheetHeight: 550),
+                                        countryListTheme:
+                                            const CountryListThemeData(
+                                                bottomSheetHeight: 550),
                                         onSelect: (value) {
                                           setState(() {
                                             selectCountry = value;
@@ -96,7 +97,7 @@ class _SignInScreensState extends State<SignInScreens> {
                                   },
                                   child: Text(
                                     "${selectCountry.flagEmoji} ${(selectCountry.phoneCode)}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 20,
                                         color: AppColors.BaseColorWhite,
                                         fontWeight: FontWeight.bold),
@@ -127,7 +128,10 @@ class _SignInScreensState extends State<SignInScreens> {
                     text: 'Continue',
                     onPressed: () {
                       //sendCode();
-                      data.requestOTP(phoneNumber.text);
+                      //data.requestOTP(phoneNumber.text);
+                      data.currentPhone = phoneNumber.text;
+                      data.setSharePreferenceUserId(phoneNumber.text);
+                      print(phoneNumber.text);
                       Navigator.pushNamed(context, ConfirmOTPScreens.routeName);
                     },
                   ),
@@ -179,10 +183,10 @@ class _SignInScreensState extends State<SignInScreens> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
-                  Text(
+                  const Text(
                       'By sign in or sign up, you agree to our Terms of Service and Privacy Policy',
                       style: TextStyle(color: AppColors.BaseColorWhite),
                       textAlign: TextAlign.center),

@@ -1,6 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:movie_app_final/models/order_model.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
 import 'package:movie_app_final/services/api_services.dart';
@@ -12,9 +16,13 @@ class OrdersProvider extends ChangeNotifier {
   List<OrderModel> _allOrder = [];
   List<OrderModel> get allOrder => _allOrder;
 
+  List<OrderModel> currentListOrderUser = [];
+
   OrderModel? currentOrderModel;
 
-  String currentUserId = "66117c988b3a5f94e2eed80a"; // chuaw set
+  String currentUserId =
+      "66117c988b3a5f94e2eed80a"; // khi login thì change value userId
+  //"";
   String currentMovieId = ""; // done
   String currentTimeMovie = ""; // done
   String currentDateMovie = ""; // done
@@ -23,25 +31,6 @@ class OrdersProvider extends ChangeNotifier {
   String currentSeats = ""; // done
   double currentTotalPrice = 200000; // hardcode
   int currentSelectedPaymentType = -1; // done
-
-  List<String> listNameCinema = [
-    "Vincom Ocean Park CGV",
-    " Mall CGV",
-    "Lotte Cinema Long Bien"
-  ];
-  List<String> listLocationCinema = [
-    "4.55 km | Da Ton, Gia Lam, Ha Noi",
-    "9.32 km | 27 Co Linh, Long Bien, Ha Noi",
-    "14.3 km | 7-9 Nguyen Van Linh, Long Bien, Ha Noi"
-  ];
-
-  List<String> listPaymentType = [
-    "Zalo Pay",
-    "MoMo",
-    "Shoppe Pay",
-    "ATM Card",
-    "International payments"
-  ];
 
   Future<void> createNewOrder() async {
     OrderModel newOM = OrderModel(
@@ -68,9 +57,7 @@ class OrdersProvider extends ChangeNotifier {
         final List<dynamic> responseData = json.decode(response.body);
         _allOrder =
             responseData.map((json) => OrderModel.fromJson(json)).toList();
-        for (var element in _allOrder) {
-          print(element.movieId);
-        }
+        print("ALL ORDER :${_allOrder.length}");
         notifyListeners();
       } else {
         print('Failed to load orders: ${response.statusCode}');
@@ -119,4 +106,50 @@ class OrdersProvider extends ChangeNotifier {
       return null;
     }
   }
+
+  Future<void> fetchListOrderOfUser() async {
+    var listOrder = await fetchListOrdersByUserId(currentUserId);
+    currentListOrderUser = listOrder;
+    notifyListeners();
+  }
+
+  // get list order by user id
+  Future<List<OrderModel>> fetchListOrdersByUserId(String userId) async {
+    try {
+      final response =
+          await http.get(Uri.parse('$urlApi/getOrdersByUserId/$userId'));
+      if (response.statusCode == 200) {
+        final List<dynamic> responseData = json.decode(response.body);
+        List<OrderModel> orders =
+            responseData.map((data) => OrderModel.fromJson(data)).toList();
+        return orders;
+      } else {
+        print('Failed to load orders: ${response.statusCode}');
+        return [];
+      }
+    } catch (e) {
+      print('Error loading orders: $e');
+      return [];
+    }
+  }
+
+  List<String> listNameCinema = [
+    "Vincom Ocean Park CGV",
+    " Mall CGV",
+    "Lotte Cinema Long Bien"
+  ];
+
+  List<String> listLocationCinema = [
+    "4.55 km | Da Ton, Gia Lam, Ha Noi",
+    "9.32 km | 27 Co Linh, Long Bien, Ha Noi",
+    "14.3 km | 7-9 Nguyen Van Linh, Long Bien, Ha Noi"
+  ];
+
+  List<String> listPaymentType = [
+    "Zalo Pay",
+    "MoMo",
+    "Shoppe Pay",
+    "ATM Card",
+    "International payments"
+  ];
 }

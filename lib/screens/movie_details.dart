@@ -25,8 +25,8 @@ class MoviedetailsScreens extends StatelessWidget {
     late String movieId = ModalRoute.of(context)!.settings.arguments as String;
     movieId ??= "662672c978a71af977967c0f";
 
-    MovieModel movie = dataMovie.findMovieById(movieId);
-    dataMovie.printMovieModelProperties(movie);
+    MovieModel? movie = dataMovie.findMovieById(movieId);
+    dataMovie.printMovieModelProperties(movie!);
 
     dataOrder.currentMovieId = movieId;
 

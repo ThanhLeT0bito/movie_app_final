@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:movie_app_final/models/data_local/UserPreferences%20.dart';
 import 'package:movie_app_final/models/model_widget/item_radio.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/screens/choose_your_need_screens.dart';
@@ -20,8 +21,8 @@ import 'package:movie_app_final/widgets/Base/custom_item_radio.dart';
 import 'package:movie_app_final/widgets/custom_item_bottom__bar.dart';
 
 class ManagerAllWidget extends ChangeNotifier {
-  //String startScreen = SignIn_SignUp_Screens.routeName;
-  String startScreen = HomeScreen.routeName;
+  late String startScreen = SignIn_SignUp_Screens.routeName;
+  //String startScreen = HomeScreen.routeName;
   //String startScreen = ChooseNeed.routeName;
   //mode
   bool isBookingScreen = false;
@@ -35,11 +36,39 @@ class ManagerAllWidget extends ChangeNotifier {
 
   int get selectedIndex => _selectedIndex;
 
-  ManagerAllWidget() {
+  String currentUserId = '';
+
+  String preferences;
+
+  ManagerAllWidget(this.preferences) {
     _selectedIndex = 0;
     bottomNavBarItems = bottomNavBarItemsBooking;
     bottomnavigations = _screensBooking;
     setBottomItem(_selectedIndex);
+    //currentUserId = UserPreferences.getUserId() as String;
+    if (preferences.isEmpty) {
+      startScreen = SignIn_SignUp_Screens.routeName;
+    } else {
+      startScreen = ChooseNeed.routeName;
+    }
+  }
+
+  Future<void> _initialize() async {
+    await getUserId();
+  }
+
+  Future<String> getUserId() async {
+    var userId = (await UserPreferences.getUserId()).trim();
+    print("GETTTT USER ID");
+    print(userId);
+    currentUserId = userId;
+
+    await UserPreferences.setUserId('');
+    startScreen = userId.isNotEmpty
+        ? ChooseNeed.routeName
+        : SignIn_SignUp_Screens.routeName;
+    notifyListeners();
+    return userId;
   }
 
   void setBottomItem(int index) {

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/models/order_model.dart';
@@ -11,30 +13,47 @@ import 'dart:math' as math;
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 import 'package:provider/provider.dart';
 
-class TicketScreen extends StatelessWidget {
+class TicketScreen extends StatefulWidget {
   const TicketScreen({super.key});
 
   static const String routeName = "/ticket-screen";
 
   @override
-  Widget build(BuildContext context) {
-    var screenWidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+  State<TicketScreen> createState() => _TicketScreenState();
+}
+
+class _TicketScreenState extends State<TicketScreen> {
+  late String orderId;
+  late OrderModel orderModel;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
     var dataOrder = Provider.of<OrdersProvider>(context, listen: false);
     var arg = ModalRoute.of(context)!.settings.arguments;
 
-    late String orderId;
-    late OrderModel orderModel;
-
     if (arg is String) {
       orderId = arg;
-      // ignore: unnecessary_null_comparison
-      if (dataOrder.fetchOrderById(orderId) != null) {
-        orderModel = dataOrder.fetchOrderById(orderId) as OrderModel;
+      print("&&&&&&&&&&&&");
+      print(orderId);
+      if (await dataOrder.fetchOrderById(orderId) != null) {
+        orderModel = await dataOrder.fetchOrderById(orderId) as OrderModel;
+        print("DATE DATE DATE DATE:");
+        print(orderModel.dateMovie);
       }
     } else if (arg is OrderModel) {
       orderModel = arg;
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenheight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,

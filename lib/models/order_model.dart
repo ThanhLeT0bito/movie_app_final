@@ -37,18 +37,18 @@ class OrderModel with ChangeNotifier {
       timeMovie: json['timeMovie'],
       section: json['section'],
       seats: json['seats'],
-      prices: json['prices'],
+      prices: json['prices'].toDouble(),
       nameCinema: json['nameCinema'],
       locationCinema: json['locationCinema'],
-      created: json['created'],
+      created: json['created'] != null ? DateTime.parse(json['created']) : null,
       paymentType: json['paymentType'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'userId': userId,
       'movieId': movieId,
+      'userId': userId,
       'dateMovie': dateMovie,
       'timeMovie': timeMovie,
       'section': section,
