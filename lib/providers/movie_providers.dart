@@ -116,8 +116,8 @@ class Movieproviders extends ChangeNotifier {
       ItemCarouselWidget newCar = ItemCarouselWidget(
         id: listAllMovie[i].id!,
         img: listAllMovie[i].thumbnail,
-        Name: listAllMovie[i].name,
-        Description: listAllMovie[i].category,
+        name: listAllMovie[i].name,
+        description: listAllMovie[i].category,
       );
       _listCarousel.add(newCar);
     }

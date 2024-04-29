@@ -25,6 +25,7 @@ class _ChooseCinemaState extends State<ChooseCinema> {
           style: TextStyle(
             fontSize: 24,
             color: Colors.white,
+            fontWeight: FontWeight.bold,
             decoration: TextDecoration.none,
           ),
         ),
@@ -41,13 +42,13 @@ class _ChooseCinemaState extends State<ChooseCinema> {
             width: 500,
             height: 100,
             decoration: BoxDecoration(
-                color: Colors.grey.shade900,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                    color: _selectedContainerIndex == 0
-                        ? AppColors.BaseColorMain
-                        : Colors.grey.shade900,
-                    width: 2)),
+              color:_selectedContainerIndex==0? AppColors.BackgroundSelectCinema: Colors.grey.shade900,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: _selectedContainerIndex ==0 ? AppColors.BaseColorMain : Colors.grey.shade900,
+                width: 2
+              )
+            ),
             padding: EdgeInsets.all(10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,14 +112,13 @@ class _ChooseCinemaState extends State<ChooseCinema> {
             width: 500,
             height: 100,
             decoration: BoxDecoration(
-                color: Colors.grey.shade900,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: _selectedContainerIndex == 1
-                      ? AppColors.BaseColorMain
-                      : Colors.grey.shade900,
-                  width: 2,
-                )),
+               color:_selectedContainerIndex==1? AppColors.BackgroundSelectCinema: Colors.grey.shade900,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color:_selectedContainerIndex == 1 ? AppColors.BaseColorMain : Colors.grey.shade900,
+                width: 2,
+              )
+            ),
             padding: EdgeInsets.all(10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,14 +183,13 @@ class _ChooseCinemaState extends State<ChooseCinema> {
             width: 500,
             height: 100,
             decoration: BoxDecoration(
-                color: Colors.grey.shade900,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: _selectedContainerIndex == 2
-                      ? AppColors.BaseColorMain
-                      : Colors.grey.shade900,
-                  width: 2,
-                )),
+               color:_selectedContainerIndex==2? AppColors.BackgroundSelectCinema: Colors.grey.shade900,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: _selectedContainerIndex == 2 ? AppColors.BaseColorMain : Colors.grey.shade900,
+                width: 2,
+              )
+            ),
             padding: EdgeInsets.all(10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,

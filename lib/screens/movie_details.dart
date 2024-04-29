@@ -9,6 +9,7 @@ import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_popup.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 import 'package:provider/provider.dart';
+import 'package:movie_app_final/widgets/item_review_widget.dart';
 
 import '../widgets/Base/custom_cinema_movie_detail.dart';
 

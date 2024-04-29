@@ -24,7 +24,11 @@ class _TicketMovieScreensState extends State<TicketMovieScreens> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const CustomAppBar(title: 'My ticket'),
+        const SizedBox(height: 5),
+        const CustomAppBar(
+          title: 'My ticket',
+          showBackButton: false,
+        ),
         Expanded(
           child: ListView.builder(
               itemCount: ListTicket.length,
