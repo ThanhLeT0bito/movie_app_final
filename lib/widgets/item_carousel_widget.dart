@@ -35,6 +35,7 @@ class ItemCarouselWidget extends StatelessWidget {
         Text(
           name,
           maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: const TextStyle(
             color: AppColors.BaseColorWhite,
             fontSize: 26,
@@ -48,6 +49,7 @@ class ItemCarouselWidget extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
+                  textAlign: TextAlign.center,
                   description,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
