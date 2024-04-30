@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movie_app_final/resources/app_color.dart';
+import 'package:movie_app_final/screens/choose_your_need_screens.dart';
 import 'package:movie_app_final/screens/enter_Username_screens.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_popup.dart';
@@ -224,8 +225,19 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
                               bool check = await data.signIn(otp);
                               if (check) {
                                 print("OTPPPPP OKKKK");
-                                Navigator.pushNamed(
-                                    context, EnterUserNameScreens.routeName);
+                                if (data.IsSign) {
+                                  await data.setSharePreferenceUserId(
+                                      data.currentPhone);
+                                  Navigator.pushNamed(
+                                      // ignore: use_build_context_synchronously
+                                      context,
+                                      ChooseNeed.routeName);
+                                } else {
+                                  Navigator.pushNamed(
+                                      // ignore: use_build_context_synchronously
+                                      context,
+                                      EnterUserNameScreens.routeName);
+                                }
                               } else {
                                 print("OTP NHƯ shittt");
                                 CustomDialogHelper.showCustomDialog(

@@ -50,6 +50,7 @@ class CustomAppBar extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       title!,
+                      textAlign: TextAlign.center,
                       style: const TextStyle(
                           color: AppColors.BaseColorWhite,
                           fontSize: Dimens.FontSizeAppBar,

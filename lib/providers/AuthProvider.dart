@@ -1,12 +1,12 @@
+// ignore_for_file: non_constant_identifier_names, avoid_print
+
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movie_app_final/models/data_local/UserPreferences%20.dart';
-import 'package:provider/provider.dart';
 import '../models/user.dart';
 import 'package:http/http.dart' as http;
 import '../services/api_services.dart';
@@ -57,6 +57,25 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<bool> checkSignIn(String phone) async {
+    var user = await fetchUserByPhone(phone);
+    if (user != null) return true;
+
+    return false;
+  }
+
+  Future<bool> addNewUser() async {
+    Users user = Users(name: currentName, phone: currentPhone);
+    print('ADDDDDD USERRRR');
+    print(user.name);
+    print(user.phone);
+    var addUser = await insertUser(user);
+    if (!addUser) return false;
+    CurrentUser = user;
+    await setSharePreferenceUserId(currentPhone);
+    return true;
+  }
+
   Future<void> fetchUsers() async {
     try {
       final response = await http.get(Uri.parse('$urlApi/getUsers'));
@@ -92,7 +111,7 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> insertUser(Users user) async {
+  Future<bool> insertUser(Users user) async {
     try {
       final response = await http.post(
         Uri.parse('$urlApi/insertUser'),
@@ -104,14 +123,17 @@ class AuthProvider extends ChangeNotifier {
 
       if (response.statusCode == 201) {
         // User inserted successfully
-        fetchUsers();
+        //fetchUsers();
         notifyListeners();
         print('User inserted successfully');
+        return true;
       } else {
         print('Failed to insert user: ${response.body}');
+        return false;
       }
     } catch (error) {
       print('Error inserting user: $error');
+      return false;
     }
   }
 

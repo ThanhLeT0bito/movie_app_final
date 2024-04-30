@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app_final/providers/AuthProvider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/choose_your_need_screens.dart';
 import 'package:movie_app_final/screens/home_screen.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
+import 'package:movie_app_final/widgets/Base/custom_popup.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 import 'package:movie_app_final/widgets/Base/custom_textfield.dart';
+import 'package:provider/provider.dart';
 
 class EnterUserNameScreens extends StatefulWidget {
   const EnterUserNameScreens({Key? key}) : super(key: key);
@@ -15,15 +18,17 @@ class EnterUserNameScreens extends StatefulWidget {
 }
 
 class _EnterUserNameScreensState extends State<EnterUserNameScreens> {
+  var userNameText = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<AuthProvider>(context);
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
       resizeToAvoidBottomInset: true,
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
             child: CustomAppBar(),
           ),
           Expanded(
@@ -40,10 +45,10 @@ class _EnterUserNameScreensState extends State<EnterUserNameScreens> {
                         fontSize: 32,
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  Row(
+                  const Row(
                     children: [
                       Text(
                         'Latin characters, no emoji/symbols',
@@ -54,11 +59,10 @@ class _EnterUserNameScreensState extends State<EnterUserNameScreens> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   // Khoảng cách giữa "Username" và TextField
                   CustomTextField(
-                      hintText: "Angelia",
-                      controller: new TextEditingController()),
+                      hintText: "Angelia", controller: userNameText),
 
                   Expanded(
                     child: Column(
@@ -66,9 +70,23 @@ class _EnterUserNameScreensState extends State<EnterUserNameScreens> {
                       children: [
                         CustomTextButton(
                             text: "Done",
-                            onPressed: () {
+                            onPressed: () async {
+                              if (userNameText.text.isEmpty) {
+                                return;
+                              }
+
+                              data.currentName = userNameText.text;
+                              print(data.currentName);
+
+                              var check = await data.addNewUser();
+
+                              if (!check) {
+                                CustomDialogHelper.showCustomDialog(
+                                    context, "SignUp Error!", 'user-error.svg');
+                                return;
+                              }
                               Navigator.pushNamed(
-                                  context, ChooseNeed.routeName);
+                                  context, HomeScreen.routeName);
                             }),
                         const SizedBox(height: 10),
                       ],
