@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:movie_app_final/models/data_local/UserPreferences%20.dart';
 import 'package:movie_app_final/models/order_model.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
 import 'package:movie_app_final/services/api_services.dart';
@@ -21,8 +22,8 @@ class OrdersProvider extends ChangeNotifier {
   OrderModel? currentOrderModel;
 
   String currentUserId =
-      "66117c988b3a5f94e2eed80a"; // khi login thì change value userId
-  //"";
+      //"66117c988b3a5f94e2eed80a"; // khi login thì change value userId
+      "";
   String currentMovieId = ""; // done
   String currentTimeMovie = ""; // done
   String currentDateMovie = ""; // done
@@ -33,6 +34,8 @@ class OrdersProvider extends ChangeNotifier {
   int currentSelectedPaymentType = -1; // done
 
   Future<void> createNewOrder() async {
+    var userId = await UserPreferences.getUserId();
+    if (userId != '') currentUserId = userId;
     OrderModel newOM = OrderModel(
         userId: currentUserId,
         movieId: currentMovieId,
@@ -108,6 +111,9 @@ class OrdersProvider extends ChangeNotifier {
   }
 
   Future<void> fetchListOrderOfUser() async {
+    var userId = await UserPreferences.getUserId();
+    currentUserId = userId;
+
     var listOrder = await fetchListOrdersByUserId(currentUserId);
     currentListOrderUser = listOrder;
     notifyListeners();
