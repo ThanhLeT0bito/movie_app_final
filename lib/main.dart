@@ -68,7 +68,8 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'MOviE',
           // ignore: unrelated_type_equality_checks
-          initialRoute: manager.startScreen,
+          initialRoute: HomeScreen.routeName,
+          //manager.startScreen,
           routes: {
             HomeScreen.routeName: (context) => HomeScreen(),
             HomepageScreens.routeName: (context) => HomepageScreens(),
@@ -95,6 +96,7 @@ class MyApp extends StatelessWidget {
             DeleteAccountScreens.routeName: (context) => DeleteAccountScreens(),
             RateScreen.routeName: (context) => RateScreen(),
             CategoryScreens.routeName: (context) => CategoryScreens(),
+            TrailerScreen.routeName:(context) => TrailerScreen(trailerUrl:'' ),
           },
         );
       }),
