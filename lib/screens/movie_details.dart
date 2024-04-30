@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/models/movie_model.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/providers/orders_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
+import 'package:movie_app_final/screens/signin_screens.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_popup.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 import 'package:provider/provider.dart';
 import 'package:movie_app_final/widgets/item_review_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../widgets/Base/custom_cinema_movie_detail.dart';
 
@@ -179,28 +183,41 @@ class PositionedItem extends StatelessWidget {
                   ),
                 ],
               ),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(color: AppColors.BaseColorWhite)),
-                padding: const EdgeInsets.all(10),
-                child: const Row(
-                  children: [
-                    Icon(
-                      Icons.play_circle,
-                      size: 20,
-                      color: AppColors.BaseColorMain,
+              InkWell(
+                // Inside the onTap handler of the "Watch Trailer" button
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          TrailerScreen(trailerUrl: movie.trailerUrl),
                     ),
-                    SizedBox(width: 10),
-                    Text(
-                      "Watch Trailer",
-                      style: TextStyle(
-                          decoration: TextDecoration.none,
-                          color: AppColors.BaseColorWhite,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
-                    )
-                  ],
+                  );
+                },
+
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: AppColors.BaseColorWhite)),
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.play_circle,
+                        size: 20,
+                        color: AppColors.BaseColorMain,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Watch Trailer",
+                        style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: AppColors.BaseColorWhite,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
                 ),
               )
             ],
@@ -212,6 +229,8 @@ class PositionedItem extends StatelessWidget {
 }
 
 class MainContent extends StatelessWidget {
+
+
   const MainContent({
     Key? key, // Thay đổi đây
     required this.screenWidth,
@@ -582,5 +601,59 @@ class MainContent extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+
+class TrailerScreen extends StatelessWidget {
+  final String trailerUrl;
+  static const routeName = '/trailer-screen';
+
+  const TrailerScreen({Key? key, required this.trailerUrl}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    String? videoId = YoutubePlayer.convertUrlToId(trailerUrl);
+    if (videoId != null) {
+      YoutubePlayerController controller = YoutubePlayerController(
+        initialVideoId: videoId,
+        flags: YoutubePlayerFlags(
+          autoPlay: true,
+          mute: false,
+        ),
+      );
+
+      return Scaffold(
+        backgroundColor: AppColors.BaseColorBlackGround,
+        body: Center(
+          child: AspectRatio(
+            aspectRatio: 16 / 9,
+            child: YoutubePlayer(
+              controller: controller,
+              showVideoProgressIndicator: true,
+              progressIndicatorColor: Colors.amber,
+              progressColors: ProgressBarColors(
+                playedColor: Colors.amber,
+                handleColor: Colors.amberAccent,
+              ),
+              // bottomActions: [
+              //   CurrentPosition(),
+              //   ProgressBar(isExpanded: true),
+              //   RemainingDuration(),
+              //   FullScreenButton(),
+              // ],
+            ),
+          ),
+        ),
+      );
+    } else {
+      // Xử lý khi không thể chuyển đổi trailer URL thành video ID
+      print('Invalid trailer URL or unable to convert to video ID');
+      return Scaffold(
+        body: Center(
+          child: Text('Invalid trailer URL or unable to convert to video ID'),
+        ),
+      );
+    }
   }
 }

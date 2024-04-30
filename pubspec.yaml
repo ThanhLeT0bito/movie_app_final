@@ -26,6 +26,8 @@ dependencies:
   cloud_firestore: ^4.17.1
   flutter_rating_bar: ^4.0.1
   shared_preferences: ^2.2.3
+  youtube_player_flutter: ^9.0.1
+  url_launcher: ^6.2.6
   # flutter_facebook_auth: ^6.1.1
   # google_sign_in: ^6.2.1
 
