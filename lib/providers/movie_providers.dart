@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:movie_app_final/models/movie_model.dart';
 import 'package:movie_app_final/services/api_services.dart';
 import 'package:http/http.dart' as http;
@@ -34,7 +35,7 @@ class Movieproviders extends ChangeNotifier {
   }
 
   MovieModel? findMovieById(String movieId) {
-    return _listAllMovie.firstWhere((element) => element.id == movieId);
+    return _listAllMovie.firstWhereOrNull((element) => element.id == movieId);
   }
 
   Future<void> fetchAllMovies() async {

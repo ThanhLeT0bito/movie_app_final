@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/confirm_OTP_screens.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
+import 'package:movie_app_final/widgets/Base/custom_popup.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 import 'package:provider/provider.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
@@ -126,11 +127,25 @@ class _SignInScreensState extends State<SignInScreens> {
                   //const SizedBox(height: 200),
                   CustomTextButton(
                     text: 'Continue',
-                    onPressed: () {
+                    onPressed: () async {
                       //sendCode();
-                      //data.requestOTP(phoneNumber.text);
+                      var check = await data.checkSignIn(phoneNumber.text);
+                      if (!check && data.IsSign) {
+                        CustomDialogHelper.showCustomDialog(
+                            context, "Don't Have Account!", 'user-add.svg');
+                        return;
+                      }
+
+                      if (check && !data.IsSign) {
+                        CustomDialogHelper.showCustomDialog(
+                            context, "Exists Number Phone!", 'phone-exist.svg');
+                        return;
+                      }
+                      data.requestOTP(phoneNumber.text); //để send otp
                       data.currentPhone = phoneNumber.text;
-                      data.setSharePreferenceUserId(phoneNumber.text);
+                      print('CHECK CURRENT PHONE');
+                      print(data.currentPhone);
+                      //data.setSharePreferenceUserId(phoneNumber.text);
                       print(phoneNumber.text);
                       Navigator.pushNamed(context, ConfirmOTPScreens.routeName);
                     },

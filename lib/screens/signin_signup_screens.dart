@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:movie_app_final/models/model_widget/item_radio.dart';
+import 'package:movie_app_final/providers/AuthProvider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/signin_screens.dart';
 import 'package:movie_app_final/widgets/Base/custom_bottom_sheet.dart';
 import 'package:movie_app_final/widgets/Base/custom_carousel_signin_signup.dart';
 import 'package:movie_app_final/widgets/Base/custom_item_radio.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
+import 'package:provider/provider.dart';
 
 class SignIn_SignUp_Screens extends StatefulWidget {
   const SignIn_SignUp_Screens({Key? key}) : super(key: key);
@@ -38,6 +41,7 @@ class _SignInSignUpScreensState extends State<SignIn_SignUp_Screens> {
 
   @override
   Widget build(BuildContext context) {
+    var data = Provider.of<AuthProvider>(context);
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
       body: SingleChildScrollView(
@@ -122,6 +126,7 @@ class _SignInSignUpScreensState extends State<SignIn_SignUp_Screens> {
             CustomTextButton(
               text: 'Sign up',
               onPressed: () {
+                data.IsSign = false;
                 Navigator.pushNamed(context, SignInScreens.routeName,
                     arguments: "Sign Up");
               },

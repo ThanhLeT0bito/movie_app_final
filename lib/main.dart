@@ -39,6 +39,7 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  //await UserPreferences.setUserId('');
   final preferences = await UserPreferences.getUserId();
   runApp(MyApp(preferences: preferences));
 }
@@ -68,7 +69,9 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'MOviE',
           // ignore: unrelated_type_equality_checks
-          initialRoute: manager.startScreen,
+          initialRoute:
+              //HomeScreen.routeName,
+              manager.startScreen,
           routes: {
             HomeScreen.routeName: (context) => HomeScreen(),
             HomepageScreens.routeName: (context) => HomepageScreens(),
