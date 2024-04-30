@@ -72,8 +72,6 @@ class MyApp extends StatelessWidget {
           initialRoute:
               //HomeScreen.routeName,
               manager.startScreen,
-          initialRoute: HomeScreen.routeName,
-          //manager.startScreen,
           routes: {
             HomeScreen.routeName: (context) => HomeScreen(),
             HomepageScreens.routeName: (context) => HomepageScreens(),
