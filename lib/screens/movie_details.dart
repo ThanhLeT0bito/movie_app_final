@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/models/movie_model.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/providers/orders_provider.dart';
+import 'package:movie_app_final/providers/seats_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
 import 'package:movie_app_final/screens/signin_screens.dart';
@@ -25,6 +26,7 @@ class MoviedetailsScreens extends StatelessWidget {
   Widget build(BuildContext context) {
     var dataMovie = Provider.of<Movieproviders>(context);
     var dataOrder = Provider.of<OrdersProvider>(context, listen: false);
+    var dataSeat = Provider.of<SeatsProviders>(context);
 
     late String movieId = ModalRoute.of(context)!.settings.arguments as String;
     movieId ??= "662672c978a71af977967c0f";
@@ -33,6 +35,10 @@ class MoviedetailsScreens extends StatelessWidget {
     dataMovie.printMovieModelProperties(movie!);
 
     dataOrder.currentMovieId = movieId;
+    dataOrder.getSection();
+    dataSeat.currentMovieId = movieId;
+    dataSeat.InitSeatResrved();
+    //dataSeat.updatemMovieId(movieId);
 
     double screenWidth = MediaQuery.of(context).size.width;
 
@@ -229,8 +235,6 @@ class PositionedItem extends StatelessWidget {
 }
 
 class MainContent extends StatelessWidget {
-
-
   const MainContent({
     Key? key, // Thay đổi đây
     required this.screenWidth,
@@ -603,7 +607,6 @@ class MainContent extends StatelessWidget {
     );
   }
 }
-
 
 class TrailerScreen extends StatelessWidget {
   final String trailerUrl;

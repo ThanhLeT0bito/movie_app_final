@@ -1,15 +1,30 @@
+import 'dart:convert';
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/models/model_widget/date.dart';
 import 'package:movie_app_final/models/model_widget/seat.dart';
 import 'package:movie_app_final/models/model_widget/time.dart';
+import 'package:movie_app_final/models/seat_model.dart';
+import 'package:movie_app_final/services/api_services.dart';
+import 'package:http/http.dart' as http;
 
 class SeatsProviders extends ChangeNotifier {
+  static const String urlApi = ApiService.urlApi;
+
   List<Seat> _listSeat = [];
   List<DateSeat> _listDate = [];
   List<TimeSeat> _listTime = [];
 
   DateSeat? currentDateSeat;
   TimeSeat? currentTimeSeat;
+
+  ///
+  String? currentMovieId;
+
+  String currentSeatId = '';
+
+  String currentListSeat = '';
 
   //Public
   List<Seat> get listSeat => _listSeat;
@@ -21,6 +36,12 @@ class SeatsProviders extends ChangeNotifier {
     generateTime();
   }
 
+  void updatemMovieId(String movieId) {
+    currentMovieId = movieId;
+    print('IDDDDDDDDDDDDDDDDDDD:$movieId');
+    notifyListeners();
+  }
+
   void _generateSeats() {
     for (var i = 'A'.codeUnitAt(0); i <= 'F'.codeUnitAt(0); i++) {
       for (var j = 1; j <= 8; j++) {
@@ -28,15 +49,35 @@ class SeatsProviders extends ChangeNotifier {
         _listSeat.add(Seat(name: seatName));
       }
     }
-    _listSeat[1].status = Status.resered;
-    _listSeat[3].status = Status.resered;
-    _listSeat[5].status = Status.resered;
-    _listSeat[6].status = Status.resered;
-    _listSeat[4].status = Status.resered;
-    _listSeat[11].status = Status.resered;
-    _listSeat[12].status = Status.resered;
-    _listSeat[10].status = Status.resered;
-    _listSeat[18].status = Status.resered;
+  }
+
+  Future<void> InitSeatResrved() async {
+    print('MOVIEEE ID: $currentMovieId');
+
+    var seats = await findSeatsByMovieId(currentMovieId!);
+
+    if (seats.isEmpty) return;
+
+    currentSeatId = seats[0].id ?? '';
+
+    List<String> seatList =
+        //["A1", "B1"];
+        seats[0].reserved.split(RegExp(r',\s*'));
+
+    for (var i in seatList) {
+      var seat = _listSeat.firstWhere((element) => element.name == i);
+      if (seat == null) continue;
+      seat.status = Status.resered;
+    }
+  }
+
+  Future<void> updateSeat() async {
+    if (currentSeatId == '' || currentMovieId == '' || currentListSeat == '') {
+      return;
+    }
+
+    await updateSeatReserved(currentSeatId, currentListSeat);
+    currentListSeat = '';
   }
 
   String getListSeatSelected() {
@@ -174,6 +215,50 @@ class SeatsProviders extends ChangeNotifier {
         return 12;
       default:
         return 0;
+    }
+  }
+
+///// calll api
+
+// Phương thức để tìm các ghế theo movieId
+  static Future<List<SeatModel>> findSeatsByMovieId(String movieId) async {
+    try {
+      final response = await http.get(
+        Uri.parse('$urlApi/findSeatsByMovieId/$movieId'),
+      );
+
+      if (response.statusCode == 200) {
+        // Nếu thành công, chuyển đổi dữ liệu JSON thành danh sách các ghế
+        List<dynamic> data = json.decode(response.body);
+        List<SeatModel> seats =
+            data.map((json) => SeatModel.fromJson(json)).toList();
+        return seats;
+      } else {
+        // Nếu không thành công, thông báo lỗi cho người dùng
+        throw Exception('Failed to find seats by movieId');
+      }
+    } catch (error) {
+      // Nếu xảy ra lỗi trong quá trình gửi yêu cầu, thông báo lỗi cho người dùng
+      throw Exception('Error finding seats by movieId: $error');
+    }
+  }
+
+// Phương thức để cập nhật trường reserved của một ghế bằng cách thêm giá trị reserved mới
+  static Future<bool> updateSeatReserved(String id, String reserved) async {
+    try {
+      final response = await http.put(
+        Uri.parse('$urlApi/updateSeatReserved/$id'),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode({"reserved": reserved}),
+      );
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
     }
   }
 }

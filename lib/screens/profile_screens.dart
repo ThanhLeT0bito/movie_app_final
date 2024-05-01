@@ -57,11 +57,12 @@ class _ProfileScreensState extends State<HomeProfileScreens> {
             ),
             TextButton(
                 onPressed: () async {
-                  Users newUser = Users(
-                    name: "Lê Tiến Thành",
-                    phone: "0904962412",
-                  );
-                  await data.insertUser(newUser);
+                  // Users newUser = Users(
+                  //   name: "Lê Tiến Thành",
+                  //   phone: "0904962412",
+                  // );
+                  // await data.insertUser(newUser);
+                  await dataMovie.initSeats();
                 },
                 child: Text("Insert data")),
             // TextButton(

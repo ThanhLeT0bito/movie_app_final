@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:movie_app_final/models/data_local/UserPreferences%20.dart';
 import 'package:movie_app_final/models/order_model.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
+import 'package:movie_app_final/providers/seats_provider.dart';
 import 'package:movie_app_final/services/api_services.dart';
 import 'package:http/http.dart' as http;
 
@@ -33,9 +34,12 @@ class OrdersProvider extends ChangeNotifier {
   double currentTotalPrice = 200000; // hardcode
   int currentSelectedPaymentType = -1; // done
 
-  Future<void> createNewOrder() async {
+  Future<bool> createNewOrder() async {
     var userId = await UserPreferences.getUserId();
-    if (userId != '') currentUserId = userId;
+    if (userId == '') return false;
+
+    currentUserId = userId;
+
     OrderModel newOM = OrderModel(
         userId: currentUserId,
         movieId: currentMovieId,
@@ -51,6 +55,16 @@ class OrdersProvider extends ChangeNotifier {
     currentOrderModel = newOM;
 
     await insertOrder(newOM);
+
+    return true;
+  }
+
+  Future<void> getSection() async {
+    var seats = await SeatsProviders.findSeatsByMovieId(currentMovieId);
+
+    if (seats.isEmpty) return;
+
+    currentSection = int.parse(seats[0].service);
   }
 
   Future<void> fetchAllOrder() async {

@@ -21,12 +21,26 @@ class SelectSeatScreen extends StatefulWidget {
 }
 
 class _SelectSeatScreenState extends State<SelectSeatScreen> {
+  // @override
+  // void initState() {
+  //   _initSeats();
+  //   super.initState();
+  // }
+
+  Future<void> _initSeats() async {
+    {
+      await Provider.of<SeatsProviders>(context, listen: false)
+          .InitSeatResrved();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     // data
     final data = Provider.of<SeatsProviders>(context);
     final dataOrder = Provider.of<OrdersProvider>(context);
+    final dataSeat = Provider.of<SeatsProviders>(context);
 
     final listSeats = data.listSeat;
     final listDates = data.listDate;
@@ -189,6 +203,9 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                             }
 
                             dataOrder.currentSeats = data.getListSeatSelected();
+                            dataSeat.currentListSeat =
+                                data.getListSeatSelected();
+
                             dataOrder.currentDateMovie =
                                 "${data.currentDateSeat!.day}/${data.getMonthValue(data.currentDateSeat!.month).toString()}/${DateTime.now().year}";
                             dataOrder.currentTimeMovie =
@@ -234,7 +251,7 @@ class ItemSeat extends StatelessWidget {
         data.changeStatusSeat(seat);
         if (seat.status == Status.resered) {
           CustomDialogHelper.showCustomDialog(
-              context, "please seleted another seat!", '');
+              context, "please seleted another seat!", 'close.svg');
         }
       },
       child: Container(
