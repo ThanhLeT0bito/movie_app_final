@@ -25,6 +25,7 @@ class TicketScreen extends StatefulWidget {
 class _TicketScreenState extends State<TicketScreen> {
   late String orderId;
   late OrderModel orderModel;
+  late MovieModel movieModel;
 
   @override
   void didChangeDependencies() {
@@ -49,6 +50,25 @@ class _TicketScreenState extends State<TicketScreen> {
       orderModel = arg;
     }
   }
+
+  Future<void> fetchMovieById() async {
+    var dataMovie = Provider.of<Movieproviders>(context, listen: false);
+    var arg = ModalRoute.of(context)!.settings.arguments;
+
+    String idMovie = orderModel.idMovie;
+
+    if (arg is String) {
+      idMovie = arg;
+      print("&&&&&&&&&&&&");
+      print(idMovie);
+      if (await dataMovie.fetchOrderById(idMovie) != null) {
+        movieModel = await dataMovie.fetchOrderById(idMovie) as MovieModel;
+      }
+    } else if (arg is OrderModel) {
+      movieModel = arg;
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +103,7 @@ class _TicketScreenState extends State<TicketScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Column(
                     children: [
-                      ImageAndTitleWidget(),
+                      ImageAndTitleWidget(name: movieModel.name, image: movieModel.thumbnail, time: movieModel.duration, category: movieModel.category),
                       SizedBox(height: 20),
                       TimeAndSeatWidget(),
                       SizedBox(height: 20),
@@ -296,7 +316,15 @@ class PriceLocationAndNoteWidget extends StatelessWidget {
 class ImageAndTitleWidget extends StatelessWidget {
   const ImageAndTitleWidget({
     super.key,
+    required this.name,
+    required this.image,
+    required this.time,
+    required this.category,
   });
+  final String name;
+  final String image;
+  final String time;
+  final String category;
 
   @override
   Widget build(BuildContext context) {
@@ -306,7 +334,7 @@ class ImageAndTitleWidget extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: Image.asset(
-            'assets/images/img_1.jpg',
+            image,
             width: 120,
             height: 200,
             fit: BoxFit.cover,
@@ -321,7 +349,7 @@ class ImageAndTitleWidget extends StatelessWidget {
               SizedBox(
                 width: 170,
                 child: Text(
-                  "Mai",
+                  name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -341,7 +369,7 @@ class ImageAndTitleWidget extends StatelessWidget {
                   SizedBox(
                     width: 170,
                     child: Text(
-                      "2 hours 19 minutes",
+                      time,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -361,7 +389,7 @@ class ImageAndTitleWidget extends StatelessWidget {
                   SizedBox(
                     width: 170,
                     child: Text(
-                      "Action, adventure, sci-fi",
+                      category,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -394,7 +422,7 @@ class TimeAndSeatWidget extends StatelessWidget {
                 Iconsax.calendar_1,
                 size: 50,
                 color: AppColors.BaseColorBlack,
-              ),
+              ),f
               SizedBox(width: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
