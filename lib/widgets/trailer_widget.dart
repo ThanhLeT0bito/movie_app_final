@@ -16,9 +16,9 @@ class TrailerWidget extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.transparent, // Thay đổi màu thành trong suốt
           borderRadius: BorderRadius.circular(10),
-          image: const DecorationImage(image: AssetImage('assets/images/t4.png'), fit: BoxFit.fitWidth)
-      ),
-      child: Center(
+          image: const DecorationImage(
+              image: AssetImage('assets/images/t4.png'), fit: BoxFit.fitWidth)),
+      child: const Center(
         child: Icon(
           Icons.play_circle_outline_rounded,
           color: AppColors.BaseColorWhite,

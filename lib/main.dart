@@ -98,7 +98,7 @@ class MyApp extends StatelessWidget {
             DeleteAccountScreens.routeName: (context) => DeleteAccountScreens(),
             RateScreen.routeName: (context) => RateScreen(),
             CategoryScreens.routeName: (context) => CategoryScreens(),
-            TrailerScreen.routeName:(context) => TrailerScreen(trailerUrl:'' ),
+            TrailerScreen.routeName: (context) => TrailerScreen(trailerUrl: ''),
           },
         );
       }),

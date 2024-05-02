@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/models/movie_model.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
@@ -206,7 +207,7 @@ class PositionedItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(color: AppColors.BaseColorWhite)),
                   padding: const EdgeInsets.all(10),
-                  child: Row(
+                  child: const Row(
                     children: [
                       Icon(
                         Icons.play_circle,
@@ -585,8 +586,8 @@ class MainContent extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                ChooseCinema(),
-                SizedBox(
+                const ChooseCinema(),
+                const SizedBox(
                   height: 20,
                 ),
                 CustomTextButton(
@@ -618,9 +619,13 @@ class TrailerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     String? videoId = YoutubePlayer.convertUrlToId(trailerUrl);
     if (videoId != null) {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ]);
       YoutubePlayerController controller = YoutubePlayerController(
         initialVideoId: videoId,
-        flags: YoutubePlayerFlags(
+        flags: const YoutubePlayerFlags(
           autoPlay: true,
           mute: false,
         ),
@@ -628,31 +633,44 @@ class TrailerScreen extends StatelessWidget {
 
       return Scaffold(
         backgroundColor: AppColors.BaseColorBlackGround,
-        body: Center(
-          child: AspectRatio(
-            aspectRatio: 16 / 9,
-            child: YoutubePlayer(
-              controller: controller,
-              showVideoProgressIndicator: true,
-              progressIndicatorColor: Colors.amber,
-              progressColors: ProgressBarColors(
-                playedColor: Colors.amber,
-                handleColor: Colors.amberAccent,
+        body: Stack(
+          children: [
+            Center(
+              child: AspectRatio(
+                aspectRatio: 16 / 9,
+                child: YoutubePlayer(
+                  controller: controller,
+                  showVideoProgressIndicator: true,
+                  progressIndicatorColor: AppColors.BaseColorMain,
+                  progressColors: const ProgressBarColors(
+                    playedColor: AppColors.BaseColorMain,
+                    handleColor: AppColors.BaseColorMain,
+                  ),
+                ),
               ),
-              // bottomActions: [
-              //   CurrentPosition(),
-              //   ProgressBar(isExpanded: true),
-              //   RemainingDuration(),
-              //   FullScreenButton(),
-              // ],
             ),
-          ),
+            Positioned(
+              right: 10,
+              top: 0,
+              left: 0,
+              child: CustomAppBar(
+                showBackButton: false,
+                iconRightButton: Icons.close,
+                onPressedRight: () {
+                  SystemChrome.setPreferredOrientations([
+                    DeviceOrientation.portraitUp,
+                    DeviceOrientation.portraitUp,
+                  ]);
+                  Navigator.pop(context);
+                },
+              ),
+            )
+          ],
         ),
       );
     } else {
-      // Xử lý khi không thể chuyển đổi trailer URL thành video ID
       print('Invalid trailer URL or unable to convert to video ID');
-      return Scaffold(
+      return const Scaffold(
         body: Center(
           child: Text('Invalid trailer URL or unable to convert to video ID'),
         ),
