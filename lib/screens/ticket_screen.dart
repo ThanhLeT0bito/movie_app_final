@@ -2,9 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:movie_app_final/models/movie_model.dart';
 import 'package:movie_app_final/models/order_model.dart';
+import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/providers/orders_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
+import 'package:movie_app_final/resources/converter.dart';
 import 'package:movie_app_final/screens/home_screen.dart';
 import 'package:movie_app_final/screens/rate_screen.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
@@ -25,6 +28,7 @@ class TicketScreen extends StatefulWidget {
 class _TicketScreenState extends State<TicketScreen> {
   late String orderId;
   late OrderModel orderModel;
+  MovieModel? movie;
 
   @override
   void didChangeDependencies() {
@@ -34,6 +38,8 @@ class _TicketScreenState extends State<TicketScreen> {
 
   Future<void> fetchData() async {
     var dataOrder = Provider.of<OrdersProvider>(context, listen: false);
+    final dataMovie = Provider.of<Movieproviders>(context, listen: false);
+
     var arg = ModalRoute.of(context)!.settings.arguments;
 
     if (arg is String) {
@@ -43,15 +49,30 @@ class _TicketScreenState extends State<TicketScreen> {
       if (await dataOrder.fetchOrderById(orderId) != null) {
         orderModel = await dataOrder.fetchOrderById(orderId) as OrderModel;
         print("DATE DATE DATE DATE:");
-        print(orderModel.dateMovie);
+        print(orderModel.movieId);
       }
     } else if (arg is OrderModel) {
       orderModel = arg;
     }
+    movie = (dataMovie.findMovieById(orderModel.movieId))!;
+    dataMovie.printMovieModelProperties(movie!);
+
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    if (movie == null) {
+      return const Scaffold(
+        backgroundColor: AppColors.BaseColorBlackGround,
+        body: Center(
+          child: CircularProgressIndicator(
+            color: AppColors.BaseColorWhite,
+          ),
+        ),
+      );
+    }
+
     var screenWidth = MediaQuery.of(context).size.width;
     var screenheight = MediaQuery.of(context).size.height;
 
@@ -79,17 +100,22 @@ class _TicketScreenState extends State<TicketScreen> {
                 decoration: BoxDecoration(
                     color: AppColors.BaseColorWhite,
                     borderRadius: BorderRadius.circular(10)),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Column(
                     children: [
-                      ImageAndTitleWidget(),
-                      SizedBox(height: 20),
-                      TimeAndSeatWidget(),
-                      SizedBox(height: 20),
-                      Divider(color: AppColors.BaseColorBlack),
-                      SizedBox(height: 10),
-                      PriceLocationAndNoteWidget(),
+                      ImageAndTitleWidget(
+                        movie: movie!,
+                      ),
+                      const SizedBox(height: 20),
+                      TimeAndSeatWidget(order: orderModel),
+                      const SizedBox(height: 20),
+                      const Divider(color: AppColors.BaseColorBlack),
+                      const SizedBox(height: 10),
+                      PriceLocationAndNoteWidget(
+                        order: orderModel,
+                      ),
                     ],
                   ),
                 ),
@@ -142,7 +168,8 @@ class _TicketScreenState extends State<TicketScreen> {
           CustomTextButton(
               text: "Rate Movie",
               onPressed: () {
-                Navigator.pushNamed(context, RateScreen.routeName);
+                Navigator.pushNamed(context, RateScreen.routeName,
+                    arguments: movie);
               }),
           const SizedBox(height: 5)
         ]),
@@ -216,59 +243,68 @@ class HalfCirclePainter extends CustomPainter {
 class PriceLocationAndNoteWidget extends StatelessWidget {
   const PriceLocationAndNoteWidget({
     super.key,
+    required this.order,
   });
+  final OrderModel order;
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
         Row(
           children: [
-            Icon(
+            const Icon(
               Iconsax.bitcoin_refresh,
               size: 27,
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Text(
-              "210.000 VNĐ",
-              style: TextStyle(
+              ConverterGloabal.formatPrice(order.prices),
+              style: const TextStyle(
                   color: AppColors.BaseColorBlack,
                   fontSize: 18,
                   fontWeight: FontWeight.bold),
             )
           ],
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(
+            const Icon(
               Iconsax.location,
               size: 27,
             ),
-            SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Vincom Ocean Park",
-                  style: TextStyle(
-                      color: AppColors.BaseColorBlack,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  "4th, Vincom ocean Park, Da Ton, HCM",
-                  style:
-                      TextStyle(fontSize: 15, color: AppColors.BaseColorBlack),
-                )
-              ],
+            const SizedBox(width: 10),
+            SizedBox(
+              width: 310,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    order.nameCinema,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        color: AppColors.BaseColorBlack,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    order.locationCinema,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        fontSize: 15, color: AppColors.BaseColorBlack),
+                  )
+                ],
+              ),
             ),
           ],
         ),
-        SizedBox(height: 10),
-        Row(
+        const SizedBox(height: 10),
+        const Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Icon(
@@ -296,7 +332,20 @@ class PriceLocationAndNoteWidget extends StatelessWidget {
 class ImageAndTitleWidget extends StatelessWidget {
   const ImageAndTitleWidget({
     super.key,
+    required this.movie,
   });
+  final MovieModel movie;
+
+  String convertTime(String time) {
+    List<String> splitTime = time.split("h");
+    int hours = int.parse(splitTime[0]);
+    int minutes = int.parse(splitTime[1].replaceAll("'", ""));
+
+    String hourString = hours == 1 ? "hour" : "hours";
+    String minuteString = minutes == 1 ? "minute" : "minutes";
+
+    return "$hours $hourString  $minutes $minuteString";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -305,66 +354,66 @@ class ImageAndTitleWidget extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: Image.asset(
-            'assets/images/img_1.jpg',
+          child: Image.network(
+            movie.thumbnail,
             width: 120,
             height: 200,
             fit: BoxFit.cover,
           ),
         ),
         const SizedBox(width: 15),
-        const Expanded(
+        Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               SizedBox(
                 width: 170,
                 child: Text(
-                  "Mai",
-                  maxLines: 1,
+                  movie.name,
+                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      fontSize: 25,
+                  style: const TextStyle(
+                      fontSize: 21,
                       fontWeight: FontWeight.bold,
                       color: AppColors.BaseColorBlack),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Iconsax.timer_1,
                     size: 25,
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   SizedBox(
                     width: 170,
                     child: Text(
-                      "2 hours 19 minutes",
+                      convertTime(movie.duration),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 15, color: AppColors.BaseColorBlack),
                     ),
                   )
                 ],
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Iconsax.video,
                     size: 25,
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   SizedBox(
                     width: 170,
                     child: Text(
-                      "Action, adventure, sci-fi",
+                      movie.category,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 15, color: AppColors.BaseColorBlack),
                     ),
                   )
@@ -381,34 +430,38 @@ class ImageAndTitleWidget extends StatelessWidget {
 class TimeAndSeatWidget extends StatelessWidget {
   const TimeAndSeatWidget({
     super.key,
+    required this.order,
   });
+
+  final OrderModel order;
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    var screenWidth = MediaQuery.of(context).size.width;
+    return Row(
       children: [
         Expanded(
           child: Row(
             children: [
-              Icon(
+              const Icon(
                 Iconsax.calendar_1,
                 size: 50,
                 color: AppColors.BaseColorBlack,
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "14h25'",
-                    style: TextStyle(
+                    order.timeMovie,
+                    style: const TextStyle(
                         fontSize: 15,
                         color: AppColors.BaseColorBlack,
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    "10.12.2024",
-                    style: TextStyle(
+                    order.dateMovie,
+                    style: const TextStyle(
                         fontSize: 15,
                         color: AppColors.BaseColorBlack,
                         fontWeight: FontWeight.bold),
@@ -421,30 +474,35 @@ class TimeAndSeatWidget extends StatelessWidget {
         Expanded(
           child: Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.chair_alt,
                 size: 50,
                 color: AppColors.BaseColorBlack,
               ),
-              SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Section 4",
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: AppColors.BaseColorBlack,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "Seat H4,H5",
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: AppColors.BaseColorBlack,
-                        fontWeight: FontWeight.bold),
-                  )
-                ],
+              const SizedBox(width: 10),
+              Container(
+                width: 110,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Section ${order.section}",
+                      style: const TextStyle(
+                          fontSize: 15,
+                          color: AppColors.BaseColorBlack,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      "Seat ${order.seats}",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontSize: 15,
+                          color: AppColors.BaseColorBlack,
+                          fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
               )
             ],
           ),

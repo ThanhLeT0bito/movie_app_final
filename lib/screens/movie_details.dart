@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get_navigation/src/routes/default_transitions.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/models/movie_model.dart';
 import 'package:movie_app_final/providers/actor_providers.dart';
@@ -7,7 +8,6 @@ import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/providers/orders_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
-import 'package:movie_app_final/widgets/Base/custom_actor.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_popup.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
@@ -462,6 +462,7 @@ class MainContent extends StatelessWidget {
                               maxWidth: 200,
                               maxHeight: 70,
                             ),
+                            margin: EdgeInsets.only(right: 10),
                             decoration: BoxDecoration(
                               color: Colors.grey.shade900,
                               borderRadius: BorderRadius.circular(10),
@@ -477,7 +478,8 @@ class MainContent extends StatelessWidget {
                                     height: 50,
                                     child: Image.network(
                                       // 'assets/images/tran-thanh.jpg',
-                                     actor.images, // Accessing actor's image property
+                                      actor
+                                          .images, // Accessing actor's image property
                                       fit: BoxFit.cover,
                                     ),
                                   ),

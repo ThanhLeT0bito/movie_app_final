@@ -1,8 +1,12 @@
 // ignore_for_file: avoid_print
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:movie_app_final/models/model_widget/seat.dart';
 import 'package:movie_app_final/models/movie_model.dart';
+import 'package:movie_app_final/models/seat_model.dart';
 import 'package:movie_app_final/services/api_services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -31,6 +35,34 @@ class Movieproviders extends ChangeNotifier {
   void addListMovies() {
     for (var i in listMovies) {
       addMovie(i);
+    }
+  }
+
+  Future<void> initSeats() async {
+    for (var i in _listAllMovie) {
+      int randomNumber = Random().nextInt(15) + 1;
+      SeatModel seat = SeatModel(
+          movieId: i.id ?? '', reserved: '', service: randomNumber.toString());
+      await insertSeat(seat);
+    }
+  }
+
+  // Phương thức để thêm một ghế mới
+  Future<bool> insertSeat(SeatModel seat) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$urlApi/insertSeat'),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(seat.toJson()),
+      );
+
+      if (response.statusCode == 201) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
     }
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/models/model_widget/item_radio.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
+import 'package:movie_app_final/providers/actor_providers.dart';
 import 'package:movie_app_final/providers/manager_all_widget.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/providers/orders_provider.dart';
@@ -28,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //init all data movie from server
     // Provider.of<Movieproviders>(context, listen: false).fetchAllMovies();
     Provider.of<Movieproviders>(context, listen: false).InitListCarousel();
+    Provider.of<ActorProviders>(context, listen: false).fetchActors();
     //Provider.of<AuthProvider>(context, listen: false).TestFirebase();
     //Provider.of<OrdersProvider>(context, listen: false).fetchAllOrder();
     //Provider.of<OrdersProvider>(context, listen: false).fetchListOrderOfUser();

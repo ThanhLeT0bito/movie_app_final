@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/providers/orders_provider.dart';
+import 'package:movie_app_final/providers/seats_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/resources/dimens.dart';
 import 'package:movie_app_final/screens/ticket_screen.dart';
@@ -46,6 +47,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
   @override
   Widget build(BuildContext context) {
     var dataOrder = Provider.of<OrdersProvider>(context);
+    var dataSeat = Provider.of<SeatsProviders>(context, listen: false);
 
     var screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -423,7 +425,13 @@ class _PaymentScreensState extends State<PaymentScreens> {
                   }
 
                   // insert new order to server
-                  await dataOrder.createNewOrder();
+                  var checkAddNewTicket = await dataOrder.createNewOrder();
+                  if (!checkAddNewTicket) {
+                    CustomDialogHelper.showCustomDialog(
+                        context, "Order Failed!", "failed.svg");
+                    return;
+                  }
+                  await dataSeat.updateSeat();
                   // ignore: use_build_context_synchronously
                   Navigator.pushNamed(context, TicketScreen.routeName,
                       arguments: dataOrder.currentOrderModel);
