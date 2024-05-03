@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:movie_app_final/providers/auth_provider.dart';
 
 import '../generated/l10n.dart';
-import 'Enter_Username_screens.dart';
+import 'enter_username_screens.dart';
 
 //import '../widgets/Base/Otp.dart';
 

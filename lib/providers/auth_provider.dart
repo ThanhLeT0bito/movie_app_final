@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 import 'dart:developer';
-import 'package:movie_app_final/screens/enter_Username_screens.dart';
+import 'package:movie_app_final/screens/enter_username_screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';

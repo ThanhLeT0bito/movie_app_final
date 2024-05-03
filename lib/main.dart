@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_verification_code/flutter_verification_code.dart';
 import 'package:movie_app_final/models/data_local/UserPreferences%20.dart';
 import 'package:movie_app_final/providers/auth_provider.dart';
 import 'package:movie_app_final/providers/homepage_provider.dart';
@@ -14,7 +13,7 @@ import 'package:movie_app_final/providers/orders_provider.dart';
 import 'package:movie_app_final/providers/seats_provider.dart';
 import 'package:movie_app_final/providers/ticket_management_provider.dart';
 import 'package:movie_app_final/providers/watching_movie_provider.dart';
-import 'package:movie_app_final/screens/Enter_Username_screens.dart';
+import 'package:movie_app_final/screens/enter_username_screens.dart';
 import 'package:movie_app_final/screens/change_password_screens.dart';
 import 'package:movie_app_final/screens/choose_your_need_screens.dart';
 import 'package:movie_app_final/screens/confirm_otp_screens.dart';
