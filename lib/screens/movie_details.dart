@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/routes/default_transitions.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:movie_app_final/models/movie.dart';
 import 'package:movie_app_final/models/movie_model.dart';
 import 'package:movie_app_final/providers/actor_providers.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
@@ -54,6 +55,7 @@ class MoviedetailsScreens extends StatelessWidget {
                     MainContent(
                       screenWidth: screenWidth,
                       actors: dataActor.actors,
+                      movie: movie,
                     ),
                   ],
                 ),
@@ -235,14 +237,20 @@ class MainContent extends StatelessWidget {
     Key? key,
     required this.screenWidth,
     required this.actors,
+    required this.movie,
   }) : super(key: key);
 
   final double screenWidth;
   final List<Actor> actors;
+  final MovieModel movie;
 
   @override
   Widget build(BuildContext context) {
+    // late String movieId = ModalRoute.of(context)!.settings.arguments as String;
+    // movieId ??= "662672c978a71af977967c0f";
     var dataOrder = Provider.of<OrdersProvider>(context);
+    // var dataMovie = Provider.of<Movieproviders>(context);
+    // MovieModel? movie = dataMovie.findMovieById(movieId);
     //final Actor actor;
     // var dataActor = Provider.of<ActorProviders>(context, listen: false);
     // List<Actor> allActors = dataActor.actors;
@@ -256,7 +264,7 @@ class MainContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Row(
+                Row(
                   children: [
                     Expanded(
                       child: Text(
@@ -271,7 +279,7 @@ class MainContent extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        'Romance, psychology', // Chữ thêm vào
+                        movie.category, // Chữ thêm vào
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
@@ -285,7 +293,7 @@ class MainContent extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const Row(
+                Row(
                   children: [
                     Expanded(
                       child: Text(
@@ -300,7 +308,7 @@ class MainContent extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        '18+',
+                        movie.censorship,
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
@@ -314,7 +322,7 @@ class MainContent extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const Row(
+                Row(
                   children: [
                     Expanded(
                       child: Text(
@@ -329,7 +337,7 @@ class MainContent extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        'Vietnamese',
+                        movie.language,
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
@@ -343,7 +351,7 @@ class MainContent extends StatelessWidget {
                 const SizedBox(
                   height: 40,
                 ),
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -357,7 +365,7 @@ class MainContent extends StatelessWidget {
                     ),
                     SizedBox(height: 20),
                     Text(
-                      '"Mai" is the story of Mai, a masseuse with a special fate. She often faces criticism from society and her meeting with Duong - a flower boy, awakens in her a desire for a new life...',
+                      movie.description,
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.white,
@@ -413,8 +421,8 @@ class MainContent extends StatelessWidget {
                             child: Container(
                               width: 50, // Đặt kích thước của hình ảnh tại đây
                               height: 50, // Đặt kích thước của hình ảnh tại đây
-                              child: Image.asset(
-                                'assets/images/tran-thanh.jpg',
+                              child: Image.network(
+                                movie.thumbnailLandscape,
                                 fit: BoxFit.cover,
                               ), // Thay đổi đường dẫn hình ảnh tại đây
                             ),
@@ -422,9 +430,10 @@ class MainContent extends StatelessWidget {
                           const SizedBox(
                               width:
                                   10), // Khoảng cách giữa hình ảnh và văn bản
-                          const Align(
+                           Align(
                             alignment: Alignment.center,
-                            child: Text('Trấn Thành',
+                            child: Text(
+                              movie.director,
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.white,

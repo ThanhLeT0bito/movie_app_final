@@ -28,6 +28,7 @@ import 'package:movie_app_final/screens/profile_screens.dart';
 import 'package:movie_app_final/screens/home_screen.dart';
 import 'package:movie_app_final/screens/rate_screen.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
+import 'package:movie_app_final/screens/show_video.dart';
 import 'package:movie_app_final/screens/signin_screens.dart';
 import 'package:movie_app_final/screens/signin_signup_screens.dart';
 import 'package:movie_app_final/screens/ticket_screen.dart';
@@ -70,8 +71,8 @@ class MyApp extends StatelessWidget {
           title: 'MOviE',
           // ignore: unrelated_type_equality_checks
           initialRoute:
-              //HomeScreen.routeName,
-              manager.startScreen,
+              HomeScreen.routeName,
+              //manager.startScreen,
           routes: {
             HomeScreen.routeName: (context) => HomeScreen(),
             HomepageScreens.routeName: (context) => HomepageScreens(),
@@ -99,6 +100,7 @@ class MyApp extends StatelessWidget {
             RateScreen.routeName: (context) => RateScreen(),
             CategoryScreens.routeName: (context) => CategoryScreens(),
             TrailerScreen.routeName: (context) => TrailerScreen(trailerUrl: ''),
+            ShowVideoScreen.routeName:(context)=> ShowVideoScreen(),
           },
         );
       }),

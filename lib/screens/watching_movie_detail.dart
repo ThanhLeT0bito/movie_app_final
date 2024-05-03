@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
+import 'package:movie_app_final/screens/show_video.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 
@@ -191,11 +192,12 @@ class _MainContentState extends State<MainContent> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                CustomTextButton(
+                CustomTextButton( 
                     text: 'Play',
                     icon: Icons.play_arrow_rounded,
                     onPressed: () {
-                      Navigator.pushNamed(context, SelectSeatScreen.routeName);
+                      Navigator.pushNamed(context, ShowVideoScreen.routeName);
+                      // Navigator.pushNamed(context, SelectSeatScreen.routeName);
                     }),
                 const SizedBox(height: 20),
                 const Column(
