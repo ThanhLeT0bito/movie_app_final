@@ -81,36 +81,39 @@ class MyApp extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: S.delegate.supportedLocales,
-          initialRoute:
-              //HomeScreen.routeName,
-              manager.startScreen,
+          initialRoute: SignInSignUpScreens.routeName,
+          //manager.startScreen,
           routes: {
-            HomeScreen.routeName: (context) =>const HomeScreen(),
-            HomepageScreens.routeName: (context) =>const HomepageScreens(),
-            HomeOrderMovie.routeName: (context) =>const HomeOrderMovie(),
-            HomeWatching.routeName: (context) =>const HomeWatching(),
-            TicketMovieScreens.routeName: (context) =>const TicketMovieScreens(),
-            NowplayingScreens.routeName: (context) =>const NowplayingScreens(),
-            HomeProfileScreens.routeName: (context) => const HomeProfileScreens(),
-            MoviedetailsScreens.routeName: (context) => const MoviedetailsScreens(),
+            HomeScreen.routeName: (context) => const HomeScreen(),
+            HomepageScreens.routeName: (context) => const HomepageScreens(),
+            HomeOrderMovie.routeName: (context) => const HomeOrderMovie(),
+            HomeWatching.routeName: (context) => const HomeWatching(),
+            TicketMovieScreens.routeName: (context) =>
+                const TicketMovieScreens(),
+            NowplayingScreens.routeName: (context) => const NowplayingScreens(),
+            HomeProfileScreens.routeName: (context) =>
+                const HomeProfileScreens(),
+            MoviedetailsScreens.routeName: (context) =>
+                const MoviedetailsScreens(),
             SelectSeatScreen.routeName: (context) => const SelectSeatScreen(),
-            EnterUserNameScreens.routeName: (context) => const EnterUserNameScreens(),
+            EnterUserNameScreens.routeName: (context) =>
+                const EnterUserNameScreens(),
             ConfirmOTPScreens.routeName: (context) => const ConfirmOTPScreens(),
-            SignInScreens.routeName: (context) =>const SignInScreens(),
+            SignInScreens.routeName: (context) => const SignInScreens(),
             ChooseNeed.routeName: (context) => const ChooseNeed(),
-            SignInSignUpScreens.routeName: (context) => const
-                SignInSignUpScreens(),
+            SignInSignUpScreens.routeName: (context) =>
+                const SignInSignUpScreens(),
             TicketScreen.routeName: (context) => const TicketScreen(),
-            PaymentScreens.routeName: (context) =>const PaymentScreens(),
+            PaymentScreens.routeName: (context) => const PaymentScreens(),
             WatchingDetailsScreens.routeName: (context) =>
-            const  WatchingDetailsScreens(),
-            EditProfileScreen.routeName: (context) =>const EditProfileScreen(),
+                const WatchingDetailsScreens(),
+            EditProfileScreen.routeName: (context) => const EditProfileScreen(),
             ChangePasswordScreens.routeName: (context) =>
-            const  ChangePasswordScreens(),
-            DeleteAccountScreens.routeName: (context) =>const DeleteAccountScreens(),
-            RateScreen.routeName: (context) =>const RateScreen(),
-            CategoryScreens.routeName: (context) =>const CategoryScreens(),
-            TrailerScreen.routeName: (context) =>const TrailerScreen(trailerUrl: ''),
+                ChangePasswordScreens(),
+            DeleteAccountScreens.routeName: (context) => DeleteAccountScreens(),
+            RateScreen.routeName: (context) => RateScreen(),
+            CategoryScreens.routeName: (context) => CategoryScreens(),
+            TrailerScreen.routeName: (context) => TrailerScreen(trailerUrl: ''),
           },
         );
       }),

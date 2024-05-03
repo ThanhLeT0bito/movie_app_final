@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:movie_app_final/models/model_widget/date.dart';
 import 'package:movie_app_final/models/model_widget/seat.dart';
 import 'package:movie_app_final/models/model_widget/time.dart';
@@ -10,6 +11,7 @@ import 'package:movie_app_final/services/api_services.dart';
 import 'package:http/http.dart' as http;
 
 class SeatsProviders extends ChangeNotifier {
+  static double PRICE_TICKET = 50000;
   static const String urlApi = ApiService.urlApi;
 
   List<Seat> _listSeat = [];
@@ -18,6 +20,7 @@ class SeatsProviders extends ChangeNotifier {
 
   DateSeat? currentDateSeat;
   TimeSeat? currentTimeSeat;
+  double curentTotalPrice = 0;
 
   ///
   String? currentMovieId;
@@ -64,10 +67,11 @@ class SeatsProviders extends ChangeNotifier {
         //["A1", "B1"];
         seats[0].reserved.split(RegExp(r',\s*'));
 
+    print(seats[0].reserved);
+
     for (var i in seatList) {
-      var seat = _listSeat.firstWhere((element) => element.name == i);
-      if (seat == null) continue;
-      seat.status = Status.resered;
+      var seat = _listSeat.firstWhereOrNull((element) => element.name == i);
+      seat?.status = Status.resered;
     }
   }
 
@@ -100,8 +104,10 @@ class SeatsProviders extends ChangeNotifier {
 
     if (_listSeat[findSeat].status == Status.available) {
       _listSeat[findSeat].status = Status.selected;
+      curentTotalPrice += PRICE_TICKET;
     } else if (_listSeat[findSeat].status == Status.selected) {
       _listSeat[findSeat].status = Status.available;
+      curentTotalPrice -= PRICE_TICKET;
     }
 
     notifyListeners();

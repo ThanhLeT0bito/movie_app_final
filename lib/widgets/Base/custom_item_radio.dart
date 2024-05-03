@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/models/model_widget/item_radio.dart';
+import 'package:movie_app_final/providers/manager_all_widget.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/resources/dimens.dart';
+import 'package:provider/provider.dart';
 
 class CustomItemRadio extends StatefulWidget {
   final Function(int index)? onPressed;
@@ -28,7 +30,7 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
 
   @override
   Widget build(BuildContext context) {
-    // final data = Provider.of<ManagerAllWidget>(context);
+    final data = Provider.of<ManagerAllWidget>(context);
     // indexSelected = data.startModeTemp;
     // List<ItemRadio> groupRadio1 = data.listItemCustom;
     return SizedBox(
@@ -45,7 +47,7 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
                       widget.onPressed!(index);
                     }
                     setState(() {});
-                    // data.changeStartModeTemp(index);
+                    data.changeStartModeTemp(index);
                     // log('alo${index}');
                   },
                   child: itemRadioCustom(

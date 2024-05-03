@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/models/model_widget/item_radio.dart';
+import 'package:movie_app_final/providers/actor_providers.dart';
 import 'package:movie_app_final/providers/auth_provider.dart';
 import 'package:movie_app_final/providers/manager_all_widget.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
@@ -31,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //init all data movie from server
     // Provider.of<Movieproviders>(context, listen: false).fetchAllMovies();
     Provider.of<Movieproviders>(context, listen: false).InitListCarousel();
+    //Provider.of<ActorProviders>(context, listen: false).fetchActors();
     //Provider.of<AuthProvider>(context, listen: false).TestFirebase();
     //Provider.of<OrdersProvider>(context, listen: false).fetchAllOrder();
     //Provider.of<OrdersProvider>(context, listen: false).fetchListOrderOfUser();
@@ -64,7 +66,7 @@ class DemoBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final data = Provider.of<ManagerAllWidget>(context);
+    final data = Provider.of<ManagerAllWidget>(context);
     // indexSelected = data.startModeTemp;
     // List<ItemRadio> groupRadio1 = data.listItemCustom;
     void showBottomSheet() {

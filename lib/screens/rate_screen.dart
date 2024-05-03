@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app_final/models/movie_model.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/home_page_screens.dart';
 import 'package:movie_app_final/screens/ticket_screen.dart';
@@ -22,6 +23,11 @@ class _RateScreenState extends State<RateScreen> {
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
+
+    var arg = ModalRoute.of(context)!.settings.arguments;
+
+    final movie = arg as MovieModel;
+
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
       body: SingleChildScrollView(
@@ -35,14 +41,16 @@ class _RateScreenState extends State<RateScreen> {
                   title: "My Ticket",
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 15, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   margin: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: AppColors.BaseColorWhite,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const ImageAndTitleWidget(),
+                  child: ImageAndTitleWidget(
+                    movie: movie,
+                  ),
                 ),
                 Expanded(
                   child: Container(
@@ -58,7 +66,8 @@ class _RateScreenState extends State<RateScreen> {
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [ // Add children property for Row
+                          children: [
+                            // Add children property for Row
                             StarRatingWidget(
                               starCount: starCount,
                               onRatingChanged: (rating) {
@@ -119,7 +128,6 @@ class _RateScreenState extends State<RateScreen> {
     );
   }
 }
-
 
 class StarRatingWidget extends StatefulWidget {
   final int starCount;

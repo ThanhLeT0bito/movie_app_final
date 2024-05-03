@@ -31,7 +31,7 @@ class OrdersProvider extends ChangeNotifier {
   int currentSelectedCinema = -1; // done
   int currentSection = 5; //hardcode
   String currentSeats = ""; // done
-  double currentTotalPrice = 200000; // hardcode
+  double currentTotalPrice = 0; // hardcode
   int currentSelectedPaymentType = -1; // done
 
   Future<bool> createNewOrder() async {

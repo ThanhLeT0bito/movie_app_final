@@ -5,6 +5,7 @@ import 'package:movie_app_final/models/model_widget/time.dart';
 import 'package:movie_app_final/providers/orders_provider.dart';
 import 'package:movie_app_final/providers/seats_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
+import 'package:movie_app_final/resources/converter.dart';
 import 'package:movie_app_final/screens/payment_screens.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_popup.dart';
@@ -54,7 +55,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
             const CustomAppBar(
               title: "Select Seat",
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               height: 5,
               width: screenWidth - 60,
@@ -160,19 +161,20 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
               padding: const EdgeInsets.all(10.0),
               child: Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Total",
                           style: TextStyle(
                             color: AppColors.BaseColorWhite,
                           ),
                         ),
                         Text(
-                          "210.000 VND",
-                          style: TextStyle(
+                          ConverterGloabal.formatPrice(
+                              dataSeat.curentTotalPrice),
+                          style: const TextStyle(
                               color: AppColors.BaseColorTextMain,
                               fontSize: 20,
                               fontWeight: FontWeight.bold),
@@ -205,6 +207,8 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                             dataOrder.currentSeats = data.getListSeatSelected();
                             dataSeat.currentListSeat =
                                 data.getListSeatSelected();
+                            dataOrder.currentTotalPrice =
+                                dataSeat.curentTotalPrice;
 
                             dataOrder.currentDateMovie =
                                 "${data.currentDateSeat!.day}/${data.getMonthValue(data.currentDateSeat!.month).toString()}/${DateTime.now().year}";
@@ -274,7 +278,7 @@ class MyPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Rect rect =
-        Rect.fromPoints(Offset(0, 0), Offset(size.width, size.height));
+        Rect.fromPoints(const Offset(0, 0), Offset(size.width, size.height));
     final Paint paint = Paint()
       ..shader = const LinearGradient(
         begin: Alignment.topCenter,
@@ -361,7 +365,7 @@ class ItemDate extends StatelessWidget {
         height: 120,
         width: 60,
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
           color: date.isSelected!
               ? AppColors.BaseColorMain

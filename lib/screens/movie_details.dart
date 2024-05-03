@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get_navigation/src/routes/default_transitions.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/models/movie_model.dart';
+import 'package:movie_app_final/providers/actor_providers.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/providers/orders_provider.dart';
 import 'package:movie_app_final/providers/seats_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
-import 'package:movie_app_final/screens/signin_screens.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_popup.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 import 'package:provider/provider.dart';
-import 'package:movie_app_final/widgets/item_review_widget.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-
+import '../models/actor.dart';
 import '../widgets/Base/custom_cinema_movie_detail.dart';
 
 class MoviedetailsScreens extends StatelessWidget {
@@ -26,21 +25,21 @@ class MoviedetailsScreens extends StatelessWidget {
   Widget build(BuildContext context) {
     var dataMovie = Provider.of<Movieproviders>(context);
     var dataOrder = Provider.of<OrdersProvider>(context, listen: false);
-    var dataSeat = Provider.of<SeatsProviders>(context);
-
+    var dataActor = Provider.of<ActorProviders>(context, listen: false);
+    final dataSeat = Provider.of<SeatsProviders>(context, listen: false);
     late String movieId = ModalRoute.of(context)!.settings.arguments as String;
     movieId ??= "662672c978a71af977967c0f";
 
     MovieModel? movie = dataMovie.findMovieById(movieId);
     dataMovie.printMovieModelProperties(movie!);
-
     dataOrder.currentMovieId = movieId;
     dataOrder.getSection();
     dataSeat.currentMovieId = movieId;
-    dataSeat.InitSeatResrved();
     //dataSeat.updatemMovieId(movieId);
+    dataSeat.InitSeatResrved();
 
     double screenWidth = MediaQuery.of(context).size.width;
+    //dataActor.fetchActors();
 
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
@@ -58,7 +57,10 @@ class MoviedetailsScreens extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                     const SizedBox(height: 150),
-                    MainContent(screenWidth: screenWidth),
+                    MainContent(
+                      screenWidth: screenWidth,
+                      actors: dataActor.actors,
+                    ),
                   ],
                 ),
                 Positioned(
@@ -236,15 +238,21 @@ class PositionedItem extends StatelessWidget {
 
 class MainContent extends StatelessWidget {
   const MainContent({
-    Key? key, // Thay đổi đây
+    Key? key,
     required this.screenWidth,
-  }) : super(key: key); // Thay đổi đây
+    required this.actors,
+  }) : super(key: key);
 
   final double screenWidth;
+  final List<Actor> actors;
 
   @override
   Widget build(BuildContext context) {
     var dataOrder = Provider.of<OrdersProvider>(context);
+    //final Actor actor;
+    // var dataActor = Provider.of<ActorProviders>(context, listen: false);
+    // List<Actor> allActors = dataActor.actors;
+    // var uSedActors=dataActor.actors.where((actor) => actor.isUsed);
     return Stack(
       children: [
         SingleChildScrollView(
@@ -438,152 +446,75 @@ class MainContent extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  const Text(
-                    'Actor',
-                    style: TextStyle(
-                      decoration: TextDecoration.none,
-                      fontSize: 24,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Actor',
+                      style: TextStyle(
+                        decoration: TextDecoration.none,
+                        fontSize: 24,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        Container(
-                          constraints: const BoxConstraints(
-                              maxWidth: 200, maxHeight: 70),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade900,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: const EdgeInsets.all(10),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: Container(
-                                  width: 50,
-                                  height: 50,
-                                  child: Image.asset(
-                                    'assets/images/robert.png',
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              const Expanded(
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'Robert Downey Jr.',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white,
-                                      decoration: TextDecoration.none,
-                                      fontWeight: FontWeight.normal,
+                    const SizedBox(height: 20),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: actors.map((actor) {
+                          return Container(
+                            constraints: const BoxConstraints(
+                              maxWidth: 200,
+                              maxHeight: 70,
+                            ),
+                            margin: EdgeInsets.only(right: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade900,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            padding: const EdgeInsets.all(10),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: Container(
+                                    width: 50,
+                                    height: 50,
+                                    child: Image.network(
+                                      // 'assets/images/tran-thanh.jpg',
+                                      actor
+                                          .images, // Accessing actor's image property
+                                      fit: BoxFit.cover,
                                     ),
-                                    softWrap: true,
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 20),
-                        Container(
-                          constraints: const BoxConstraints(
-                              maxWidth: 200, maxHeight: 70),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade900,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: const EdgeInsets.all(10),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: Container(
-                                  width: 50,
-                                  height: 50,
-                                  child: Image.asset(
-                                    'assets/images/chiris.png',
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              const Expanded(
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'Chris Hemsworth',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white,
-                                      decoration: TextDecoration.none,
-                                      fontWeight: FontWeight.normal,
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      actor
+                                          .name, // Accessing actor's name property
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                        decoration: TextDecoration.none,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      softWrap: true,
                                     ),
-                                    softWrap: true,
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 20),
-                        Container(
-                          constraints: const BoxConstraints(
-                              maxWidth: 200, maxHeight: 70),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade900,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: const EdgeInsets.all(10),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: Container(
-                                  width: 50,
-                                  height: 50,
-                                  child: Image.asset(
-                                    'assets/images/evans.png',
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              const Expanded(
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'Chris Evans',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white,
-                                      decoration: TextDecoration.none,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                    softWrap: true,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                                SizedBox(height: 20),
+                              ],
+                            ),
+                          );
+                        }).toList(),
+                      ),
                     ),
-                  )
-                ]),
-                const SizedBox(
-                  height: 20,
+                  ],
                 ),
                 ChooseCinema(),
                 SizedBox(
@@ -628,6 +559,16 @@ class TrailerScreen extends StatelessWidget {
 
       return Scaffold(
         backgroundColor: AppColors.BaseColorBlackGround,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent, // Transparent AppBar
+          elevation: 0, // No shadow
+          leading: IconButton(
+            icon: Icon(Icons.close), // Close icon
+            onPressed: () {
+              Navigator.of(context).pop(); // Close the screen
+            },
+          ),
+        ),
         body: Center(
           child: AspectRatio(
             aspectRatio: 16 / 9,
@@ -639,12 +580,6 @@ class TrailerScreen extends StatelessWidget {
                 playedColor: Colors.amber,
                 handleColor: Colors.amberAccent,
               ),
-              // bottomActions: [
-              //   CurrentPosition(),
-              //   ProgressBar(isExpanded: true),
-              //   RemainingDuration(),
-              //   FullScreenButton(),
-              // ],
             ),
           ),
         ),
