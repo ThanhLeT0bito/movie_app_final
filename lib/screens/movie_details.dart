@@ -6,6 +6,7 @@ import 'package:movie_app_final/models/movie_model.dart';
 import 'package:movie_app_final/providers/actor_providers.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/providers/orders_provider.dart';
+import 'package:movie_app_final/providers/seats_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
@@ -24,6 +25,7 @@ class MoviedetailsScreens extends StatelessWidget {
   Widget build(BuildContext context) {
     var dataMovie = Provider.of<Movieproviders>(context);
     var dataOrder = Provider.of<OrdersProvider>(context, listen: false);
+    var dataSeat = Provider.of<SeatsProviders>(context);
     var dataActor = Provider.of<ActorProviders>(context, listen: false);
     late String movieId = ModalRoute.of(context)!.settings.arguments as String;
     movieId ??= "662672c978a71af977967c0f";
@@ -32,8 +34,13 @@ class MoviedetailsScreens extends StatelessWidget {
     dataMovie.printMovieModelProperties(movie!);
     dataOrder.currentMovieId = movieId;
 
+    dataOrder.getSection();
+    dataSeat.currentMovieId = movieId;
+    dataSeat.InitSeatResrved();
+    //dataSeat.updatemMovieId(movieId);
+
     double screenWidth = MediaQuery.of(context).size.width;
-    dataActor.fetchActors();
+    //dataActor.fetchActors();
 
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
