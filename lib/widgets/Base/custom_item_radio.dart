@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/models/model_widget/item_radio.dart';
-import 'package:movie_app_final/providers/manager_all_widget.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/resources/dimens.dart';
-import 'package:provider/provider.dart';
 
 class CustomItemRadio extends StatefulWidget {
-  final VoidCallback? onPressed;
+  final Function(int index)? onPressed;
   late List<ItemRadio> groupRadio;
 
   CustomItemRadio({
@@ -26,30 +24,37 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
   }
 
   //bool _isSelected = false;
-  int indexSelected = 1;
+  // int indexSelected = 1;
+
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<ManagerAllWidget>(context);
-    indexSelected = data.startModeTemp;
-    List<ItemRadio> groupRadio1 = data.listItemCustom;
-    return Container(
+    // final data = Provider.of<ManagerAllWidget>(context);
+    // indexSelected = data.startModeTemp;
+    // List<ItemRadio> groupRadio1 = data.listItemCustom;
+    return SizedBox(
       height: double.maxFinite,
       child: ListView.builder(
-        itemCount: groupRadio1.length,
+        itemCount: widget.groupRadio.length,
         itemBuilder: (context, index) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               GestureDetector(
                   onTap: () {
-                    data.changeStartModeTemp(index);
+                    if (widget.onPressed != null) {
+                      widget.onPressed!(index);
+                    }
+                    setState(() {});
+                    // data.changeStartModeTemp(index);
+                    // log('alo${index}');
                   },
-                  child: ItemRadioCustom(widget.groupRadio[index],
-                      groupRadio1[index].isSelected!)),
+                  child: itemRadioCustom(
+                    widget.groupRadio[index],
+                  )),
               const SizedBox(height: 15),
               index < widget.groupRadio.length - 1
                   ? const Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Divider(
                         color: Color.fromARGB(146, 190, 180, 180),
                         height: 0.4,
@@ -64,7 +69,7 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
     );
   }
 
-  Padding ItemRadioCustom(ItemRadio customRadioButton, bool isSelected) {
+  Padding itemRadioCustom(ItemRadio customRadioButton) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: Row(
@@ -79,9 +84,9 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
           ],
           //Hiển thị văn bản
           Text(
-            customRadioButton.text!,
+            customRadioButton.text ?? '',
             style: TextStyle(
-                color: isSelected
+                color: (customRadioButton.isSelected ?? true)
                     ? AppColors.BaseColorTextMain
                     : AppColors.BaseColorWhite,
                 fontSize: Dimens.FontSizeCustomItemRadio,
@@ -96,14 +101,14 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: customRadioButton.isSelected!
+                color: (customRadioButton.isSelected ?? false)
                     ? AppColors.Border_Radio
                     : AppColors.BaseColorWhite, // Màu viền
                 width: 2.0,
               ),
               color: Colors.transparent, // Màu nền
             ),
-            child: customRadioButton.isSelected!
+            child: (customRadioButton.isSelected ?? false)
                 ? Container(
                     alignment: Alignment.center,
                     width: Dimens.WidthHeightRadioChild,

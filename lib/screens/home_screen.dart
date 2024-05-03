@@ -1,6 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/models/model_widget/item_radio.dart';
-import 'package:movie_app_final/providers/AuthProvider.dart';
+import 'package:movie_app_final/providers/auth_provider.dart';
 import 'package:movie_app_final/providers/manager_all_widget.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/providers/orders_provider.dart';
@@ -16,6 +18,7 @@ import '../widgets/Base/custom_textfield.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
   static const routeName = '/';
 
   @override
@@ -61,23 +64,26 @@ class DemoBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<ItemRadio> listItemCustom = [
-      ItemRadio(isSelected: true, text: "English"),
-      ItemRadio(isSelected: false, text: "VietNamese"),
-    ];
-
+     final data = Provider.of<ManagerAllWidget>(context);
+    // indexSelected = data.startModeTemp;
+    // List<ItemRadio> groupRadio1 = data.listItemCustom;
     void showBottomSheet() {
-      showModalBottomSheet(
-          context: context,
-          builder: (BuildContext context) {
-            return CustomBottomSheet(
-              title: 'Choose a language',
-              subTitle: 'which language do u want to use?',
-              textButton: "TextButton",
-              onButtonPressed: () {},
-              widget: CustomItemRadio(groupRadio: listItemCustom),
-            );
-          });
+      // showModalBottomSheet(
+      //     context: context,
+      //     builder: (BuildContext context) {
+      //       return CustomBottomSheet(
+      //         title: 'Choose a language',
+      //         subTitle: 'which language do u want to use?',
+      //         textButton: "TextButton",
+      //         onButtonPressed: () {},
+      //         widget: CustomItemRadio(
+      //           groupRadio: listItemCustom,
+      //           onPressed: (int index) {
+      //           //  (data.listItemCustom[index].isSelected ?? true) == true;
+      //           },
+      //         ),
+      //       );
+      //     });
     }
 
     final TextEditingController controller;

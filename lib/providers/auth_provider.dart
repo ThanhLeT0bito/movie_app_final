@@ -1,12 +1,14 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print
 
 import 'dart:convert';
-
+import 'dart:developer';
+import 'package:movie_app_final/screens/enter_Username_screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movie_app_final/models/data_local/UserPreferences%20.dart';
+import '../auth/auth_service.dart';
 import '../models/user.dart';
 import 'package:http/http.dart' as http;
 import '../services/api_services.dart';
@@ -14,7 +16,7 @@ import '../services/api_services.dart';
 class AuthProvider extends ChangeNotifier {
   static const String urlApi = ApiService.urlApi;
 
-  bool IsSign = true;
+  bool isSign = true;
 
   String currentUserId = "66117c988b3a5f94e2eed80a";
 
@@ -23,9 +25,16 @@ class AuthProvider extends ChangeNotifier {
 
   List<Users> list = [];
   List<Users> _users = [];
+
   List<Users> get users => _users;
   late User? _firebaseUser;
   late String localVerificationId;
+  String _userName = '';
+
+  String get userName => _userName;
+  bool _signInGG = false;
+
+  bool get signInGG => _signInGG;
 
   User? get firebaseUser => _firebaseUser;
 
@@ -241,5 +250,41 @@ class AuthProvider extends ChangeNotifier {
       Get.snackbar("Error", e.toString());
     }
     return false;
+  }
+
+  Future<void> signUpWithGG(BuildContext context, bool signIn,
+      TextEditingController phoneNumber) async {
+    final userCredential = await AuthService().signInWithGoogle();
+    if ((userCredential.user?.email ?? '').isNotEmpty && signIn == false) {
+      _userName = (userCredential.user?.email ?? '');
+      Navigator.pushNamed(context, EnterUserNameScreens.routeName);
+    } else {
+      phoneNumber.text = (userCredential.user?.email ?? '');
+    }
+  }
+
+  ischeckSignIn(bool data, BuildContext context) {
+    if (data) {
+      _signInGG = true;
+    } else {
+      _signInGG = false;
+    }
+    notifyListeners();
+  }
+
+  isSignIn(bool data) {
+    _signInGG = false;
+    if (data) {
+      isSign = true;
+    } else {
+      isSign = false;
+    }
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 }

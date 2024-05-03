@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app_final/providers/AuthProvider.dart';
+import 'package:get/get.dart';
+import 'package:movie_app_final/providers/auth_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/choose_your_need_screens.dart';
 import 'package:movie_app_final/screens/home_screen.dart';
+import 'package:movie_app_final/screens/signin_signup_screens.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_popup.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
@@ -19,9 +21,20 @@ class EnterUserNameScreens extends StatefulWidget {
 
 class _EnterUserNameScreensState extends State<EnterUserNameScreens> {
   var userNameText = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<AuthProvider>(context);
+    if (data.userName.isNotEmpty) {
+      userNameText.text = data.userName;
+    }
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
       resizeToAvoidBottomInset: true,
@@ -70,23 +83,33 @@ class _EnterUserNameScreensState extends State<EnterUserNameScreens> {
                       children: [
                         CustomTextButton(
                             text: "Done",
-                            onPressed: () async {
+                            onPressed: () {
                               if (userNameText.text.isEmpty) {
-                                return;
-                              }
-
-                              data.currentName = userNameText.text;
-                              print(data.currentName);
-
-                              var check = await data.addNewUser();
-
-                              if (!check) {
                                 CustomDialogHelper.showCustomDialog(
                                     context, "SignUp Error!", 'user-error.svg');
                                 return;
+                              } else {
+                                data.currentName = userNameText.text;
+                                print(data.currentName);
+
+                                var check = data.addNewUser();
+
+                                ///cmt tạm
+                                // if (!check) {
+                                //   CustomDialogHelper.showCustomDialog(
+                                //       context, "SignUp Error!", 'user-error.svg');
+                                //   return;
+                                // }
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text('Đăng kí thành công'),
+                                  duration: Duration(
+                                      seconds: 3), // Thời gian hiển thị
+                                ));
+                                // Navigator.pop(context);
+                                Navigator.pushReplacementNamed(
+                                    context, SignInSignUpScreens.routeName);
                               }
-                              Navigator.pushNamed(
-                                  context, HomeScreen.routeName);
                             }),
                         const SizedBox(height: 10),
                       ],

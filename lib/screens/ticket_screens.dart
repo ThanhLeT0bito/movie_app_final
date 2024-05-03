@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:movie_app_final/models/movie.dart';
-import 'package:movie_app_final/providers/AuthProvider.dart';
+import 'package:movie_app_final/providers/auth_provider.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/providers/orders_provider.dart';
 import 'package:movie_app_final/providers/ticket_management_provider.dart';

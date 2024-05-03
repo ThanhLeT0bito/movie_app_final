@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/models/Nowplaying.dart';
-import 'package:movie_app_final/providers/Nowplaying_provider.dart';
+import 'package:movie_app_final/providers/nowplaying_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/resources/dimens.dart';
 import 'package:movie_app_final/widgets/now_playing.dart';

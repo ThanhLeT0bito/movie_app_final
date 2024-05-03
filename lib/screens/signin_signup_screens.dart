@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:movie_app_final/models/model_widget/item_radio.dart';
-import 'package:movie_app_final/providers/AuthProvider.dart';
+import 'package:movie_app_final/providers/auth_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/signin_screens.dart';
 import 'package:movie_app_final/widgets/Base/custom_bottom_sheet.dart';
@@ -9,31 +8,41 @@ import 'package:movie_app_final/widgets/Base/custom_carousel_signin_signup.dart'
 import 'package:movie_app_final/widgets/Base/custom_item_radio.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 import 'package:provider/provider.dart';
+import '../generated/l10n.dart';
+import '../providers/home_refactor_provider.dart';
+import '../providers/language_provider.dart';
 
-class SignIn_SignUp_Screens extends StatefulWidget {
-  const SignIn_SignUp_Screens({Key? key}) : super(key: key);
+class SignInSignUpScreens extends StatefulWidget {
+  const SignInSignUpScreens({Key? key}) : super(key: key);
   static const routeName = 'SignIn_SignUp';
 
   @override
-  State<SignIn_SignUp_Screens> createState() => _SignInSignUpScreensState();
+  State<SignInSignUpScreens> createState() => _SignInSignUpScreensState();
 }
 
-class _SignInSignUpScreensState extends State<SignIn_SignUp_Screens> {
-  List<ItemRadio> listItemCustom = [
-    ItemRadio(isSelected: true, text: "English"),
-    ItemRadio(isSelected: false, text: "Vietnamese"),
-  ];
+class _SignInSignUpScreensState extends State<SignInSignUpScreens> {
+  int indexSelect = 0;
 
-  void showBottomSheet() {
+  void showBottomSheet(HomeRefactorProvider listProvider,
+      LanguageProvider languageProvider, List<ItemRadio> list) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
         return CustomBottomSheet(
-          title: 'Choose a language',
-          subTitle: 'Which language do you want to use?',
-          textButton: "Use it",
-          onButtonPressed: () {},
-          widget: CustomItemRadio(groupRadio: listItemCustom),
+          title: S.current.choose_a_language,
+          subTitle: S.current.which_language,
+          textButton: S.current.use_it,
+          onButtonPressed: () {
+            languageProvider.changeLanguage(list[indexSelect]);
+            Navigator.pop(context);
+          },
+          widget: CustomItemRadio(
+            groupRadio: list,
+            onPressed: (int index) {
+              indexSelect = index;
+              listProvider.updateSelectedItem(indexSelect, true, context);
+            },
+          ),
         );
       },
     );
@@ -42,6 +51,11 @@ class _SignInSignUpScreensState extends State<SignIn_SignUp_Screens> {
   @override
   Widget build(BuildContext context) {
     var data = Provider.of<AuthProvider>(context);
+    final HomeRefactorProvider listProvider =
+        Provider.of<HomeRefactorProvider>(context);
+    final LanguageProvider languageProvider =
+        Provider.of<LanguageProvider>(context);
+    final List<ItemRadio> list = listProvider.list;
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
       body: SingleChildScrollView(
@@ -73,20 +87,22 @@ class _SignInSignUpScreensState extends State<SignIn_SignUp_Screens> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    showBottomSheet();
+                    showBottomSheet(listProvider, languageProvider, list);
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: AppColors.BaseColorWhite,
                     backgroundColor: AppColors.BaseColorBlackGround,
                     side: const BorderSide(color: AppColors.BaseColorWhite),
                   ),
-                  child: const Row(
+                  child: Row(
                     children: [
-                      Icon(Icons.language, color: Colors.white),
-                      SizedBox(width: 8),
+                      const Icon(Icons.language, color: Colors.white),
+                      const SizedBox(width: 8),
                       Text(
-                        'English',
-                        style: TextStyle(color: Colors.white),
+                        languageProvider.language == 'EN'
+                            ? S.current.English
+                            : S.current.VietNamese,
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ],
                   ),
@@ -98,46 +114,47 @@ class _SignInSignUpScreensState extends State<SignIn_SignUp_Screens> {
             const SizedBox(height: 50),
             Container(
               alignment: Alignment.center,
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'MBooking hello!',
-                    style: TextStyle(color: Colors.white, fontSize: 32),
+                    S.current.mbooking,
+                    style: const TextStyle(color: Colors.white, fontSize: 32),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
-                    'Enjoy your favorite movies',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    S.current.enjoy_your,
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
                     textAlign: TextAlign.center,
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             CustomTextButton(
-                text: 'Sign in',
+                text: S.current.sign_in,
                 onPressed: () {
+                  data.isSignIn(true);
                   Navigator.pushNamed(context, SignInScreens.routeName,
-                      arguments: "Sign In");
+                      arguments: S.current.sign_in);
                 }),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             CustomTextButton(
-              text: 'Sign up',
+              text: S.current.sign_up,
               onPressed: () {
-                data.IsSign = false;
+                data.isSignIn(false);
                 Navigator.pushNamed(context, SignInScreens.routeName,
-                    arguments: "Sign Up");
+                    arguments: S.current.sign_up);
               },
               backgroundColor: Colors.transparent,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: const Text(
-                'By sign in or sign up, you agree to our Terms of Service and Privacy Policy',
-                style: TextStyle(color: Colors.grey),
+              child: Text(
+                S.current.by_sign_in,
+                style: const TextStyle(color: Colors.grey),
                 textAlign: TextAlign.center,
               ),
             )

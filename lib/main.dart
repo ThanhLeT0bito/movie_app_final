@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
 import 'package:movie_app_final/models/data_local/UserPreferences%20.dart';
-import 'package:movie_app_final/providers/AuthProvider.dart';
-import 'package:movie_app_final/providers/Homepage_provider.dart';
-import 'package:movie_app_final/providers/Nowplaying_provider.dart';
+import 'package:movie_app_final/providers/auth_provider.dart';
+import 'package:movie_app_final/providers/homepage_provider.dart';
+import 'package:movie_app_final/providers/nowplaying_provider.dart';
 import 'package:movie_app_final/providers/actor_providers.dart';
+import 'package:movie_app_final/providers/home_refactor_provider.dart';
+import 'package:movie_app_final/providers/language_provider.dart';
 import 'package:movie_app_final/providers/manager_all_widget.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/providers/orders_provider.dart';
@@ -15,7 +17,7 @@ import 'package:movie_app_final/providers/watching_movie_provider.dart';
 import 'package:movie_app_final/screens/Enter_Username_screens.dart';
 import 'package:movie_app_final/screens/change_password_screens.dart';
 import 'package:movie_app_final/screens/choose_your_need_screens.dart';
-import 'package:movie_app_final/screens/confirm_OTP_screens.dart';
+import 'package:movie_app_final/screens/confirm_otp_screens.dart';
 import 'package:movie_app_final/screens/delete_account_screens.dart';
 import 'package:movie_app_final/screens/edit_profile_screen.dart';
 import 'package:movie_app_final/screens/home_order_movie_screen.dart';
@@ -35,6 +37,8 @@ import 'package:movie_app_final/screens/ticket_screens.dart';
 import 'package:movie_app_final/screens/watching_movie_detail.dart';
 import 'package:movie_app_final/screens/list_category.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'generated/l10n.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,43 +66,52 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => NowplayingManagement()),
         ChangeNotifierProvider(create: (_) => HomepageManagement()),
         ChangeNotifierProvider(create: (_) => SeatsProviders()),
-        ChangeNotifierProvider(create: (_) => ActorProviders())
+        ChangeNotifierProvider(create: (_) => ActorProviders()),
+        ChangeNotifierProvider(create: (_) => HomeRefactorProvider()),
+        ChangeNotifierProvider(create: (_) => LanguageProvider())
       ],
       child: Consumer<ManagerAllWidget>(builder: (context, manager, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'MOviE',
-          // ignore: unrelated_type_equality_checks
+          locale: Provider.of<LanguageProvider>(context).locale,
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: S.delegate.supportedLocales,
           initialRoute:
               //HomeScreen.routeName,
               manager.startScreen,
           routes: {
-            HomeScreen.routeName: (context) => HomeScreen(),
-            HomepageScreens.routeName: (context) => HomepageScreens(),
-            HomeOrderMovie.routeName: (context) => HomeOrderMovie(),
-            HomeWatching.routeName: (context) => HomeWatching(),
-            TicketMovieScreens.routeName: (context) => TicketMovieScreens(),
-            NowplayingScreens.routeName: (context) => NowplayingScreens(),
-            HomeProfileScreens.routeName: (context) => HomeProfileScreens(),
-            MoviedetailsScreens.routeName: (context) => MoviedetailsScreens(),
-            SelectSeatScreen.routeName: (context) => SelectSeatScreen(),
-            EnterUserNameScreens.routeName: (context) => EnterUserNameScreens(),
-            ConfirmOTPScreens.routeName: (context) => ConfirmOTPScreens(),
-            SignInScreens.routeName: (context) => SignInScreens(),
-            ChooseNeed.routeName: (context) => ChooseNeed(),
-            SignIn_SignUp_Screens.routeName: (context) =>
-                SignIn_SignUp_Screens(),
+            HomeScreen.routeName: (context) =>const HomeScreen(),
+            HomepageScreens.routeName: (context) =>const HomepageScreens(),
+            HomeOrderMovie.routeName: (context) =>const HomeOrderMovie(),
+            HomeWatching.routeName: (context) =>const HomeWatching(),
+            TicketMovieScreens.routeName: (context) =>const TicketMovieScreens(),
+            NowplayingScreens.routeName: (context) =>const NowplayingScreens(),
+            HomeProfileScreens.routeName: (context) => const HomeProfileScreens(),
+            MoviedetailsScreens.routeName: (context) => const MoviedetailsScreens(),
+            SelectSeatScreen.routeName: (context) => const SelectSeatScreen(),
+            EnterUserNameScreens.routeName: (context) => const EnterUserNameScreens(),
+            ConfirmOTPScreens.routeName: (context) => const ConfirmOTPScreens(),
+            SignInScreens.routeName: (context) =>const SignInScreens(),
+            ChooseNeed.routeName: (context) => const ChooseNeed(),
+            SignInSignUpScreens.routeName: (context) => const
+                SignInSignUpScreens(),
             TicketScreen.routeName: (context) => const TicketScreen(),
-            PaymentScreens.routeName: (context) => PaymentScreens(),
+            PaymentScreens.routeName: (context) =>const PaymentScreens(),
             WatchingDetailsScreens.routeName: (context) =>
-                WatchingDetailsScreens(),
-            EditProfileScreen.routeName: (context) => EditProfileScreen(),
+            const  WatchingDetailsScreens(),
+            EditProfileScreen.routeName: (context) =>const EditProfileScreen(),
             ChangePasswordScreens.routeName: (context) =>
-                ChangePasswordScreens(),
-            DeleteAccountScreens.routeName: (context) => DeleteAccountScreens(),
-            RateScreen.routeName: (context) => RateScreen(),
-            CategoryScreens.routeName: (context) => CategoryScreens(),
-            TrailerScreen.routeName:(context) => TrailerScreen(trailerUrl:'' ),
+            const  ChangePasswordScreens(),
+            DeleteAccountScreens.routeName: (context) =>const DeleteAccountScreens(),
+            RateScreen.routeName: (context) =>const RateScreen(),
+            CategoryScreens.routeName: (context) =>const CategoryScreens(),
+            TrailerScreen.routeName: (context) =>const TrailerScreen(trailerUrl: ''),
           },
         );
       }),

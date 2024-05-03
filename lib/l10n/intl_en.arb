@@ -1,0 +1,15 @@
+{
+  "@@locale": "en",
+  "sign_in": "Sign in",
+  "sign_up": "Sign up",
+  "mbooking": "MBooking hello!",
+  "enjoy_your": "Enjoy your favorite movies",
+  "by_sign_in": "By sign in or sign up, you agree to our Terms of Service and Privacy Policy",
+  "choose_a_language": "Choose a language",
+  "which_language": "Which language do you want to use?",
+  "use_it": "Use it",
+  "English": "English",
+  "VietNamese": "VietNamese",
+  "Continue": "Continue",
+  "or_continue_with":"Or continue with"
+}

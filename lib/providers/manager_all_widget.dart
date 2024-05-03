@@ -21,7 +21,7 @@ import 'package:movie_app_final/widgets/Base/custom_item_radio.dart';
 import 'package:movie_app_final/widgets/custom_item_bottom__bar.dart';
 
 class ManagerAllWidget extends ChangeNotifier {
-  late String startScreen = SignIn_SignUp_Screens.routeName;
+  late String startScreen = SignInSignUpScreens.routeName;
   //String startScreen = HomeScreen.routeName;
   //String startScreen = ChooseNeed.routeName;
   //mode
@@ -47,7 +47,7 @@ class ManagerAllWidget extends ChangeNotifier {
     setBottomItem(_selectedIndex);
     //currentUserId = UserPreferences.getUserId() as String;
     if (preferences.isEmpty) {
-      startScreen = SignIn_SignUp_Screens.routeName;
+      startScreen = SignInSignUpScreens.routeName;
     } else {
       startScreen = ChooseNeed.routeName;
     }
@@ -66,7 +66,7 @@ class ManagerAllWidget extends ChangeNotifier {
     await UserPreferences.setUserId('');
     startScreen = userId.isNotEmpty
         ? ChooseNeed.routeName
-        : SignIn_SignUp_Screens.routeName;
+        : SignInSignUpScreens.routeName;
     notifyListeners();
     return userId;
   }

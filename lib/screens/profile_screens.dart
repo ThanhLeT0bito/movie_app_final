@@ -4,7 +4,7 @@ import 'package:movie_app_final/models/model_widget/profile_model.dart';
 import 'package:movie_app_final/models/movie_model.dart';
 import 'package:movie_app_final/models/order_model.dart';
 import 'package:movie_app_final/models/user.dart';
-import 'package:movie_app_final/providers/AuthProvider.dart';
+import 'package:movie_app_final/providers/auth_provider.dart';
 import 'package:movie_app_final/providers/actor_providers.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/providers/orders_provider.dart';

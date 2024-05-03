@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movie_app_final/models/data_local/UserPreferences%20.dart';
 import 'package:movie_app_final/models/order_model.dart';
-import 'package:movie_app_final/providers/AuthProvider.dart';
+import 'package:movie_app_final/providers/auth_provider.dart';
 import 'package:movie_app_final/providers/seats_provider.dart';
 import 'package:movie_app_final/services/api_services.dart';
 import 'package:http/http.dart' as http;
