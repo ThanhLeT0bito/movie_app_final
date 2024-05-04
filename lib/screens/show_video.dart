@@ -5,7 +5,7 @@ import 'package:video_player/video_player.dart';
 
 class ShowVideoScreen extends StatefulWidget {
   const ShowVideoScreen({super.key});
-  static const routeName='/show_video';
+  static const routeName = '/show_video';
 
   @override
   State<ShowVideoScreen> createState() => _ShowVideoScreenState();
@@ -26,38 +26,18 @@ class _ShowVideoScreenState extends State<ShowVideoScreen> {
     //aspectRatio: null,
     autoPlay: true,
     looping: true,
-    fullScreenByDefault: true,
-
+    //fullScreenByDefault: true,
   );
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Video Player'),
-        ),
-        body: Container(
-          height: 250,
-          decoration: const BoxDecoration(
-            color: Colors.black,
-          ),
-          child: Chewie(
-            controller: _controller,
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          
-          onPressed: () {
-            setState(() {
-              if (_controller.videoPlayerController.value.isPlaying) {
-                _controller.videoPlayerController.pause();
-              } else {
-                _controller.videoPlayerController.play();
-              }
-            });
-          },
-          child: Icon(_controller.videoPlayerController.value.isPlaying
-              ? Icons.pause
-              : Icons.play_arrow),
-        ));
+    return Container(
+      height: 237,
+      decoration: const BoxDecoration(
+        color: Colors.black,
+      ),
+      child: Chewie(
+        controller: _controller,
+      ),
+    );
   }
 }

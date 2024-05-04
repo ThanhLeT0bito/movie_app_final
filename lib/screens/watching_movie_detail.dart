@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -26,13 +28,14 @@ class WatchingDetailsScreens extends StatefulWidget {
 class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
   int _selectedIndex = 0;
   late List<CustomItemBottomBar> bottomNavBarItems;
+  int indexHeaderWatching = 0;
 
   bool _isPlaying = false; // Thêm trạng thái cho việc phát video
 
   @override
   void initState() {
     super.initState();
-
+    indexHeaderWatching = 0;
     void _playVideo() {
       setState(() {
         _isPlaying = true;
@@ -65,6 +68,14 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
     });
   }
 
+  void updateIndexWatching() {
+    setState(() {
+      indexHeaderWatching = indexHeaderWatching == 0 ? 1 : 0;
+    });
+  }
+
+  List<Widget> headerWatching = [HeaderImageWatching(), ShowVideoScreen()];
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -78,27 +89,15 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    setState(() {
-                      _isPlaying = !_isPlaying;
-                    });
+                    updateIndexWatching();
                   },
-                  child: _isPlaying
-                      ? Container(
-                          width: double.infinity,
-                          height: 237,
-                          child: ShowVideoScreen(),
-                        )
-                      : Image.asset(
-                          "assets/images/img_1.jpg",
-                          width: double.infinity,
-                          height: 237,
-                          fit: BoxFit.cover,
-                        ),
+                  child: headerWatching[indexHeaderWatching],
                 ),
                 MainContent(
                   screenWidth: screenWidth,
                   bottomNavBarItems: bottomNavBarItems,
                   onItemTapped: _onItemTapped,
+                  callback: updateIndexWatching,
                 ),
               ],
             ),
@@ -110,6 +109,35 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
             child: CustomAppBar(),
           )
         ],
+      ),
+    );
+  }
+}
+
+class HeaderImageWatching extends StatelessWidget {
+  const HeaderImageWatching({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      constraints: const BoxConstraints(
+        maxHeight: 237,
+      ),
+      decoration: const BoxDecoration(
+          color: Colors.transparent, // Thay đổi màu thành trong suốt
+          //borderRadius: BorderRadius.circular(10),
+          image: DecorationImage(
+              image: AssetImage('assets/images/img_1.jpg'),
+              fit: BoxFit.fitWidth)),
+      child: Center(
+        child: Icon(
+          Icons.play_circle_outline_rounded,
+          color: AppColors.BaseColorWhite,
+          size: 64,
+        ),
       ),
     );
   }
@@ -160,11 +188,13 @@ class MainContent extends StatefulWidget {
     required this.screenWidth,
     required this.bottomNavBarItems,
     required this.onItemTapped,
+    required this.callback,
   }) : super(key: key);
 
   final double screenWidth;
   final List<CustomItemBottomBar> bottomNavBarItems;
   final Function(int) onItemTapped;
+  final VoidCallback callback;
 
   @override
   State<MainContent> createState() => _MainContentState();
@@ -214,27 +244,9 @@ class _MainContentState extends State<MainContent> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _isPlaying =
-                          !_isPlaying; // Đảo trạng thái khi nhấn nút play
-                    });
-                  },
-                  child: _isPlaying
-                      ? Container(
-                          width: double.infinity,
-                          height: 237,
-                          child: ShowVideoScreen(),
-                        )
-                      : CustomTextButton(
-                          text: "Play",
-                          onPressed: () {
-                            setState(() {
-                              _isPlaying = true;
-                            });
-                          },
-                        ),
+                CustomTextButton(
+                  text: "Play",
+                  onPressed: widget.callback,
                 ),
 
                 const SizedBox(height: 20),
