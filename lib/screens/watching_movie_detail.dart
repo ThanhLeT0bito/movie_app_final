@@ -4,9 +4,9 @@ import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
+import 'package:movie_app_final/screens/show_video.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
-
 import '../widgets/Base/custom_bottom_navigator.dart';
 import '../widgets/Base/custom_item_radio.dart';
 import '../widgets/custom_item_bottom__bar.dart';
@@ -27,9 +27,17 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
   int _selectedIndex = 0;
   late List<CustomItemBottomBar> bottomNavBarItems;
 
+  bool _isPlaying = false; // Thêm trạng thái cho việc phát video
+
   @override
   void initState() {
     super.initState();
+
+    void _playVideo() {
+      setState(() {
+        _isPlaying = true;
+      });
+    }
 
     ///Item bottom navigation
     bottomNavBarItems = [
@@ -68,11 +76,24 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
           SingleChildScrollView(
             child: Column(
               children: [
-                Image.asset(
-                  "assets/images/img_1.jpg",
-                  width: double.infinity,
-                  height: 237,
-                  fit: BoxFit.cover,
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _isPlaying = !_isPlaying;
+                    });
+                  },
+                  child: _isPlaying
+                      ? Container(
+                          width: double.infinity,
+                          height: 237,
+                          child: ShowVideoScreen(),
+                        )
+                      : Image.asset(
+                          "assets/images/img_1.jpg",
+                          width: double.infinity,
+                          height: 237,
+                          fit: BoxFit.cover,
+                        ),
                 ),
                 MainContent(
                   screenWidth: screenWidth,
@@ -152,6 +173,8 @@ class MainContent extends StatefulWidget {
 class _MainContentState extends State<MainContent> {
   int _selectedIndex = 0;
 
+  bool _isPlaying = false; // Thêm trạng thái cho việc phát video
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -191,12 +214,29 @@ class _MainContentState extends State<MainContent> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                CustomTextButton(
-                    text: 'Play',
-                    icon: Icons.play_arrow_rounded,
-                    onPressed: () {
-                      Navigator.pushNamed(context, SelectSeatScreen.routeName);
-                    }),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _isPlaying =
+                          !_isPlaying; // Đảo trạng thái khi nhấn nút play
+                    });
+                  },
+                  child: _isPlaying
+                      ? Container(
+                          width: double.infinity,
+                          height: 237,
+                          child: ShowVideoScreen(),
+                        )
+                      : CustomTextButton(
+                          text: "Play",
+                          onPressed: () {
+                            setState(() {
+                              _isPlaying = true;
+                            });
+                          },
+                        ),
+                ),
+
                 const SizedBox(height: 20),
                 const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
