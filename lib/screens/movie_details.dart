@@ -209,7 +209,7 @@ class PositionedItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(color: AppColors.BaseColorWhite)),
                   padding: const EdgeInsets.all(10),
-                  child: Row(
+                  child: const Row(
                     children: [
                       Icon(
                         Icons.play_circle,
@@ -469,7 +469,7 @@ class MainContent extends StatelessWidget {
                               maxWidth: 200,
                               maxHeight: 70,
                             ),
-                            margin: EdgeInsets.only(right: 10),
+                            margin: const EdgeInsets.only(right: 10),
                             decoration: BoxDecoration(
                               color: Colors.grey.shade900,
                               borderRadius: BorderRadius.circular(10),
@@ -508,7 +508,7 @@ class MainContent extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 20),
+                                const SizedBox(height: 20),
                               ],
                             ),
                           );
@@ -517,8 +517,8 @@ class MainContent extends StatelessWidget {
                     ),
                   ],
                 ),
-                ChooseCinema(),
-                SizedBox(
+                const ChooseCinema(),
+                const SizedBox(
                   height: 20,
                 ),
                 CustomTextButton(
@@ -550,45 +550,55 @@ class TrailerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     String? videoId = YoutubePlayer.convertUrlToId(trailerUrl);
     if (videoId != null) {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ]);
       YoutubePlayerController controller = YoutubePlayerController(
         initialVideoId: videoId,
-        flags: YoutubePlayerFlags(
+        flags: const YoutubePlayerFlags(
           autoPlay: true,
           mute: false,
         ),
       );
 
       return Scaffold(
-        backgroundColor: AppColors.BaseColorBlackGround,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent, // Transparent AppBar
-          elevation: 0, // No shadow
-          leading: IconButton(
-            icon: Icon(Icons.close), // Close icon
-            onPressed: () {
-              Navigator.of(context).pop(); // Close the screen
-            },
-          ),
-        ),
-        body: Center(
-          child: AspectRatio(
-            aspectRatio: 16 / 9,
-            child: YoutubePlayer(
-              controller: controller,
-              showVideoProgressIndicator: true,
-              progressIndicatorColor: Colors.amber,
-              progressColors: ProgressBarColors(
-                playedColor: Colors.amber,
-                handleColor: Colors.amberAccent,
+          backgroundColor: AppColors.BaseColorBlackGround,
+          body: Stack(children: [
+            Center(
+                child: AspectRatio(
+              aspectRatio: 16 / 9,
+              child: YoutubePlayer(
+                controller: controller,
+                showVideoProgressIndicator: true,
+                progressIndicatorColor: AppColors.BaseColorMain,
+                progressColors: const ProgressBarColors(
+                  playedColor: AppColors.BaseColorMain,
+                  handleColor: AppColors.BaseColorMain,
+                ),
               ),
-            ),
-          ),
-        ),
-      );
+            )),
+            Positioned(
+              right: 10,
+              top: 0,
+              left: 0,
+              child: CustomAppBar(
+                showBackButton: false,
+                iconRightButton: Icons.close,
+                onPressedRight: () {
+                  SystemChrome.setPreferredOrientations([
+                    DeviceOrientation.portraitUp,
+                    DeviceOrientation.portraitUp,
+                  ]);
+                  Navigator.pop(context);
+                },
+              ),
+            )
+          ]));
     } else {
       // Xử lý khi không thể chuyển đổi trailer URL thành video ID
       print('Invalid trailer URL or unable to convert to video ID');
-      return Scaffold(
+      return const Scaffold(
         body: Center(
           child: Text('Invalid trailer URL or unable to convert to video ID'),
         ),

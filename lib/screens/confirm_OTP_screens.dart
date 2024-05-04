@@ -146,8 +146,8 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
                         children: [
                           for (int i = 0; i < 6; i++)
                             SizedBox(
-                              width: 60,
-                              height: 80,
+                              width: 50,
+                              height: 60,
                               child: TextField(
                                 controller: controllers[i],
                                 focusNode: focusNodes[i],
