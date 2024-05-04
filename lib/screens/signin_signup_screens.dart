@@ -137,6 +137,7 @@ class _SignInSignUpScreensState extends State<SignIn_SignUp_Screens> {
             CustomTextButton(
                 text: S.current.sign_in,
                 onPressed: () {
+                  data.isSignIn(true);
                   Navigator.pushNamed(context, SignInScreens.routeName,
                       arguments: S.current.sign_in);
                 }),
@@ -144,7 +145,7 @@ class _SignInSignUpScreensState extends State<SignIn_SignUp_Screens> {
             CustomTextButton(
               text: S.current.sign_up,
               onPressed: () {
-                data.IsSign = false;
+                data.isSignIn(false);
                 Navigator.pushNamed(context, SignInScreens.routeName,
                     arguments: S.current.sign_up);
               },

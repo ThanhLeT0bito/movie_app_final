@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/choose_your_need_screens.dart';
 import 'package:movie_app_final/screens/home_screen.dart';
+import 'package:movie_app_final/screens/signin_signup_screens.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_popup.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
@@ -74,30 +77,30 @@ class _EnterUserNameScreensState extends State<EnterUserNameScreens> {
                       children: [
                         CustomTextButton(
                             text: "Done",
-                            onPressed: () async {
+                            onPressed: () {
                               if (userNameText.text.isEmpty) {
                                 return;
                               }
                               //check signIn GG
-                              if (data.isGoogle) {
+                              if (data.isGoogle == true) {
                                 data.currentName = userNameText.text;
-                                await data.addNewUser();
+                                data.addNewUser();
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(const SnackBar(
                                   content: Text('Đăng kí thành công'),
                                   duration: Duration(
-                                      seconds: 3), // Thời gian hiển thị
+                                      seconds: 1), // Thời gian hiển thị
                                 ));
                                 // Navigator.pop(context);
-                                // Navigator.pushReplacementNamed(
-                                //     context, SignInSignUpScreens.routeName);
+                                Navigator.pushReplacementNamed(
+                                    context, SignIn_SignUp_Screens.routeName);
                               } else {
                                 data.currentName = userNameText.text;
                                 print(data.currentName);
 
-                                var check = await data.addNewUser();
+                                var check = data.addNewUser();
 
-                                if (!check) {
+                                if (check == false) {
                                   CustomDialogHelper.showCustomDialog(context,
                                       "SignUp Error!", 'user-error.svg');
                                   return;

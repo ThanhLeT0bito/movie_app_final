@@ -278,4 +278,15 @@ class AuthProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  isSignIn(bool data) {
+    _signInGG = false;
+    if (data) {
+      IsSign = true;
+    } else {
+      IsSign = false;
+    }
+    notifyListeners();
+  }
+
 }
