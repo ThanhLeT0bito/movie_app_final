@@ -13,6 +13,9 @@ import 'dart:math' as math;
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 import 'package:provider/provider.dart';
 
+import '../models/movie_model.dart';
+import '../providers/movie_providers.dart';
+
 class TicketScreen extends StatefulWidget {
   const TicketScreen({super.key});
 
@@ -25,12 +28,13 @@ class TicketScreen extends StatefulWidget {
 class _TicketScreenState extends State<TicketScreen> {
   late String orderId;
   late OrderModel orderModel;
-  late MovieModel movieModel;
+  late MovieModel movieModel; // Thêm dấu chấm hỏi để xác định movieModel có thể là null
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     fetchData();
+    fetchMovieById();
   }
 
   Future<void> fetchData() async {
@@ -49,26 +53,28 @@ class _TicketScreenState extends State<TicketScreen> {
     } else if (arg is OrderModel) {
       orderModel = arg;
     }
+
   }
 
   Future<void> fetchMovieById() async {
     var dataMovie = Provider.of<Movieproviders>(context, listen: false);
     var arg = ModalRoute.of(context)!.settings.arguments;
 
-    String idMovie = orderModel.idMovie;
+    String idMovie = orderModel.movieId;
 
     if (arg is String) {
       idMovie = arg;
       print("&&&&&&&&&&&&");
       print(idMovie);
-      if (await dataMovie.fetchOrderById(idMovie) != null) {
-        movieModel = await dataMovie.fetchOrderById(idMovie) as MovieModel;
+      if (await dataMovie.findMovieById(idMovie) != null) {
+        movieModel = await dataMovie.findMovieById(idMovie) as MovieModel;
+        // Sau khi movieModel được tải, gọi setState để rebuild widget
+        setState(() {});
       }
-    } else if (arg is OrderModel) {
+    } else if (arg is MovieModel) {
       movieModel = arg;
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -99,11 +105,17 @@ class _TicketScreenState extends State<TicketScreen> {
                 decoration: BoxDecoration(
                     color: AppColors.BaseColorWhite,
                     borderRadius: BorderRadius.circular(10)),
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Column(
                     children: [
-                      ImageAndTitleWidget(name: movieModel.name, image: movieModel.thumbnail, time: movieModel.duration, category: movieModel.category),
+                      // Kiểm tra movieModel có null hay không trước khi sử dụng
+                      ImageAndTitleWidget(
+                        name: movieModel.name,
+                        image: movieModel.thumbnail,
+                        time: movieModel.duration,
+                        category: movieModel.category,
+                      ),
                       SizedBox(height: 20),
                       TimeAndSeatWidget(),
                       SizedBox(height: 20),
@@ -128,7 +140,7 @@ class _TicketScreenState extends State<TicketScreen> {
                 bottom: 165,
                 child: CustomPaint(
                   size:
-                      const Size(double.infinity, 1), // Kích thước của gạch đứt
+                  const Size(double.infinity, 1), // Kích thước của gạch đứt
                   painter: DashedLinePainter(),
                 ),
               ),
@@ -315,16 +327,17 @@ class PriceLocationAndNoteWidget extends StatelessWidget {
 
 class ImageAndTitleWidget extends StatelessWidget {
   const ImageAndTitleWidget({
-    super.key,
+    Key? key,
     required this.name,
     required this.image,
     required this.time,
     required this.category,
-  });
-  final String name;
-  final String image;
-  final String time;
-  final String category;
+  }) : super(key: key);
+
+  final String? name;
+  final String? image;
+  final String? time;
+  final String? category;
 
   @override
   Widget build(BuildContext context) {
@@ -334,14 +347,14 @@ class ImageAndTitleWidget extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: Image.asset(
-            image,
+            image ?? "", // Thêm ?? "" để tránh lỗi null
             width: 120,
             height: 200,
             fit: BoxFit.cover,
           ),
         ),
         const SizedBox(width: 15),
-        const Expanded(
+        Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -349,7 +362,7 @@ class ImageAndTitleWidget extends StatelessWidget {
               SizedBox(
                 width: 170,
                 child: Text(
-                  name,
+                  name ?? "", // Thêm ?? "" để tránh lỗi null
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -369,7 +382,7 @@ class ImageAndTitleWidget extends StatelessWidget {
                   SizedBox(
                     width: 170,
                     child: Text(
-                      time,
+                      time ?? "", // Thêm ?? "" để tránh lỗi null
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -389,7 +402,7 @@ class ImageAndTitleWidget extends StatelessWidget {
                   SizedBox(
                     width: 170,
                     child: Text(
-                      category,
+                      category ?? "", // Thêm ?? "" để tránh lỗi null
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -422,7 +435,7 @@ class TimeAndSeatWidget extends StatelessWidget {
                 Iconsax.calendar_1,
                 size: 50,
                 color: AppColors.BaseColorBlack,
-              ),f
+              ),
               SizedBox(width: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

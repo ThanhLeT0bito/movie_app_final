@@ -4,6 +4,10 @@ import 'package:movie_app_final/screens/home_page_screens.dart';
 import 'package:movie_app_final/screens/ticket_screen.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
+import 'package:provider/provider.dart';
+
+import '../models/movie_model.dart';
+import '../providers/movie_providers.dart';
 
 class RateScreen extends StatefulWidget {
   const RateScreen({Key? key}) : super(key: key); // Fix super.key
@@ -17,6 +21,32 @@ class RateScreen extends StatefulWidget {
 class _RateScreenState extends State<RateScreen> {
   int starCount = 0; // Declare starCount variable
   String starMessage = ''; // Declare starMessage variable
+  late String movieId;
+  late MovieModel movieModel;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    var dataMovie = Provider.of<Movieproviders>(context, listen: false);
+    var arg = ModalRoute.of(context)!.settings.arguments;
+
+    if (arg is String) {
+      movieId = arg;
+      print("&&&&&&&&&&&&");
+      print(movieId);
+      if (await dataMovie.findMovieById(movieId) != null) {
+        movieModel = await dataMovie.findMovieById(movieId) as MovieModel;
+        // Sau khi movieModel được tải, gọi setState để rebuild widget
+        setState(() {});
+      }
+    } else if (arg is MovieModel) {
+      movieModel = arg;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +72,12 @@ class _RateScreenState extends State<RateScreen> {
                     color: AppColors.BaseColorWhite,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const ImageAndTitleWidget(),
+                  child: ImageAndTitleWidget(
+                    name: movieModel.name,
+                    image: movieModel.thumbnail,
+                    time: movieModel.duration,
+                    category: movieModel.category,
+                  ),
                 ),
                 Expanded(
                   child: Container(
