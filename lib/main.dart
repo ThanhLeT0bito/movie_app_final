@@ -70,9 +70,8 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'MOviE',
           // ignore: unrelated_type_equality_checks
-          initialRoute:
-              HomeScreen.routeName,
-              //manager.startScreen,
+          initialRoute: //SignIn_SignUp_Screens.routeName,
+              manager.startScreen,
           routes: {
             HomeScreen.routeName: (context) => HomeScreen(),
             HomepageScreens.routeName: (context) => HomepageScreens(),

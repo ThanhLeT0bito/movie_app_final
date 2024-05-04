@@ -141,7 +141,8 @@ class _SignInScreensState extends State<SignInScreens> {
                             context, "Exists Number Phone!", 'phone-exist.svg');
                         return;
                       }
-                      //data.requestOTP(phoneNumber.text); //để send otp // hạn chế send otp
+                      data.requestOTP(
+                          phoneNumber.text); //để send otp // hạn chế send otp
                       data.currentPhone = phoneNumber.text;
                       print('CHECK CURRENT PHONE');
                       print(data.currentPhone);

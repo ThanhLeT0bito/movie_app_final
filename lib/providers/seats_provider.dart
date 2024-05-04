@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:movie_app_final/models/model_widget/date.dart';
 import 'package:movie_app_final/models/model_widget/seat.dart';
 import 'package:movie_app_final/models/model_widget/time.dart';
@@ -67,7 +68,7 @@ class SeatsProviders extends ChangeNotifier {
         seats[0].reserved.split(RegExp(r',\s*'));
 
     for (var i in seatList) {
-      var seat = _listSeat.firstWhere((element) => element.name == i);
+      var seat = _listSeat.firstWhereOrNull((element) => element.name == i);
       if (seat == null) continue;
       seat.status = Status.resered;
     }
