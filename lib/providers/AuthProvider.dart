@@ -7,8 +7,10 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movie_app_final/models/data_local/UserPreferences%20.dart';
+import '../auth/auth_service.dart';
 import '../models/user.dart';
 import 'package:http/http.dart' as http;
+import '../screens/Enter_Username_screens.dart';
 import '../services/api_services.dart';
 
 class AuthProvider extends ChangeNotifier {
@@ -23,12 +25,23 @@ class AuthProvider extends ChangeNotifier {
 
   List<Users> list = [];
   List<Users> _users = [];
+
   List<Users> get users => _users;
   late User? _firebaseUser;
   late String localVerificationId;
 
   User? get firebaseUser => _firebaseUser;
 
+  //signIn with gg
+  String _userName = '';
+
+  String get userName => _userName;
+  bool _signInGG = false;
+  bool _isGoogle = false;
+  bool get isGoogle => _isGoogle;
+  bool get signInGG => _signInGG;
+
+  //
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   UserProvider() {
@@ -241,5 +254,28 @@ class AuthProvider extends ChangeNotifier {
       Get.snackbar("Error", e.toString());
     }
     return false;
+  }
+
+  //signIn with gg
+  Future<void> signUpWithGG(BuildContext context, bool signIn,
+      TextEditingController phoneNumber) async {
+    _isGoogle = false;
+    final userCredential = await AuthService().signInWithGoogle();
+    if ((userCredential.user?.email ?? '').isNotEmpty && signIn == false) {
+      _userName = (userCredential.user?.email ?? '');
+      Navigator.pushNamed(context, EnterUserNameScreens.routeName);
+    } else {
+      phoneNumber.text = (userCredential.user?.email ?? '');
+    }
+    _isGoogle = true;
+  }
+
+  ischeckSignIn(bool data, BuildContext context) {
+    if (data) {
+      _signInGG = true;
+    } else {
+      _signInGG = false;
+    }
+    notifyListeners();
   }
 }

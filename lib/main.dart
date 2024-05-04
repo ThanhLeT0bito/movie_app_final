@@ -6,6 +6,8 @@ import 'package:movie_app_final/providers/AuthProvider.dart';
 import 'package:movie_app_final/providers/Homepage_provider.dart';
 import 'package:movie_app_final/providers/Nowplaying_provider.dart';
 import 'package:movie_app_final/providers/actor_providers.dart';
+import 'package:movie_app_final/providers/home_refactor_provider.dart';
+import 'package:movie_app_final/providers/language_provider.dart';
 import 'package:movie_app_final/providers/manager_all_widget.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/providers/orders_provider.dart';
@@ -35,6 +37,8 @@ import 'package:movie_app_final/screens/ticket_screens.dart';
 import 'package:movie_app_final/screens/watching_movie_detail.dart';
 import 'package:movie_app_final/screens/list_category.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'generated/l10n.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,13 +66,23 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => NowplayingManagement()),
         ChangeNotifierProvider(create: (_) => HomepageManagement()),
         ChangeNotifierProvider(create: (_) => SeatsProviders()),
-        ChangeNotifierProvider(create: (_) => ActorProviders())
+        ChangeNotifierProvider(create: (_) => ActorProviders()),
+        ChangeNotifierProvider(create: (_) => HomeRefactorProvider()),
+        ChangeNotifierProvider(create: (_) => LanguageProvider()),
       ],
       child: Consumer<ManagerAllWidget>(builder: (context, manager, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'MOviE',
           // ignore: unrelated_type_equality_checks
+          locale: Provider.of<LanguageProvider>(context).locale,
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: S.delegate.supportedLocales,
           initialRoute:
               //HomeScreen.routeName,
               manager.startScreen,

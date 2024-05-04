@@ -29,5 +29,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data
+            android:name="com.google.android.gms.auth.api.signin.client_id"
+            android:value="805723378810-9t4485a8pebumpm0k6774bqgspt07fue.apps.googleusercontent.com" />
     </application>
 </manifest>

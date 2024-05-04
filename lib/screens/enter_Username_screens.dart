@@ -19,9 +19,13 @@ class EnterUserNameScreens extends StatefulWidget {
 
 class _EnterUserNameScreensState extends State<EnterUserNameScreens> {
   var userNameText = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<AuthProvider>(context);
+    if (data.userName.isNotEmpty) {
+      userNameText.text = data.userName;
+    }
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
       resizeToAvoidBottomInset: true,
@@ -74,19 +78,33 @@ class _EnterUserNameScreensState extends State<EnterUserNameScreens> {
                               if (userNameText.text.isEmpty) {
                                 return;
                               }
+                              //check signIn GG
+                              if (data.isGoogle) {
+                                data.currentName = userNameText.text;
+                                await data.addNewUser();
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text('Đăng kí thành công'),
+                                  duration: Duration(
+                                      seconds: 3), // Thời gian hiển thị
+                                ));
+                                // Navigator.pop(context);
+                                // Navigator.pushReplacementNamed(
+                                //     context, SignInSignUpScreens.routeName);
+                              } else {
+                                data.currentName = userNameText.text;
+                                print(data.currentName);
 
-                              data.currentName = userNameText.text;
-                              print(data.currentName);
+                                var check = await data.addNewUser();
 
-                              var check = await data.addNewUser();
-
-                              if (!check) {
-                                CustomDialogHelper.showCustomDialog(
-                                    context, "SignUp Error!", 'user-error.svg');
-                                return;
+                                if (!check) {
+                                  CustomDialogHelper.showCustomDialog(context,
+                                      "SignUp Error!", 'user-error.svg');
+                                  return;
+                                }
+                                Navigator.pushNamed(
+                                    context, HomeScreen.routeName);
                               }
-                              Navigator.pushNamed(
-                                  context, HomeScreen.routeName);
                             }),
                         const SizedBox(height: 10),
                       ],
