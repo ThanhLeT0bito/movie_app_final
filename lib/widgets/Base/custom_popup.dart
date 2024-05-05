@@ -61,8 +61,8 @@ class _CustomDialogState extends State<CustomDialog> {
             ),
             SvgPicture.asset(
               svgPath + widget.svg!,
-              width: 100,
-              height: 130,
+              width: 90,
+              height: 120,
               color: AppColors.BaseColorMain,
             ),
             Expanded(

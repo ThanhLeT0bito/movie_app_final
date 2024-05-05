@@ -30,6 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
     // Provider.of<Movieproviders>(context, listen: false).fetchAllMovies();
     Provider.of<Movieproviders>(context, listen: false).InitListCarousel();
     Provider.of<ActorProviders>(context, listen: false).fetchActors();
+    Provider.of<AuthProvider>(context, listen: false).fetchUsers();
+    Provider.of<AuthProvider>(context, listen: false).getCurrentUser();
+
     //Provider.of<AuthProvider>(context, listen: false).TestFirebase();
     //Provider.of<OrdersProvider>(context, listen: false).fetchAllOrder();
     //Provider.of<OrdersProvider>(context, listen: false).fetchListOrderOfUser();

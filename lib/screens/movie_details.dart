@@ -564,37 +564,51 @@ class TrailerScreen extends StatelessWidget {
 
       return Scaffold(
           backgroundColor: AppColors.BaseColorBlackGround,
-          body: Stack(children: [
-            Center(
-                child: AspectRatio(
-              aspectRatio: 16 / 9,
-              child: YoutubePlayer(
-                controller: controller,
-                showVideoProgressIndicator: true,
-                progressIndicatorColor: AppColors.BaseColorMain,
-                progressColors: const ProgressBarColors(
-                  playedColor: AppColors.BaseColorMain,
-                  handleColor: AppColors.BaseColorMain,
-                ),
-              ),
-            )),
-            Positioned(
-              right: 10,
-              top: 0,
-              left: 0,
-              child: CustomAppBar(
-                showBackButton: false,
-                iconRightButton: Icons.close,
-                onPressedRight: () {
-                  SystemChrome.setPreferredOrientations([
-                    DeviceOrientation.portraitUp,
-                    DeviceOrientation.portraitUp,
-                  ]);
-                  Navigator.pop(context);
-                },
-              ),
-            )
-          ]));
+          // ignore: deprecated_member_use
+          body: WillPopScope(
+            onWillPop: () async {
+              SystemChrome.setPreferredOrientations([
+                DeviceOrientation.portraitUp,
+                DeviceOrientation.portraitUp,
+              ]);
+              return true;
+            },
+            child: SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+              child: Stack(children: [
+                Center(
+                    child: AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: YoutubePlayer(
+                    controller: controller,
+                    showVideoProgressIndicator: true,
+                    progressIndicatorColor: AppColors.BaseColorMain,
+                    progressColors: const ProgressBarColors(
+                      playedColor: AppColors.BaseColorMain,
+                      handleColor: AppColors.BaseColorMain,
+                    ),
+                  ),
+                )),
+                Positioned(
+                  right: 10,
+                  top: 0,
+                  left: 0,
+                  child: CustomAppBar(
+                    showBackButton: false,
+                    iconRightButton: Icons.close,
+                    onPressedRight: () {
+                      SystemChrome.setPreferredOrientations([
+                        DeviceOrientation.portraitUp,
+                        DeviceOrientation.portraitUp,
+                      ]);
+                      Navigator.pop(context);
+                    },
+                  ),
+                )
+              ]),
+            ),
+          ));
     } else {
       // Xử lý khi không thể chuyển đổi trailer URL thành video ID
       print('Invalid trailer URL or unable to convert to video ID');

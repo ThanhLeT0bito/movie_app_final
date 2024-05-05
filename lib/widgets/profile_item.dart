@@ -99,13 +99,13 @@ class ProfileItemWidget extends StatelessWidget {
             ),
             const SizedBox(height: Dimens.SizeBoxHeightInfor),
             Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                   left: Dimens.PaddingBackgroundProfile,
                   right: Dimens.PaddingBackgroundProfile),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
@@ -125,15 +125,15 @@ class ProfileItemWidget extends StatelessWidget {
                           color: AppColors.BaseColorWhite),
                     ],
                   ),
-                  SizedBox(height: Dimens.SizedBoxHeightProfile),
-                  Divider(
+                  const SizedBox(height: Dimens.SizedBoxHeightProfile),
+                  const Divider(
                     color: Colors.grey,
                     thickness: Dimens.thickness,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: Dimens.SizedBoxHeightProfile,
                   ),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
@@ -155,15 +155,15 @@ class ProfileItemWidget extends StatelessWidget {
                           color: AppColors.BaseColorWhite),
                     ],
                   ),
-                  SizedBox(height: Dimens.SizedBoxHeightProfile),
-                  Divider(
+                  const SizedBox(height: Dimens.SizedBoxHeightProfile),
+                  const Divider(
                     color: Colors.grey,
                     thickness: Dimens.thickness,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: Dimens.SizedBoxHeightProfile,
                   ),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
@@ -183,12 +183,12 @@ class ProfileItemWidget extends StatelessWidget {
                           color: AppColors.BaseColorWhite),
                     ],
                   ),
-                  SizedBox(height: Dimens.SizedBoxHeightProfile),
-                  Divider(
+                  const SizedBox(height: Dimens.SizedBoxHeightProfile),
+                  const Divider(
                     color: Colors.grey,
                     thickness: Dimens.thickness,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: Dimens.SizedBoxHeightProfile,
                   ),
                   GestureDetector(
@@ -196,7 +196,7 @@ class ProfileItemWidget extends StatelessWidget {
                       Navigator.pushNamed(
                           context, ChangePasswordScreens.routeName);
                     },
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
@@ -217,15 +217,15 @@ class ProfileItemWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: Dimens.SizedBoxHeightProfile),
-                  Divider(
+                  const SizedBox(height: Dimens.SizedBoxHeightProfile),
+                  const Divider(
                     color: Colors.grey,
                     thickness: Dimens.thickness,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: Dimens.SizedBoxHeightProfile,
                   ),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
@@ -237,6 +237,38 @@ class ProfileItemWidget extends StatelessWidget {
                             width: Dimens.SizedBoxWidthProfile,
                           ),
                           Text('Face ID/Touch ID',
+                              style: TextStyle(
+                                  fontSize: Dimens.fontsizetext,
+                                  color: AppColors.BaseColorWhite)),
+                        ],
+                      ),
+                      Icon(Icons.arrow_forward_ios,
+                          size: Dimens.SizeIconArrow,
+                          color: AppColors.BaseColorWhite),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: Dimens.SizedBoxHeightProfile,
+                  ),
+                  const Divider(
+                    color: Colors.grey,
+                    thickness: Dimens.thickness,
+                  ),
+                  const SizedBox(
+                    height: Dimens.SizedBoxHeightProfile,
+                  ),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.logout,
+                              size: Dimens.SizeIconProfile,
+                              color: AppColors.BaseColorWhite),
+                          SizedBox(
+                            width: Dimens.SizedBoxWidthProfile,
+                          ),
+                          Text('Log Out',
                               style: TextStyle(
                                   fontSize: Dimens.fontsizetext,
                                   color: AppColors.BaseColorWhite)),

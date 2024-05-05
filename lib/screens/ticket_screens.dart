@@ -51,7 +51,7 @@ class _TicketMovieScreensState extends State<TicketMovieScreens> {
     }
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      //crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(height: 5),
         const CustomAppBar(

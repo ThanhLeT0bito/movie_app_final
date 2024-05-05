@@ -44,6 +44,12 @@ class AuthProvider extends ChangeNotifier {
     databaseReference.child('alooo').set("Nghia Dan");
   }
 
+  Future<void> getCurrentUser() async {
+    print("helooo");
+    String UserId = await UserPreferences.getUserId();
+    CurrentUser = _users.firstWhereOrNull((e) => e.id == UserId);
+  }
+
   Future<void> setSharePreferenceUserId(String phone) async {
     var user = await fetchUserByPhone(phone);
     if (user != null) {
@@ -52,8 +58,10 @@ class AuthProvider extends ChangeNotifier {
         print(",,,,,,,,,,,,,,,");
         print(UserId);
         await UserPreferences.setUserId(UserId);
+        print("Set Share Preference User OK!");
       }
     }
+
     notifyListeners();
   }
 
@@ -182,12 +190,7 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Users CurrentUser = Users(
-      id: "123",
-      name: "Nghĩa",
-      phone: "+8412345678",
-      mail: "NghiaDan@gmail.com");
-
+  Users? CurrentUser;
 //// send otp
 
   Future<void> requestOTP(String phoneNumber) async {
