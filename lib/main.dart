@@ -99,7 +99,6 @@ class MyApp extends StatelessWidget {
             RateScreen.routeName: (context) => RateScreen(),
             CategoryScreens.routeName: (context) => CategoryScreens(),
             TrailerScreen.routeName: (context) => TrailerScreen(trailerUrl: ''),
-            ShowVideoScreen.routeName:(context) => ShowVideoScreen(),
           },
         );
       }),

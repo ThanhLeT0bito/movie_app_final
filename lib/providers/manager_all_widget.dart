@@ -63,7 +63,6 @@ class ManagerAllWidget extends ChangeNotifier {
     print(userId);
     currentUserId = userId;
 
-    await UserPreferences.setUserId('');
     startScreen = userId.isNotEmpty
         ? ChooseNeed.routeName
         : SignIn_SignUp_Screens.routeName;

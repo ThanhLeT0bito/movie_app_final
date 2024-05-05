@@ -29,6 +29,7 @@ dependencies:
   youtube_player_flutter: ^9.0.1
   url_launcher: ^6.2.6
   chewie: ^1.8.1
+  readmore: ^3.0.0
   # flutter_facebook_auth: ^6.1.1
   # google_sign_in: ^6.2.1
 

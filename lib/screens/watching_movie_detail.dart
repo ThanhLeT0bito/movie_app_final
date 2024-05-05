@@ -4,11 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:movie_app_final/models/movie_model.dart';
+import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
 import 'package:movie_app_final/screens/show_video.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
+import 'package:provider/provider.dart';
+import 'package:readmore/readmore.dart';
 import '../widgets/Base/custom_bottom_navigator.dart';
 import '../widgets/Base/custom_item_radio.dart';
 import '../widgets/custom_item_bottom__bar.dart';
@@ -30,7 +34,7 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
   late List<CustomItemBottomBar> bottomNavBarItems;
   int indexHeaderWatching = 0;
 
-  bool _isPlaying = false; // Thêm trạng thái cho việc phát video
+  bool _isPlaying = false;
 
   @override
   void initState() {
@@ -74,11 +78,27 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
     });
   }
 
-  List<Widget> headerWatching = [HeaderImageWatching(), ShowVideoScreen()];
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    var dataMovie = Provider.of<Movieproviders>(context);
+    late String movieId;
+    if (ModalRoute.of(context)!.settings.arguments is String) {
+      movieId = ModalRoute.of(context)!.settings.arguments as String;
+    } else {
+      movieId = "662672c978a71af977967c0f";
+    }
+
+    MovieModel? movie = dataMovie.findMovieById(movieId);
+    dataMovie.printMovieModelProperties(movie!);
+    List<Widget> headerWatching = [
+      HeaderImageWatching(
+        movie: movie,
+      ),
+      ShowVideoScreen(
+        movie: movie,
+      )
+    ];
 
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
@@ -94,6 +114,7 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
                   child: headerWatching[indexHeaderWatching],
                 ),
                 MainContent(
+                  movie: movie,
                   screenWidth: screenWidth,
                   bottomNavBarItems: bottomNavBarItems,
                   onItemTapped: _onItemTapped,
@@ -117,7 +138,9 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
 class HeaderImageWatching extends StatelessWidget {
   const HeaderImageWatching({
     super.key,
+    required this.movie,
   });
+  final MovieModel movie;
 
   @override
   Widget build(BuildContext context) {
@@ -126,13 +149,13 @@ class HeaderImageWatching extends StatelessWidget {
       constraints: const BoxConstraints(
         maxHeight: 237,
       ),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
           color: Colors.transparent, // Thay đổi màu thành trong suốt
           //borderRadius: BorderRadius.circular(10),
           image: DecorationImage(
-              image: AssetImage('assets/images/img_1.jpg'),
+              image: NetworkImage(movie.thumbnailLandscape),
               fit: BoxFit.fitWidth)),
-      child: Center(
+      child: const Center(
         child: Icon(
           Icons.play_circle_outline_rounded,
           color: AppColors.BaseColorWhite,
@@ -189,21 +212,20 @@ class MainContent extends StatefulWidget {
     required this.bottomNavBarItems,
     required this.onItemTapped,
     required this.callback,
+    required this.movie,
   }) : super(key: key);
 
   final double screenWidth;
   final List<CustomItemBottomBar> bottomNavBarItems;
   final Function(int) onItemTapped;
   final VoidCallback callback;
-
+  final MovieModel movie;
   @override
   State<MainContent> createState() => _MainContentState();
 }
 
 class _MainContentState extends State<MainContent> {
   int _selectedIndex = 0;
-
-  bool _isPlaying = false; // Thêm trạng thái cho việc phát video
 
   void _onItemTapped(int index) {
     setState(() {
@@ -217,26 +239,32 @@ class _MainContentState extends State<MainContent> {
       children: [
         SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding:
+                const EdgeInsets.only(top: 10, right: 15, left: 15, bottom: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Mai",
-                      style: TextStyle(
+                      widget.movie.name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
                           decoration: TextDecoration.none,
                           fontSize: 25,
                           color: AppColors.BaseColorWhite,
                           fontWeight: FontWeight.bold),
                     ),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     Text(
-                      "2024 • 2h11m • 18+",
-                      style: TextStyle(
+                      "${widget.movie.startTime.year} * ${widget.movie.duration} * ${widget.movie.censorship}",
+                      style: const TextStyle(
                           color: AppColors.BaseColorAroundWhite,
                           fontSize: 15,
                           decoration: TextDecoration.none),
@@ -246,33 +274,32 @@ class _MainContentState extends State<MainContent> {
                 const SizedBox(height: 20),
                 CustomTextButton(
                   text: "Play",
+                  icon: Icons.play_circle,
                   onPressed: widget.callback,
                 ),
 
                 const SizedBox(height: 20),
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      '"Mai" is the story of Mai, a masseuse with a special fate. She often faces criticism from society and her meeting with Duong - a flower boy, awakens in her a desire for a new life...',
-                      style: TextStyle(
+                    ReadMoreText(
+                      widget.movie.description,
+                      trimLines: 4,
+                      colorClickableText: AppColors.BaseColorTextMain,
+                      trimMode: TrimMode.Line,
+                      trimCollapsedText: '...see more!',
+                      trimExpandedText: '...hide!',
+                      style: const TextStyle(
                         fontSize: 16,
-                        color: Colors.white,
+                        color: AppColors.BaseColorWhite,
                         decoration: TextDecoration.none,
                         fontWeight: FontWeight.normal,
                       ),
-                      softWrap: true,
-                      textAlign: TextAlign.justify,
-                    ),
-                    SizedBox(
-                        height: 5), // Khoảng cách giữa nội dung và "See more"
-                    Text(
-                      'See more',
-                      style: TextStyle(
-                        color: AppColors.BaseColorTextMain,
+                      moreStyle: const TextStyle(
                         fontSize: 16,
+                        color: AppColors.BaseColorTextMain,
                         decoration: TextDecoration.none,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                   ],
@@ -280,9 +307,9 @@ class _MainContentState extends State<MainContent> {
                 const SizedBox(
                   height: 20,
                 ),
-                const Row(
+                Row(
                   children: [
-                    Expanded(
+                    const Expanded(
                       child: Text(
                         'Movie genre:',
                         style: TextStyle(
@@ -294,8 +321,8 @@ class _MainContentState extends State<MainContent> {
                     ),
                     Expanded(
                       child: Text(
-                        'Romance, psychology', // Chữ thêm vào
-                        style: TextStyle(
+                        widget.movie.category,
+                        style: const TextStyle(
                           fontSize: 16,
                           color: AppColors.BaseColorAroundWhite,
                           decoration: TextDecoration.none,
@@ -462,18 +489,18 @@ class _MainContentState extends State<MainContent> {
                       color: AppColors.BaseColorMain,
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Container(
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: EdgeInsets.symmetric(vertical: 5.0),
+                          margin: const EdgeInsets.symmetric(vertical: 5.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 'Review',
                                 style: TextStyle(
                                   fontSize: 16.0,
@@ -481,7 +508,7 @@ class _MainContentState extends State<MainContent> {
                                   color: AppColors.BaseColorWhite,
                                 ),
                               ),
-                              SizedBox(height: 20.0),
+                              const SizedBox(height: 20.0),
                               Stack(
                                 alignment: Alignment.center,
                                 children: [
@@ -508,12 +535,12 @@ class _MainContentState extends State<MainContent> {
                             ],
                           ),
                         ),
-                        SizedBox(width: 4),
+                        const SizedBox(width: 4),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 50.0),
+                              const SizedBox(height: 50.0),
                               const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -535,7 +562,7 @@ class _MainContentState extends State<MainContent> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 4.0),
+                              const SizedBox(height: 4.0),
                               Container(
                                 alignment: Alignment.centerLeft,
                                 child: const Text(
@@ -547,7 +574,7 @@ class _MainContentState extends State<MainContent> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 10.0),
+                              const SizedBox(height: 10.0),
                               const Row(
                                 children: [
                                   Text(

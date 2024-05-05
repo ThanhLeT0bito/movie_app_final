@@ -1,8 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_app_final/providers/manager_all_widget.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/movie_details.dart';
+import 'package:movie_app_final/screens/watching_movie_detail.dart';
 import 'package:movie_app_final/widgets/item_carousel_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +16,7 @@ class CarouselWidget extends StatelessWidget {
   final List<ItemCarouselWidget> listCarousel;
   @override
   Widget build(BuildContext context) {
+    final dataManagerWidgets = Provider.of<ManagerAllWidget>(context);
     //var dataMovie = Provider.of<Movieproviders>(context);
     //List<ItemCarouselWidget> listCarousel = dataMovie.listCarousel;
     //     [
@@ -56,8 +59,13 @@ class CarouselWidget extends StatelessWidget {
           builder: (BuildContext context) {
             return GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, MoviedetailsScreens.routeName,
-                    arguments: item.id);
+                if (dataManagerWidgets.startMode == 0) {
+                  Navigator.pushNamed(context, MoviedetailsScreens.routeName,
+                      arguments: item.id);
+                } else {
+                  Navigator.pushNamed(context, WatchingDetailsScreens.routeName,
+                      arguments: item.id);
+                }
               },
               child: SizedBox(
                 width: MediaQuery.of(context).size.width -

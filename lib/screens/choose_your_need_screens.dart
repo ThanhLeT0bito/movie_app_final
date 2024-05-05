@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app_final/providers/AuthProvider.dart';
 import 'package:movie_app_final/providers/manager_all_widget.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/home_screen.dart';
@@ -12,6 +13,13 @@ class ChooseNeed extends StatefulWidget {
 }
 
 class _ChooseNeedState extends State<ChooseNeed> {
+  @override
+  void initState() {
+    Provider.of<AuthProvider>(context, listen: false).fetchUsers();
+    Provider.of<AuthProvider>(context, listen: false).getCurrentUser();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<ManagerAllWidget>(context);
