@@ -18,6 +18,7 @@ import 'package:movie_app_final/screens/choose_your_need_screens.dart';
 import 'package:movie_app_final/screens/confirm_OTP_screens.dart';
 import 'package:movie_app_final/screens/delete_account_screens.dart';
 import 'package:movie_app_final/screens/edit_profile_screen.dart';
+import 'package:movie_app_final/screens/favorite_screen.dart';
 import 'package:movie_app_final/screens/home_order_movie_screen.dart';
 import 'package:movie_app_final/screens/home_page_screens.dart';
 import 'package:movie_app_final/screens/home_watching_screen.dart';
@@ -99,6 +100,7 @@ class MyApp extends StatelessWidget {
             RateScreen.routeName: (context) => RateScreen(),
             CategoryScreens.routeName: (context) => CategoryScreens(),
             TrailerScreen.routeName: (context) => TrailerScreen(trailerUrl: ''),
+            FavoriteScreen.routeName: (context) => const FavoriteScreen(),
           },
         );
       }),
