@@ -1,11 +1,14 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/home_screen.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
-import 'dart:math' as math;
+import 'package:provider/provider.dart';
+import '../providers/AuthProvider.dart';
 
-import '../resources/dimens.dart';
 import '../widgets/Base/custom_text_button.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -22,12 +25,35 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   String? email;
   String? phoneNumber;
   String? gender;
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController genderController = TextEditingController();
+  final ImagePicker _picker = ImagePicker();
+  File? _image;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  void initData(AuthProvider data) {
+    if (data.CurrentUser != null) {
+      nameController.text = data.CurrentUser?.name ?? '';
+      emailController.text = data.CurrentUser?.mail ?? '';
+      phoneController.text = data.CurrentUser?.phone ?? '';
+      //  genderController.text = data.CurrentUser?. ?? '';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        color: AppColors.BaseColorBlackGround,
+    final data = Provider.of<AuthProvider>(context);
+    initData(data);
+    return Scaffold(
+      backgroundColor: AppColors.BaseColorBlackGround,
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -41,7 +67,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Navigator.pushNamed(context, HomeScreen.routeName);
                   },
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Stack(
                   alignment: Alignment.center,
                   children: [
@@ -53,9 +79,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         color: AppColors.BaseColorWhite,
                         border: Border.all(color: Colors.white, width: 2),
                       ),
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundImage: AssetImage('assets/images/avatar.jpg'),
+                      child: ClipOval(
+                        child: _image != null
+                            ? Image.file(
+                                File(
+                                    _image?.path ?? 'assets/images/avatar.jpg'),
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                height: double.infinity,
+                              )
+                            : Image.file(
+                                File(data.CurrentUser?.urlImage.toString() ??
+                                    'assets/images/avatar.jpg'),
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                height: double.infinity,
+                              ),
                       ),
                     ),
                     Positioned(
@@ -64,38 +103,46 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       child: Container(
                         width: 32,
                         height: 32,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.white,
                           shape: BoxShape.circle,
                         ),
-                        child: Icon(Icons.camera_alt, size: 20),
+                        child: GestureDetector(
+                            onTap: () {
+                              getImage();
+                              // setState(() {});
+                            },
+                            child: const Icon(Icons.camera_alt, size: 20)),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 // Widget để nhập tên
-                buildTextField('Name', onChanged: (value) {
+                buildTextField('Name', nameController, onChanged: (value) {
                   name = value;
                 }),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 // Widget để nhập email
-                buildTextField('Email', onChanged: (value) {
+                buildTextField('Email', emailController, onChanged: (value) {
                   email = value;
                 }),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 // Widget để nhập số điện thoại
-                buildTextField('Phone Number', onChanged: (value) {
+                buildTextField('Phone Number', phoneController,
+                    onChanged: (value) {
                   phoneNumber = value;
                 }),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 // Widget để nhập giới tính
                 buildGenderDropdown(),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 // Nút ""
                 CustomTextButton(
                   text: 'Save',
-                  onPressed: () {
+                  onPressed: () async {
+                    await data.updateUser(data.currentUserId,
+                        nameController.text, _image?.path ?? '');
                     Navigator.pop(context);
                   },
                 ),
@@ -107,6 +154,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
+  Future getImage() async {
+    final image = await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = File(image?.path ?? '');
+    });
+  }
+
   // Hàm xử lý lưu thông tin người dùng
   void saveProfile() {
     print('Name: $name');
@@ -115,17 +169,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     print('Gender: $gender');
   }
 
+  String filePathToURL(String filePath) {
+    if (Platform.isAndroid || Platform.isIOS) {
+      return Uri.file(filePath).toString();
+    }
+    return filePath;
+  }
+
   // Widget để tạo các trường nhập liệu
-  Widget buildTextField(String labelText, {void Function(String)? onChanged}) {
+  Widget buildTextField(String labelText, TextEditingController controller,
+      {void Function(String)? onChanged}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: TextField(
-        onChanged: onChanged,
-        decoration: InputDecoration(
-          labelText: labelText,
-          border: OutlineInputBorder(),
-        ),
-      ),
+          style: const TextStyle(color: Colors.white),
+          controller: controller,
+          onChanged: onChanged,
+          decoration: InputDecoration(
+            labelText: labelText,
+            hintStyle: const TextStyle(color: Colors.grey),
+            border: const OutlineInputBorder(),
+          )),
     );
   }
 
@@ -134,7 +198,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: DropdownButtonFormField<String>(
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           labelText: 'Gender',
           border: OutlineInputBorder(),
         ),

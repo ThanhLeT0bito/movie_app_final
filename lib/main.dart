@@ -44,7 +44,7 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  //await UserPreferences.setUserId('66117c988b3a5f94e2eed80a');
+  await UserPreferences.setUserId('66117c988b3a5f94e2eed80a');
   final preferences = await UserPreferences.getUserId();
   runApp(MyApp(preferences: preferences));
 }

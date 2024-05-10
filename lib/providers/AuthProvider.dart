@@ -23,6 +23,7 @@ class AuthProvider extends ChangeNotifier {
 
   List<Users> list = [];
   List<Users> _users = [];
+
   List<Users> get users => _users;
   late User? _firebaseUser;
   late String localVerificationId;
@@ -48,6 +49,7 @@ class AuthProvider extends ChangeNotifier {
     print("helooo");
     String UserId = await UserPreferences.getUserId();
     CurrentUser = _users.firstWhereOrNull((e) => e.id == UserId);
+    notifyListeners();
   }
 
   Future<void> setSharePreferenceUserId(String phone) async {
@@ -195,9 +197,11 @@ class AuthProvider extends ChangeNotifier {
       // Xảy ra ngoại lệ trong quá trình gửi yêu cầu HTTP
       print('Error updating user: $error');
     }
+    notifyListeners();
   }
 
   Users? CurrentUser;
+
 //// send otp
 
   Future<void> requestOTP(String phoneNumber) async {
