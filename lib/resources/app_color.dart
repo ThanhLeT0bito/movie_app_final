@@ -21,14 +21,19 @@ class AppColors {
   // home order movie
   //my ticket movie
   static Color Background = const Color(0xFF1C1C1C);
+
   //comingsoon
   static const Color BackgroundButton = Color(0xFF1C1C1C);
   static const Color Fonttextbutton = Color(0xFF000000);
   static const Color font = Color(0xFFBFBFBF);
+  static const Color title = Color(0xFFF2F2F2);
+  static const Color value = Color(0xFFCDCDCD);
+  static const Color bgItem = Color(0xFF1C1C1C);
 
   // select seat
   static const ItemSeatBackGroundAvailable = Color(0xFF1C1C1C);
   static const ReseredColor = Color(0xFF261D08);
+
   //date
   static const BackGroundItemDate = Color(0xFF1C1C1C);
   static const BackGroundItemDay = Color(0xFF3B3B3B);
@@ -39,5 +44,4 @@ class AppColors {
 
   //signin up
   static const BackgroundSelectCinema = Color(0xFF261D08);
-  
 }

@@ -7,6 +7,8 @@ import 'package:movie_app_final/models/data_local/UserPreferences%20.dart';
 import 'package:movie_app_final/models/model_widget/item_radio.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/screens/choose_your_need_screens.dart';
+import 'package:movie_app_final/screens/download_screen.dart';
+import 'package:movie_app_final/screens/favorite_screen.dart';
 import 'package:movie_app_final/screens/home_page_screens.dart';
 import 'package:movie_app_final/screens/home_screen.dart';
 import 'package:movie_app_final/screens/home_watching_screen.dart';
@@ -22,6 +24,7 @@ import 'package:movie_app_final/widgets/custom_item_bottom__bar.dart';
 
 class ManagerAllWidget extends ChangeNotifier {
   late String startScreen = SignIn_SignUp_Screens.routeName;
+
   //String startScreen = HomeScreen.routeName;
   //String startScreen = ChooseNeed.routeName;
   //mode
@@ -152,14 +155,18 @@ class ManagerAllWidget extends ChangeNotifier {
 
   List<Widget> _screensBooking = [
     HomepageScreens(),
-    TicketMovieScreens(),
-    NowplayingScreens(),
+    // TicketMovieScreens(),
+    FavoriteScreen(),
+    DownLoadScreen(),
+    //  NowplayingScreens(),
     HomeProfileScreens(),
   ];
   List<Widget> _screensWatching = [
     HomeWatching(),
-    TicketMovieScreens(),
-    NowplayingScreens(),
+    // TicketMovieScreens(),
+    FavoriteScreen(),
+    DownLoadScreen(),
+    // NowplayingScreens(),
     HomeProfileScreens(),
   ];
   List<CustomItemBottomBar> bottomNavBarItemsBooking = [
@@ -168,16 +175,26 @@ class ManagerAllWidget extends ChangeNotifier {
       label: "Home",
       isSelected: false,
     ),
+    // CustomItemBottomBar(
+    //   icon: Iconsax.ticket,
+    //   label: "Ticket",
+    //   isSelected: false,
+    // ),
     CustomItemBottomBar(
-      icon: Iconsax.ticket,
-      label: "Ticket",
+      icon: Iconsax.heart,
+      label: "Love",
       isSelected: false,
     ),
     CustomItemBottomBar(
-      icon: Iconsax.video4,
-      label: "Movie",
+      icon: Icons.file_download_outlined,
+      label: "Download",
       isSelected: false,
     ),
+    // CustomItemBottomBar(
+    //   icon: Iconsax.video4,
+    //   label: "Movie",
+    //   isSelected: false,
+    // ),
     CustomItemBottomBar(
       icon: Iconsax.profile_circle,
       label: "Profile",
