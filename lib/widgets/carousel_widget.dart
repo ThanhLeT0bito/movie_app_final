@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/providers/manager_all_widget.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
+import 'package:movie_app_final/providers/review_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/screens/movie_details.dart';
 import 'package:movie_app_final/screens/watching_movie_detail.dart';
@@ -58,11 +59,13 @@ class CarouselWidget extends StatelessWidget {
         return Builder(
           builder: (BuildContext context) {
             return GestureDetector(
-              onTap: () {
+              onTap: () async {
                 if (dataManagerWidgets.startMode == 0) {
                   Navigator.pushNamed(context, MoviedetailsScreens.routeName,
                       arguments: item.id);
                 } else {
+                  await Provider.of<ReviewProvider>(context, listen: false)
+                      .findReviewsByMovieId(item.id);
                   Navigator.pushNamed(context, WatchingDetailsScreens.routeName,
                       arguments: item.id);
                 }

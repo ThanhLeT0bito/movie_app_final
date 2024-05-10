@@ -49,6 +49,7 @@ class _TicketMovieScreensState extends State<TicketMovieScreens> {
         ListTicket.add(ticket);
       }
     }
+    ListTicket = ListTicket.reversed.toList();
 
     return Column(
       //crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -17,6 +17,7 @@ class _ChooseNeedState extends State<ChooseNeed> {
   void initState() {
     Provider.of<AuthProvider>(context, listen: false).fetchUsers();
     Provider.of<AuthProvider>(context, listen: false).getCurrentUser();
+    Provider.of<ManagerAllWidget>(context, listen: false).setBottomItem(0);
     super.initState();
   }
 

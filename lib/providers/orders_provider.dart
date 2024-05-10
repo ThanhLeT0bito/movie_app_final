@@ -56,6 +56,11 @@ class OrdersProvider extends ChangeNotifier {
 
     await insertOrder(newOM);
 
+    currentSelectedCinema = -1;
+    currentTotalPrice = 0;
+    currentDateMovie = '';
+    currentTimeMovie = '';
+
     return true;
   }
 

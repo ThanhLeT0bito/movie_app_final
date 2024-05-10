@@ -9,10 +9,12 @@ import 'package:movie_app_final/providers/actor_providers.dart';
 import 'package:movie_app_final/providers/manager_all_widget.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/providers/orders_provider.dart';
+import 'package:movie_app_final/providers/review_provider.dart';
 import 'package:movie_app_final/providers/seats_provider.dart';
 import 'package:movie_app_final/providers/ticket_management_provider.dart';
 import 'package:movie_app_final/providers/watching_movie_provider.dart';
 import 'package:movie_app_final/screens/Enter_Username_screens.dart';
+import 'package:movie_app_final/screens/category_screen.dart';
 import 'package:movie_app_final/screens/change_password_screens.dart';
 import 'package:movie_app_final/screens/choose_your_need_screens.dart';
 import 'package:movie_app_final/screens/confirm_OTP_screens.dart';
@@ -28,6 +30,7 @@ import 'package:movie_app_final/screens/payment_screens.dart';
 import 'package:movie_app_final/screens/profile_screens.dart';
 import 'package:movie_app_final/screens/home_screen.dart';
 import 'package:movie_app_final/screens/rate_screen.dart';
+import 'package:movie_app_final/screens/search_screen.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
 import 'package:movie_app_final/screens/show_video.dart';
 import 'package:movie_app_final/screens/signin_screens.dart';
@@ -64,7 +67,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => NowplayingManagement()),
         ChangeNotifierProvider(create: (_) => HomepageManagement()),
         ChangeNotifierProvider(create: (_) => SeatsProviders()),
-        ChangeNotifierProvider(create: (_) => ActorProviders())
+        ChangeNotifierProvider(create: (_) => ActorProviders()),
+        ChangeNotifierProvider(create: (_) => ReviewProvider()),
       ],
       child: Consumer<ManagerAllWidget>(builder: (context, manager, child) {
         return MaterialApp(
@@ -72,7 +76,8 @@ class MyApp extends StatelessWidget {
           title: 'MOviE',
           // ignore: unrelated_type_equality_checks
           initialRoute: //SignIn_SignUp_Screens.routeName,
-              HomeScreen.routeName,
+              //    HomeScreen.routeName,
+              manager.startScreen,
           routes: {
             HomeScreen.routeName: (context) => HomeScreen(),
             HomepageScreens.routeName: (context) => HomepageScreens(),
@@ -100,6 +105,8 @@ class MyApp extends StatelessWidget {
             RateScreen.routeName: (context) => RateScreen(),
             CategoryScreens.routeName: (context) => CategoryScreens(),
             TrailerScreen.routeName: (context) => TrailerScreen(trailerUrl: ''),
+            SearchScreen.routeName: (context) => SearchScreen(),
+            CategoryScreen.routeName: (context) => CategoryScreen(),
             FavoriteScreen.routeName: (context) => const FavoriteScreen(),
           },
         );

@@ -17,20 +17,20 @@ class ActorProviders extends ChangeNotifier {
     }
   }
 
-    Future<void> fetchActors() async {
-      try {
-        final response = await http.get(Uri.parse('$urlApi/getActors'));
-        if (response.statusCode == 200) {
-          final List<dynamic> responseData = json.decode(response.body);
-          actors = responseData.map((json) => Actor.fromJson(json)).toList();
-          notifyListeners();
-        } else {
-          print('Failed to load actors: ${response.statusCode}');
-        }
-      } catch (e) {
-        print('Error loading actors: $e');
+  Future<void> fetchActors() async {
+    try {
+      final response = await http.get(Uri.parse('$urlApi/getActors'));
+      if (response.statusCode == 200) {
+        final List<dynamic> responseData = json.decode(response.body);
+        actors = responseData.map((json) => Actor.fromJson(json)).toList();
+        notifyListeners();
+      } else {
+        print('Failed to load actors: ${response.statusCode}');
       }
+    } catch (e) {
+      print('Error loading actors: $e');
     }
+  }
 
   Future<dynamic> findActor(String actorId) async {
     final url = Uri.parse('$urlApi/findActor/$actorId');
@@ -78,7 +78,6 @@ class ActorProviders extends ChangeNotifier {
   }
 
   List<Actor> listActors = [
-    
     //Cái giá của hạnh phúc
     Actor(
         name: "Nguyễn Ngọc Lâm",

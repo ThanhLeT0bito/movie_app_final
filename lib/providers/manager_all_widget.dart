@@ -1,18 +1,16 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/models/data_local/UserPreferences%20.dart';
 import 'package:movie_app_final/models/model_widget/item_radio.dart';
-import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/screens/choose_your_need_screens.dart';
 import 'package:movie_app_final/screens/download_screen.dart';
 import 'package:movie_app_final/screens/favorite_screen.dart';
 import 'package:movie_app_final/screens/home_page_screens.dart';
-import 'package:movie_app_final/screens/home_screen.dart';
 import 'package:movie_app_final/screens/home_watching_screen.dart';
-import 'package:movie_app_final/screens/movie_details.dart';
 import 'package:movie_app_final/screens/now_playing_screens.dart';
 import 'package:movie_app_final/screens/profile_screens.dart';
 import 'package:movie_app_final/screens/signin_signup_screens.dart';
@@ -31,10 +29,11 @@ class ManagerAllWidget extends ChangeNotifier {
   bool isBookingScreen = false;
 
   late List<Widget> bottomnavigations = [];
-  late List<CustomItemBottomBar> bottomNavBarItems = [];
+  List<CustomItemBottomBar> bottomNavBarItems = [];
 
   late int _selectedIndex;
 
+  // ignore: non_constant_identifier_names
   late CustomBottomNavigationBar CustomBottomnavi;
 
   int get selectedIndex => _selectedIndex;
@@ -56,10 +55,6 @@ class ManagerAllWidget extends ChangeNotifier {
     }
   }
 
-  Future<void> _initialize() async {
-    await getUserId();
-  }
-
   Future<String> getUserId() async {
     var userId = (await UserPreferences.getUserId()).trim();
     print("GETTTT USER ID");
@@ -76,6 +71,8 @@ class ManagerAllWidget extends ChangeNotifier {
   void setBottomItem(int index) {
     print(index);
     _selectedIndex = index;
+    bottomNavBarItems =
+        startMode == 0 ? bottomNavBarItemsBooking : bottomNavBarItemsWatching;
     for (var i = 0; i < bottomNavBarItems.length; i++) {
       bottomNavBarItems[i] = CustomItemBottomBar(
         icon: bottomNavBarItems[i].icon,
@@ -109,6 +106,7 @@ class ManagerAllWidget extends ChangeNotifier {
     notifyListeners();
   }
 
+  // ignore: non_constant_identifier_names
   void SaveStartMode() {
     startMode = startModeTemp;
     changeMode();
@@ -126,6 +124,7 @@ class ManagerAllWidget extends ChangeNotifier {
         img: "assets/images/watching.png"),
   ];
 
+  // ignore: non_constant_identifier_names
   void ShowBottomSheetMode(BuildContext context) {
     print("Show Bottom Sheet");
     showModalBottomSheet(
@@ -147,61 +146,26 @@ class ManagerAllWidget extends ChangeNotifier {
     _selectedIndex = 0;
     //startMode = startModeTemp;
     bottomnavigations = startMode == 0 ? _screensBooking : _screensWatching;
-    bottomNavBarItems =
-        startMode == 0 ? bottomNavBarItemsBooking : bottomNavBarItemsWatching;
+    // bottomNavBarItems =
+    //     startMode == 0 ? bottomNavBarItemsBooking : bottomNavBarItemsWatching;
+    setBottomItem(_selectedIndex);
     print("Start Mode: $startMode");
     notifyListeners();
   }
 
-  List<Widget> _screensBooking = [
-    HomepageScreens(),
-    // TicketMovieScreens(),
-    FavoriteScreen(),
-    DownLoadScreen(),
-    //  NowplayingScreens(),
-    HomeProfileScreens(),
+  final List<Widget> _screensBooking = [
+    const HomepageScreens(),
+    const TicketMovieScreens(),
+    const NowplayingScreens(),
+    const HomeProfileScreens(),
   ];
-  List<Widget> _screensWatching = [
-    HomeWatching(),
-    // TicketMovieScreens(),
-    FavoriteScreen(),
-    DownLoadScreen(),
-    // NowplayingScreens(),
-    HomeProfileScreens(),
+  final List<Widget> _screensWatching = [
+    const HomeWatching(),
+    const FavoriteScreen(),
+    const DownLoadScreen(),
+    const HomeProfileScreens(),
   ];
   List<CustomItemBottomBar> bottomNavBarItemsBooking = [
-    CustomItemBottomBar(
-      icon: Iconsax.home_15,
-      label: "Home",
-      isSelected: false,
-    ),
-    // CustomItemBottomBar(
-    //   icon: Iconsax.ticket,
-    //   label: "Ticket",
-    //   isSelected: false,
-    // ),
-    CustomItemBottomBar(
-      icon: Iconsax.heart,
-      label: "Love",
-      isSelected: false,
-    ),
-    CustomItemBottomBar(
-      icon: Icons.file_download_outlined,
-      label: "Download",
-      isSelected: false,
-    ),
-    // CustomItemBottomBar(
-    //   icon: Iconsax.video4,
-    //   label: "Movie",
-    //   isSelected: false,
-    // ),
-    CustomItemBottomBar(
-      icon: Iconsax.profile_circle,
-      label: "Profile",
-      isSelected: false,
-    ),
-  ];
-  List<CustomItemBottomBar> bottomNavBarItemsWatching = [
     CustomItemBottomBar(
       icon: Iconsax.home_15,
       label: "Home",
@@ -215,6 +179,28 @@ class ManagerAllWidget extends ChangeNotifier {
     CustomItemBottomBar(
       icon: Iconsax.video4,
       label: "Movie",
+      isSelected: false,
+    ),
+    CustomItemBottomBar(
+      icon: Iconsax.profile_circle,
+      label: "Profile",
+      isSelected: false,
+    ),
+  ];
+  List<CustomItemBottomBar> bottomNavBarItemsWatching = [
+    CustomItemBottomBar(
+      icon: Iconsax.home_15,
+      label: "Home",
+      isSelected: false,
+    ),
+    CustomItemBottomBar(
+      icon: Iconsax.heart,
+      label: "Love",
+      isSelected: false,
+    ),
+    CustomItemBottomBar(
+      icon: Icons.file_download_outlined,
+      label: "Download",
       isSelected: false,
     ),
     CustomItemBottomBar(

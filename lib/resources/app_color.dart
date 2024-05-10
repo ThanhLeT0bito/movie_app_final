@@ -44,4 +44,7 @@ class AppColors {
 
   //signin up
   static const BackgroundSelectCinema = Color(0xFF261D08);
+
+  //review
+  static const BackgroundTextFieldReview = Color.fromARGB(255, 93, 91, 91);
 }

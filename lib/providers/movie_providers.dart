@@ -23,8 +23,27 @@ class Movieproviders extends ChangeNotifier {
 
   List<ItemCarouselWidget> get listCarousel => _listCarousel;
 
+  var isNowplaySelected = false;
+
+  List<MovieModel> listMovieNowPlaying = [];
+  List<MovieModel> listMovieCommingSoon = [];
+
+  List<MovieModel> listShowNowComming = [];
+
   Movieproviders() {
     initData();
+    listShowNowComming = listMovieCommingSoon;
+  }
+
+  void changeNowPlaySelected() {
+    isNowplaySelected = !isNowplaySelected;
+    if (isNowplaySelected) {
+      listShowNowComming = List<MovieModel>.from(listMovieNowPlaying);
+    } else {
+      listShowNowComming = List<MovieModel>.from(listMovieCommingSoon);
+    }
+
+    notifyListeners();
   }
 
   void initData() {
@@ -145,7 +164,7 @@ class Movieproviders extends ChangeNotifier {
   Future<void> InitListCarousel() async {
     await fetchAllMovies();
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 5; i++) {
       ItemCarouselWidget newCar = ItemCarouselWidget(
         id: listAllMovie[i].id!,
         img: listAllMovie[i].thumbnail,
@@ -153,6 +172,10 @@ class Movieproviders extends ChangeNotifier {
         description: listAllMovie[i].category,
       );
       _listCarousel.add(newCar);
+    }
+    for (int i = 0; i < _listAllMovie.length / 2; i++) {
+      listMovieNowPlaying.add(_listAllMovie[i]);
+      listMovieCommingSoon.add(_listAllMovie[_listAllMovie.length - i - 1]);
     }
     notifyListeners();
     print(_listCarousel.length);

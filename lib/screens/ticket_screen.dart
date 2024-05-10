@@ -159,7 +159,7 @@ class _TicketScreenState extends State<TicketScreen> {
                         fit: BoxFit.cover,
                       ),
                       const SizedBox(height: 10),
-                      const Text("OrderId: 723439823")
+                      Text("OrderId: ${orderId}")
                     ],
                   ))
             ],

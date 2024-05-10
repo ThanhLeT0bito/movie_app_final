@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/models/Nowplaying.dart';
+import 'package:movie_app_final/models/movie_model.dart';
 import 'package:movie_app_final/providers/Nowplaying_provider.dart';
+import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/resources/dimens.dart';
 import 'package:movie_app_final/widgets/now_playing.dart';
@@ -23,8 +25,11 @@ class _NowplayingScreensState extends State<NowplayingScreens> {
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<NowplayingManagement>(context);
-    List<Nowplaying> listNowplaying = data.listMovies;
-    isNowPlayingSelected = data.isNowplaySelected;
+    final dataMovie = Provider.of<Movieproviders>(context);
+
+    List<MovieModel> listNowplaying = dataMovie.listShowNowComming;
+
+    isNowPlayingSelected = dataMovie.isNowplaySelected;
     var screenWidth = MediaQuery.of(context).size.width;
     return Container(
       color: AppColors.BaseColorBlackGround,
@@ -44,7 +49,11 @@ class _NowplayingScreensState extends State<NowplayingScreens> {
                 GestureDetector(
                   onTap: () {
                     if (!isNowPlayingSelected) {
-                      data.changeNowPlaySelected();
+                      dataMovie.changeNowPlaySelected();
+                      // setState(() {
+                      //   isNowPlayingSelected = true;
+                      //   listNowplaying = dataMovie.listMovieNowPlaying;
+                      // });
                     }
                   },
                   child: Container(
@@ -72,7 +81,11 @@ class _NowplayingScreensState extends State<NowplayingScreens> {
                 GestureDetector(
                   onTap: () {
                     if (isNowPlayingSelected) {
-                      data.changeNowPlaySelected();
+                      dataMovie.changeNowPlaySelected();
+                      // setState(() {
+                      //   isNowPlayingSelected = false;
+                      //   listNowplaying = dataMovie.listMovieCommingSoon;
+                      // });
                     }
                   },
                   child: Container(
@@ -113,7 +126,7 @@ class _NowplayingScreensState extends State<NowplayingScreens> {
                 ),
                 itemCount: listNowplaying.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return NowplayingItems(nowplaying: listNowplaying[index]);
+                  return NowplayingItems(movie: listNowplaying[index]);
                 },
               ),
             ),

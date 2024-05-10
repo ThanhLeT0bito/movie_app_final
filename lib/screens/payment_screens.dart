@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:movie_app_final/models/data_local/movie_model.dart';
+import 'package:movie_app_final/models/movie_model.dart';
+import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/providers/orders_provider.dart';
 import 'package:movie_app_final/providers/seats_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
+import 'package:movie_app_final/resources/converter.dart';
 import 'package:movie_app_final/resources/dimens.dart';
 import 'package:movie_app_final/screens/ticket_screen.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
@@ -24,13 +29,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
   @override
   void initState() {
     super.initState();
-    _isSelectedList = [
-      false,
-      false,
-      false,
-      false,
-      false
-    ]; // Khởi tạo danh sách trạng thái
+    _isSelectedList = [false, false, false, false, false];
   }
 
   void _updateSelectedIndex(int index, BuildContext context) {
@@ -48,6 +47,10 @@ class _PaymentScreensState extends State<PaymentScreens> {
   Widget build(BuildContext context) {
     var dataOrder = Provider.of<OrdersProvider>(context);
     var dataSeat = Provider.of<SeatsProviders>(context, listen: false);
+    var allMovies = Provider.of<Movieproviders>(context).listAllMovie;
+
+    var movie =
+        allMovies.firstWhereOrNull((e) => e.id == dataOrder.currentMovieId);
 
     var screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -80,23 +83,28 @@ class _PaymentScreensState extends State<PaymentScreens> {
                         topLeft: Radius.circular(Dimens.circular),
                         bottomLeft: Radius.circular(Dimens.circular),
                       ),
-                      child: Image.asset(
-                        'assets/images/img_3.jpg',
-                        fit: BoxFit.cover,
-                      ),
+                      child: movie!.thumbnail != null
+                          ? Image.network(
+                              movie.thumbnail,
+                              fit: BoxFit.cover,
+                            )
+                          : Image.asset(
+                              'assets/images/img_3.jpg',
+                              fit: BoxFit.cover,
+                            ),
                     ),
                   ),
                   const SizedBox(
                     width: 10,
                   ),
-                  const Expanded(
+                  Expanded(
                     child: Padding(
                       padding: EdgeInsets.all(5),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Mai',
+                            movie!.name,
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
@@ -112,7 +120,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
                               ),
                               SizedBox(width: Dimens.Sizedbox),
                               Text(
-                                'Emotional, psychological',
+                                movie.category,
                                 style: TextStyle(
                                   fontSize: Dimens.fontsize,
                                   color: AppColors.BaseColorWhite,
@@ -129,7 +137,8 @@ class _PaymentScreensState extends State<PaymentScreens> {
                               ),
                               SizedBox(width: Dimens.Sizedbox),
                               Text(
-                                'Vincom Ocean Park CGV',
+                                dataOrder.listNameCinema[
+                                    dataOrder.currentSelectedCinema],
                                 style: TextStyle(
                                   fontSize: Dimens.fontsize,
                                   color: AppColors.BaseColorWhite,
@@ -146,7 +155,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
                               ),
                               SizedBox(width: Dimens.Sizedbox),
                               Text(
-                                '28.02.2024 • 14:15',
+                                '${dataOrder.currentDateMovie} • ${dataOrder.currentTimeMovie}',
                                 style: TextStyle(
                                   fontSize: Dimens.fontsize,
                                   color: AppColors.BaseColorWhite,
@@ -190,7 +199,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
             const SizedBox(
               height: 20,
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -203,7 +212,9 @@ class _PaymentScreensState extends State<PaymentScreens> {
                     ),
                   ),
                   Text(
-                    'H7,H8',
+                    dataSeat.getListSeatSelected(),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -288,7 +299,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
                 const SizedBox(
                   height: 20,
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -301,7 +312,8 @@ class _PaymentScreensState extends State<PaymentScreens> {
                         ),
                       ),
                       Text(
-                        '189.000 VND',
+                        ConverterGloabal.formatPrice(
+                            dataOrder.currentTotalPrice),
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,

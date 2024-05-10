@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/default_transitions.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/models/movie_model.dart';
@@ -13,6 +14,7 @@ import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_popup.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
 import 'package:provider/provider.dart';
+import 'package:readmore/readmore.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../models/actor.dart';
 import '../widgets/Base/custom_cinema_movie_detail.dart';
@@ -61,6 +63,7 @@ class MoviedetailsScreens extends StatelessWidget {
                     MainContent(
                       screenWidth: screenWidth,
                       actors: dataActor.actors,
+                      movie: movie,
                     ),
                   ],
                 ),
@@ -242,9 +245,11 @@ class MainContent extends StatelessWidget {
     Key? key,
     required this.screenWidth,
     required this.actors,
+    required this.movie,
   }) : super(key: key);
 
   final double screenWidth;
+  final MovieModel movie;
   final List<Actor> actors;
 
   @override
@@ -263,9 +268,9 @@ class MainContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Row(
+                Row(
                   children: [
-                    Expanded(
+                    const Expanded(
                       child: Text(
                         'Movie genre:',
                         style: TextStyle(
@@ -278,8 +283,8 @@ class MainContent extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        'Romance, psychology', // Chữ thêm vào
-                        style: TextStyle(
+                        movie.category, // Chữ thêm vào
+                        style: const TextStyle(
                           fontSize: 16,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -292,9 +297,9 @@ class MainContent extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const Row(
+                Row(
                   children: [
-                    Expanded(
+                    const Expanded(
                       child: Text(
                         'Censorship:',
                         style: TextStyle(
@@ -307,8 +312,8 @@ class MainContent extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        '18+',
-                        style: TextStyle(
+                        movie.censorship,
+                        style: const TextStyle(
                           fontSize: 16,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -321,9 +326,9 @@ class MainContent extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const Row(
+                Row(
                   children: [
-                    Expanded(
+                    const Expanded(
                       child: Text(
                         'Language:',
                         style: TextStyle(
@@ -336,8 +341,8 @@ class MainContent extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        'Vietnamese',
-                        style: TextStyle(
+                        movie.language,
+                        style: const TextStyle(
                           fontSize: 16,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -350,10 +355,10 @@ class MainContent extends StatelessWidget {
                 const SizedBox(
                   height: 40,
                 ),
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'Storyline',
                       style: TextStyle(
                         decoration: TextDecoration.none,
@@ -362,27 +367,25 @@ class MainContent extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 20),
-                    Text(
-                      '"Mai" is the story of Mai, a masseuse with a special fate. She often faces criticism from society and her meeting with Duong - a flower boy, awakens in her a desire for a new life...',
-                      style: TextStyle(
+                    const SizedBox(height: 20),
+                    ReadMoreText(
+                      movie.description,
+                      trimLines: 4,
+                      colorClickableText: AppColors.BaseColorTextMain,
+                      trimMode: TrimMode.Line,
+                      trimCollapsedText: 'see more!',
+                      trimExpandedText: 'hide!',
+                      style: const TextStyle(
                         fontSize: 16,
-                        color: Colors.white,
+                        color: AppColors.BaseColorWhite,
                         decoration: TextDecoration.none,
                         fontWeight: FontWeight.normal,
                       ),
-                      softWrap: true,
-                      textAlign: TextAlign.justify,
-                    ),
-                    SizedBox(
-                        height: 5), // Khoảng cách giữa nội dung và "See more"
-                    Text(
-                      'See more',
-                      style: TextStyle(
-                        color: AppColors.BaseColorTextMain,
+                      moreStyle: const TextStyle(
                         fontSize: 16,
+                        color: AppColors.BaseColorTextMain,
                         decoration: TextDecoration.none,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                   ],
@@ -403,44 +406,8 @@ class MainContent extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Container(
-                      width: 200,
-                      height: 70,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade900,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      padding: const EdgeInsets.all(10),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(
-                                100), // Bo tròn hình ảnh theo đường viền của Container
-                            child: Container(
-                              width: 50, // Đặt kích thước của hình ảnh tại đây
-                              height: 50, // Đặt kích thước của hình ảnh tại đây
-                              child: Image.asset(
-                                'assets/images/tran-thanh.jpg',
-                                fit: BoxFit.cover,
-                              ), // Thay đổi đường dẫn hình ảnh tại đây
-                            ),
-                          ),
-                          const SizedBox(
-                              width:
-                                  10), // Khoảng cách giữa hình ảnh và văn bản
-                          const Align(
-                            alignment: Alignment.center,
-                            child: Text('Trấn Thành',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  decoration: TextDecoration.none,
-                                  fontWeight: FontWeight.normal,
-                                )),
-                          ),
-                        ],
-                      ),
+                    ItemActor(
+                      actorId: movie.actor,
                     ),
                   ],
                 ),
@@ -517,10 +484,9 @@ class MainContent extends StatelessWidget {
                     ),
                   ],
                 ),
+                const SizedBox(height: 20),
                 const ChooseCinema(),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 CustomTextButton(
                     text: 'Continue',
                     onPressed: () {
@@ -536,6 +502,66 @@ class MainContent extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class ItemActor extends StatelessWidget {
+  const ItemActor({
+    super.key,
+    required this.actorId,
+  });
+
+  final String actorId;
+
+  @override
+  Widget build(BuildContext context) {
+    final dataActor = Provider.of<ActorProviders>(context);
+    final listAllActor = dataActor.actors;
+
+    final director = listAllActor.firstWhereOrNull((x) => x.id == actorId);
+    return Container(
+      width: 200,
+      height: 70,
+      decoration: BoxDecoration(
+        color: Colors.grey.shade900,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      padding: const EdgeInsets.all(10),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(
+                100), // Bo tròn hình ảnh theo đường viền của Container
+            child: Container(
+              width: 50,
+              height: 50,
+              // ignore: unnecessary_null_comparison
+              child: director!.images != null
+                  ? Image.network(
+                      director.images,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.asset(
+                      'assets/images/tran-thanh.jpg',
+                      fit: BoxFit.cover,
+                    ), // Thay đổi đường dẫn hình ảnh tại đây
+            ),
+          ),
+          const SizedBox(width: 10), // Khoảng cách giữa hình ảnh và văn bản
+          Align(
+            alignment: Alignment.center,
+            child: Text(director!.name ?? 'Trấn Thành',
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  decoration: TextDecoration.none,
+                  fontWeight: FontWeight.normal,
+                )),
+          ),
+        ],
+      ),
     );
   }
 }

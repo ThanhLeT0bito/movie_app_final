@@ -54,12 +54,12 @@ class Dimens {
   //coming soon
   static const double borderradius_comingsooon = 8.0;
   static const double padding_comingSoon = 8.0;
-  static const double SizedBox_comingsoon = 5;
+  static const double SizedBox_comingsoon = 3;
   static const double SizedBox_comingsoon_10 = 10;
-  static const double fontsize_comingsoon_16 = 16;
+  static const double fontsize_comingsoon_16 = 18;
   static const double fontsize_comingsoon_18 = 18;
-  static const double fontsize_comingsoon_12 = 12;
-  static const double vertical_comingsoon = 5;
+  static const double fontsize_comingsoon_12 = 14;
+  static const double vertical_comingsoon = 0;
   static const double horizontal_comingsoon_40 = 40;
   static const double vertical_comingsoon_20 = 20;
 

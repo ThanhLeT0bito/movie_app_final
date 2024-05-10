@@ -72,6 +72,13 @@ class AuthProvider extends ChangeNotifier {
     return false;
   }
 
+  Future<void> logout() async {
+    currentUserId = '';
+    CurrentUser = null;
+    await UserPreferences.setUserId('');
+    notifyListeners();
+  }
+
   Future<bool> addNewUser() async {
     Users user = Users(name: currentName, phone: currentPhone);
     print('ADDDDDD USERRRR');

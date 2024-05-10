@@ -168,6 +168,7 @@ class _ConfirmOTPScreensState extends State<ConfirmOTPScreens> {
                                     ),
                                   ),
                                   focusedBorder: const OutlineInputBorder(
+                                    // ignore: unnecessary_const
                                     borderSide: const BorderSide(
                                       color: AppColors.BaseColorMain,
                                     ),

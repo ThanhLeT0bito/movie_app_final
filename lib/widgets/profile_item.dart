@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/models/model_widget/profile_model.dart';
 import 'package:movie_app_final/models/user.dart';
+import 'package:movie_app_final/providers/AuthProvider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
 import 'package:movie_app_final/resources/dimens.dart';
 import 'package:movie_app_final/screens/change_password_screens.dart';
+import 'package:movie_app_final/screens/signin_signup_screens.dart';
+import 'package:provider/provider.dart';
 
 class ProfileItemWidget extends StatelessWidget {
   const ProfileItemWidget({super.key, required this.currentUser});
@@ -12,6 +15,11 @@ class ProfileItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void logoutAccount() {
+      final dataAuth = Provider.of<AuthProvider>(context, listen: false);
+      dataAuth.logout();
+    }
+
     return Container(
         color: Colors.black, // Màu nền đen
         child: Column(
@@ -257,27 +265,34 @@ class ProfileItemWidget extends StatelessWidget {
                   const SizedBox(
                     height: Dimens.SizedBoxHeightProfile,
                   ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(Icons.logout,
-                              size: Dimens.SizeIconProfile,
-                              color: AppColors.BaseColorWhite),
-                          SizedBox(
-                            width: Dimens.SizedBoxWidthProfile,
-                          ),
-                          Text('Log Out',
-                              style: TextStyle(
-                                  fontSize: Dimens.fontsizetext,
-                                  color: AppColors.BaseColorWhite)),
-                        ],
-                      ),
-                      Icon(Icons.arrow_forward_ios,
-                          size: Dimens.SizeIconArrow,
-                          color: AppColors.BaseColorWhite),
-                    ],
+                  GestureDetector(
+                    onTap: () {
+                      logoutAccount();
+                      Navigator.pushNamed(
+                          context, SignIn_SignUp_Screens.routeName);
+                    },
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.logout,
+                                size: Dimens.SizeIconProfile,
+                                color: AppColors.BaseColorWhite),
+                            SizedBox(
+                              width: Dimens.SizedBoxWidthProfile,
+                            ),
+                            Text('Log Out',
+                                style: TextStyle(
+                                    fontSize: Dimens.fontsizetext,
+                                    color: AppColors.BaseColorWhite)),
+                          ],
+                        ),
+                        Icon(Icons.arrow_forward_ios,
+                            size: Dimens.SizeIconArrow,
+                            color: AppColors.BaseColorWhite),
+                      ],
+                    ),
                   ),
                 ],
               ),
