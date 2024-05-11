@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -260,7 +261,7 @@ class _MainContentState extends State<MainContent> {
     for (String id in listIdActor) {
       Actor? actor =
           listAllActor.firstWhereOrNull((element) => element.id == id);
-      if (actor!.id != null) {
+      if (actor != null) {
         names.add(actor.name);
       }
     }
@@ -583,7 +584,16 @@ class _BottomSheetReviewMovieState extends State<BottomSheetReviewMovie> {
               color: AppColors.BaseColorMain,
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
+          const Text(
+            'Review',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 25,
+                color: AppColors.BaseColorWhite,
+                fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 5),
           reviews.isEmpty
               ? const Expanded(
                   child: Center(
@@ -677,20 +687,21 @@ class ItemDetailReview extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipOval(
-            child: user!.urlImage == null
-                ? Image.asset(
-                    'assets/images/avatar.jpg',
-                    width: 78.0,
-                    height: 78.0,
-                    fit: BoxFit.cover,
-                  )
-                : Image.network(
-                    user.urlImage.toString(),
-                    width: 78.0,
-                    height: 78.0,
-                    fit: BoxFit.cover,
-                  ),
-          ),
+              child:
+                  //user!.urlImage == null?
+                  Image.asset(
+            'assets/images/avatar.jpg',
+            width: 78.0,
+            height: 78.0,
+            fit: BoxFit.cover,
+          )
+              // : Image.file(
+              //     File(user.urlImage!),
+              //     width: 78.0,
+              //     height: 78.0,
+              //     fit: BoxFit.cover,
+              //   ),
+              ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(

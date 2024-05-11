@@ -62,7 +62,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
             const CustomAppBar(
               title: "Payment",
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               margin: const EdgeInsets.symmetric(
                 vertical: Dimens.MarginTicketItem,
@@ -99,64 +99,64 @@ class _PaymentScreensState extends State<PaymentScreens> {
                   ),
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             movie!.name,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                               color: AppColors.BaseColorTextMain,
                             ),
                           ),
-                          SizedBox(height: Dimens.Sizedbox),
+                          const SizedBox(height: Dimens.Sizedbox),
                           Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.play_arrow,
                                 color: AppColors.BaseColorWhite,
                               ),
-                              SizedBox(width: Dimens.Sizedbox),
+                              const SizedBox(width: Dimens.Sizedbox),
                               Text(
                                 movie.category,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: Dimens.fontsize,
                                   color: AppColors.BaseColorWhite,
                                 ),
                               ),
                             ],
                           ),
-                          SizedBox(height: Dimens.Sizedbox),
+                          const SizedBox(height: Dimens.Sizedbox),
                           Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.location_city,
                                 color: AppColors.BaseColorWhite,
                               ),
-                              SizedBox(width: Dimens.Sizedbox),
+                              const SizedBox(width: Dimens.Sizedbox),
                               Text(
                                 dataOrder.listNameCinema[
                                     dataOrder.currentSelectedCinema],
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: Dimens.fontsize,
                                   color: AppColors.BaseColorWhite,
                                 ),
                               ),
                             ],
                           ),
-                          SizedBox(height: Dimens.Sizedbox),
+                          const SizedBox(height: Dimens.Sizedbox),
                           Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.access_time,
                                 color: AppColors.BaseColorWhite,
                               ),
-                              SizedBox(width: Dimens.Sizedbox),
+                              const SizedBox(width: Dimens.Sizedbox),
                               Text(
                                 '${dataOrder.currentDateMovie} • ${dataOrder.currentTimeMovie}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: Dimens.fontsize,
                                   color: AppColors.BaseColorWhite,
                                 ),
@@ -200,11 +200,11 @@ class _PaymentScreensState extends State<PaymentScreens> {
               height: 20,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'Seat',
                     style: TextStyle(
                       fontSize: 16,
@@ -215,7 +215,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
                     dataSeat.getListSeatSelected(),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -227,7 +227,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
             Container(
               color: AppColors.BaseColorBlackGround,
               child: Column(children: [
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Container(
                   width: screenWidth - 30,
                   decoration: BoxDecoration(
@@ -300,11 +300,11 @@ class _PaymentScreensState extends State<PaymentScreens> {
                   height: 20,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Total',
                         style: TextStyle(
                           fontSize: 16,
@@ -314,7 +314,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
                       Text(
                         ConverterGloabal.formatPrice(
                             dataOrder.currentTotalPrice),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                           color: AppColors.BaseColorTextMain,
@@ -323,7 +323,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
                     ],
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   child: Row(
@@ -340,7 +340,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 PaymentMethod(
@@ -351,7 +351,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
                     _updateSelectedIndex(0, context);
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 PaymentMethod(
@@ -362,7 +362,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
                     _updateSelectedIndex(1, context);
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 PaymentMethod(
@@ -373,7 +373,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
                     _updateSelectedIndex(2, context);
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 PaymentMethod(
@@ -384,7 +384,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
                     _updateSelectedIndex(3, context);
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 PaymentMethod(
@@ -395,11 +395,11 @@ class _PaymentScreensState extends State<PaymentScreens> {
                     _updateSelectedIndex(4, context);
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Container(
-                  padding: EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
                     color: Colors.grey.shade900,
                     borderRadius: BorderRadius.circular(10.0),
@@ -424,7 +424,7 @@ class _PaymentScreensState extends State<PaymentScreens> {
                 )
               ]),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             CustomTextButton(

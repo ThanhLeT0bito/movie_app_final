@@ -95,20 +95,21 @@ class _CommentWidgetState extends State<CommentWidget> {
                 Row(
                   children: [
                     ClipOval(
-                      child: user!.urlImage == null
-                          ? Image.asset(
-                              'assets/images/avatar.jpg',
-                              width: 78.0,
-                              height: 78.0,
-                              fit: BoxFit.cover,
-                            )
-                          : Image.network(
-                              user.urlImage.toString(),
-                              width: 78.0,
-                              height: 78.0,
-                              fit: BoxFit.cover,
-                            ),
-                    ),
+                        child:
+                            //user!.urlImage == null?
+                            Image.asset(
+                      'assets/images/avatar.jpg',
+                      width: 78.0,
+                      height: 78.0,
+                      fit: BoxFit.cover,
+                    )
+                        // : Image.network(
+                        //     user.urlImage.toString(),
+                        //     width: 78.0,
+                        //     height: 78.0,
+                        //     fit: BoxFit.cover,
+                        //   ),
+                        ),
                     const SizedBox(width: 10),
                     SizedBox(
                       width: MediaQuery.of(context).size.width - 120,

@@ -9,6 +9,7 @@ import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/providers/orders_provider.dart';
 import 'package:movie_app_final/providers/seats_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
+import 'package:movie_app_final/screens/bottom_sheet_rate.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_popup.dart';
@@ -407,7 +408,7 @@ class MainContent extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     ItemActor(
-                      actorId: movie.actor,
+                      actorId: movie.director,
                     ),
                   ],
                 ),
@@ -484,6 +485,9 @@ class MainContent extends StatelessWidget {
                     ),
                   ],
                 ),
+                RateMovieWidget(
+                  movieId: movie.id!,
+                ),
                 const SizedBox(height: 20),
                 const ChooseCinema(),
                 const SizedBox(height: 20),
@@ -518,8 +522,12 @@ class ItemActor extends StatelessWidget {
   Widget build(BuildContext context) {
     final dataActor = Provider.of<ActorProviders>(context);
     final listAllActor = dataActor.actors;
+    print("ACCCCCCC" + actorId);
 
-    final director = listAllActor.firstWhereOrNull((x) => x.id == actorId);
+    var director = listAllActor.firstWhereOrNull((x) => x.id == actorId);
+
+    director ??= listAllActor.first;
+
     return Container(
       width: 200,
       height: 70,
@@ -552,7 +560,7 @@ class ItemActor extends StatelessWidget {
           const SizedBox(width: 10), // Khoảng cách giữa hình ảnh và văn bản
           Align(
             alignment: Alignment.center,
-            child: Text(director!.name ?? 'Trấn Thành',
+            child: Text(director.name ?? 'Trấn Thành',
                 style: const TextStyle(
                   fontSize: 16,
                   color: Colors.white,

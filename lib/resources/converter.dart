@@ -6,7 +6,7 @@ class ConverterGloabal {
   //sub
   static List<String> removeSpacesAndSplit(String text) {
     String trimmedText = text.replaceAll(' ', '');
-    List<String> parts = trimmedText.split("'");
+    List<String> parts = trimmedText.split(",");
     return parts;
   }
 }
