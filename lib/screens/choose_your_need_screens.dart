@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
 import 'package:movie_app_final/providers/manager_all_widget.dart';
 import 'package:movie_app_final/resources/app_color.dart';
@@ -51,7 +52,7 @@ class _ChooseNeedState extends State<ChooseNeed> {
                 child: Container(
                   color: AppColors.BaseColorMain,
                   child: IconButton(
-                    icon: Icon(Icons.play_arrow),
+                    icon: Icon(Iconsax.ticket),
                     color: AppColors.BaseColorBlackGround,
                     iconSize: 100,
                     onPressed: () {
@@ -67,7 +68,7 @@ class _ChooseNeedState extends State<ChooseNeed> {
                 height: 20,
               ),
               Text(
-                'Watching movie',
+                'Booking ticket',
                 style: TextStyle(
                     color: AppColors.BaseColorWhite,
                     fontSize: 20,
@@ -80,7 +81,7 @@ class _ChooseNeedState extends State<ChooseNeed> {
                 child: Container(
                   color: AppColors.BaseColorMain,
                   child: IconButton(
-                    icon: Icon(Icons.airplane_ticket),
+                    icon: Icon(Icons.play_arrow),
                     color: AppColors.BaseColorBlackGround,
                     iconSize: 100,
                     onPressed: () {
@@ -96,7 +97,7 @@ class _ChooseNeedState extends State<ChooseNeed> {
                 height: 20,
               ),
               Text(
-                'Booking ticket',
+                'Watching movie',
                 style: TextStyle(
                     color: AppColors.BaseColorWhite,
                     fontSize: 20,

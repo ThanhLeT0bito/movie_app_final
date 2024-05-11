@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -9,9 +8,9 @@ import 'package:movie_app_final/models/movie_model.dart';
 import 'package:movie_app_final/providers/actor_providers.dart';
 import 'package:movie_app_final/providers/movie_providers.dart';
 import 'package:movie_app_final/providers/orders_provider.dart';
+import 'package:movie_app_final/providers/rate_provider.dart';
 import 'package:movie_app_final/providers/seats_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
-import 'package:movie_app_final/resources/converter.dart';
 import 'package:movie_app_final/screens/bottom_sheet_rate.dart';
 import 'package:movie_app_final/screens/select_seat_screen.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
@@ -34,6 +33,7 @@ class MoviedetailsScreens extends StatelessWidget {
     var dataOrder = Provider.of<OrdersProvider>(context, listen: false);
     var dataSeat = Provider.of<SeatsProviders>(context);
     var dataActor = Provider.of<ActorProviders>(context, listen: false);
+    //var dataRate = Provider.of<RateProvider>(context, listen: false);
     late String movieId = ModalRoute.of(context)!.settings.arguments as String;
     movieId ??= "662672c978a71af977967c0f";
 
@@ -45,6 +45,7 @@ class MoviedetailsScreens extends StatelessWidget {
     dataSeat.currentMovieId = movieId;
     dataSeat.InitSeatResrved();
     //dataSeat.updatemMovieId(movieId);
+    //dataRate.fetchListratesOfMovie(movieId);
 
     double screenWidth = MediaQuery.of(context).size.width;
     //dataActor.fetchActors();
@@ -67,6 +68,7 @@ class MoviedetailsScreens extends StatelessWidget {
                     const SizedBox(height: 150),
                     MainContent(
                       screenWidth: screenWidth,
+                      actors: dataActor.actors,
                       movie: movie,
                     ),
                   ],
@@ -248,32 +250,21 @@ class MainContent extends StatelessWidget {
   const MainContent({
     Key? key,
     required this.screenWidth,
-    // required this.actors,
+    required this.actors,
     required this.movie,
   }) : super(key: key);
 
   final double screenWidth;
   final MovieModel movie;
-  // final List<Actor> actors;
-  
+  final List<Actor> actors;
+
   @override
   Widget build(BuildContext context) {
-    final dataActor = Provider.of<ActorProviders>(context);
-    final listAllActor = dataActor.actors;
-
-    final director =listAllActor.firstWhereOrNull((x) => x.id == movie.director);
-
-    final listIdActor =ConverterGloabal.removeSpacesAndSplit(movie.actor);
-    List<Actor> listActors =[];
-    for (String id in listIdActor) {
-      Actor? actor =
-          listAllActor.firstWhereOrNull((element) => element.id == id);
-      if (actor != null) {
-              listActors.add(actor!);
-      }
-    }
-
     var dataOrder = Provider.of<OrdersProvider>(context);
+    //final Actor actor;
+    // var dataActor = Provider.of<ActorProviders>(context, listen: false);
+    // List<Actor> allActors = dataActor.actors;
+    // var uSedActors=dataActor.actors.where((actor) => actor.isUsed);
     return Stack(
       children: [
         SingleChildScrollView(
@@ -445,7 +436,7 @@ class MainContent extends StatelessWidget {
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        children: listActors.map((actor) {
+                        children: actors.map((actor) {
                           return Container(
                             constraints: const BoxConstraints(
                               maxWidth: 200,
@@ -499,6 +490,7 @@ class MainContent extends StatelessWidget {
                     ),
                   ],
                 ),
+                const SizedBox(height: 10),
                 GestureDetector(
                   onTap: () {
                     showModalBottomSheet(

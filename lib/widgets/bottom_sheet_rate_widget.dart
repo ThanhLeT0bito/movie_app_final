@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
 import 'package:movie_app_final/models/data_local/UserPreferences%20.dart';
 import 'package:movie_app_final/models/review_model.dart';
@@ -30,7 +29,6 @@ class _BottomSheetRateMovieState extends State<BottomSheetRateMovie> {
     reviews = reviewData.reviewsOfMovie;
     final dataAuth = Provider.of<AuthProvider>(context);
     final user = dataAuth.CurrentUser;
-    TextEditingController edt = TextEditingController();
     return Container(
       color: Colors.black,
       height: MediaQuery.of(context).size.height * 0.7,

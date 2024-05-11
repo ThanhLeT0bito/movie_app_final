@@ -629,8 +629,10 @@ class _BottomSheetReviewMovieState extends State<BottomSheetReviewMovie> {
           user == null
               ? const SizedBox()
               : Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                  margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                   decoration: BoxDecoration(
                       color: AppColors.BackgroundTextFieldReview,
                       borderRadius: BorderRadius.circular(15)),
@@ -639,7 +641,8 @@ class _BottomSheetReviewMovieState extends State<BottomSheetReviewMovie> {
                       Expanded(
                         child: TextField(
                           controller: edt,
-                          style: const TextStyle(color: AppColors.BaseColorWhite),
+                          style:
+                              const TextStyle(color: AppColors.BaseColorWhite),
                           decoration: const InputDecoration(
                             hintText: 'write something!',
                             hintStyle: TextStyle(
@@ -658,7 +661,8 @@ class _BottomSheetReviewMovieState extends State<BottomSheetReviewMovie> {
                                 userId: userId,
                                 comment: edt.text);
                             await reviewData.addReviewMovie(review);
-                            await reviewData.findReviewsByMovieId(widget.movieId);
+                            await reviewData
+                                .findReviewsByMovieId(widget.movieId);
                             edt.text = '';
                             setState(() {});
                           },
@@ -698,21 +702,20 @@ class ItemDetailReview extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipOval(
-              child:
-                  //user!.urlImage == null?
-                  Image.asset(
-            'assets/images/avatar.jpg',
-            width: 78.0,
-            height: 78.0,
-            fit: BoxFit.cover,
-          )
-              // : Image.file(
-              //     File(user.urlImage!),
-              //     width: 78.0,
-              //     height: 78.0,
-              //     fit: BoxFit.cover,
-              //   ),
-              ),
+            child: user!.urlImage == null
+                ? Image.asset(
+                    'assets/images/avatar.jpg',
+                    width: 78.0,
+                    height: 78.0,
+                    fit: BoxFit.cover,
+                  )
+                : Image.file(
+                    File(user.urlImage!),
+                    width: 78.0,
+                    height: 78.0,
+                    fit: BoxFit.cover,
+                  ),
+          ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
@@ -729,8 +732,9 @@ class ItemDetailReview extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                     Text(
-                      ConverterGloabal.ConvertDateTimeToString(review.createdAt!),
+                    Text(
+                      ConverterGloabal.ConvertDateTimeToString(
+                          review.createdAt!),
                       style: TextStyle(
                         color: AppColors.BaseColorWhite,
                         fontSize: 12.0,

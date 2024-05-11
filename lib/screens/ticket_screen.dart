@@ -52,6 +52,7 @@ class _TicketScreenState extends State<TicketScreen> {
         print(orderModel.movieId);
       }
     } else if (arg is OrderModel) {
+      orderId = " 3423432432";
       orderModel = arg;
     }
     movie = (dataMovie.findMovieById(orderModel.movieId))!;
@@ -159,7 +160,7 @@ class _TicketScreenState extends State<TicketScreen> {
                         fit: BoxFit.cover,
                       ),
                       const SizedBox(height: 10),
-                      Text("OrderId: ${orderId}")
+                      Text("OrderId: $orderId")
                     ],
                   ))
             ],
