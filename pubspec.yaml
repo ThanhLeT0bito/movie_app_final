@@ -36,6 +36,7 @@ dependencies:
   dio: ^5.4.3+1
   open_file: ^3.3.2
   loader_overlay: ^4.0.0
+  image_picker: ^1.1.1
   # flutter_facebook_auth: ^6.1.1
   # google_sign_in: ^6.2.1
 

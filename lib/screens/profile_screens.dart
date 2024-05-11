@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -31,6 +33,7 @@ class _ProfileScreensState extends State<HomeProfileScreens> {
   void initState() {
     super.initState();
     Provider.of<AuthProvider>(context, listen: false).getCurrentUser();
+    Provider.of<AuthProvider>(context, listen: false).fetchUsers();
     //Provider.of<ActorProviders>(context, listen: false).addListActors();
     //Provider.of<Movieproviders>(context, listen: false).addListMovies();
     //Provider.of<Movieproviders>(context, listen: false).fetchAllMovies();
@@ -68,8 +71,21 @@ class _ProfileScreensState extends State<HomeProfileScreens> {
               )
             ],
           )
-        : ProfileItemWidget(
-            currentUser: currentUser,
+        : RefreshIndicator(
+            onRefresh: () async {
+              await Provider.of<AuthProvider>(context, listen: false)
+                  .getCurrentUser();
+              await Provider.of<AuthProvider>(context, listen: false)
+                  .fetchUsers();
+              currentUser =
+                  Provider.of<AuthProvider>(context, listen: false).CurrentUser;
+            },
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: ProfileItemWidget(
+                currentUser: currentUser,
+              ),
+            ),
           );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app_final/models/model_widget/profile_model.dart';
@@ -9,9 +11,25 @@ import 'package:movie_app_final/screens/change_password_screens.dart';
 import 'package:movie_app_final/screens/signin_signup_screens.dart';
 import 'package:provider/provider.dart';
 
-class ProfileItemWidget extends StatelessWidget {
-  const ProfileItemWidget({super.key, required this.currentUser});
+import '../screens/edit_profile_screen.dart';
+
+class ProfileItemWidget extends StatefulWidget {
   final Users currentUser;
+
+  const ProfileItemWidget({super.key, required this.currentUser});
+
+  @override
+  State<ProfileItemWidget> createState() => _ProfileItemWidgetState();
+}
+
+class _ProfileItemWidgetState extends State<ProfileItemWidget> {
+  late File file;
+
+  @override
+  void initState() {
+    file = File(widget.currentUser.urlImage ?? '');
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +64,20 @@ class ProfileItemWidget extends StatelessWidget {
                           color: AppColors.BaseColorWhite,
                           border: Border.all(color: Colors.white, width: 2),
                         ),
-                        child: const CircleAvatar(
-                          radius: 50,
-                          backgroundImage:
-                              AssetImage('assets/images/avatar.jpg'),
+                        child: ClipOval(
+                          child: widget.currentUser.urlImage != null
+                              ? Image.file(
+                                  file,
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                )
+                              : Image.asset(
+                                  'assets/images/avatar.jpg',
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                ),
                         ),
                       ),
                       const SizedBox(width: Dimens.SizedBoxHeightProfile),
@@ -57,7 +85,7 @@ class ProfileItemWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            currentUser.name,
+                            widget.currentUser.name,
                             style: const TextStyle(
                                 fontSize: Dimens.SizeIconProfile,
                                 fontWeight: FontWeight.bold,
@@ -72,7 +100,7 @@ class ProfileItemWidget extends StatelessWidget {
                               const SizedBox(
                                   width: Dimens.SizedBoxWidthProfile),
                               Text(
-                                currentUser.mail!,
+                                widget.currentUser.mail!,
                                 style: const TextStyle(
                                     fontSize: 14, color: Colors.white),
                               ),
@@ -86,7 +114,7 @@ class ProfileItemWidget extends StatelessWidget {
                               const SizedBox(
                                   width: Dimens.SizedBoxWidthProfile),
                               Text(
-                                currentUser.phone,
+                                widget.currentUser.phone,
                                 style: const TextStyle(
                                     fontSize: 14,
                                     color: Colors.white), // thêm Dimens
@@ -98,7 +126,9 @@ class ProfileItemWidget extends StatelessWidget {
                     ],
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      Navigator.pushNamed(context, EditProfileScreen.routeName);
+                    },
                     icon: const Icon(Icons.edit,
                         color: Colors.white, size: Dimens.SizeIconProfile),
                   ),
