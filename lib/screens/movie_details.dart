@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/default_transitions.dart';
 import 'package:iconsax/iconsax.dart';
@@ -16,6 +17,7 @@ import 'package:movie_app_final/screens/select_seat_screen.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_popup.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
+import 'package:movie_app_final/widgets/bottom_sheet_rate_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -497,8 +499,21 @@ class MainContent extends StatelessWidget {
                     ),
                   ],
                 ),
-                RateMovieWidget(
-                  movieId: movie.id!,
+                GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (BuildContext context) {
+                        return BottomSheetRateMovie(
+                          movieId: movie.id!,
+                        );
+                      },
+                    );
+                  },
+                  child: RateMovieWidget(
+                    movieId: movie.id!,
+                  ),
                 ),
                 const SizedBox(height: 20),
                 const ChooseCinema(),

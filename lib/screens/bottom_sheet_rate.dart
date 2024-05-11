@@ -51,7 +51,7 @@ class _CommentWidgetState extends State<RateMovieWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Review',
+            'Rates',
             style: TextStyle(
               fontSize: 16.0,
               fontWeight: FontWeight.bold,

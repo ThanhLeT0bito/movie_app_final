@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -37,12 +38,13 @@ class _CommentWidgetState extends State<CommentWidget> {
   }
 
   @override
- Widget build(BuildContext context) {
-  return Consumer<ReviewProvider>(
-    builder: (context, reviewData, _) {
-      firstReview = reviewData.firstReview;
-      if (firstReview == null) {
-        return Column(
+  Widget build(BuildContext context) {
+    final reviewData = Provider.of<ReviewProvider>(context);
+    firstReview = reviewData.firstReview;
+    if (firstReview == null) {
+      return const Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -55,28 +57,17 @@ class _CommentWidgetState extends State<CommentWidget> {
               ),
             ),
             SizedBox(height: 20.0),
+            //Center(child: CircularProgressIndicator()),
             Center(
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    Image(
-                      image: AssetImage('assets/images/empty-folder.png'),
-                      fit: BoxFit.cover,
-                    ),
-                  ],
-                ),
+              child: Text(
+                "EMPTY!",
+                style: TextStyle(color: Colors.white),
               ),
-            ),
+            )
           ],
-        );
-      }
+        ),
+      );
+    }
 
     final dataAuth = Provider.of<AuthProvider>(context);
     final user =
@@ -103,21 +94,20 @@ class _CommentWidgetState extends State<CommentWidget> {
                 Row(
                   children: [
                     ClipOval(
-                        child:
-                            //user!.urlImage == null?
-                            Image.asset(
-                      'assets/images/avatar.jpg',
-                      width: 78.0,
-                      height: 78.0,
-                      fit: BoxFit.cover,
-                    )
-                        // : Image.network(
-                        //     user.urlImage.toString(),
-                        //     width: 78.0,
-                        //     height: 78.0,
-                        //     fit: BoxFit.cover,
-                        //   ),
-                        ),
+                      child: user!.urlImage == null
+                          ? Image.asset(
+                              'assets/images/avatar.jpg',
+                              width: 78.0,
+                              height: 78.0,
+                              fit: BoxFit.cover,
+                            )
+                          : Image.file(
+                              File(user.urlImage.toString()),
+                              width: 78.0,
+                              height: 78.0,
+                              fit: BoxFit.cover,
+                            ),
+                    ),
                     const SizedBox(width: 10),
                     SizedBox(
                       width: MediaQuery.of(context).size.width - 120,
@@ -136,8 +126,9 @@ class _CommentWidgetState extends State<CommentWidget> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                 Text(
-                                  ConverterGloabal.ConvertDateTimeToString(firstReview?.createdAt as DateTime),
+                                Text(
+                                  ConverterGloabal.ConvertDateTimeToString(
+                                      firstReview?.createdAt as DateTime),
                                   style: TextStyle(
                                     color: AppColors.BaseColorWhite,
                                     fontSize: 12.0,
@@ -206,7 +197,5 @@ class _CommentWidgetState extends State<CommentWidget> {
         ],
       ),
     );
- }
-  );
-}
+  }
 }

@@ -100,7 +100,8 @@ class _ProfileItemWidgetState extends State<ProfileItemWidget> {
                               const SizedBox(
                                   width: Dimens.SizedBoxWidthProfile),
                               Text(
-                                widget.currentUser.mail!,
+                                widget.currentUser.mail ??
+                                    '${widget.currentUser.name}@gmail.com',
                                 style: const TextStyle(
                                     fontSize: 14, color: Colors.white),
                               ),
