@@ -145,8 +145,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                           child: const Image(
                             image: AssetImage('assets/images/empty-folder.png'),
-                            height: 200,
-                            width: 200,
+                            fit: BoxFit.cover,
                           )),
                     ),
                   )

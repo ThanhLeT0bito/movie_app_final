@@ -9,6 +9,7 @@ import 'package:movie_app_final/models/review_model.dart';
 import 'package:movie_app_final/providers/AuthProvider.dart';
 import 'package:movie_app_final/providers/review_provider.dart';
 import 'package:movie_app_final/resources/app_color.dart';
+import 'package:movie_app_final/resources/converter.dart';
 import 'package:movie_app_final/screens/watching_movie_detail.dart';
 import 'package:provider/provider.dart';
 
@@ -25,12 +26,6 @@ class CommentWidget extends StatefulWidget {
 
 class _CommentWidgetState extends State<CommentWidget> {
   late ReviewModel? firstReview;
-  // @override
-  // void initState() {
-  //   final reviewData = Provider.of<ReviewProvider>(context);
-  //   firstReview = reviewData.reviewsOfMovie.firstOrNull;
-  //   super.initState();
-  // }
 
   @override
   void didChangeDependencies() {
@@ -42,33 +37,46 @@ class _CommentWidgetState extends State<CommentWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final reviewData = Provider.of<ReviewProvider>(context);
-    firstReview = reviewData.firstReview;
-    if (firstReview == null) {
-      return const Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Review',
-            style: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.bold,
-              color: AppColors.BaseColorWhite,
+ Widget build(BuildContext context) {
+  return Consumer<ReviewProvider>(
+    builder: (context, reviewData, _) {
+      firstReview = reviewData.firstReview;
+      if (firstReview == null) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Review',
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+                color: AppColors.BaseColorWhite,
+              ),
             ),
-          ),
-          SizedBox(height: 20.0),
-          //Center(child: CircularProgressIndicator()),
-          Center(
-            child: Text(
-              "EMPTY!",
-              style: TextStyle(color: Colors.white),
+            SizedBox(height: 20.0),
+            Center(
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Image(
+                      image: AssetImage('assets/images/empty-folder.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ],
+                ),
+              ),
             ),
-          )
-        ],
-      );
-    }
+          ],
+        );
+      }
 
     final dataAuth = Provider.of<AuthProvider>(context);
     final user =
@@ -128,8 +136,8 @@ class _CommentWidgetState extends State<CommentWidget> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                const Text(
-                                  '12 seconds',
+                                 Text(
+                                  ConverterGloabal.ConvertDateTimeToString(firstReview?.createdAt as DateTime),
                                   style: TextStyle(
                                     color: AppColors.BaseColorWhite,
                                     fontSize: 12.0,
@@ -198,5 +206,7 @@ class _CommentWidgetState extends State<CommentWidget> {
         ],
       ),
     );
-  }
+ }
+  );
+}
 }

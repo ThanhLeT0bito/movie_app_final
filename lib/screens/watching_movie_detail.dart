@@ -584,8 +584,8 @@ class _BottomSheetReviewMovieState extends State<BottomSheetReviewMovie> {
               color: AppColors.BaseColorMain,
             ),
           ),
-          const SizedBox(height: 10),
-          const Text(
+          SizedBox(height: 10),
+          Text(
             'Review',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -593,32 +593,44 @@ class _BottomSheetReviewMovieState extends State<BottomSheetReviewMovie> {
                 color: AppColors.BaseColorWhite,
                 fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 5),
+          SizedBox(height: 5),
           reviews.isEmpty
-              ? const Expanded(
+              ? Expanded(
                   child: Center(
-                    child: Text(
-                      "EMPTY",
-                      style: TextStyle(color: Colors.white),
+                    child: Container(
+                      width: 150,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Image(
+                            image: AssetImage('assets/images/empty-folder.png'),
+                            fit: BoxFit.cover,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 )
               : Expanded(
                   child: ListView.builder(
-                      itemCount: reviews.length,
-                      itemBuilder: (context, index) {
-                        return ItemDetailReview(
-                          review: reviews[index],
-                        );
-                      }),
+                    itemCount: reviews.length,
+                    itemBuilder: (context, index) {
+                      return ItemDetailReview(
+                        review: reviews[index],
+                      );
+                    },
+                  ),
                 ),
           user == null
               ? const SizedBox()
               : Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                  margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                   decoration: BoxDecoration(
                       color: AppColors.BackgroundTextFieldReview,
                       borderRadius: BorderRadius.circular(15)),
@@ -627,8 +639,7 @@ class _BottomSheetReviewMovieState extends State<BottomSheetReviewMovie> {
                       Expanded(
                         child: TextField(
                           controller: edt,
-                          style:
-                              const TextStyle(color: AppColors.BaseColorWhite),
+                          style: const TextStyle(color: AppColors.BaseColorWhite),
                           decoration: const InputDecoration(
                             hintText: 'write something!',
                             hintStyle: TextStyle(
@@ -647,8 +658,7 @@ class _BottomSheetReviewMovieState extends State<BottomSheetReviewMovie> {
                                 userId: userId,
                                 comment: edt.text);
                             await reviewData.addReviewMovie(review);
-                            await reviewData
-                                .findReviewsByMovieId(widget.movieId);
+                            await reviewData.findReviewsByMovieId(widget.movieId);
                             edt.text = '';
                             setState(() {});
                           },
@@ -663,7 +673,7 @@ class _BottomSheetReviewMovieState extends State<BottomSheetReviewMovie> {
                   ),
                 ),
           SizedBox(height: _bottomInset),
-        ],
+        ], // Removed extra closing square bracket here
       ),
     );
   }
@@ -679,6 +689,7 @@ class ItemDetailReview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(review.createdAt.toString());
     final dataAuth = Provider.of<AuthProvider>(context);
     final user = dataAuth.users.firstWhereOrNull((e) => e.id == review.userId);
     return Padding(
@@ -718,8 +729,8 @@ class ItemDetailReview extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const Text(
-                      '12 seconds',
+                     Text(
+                      ConverterGloabal.ConvertDateTimeToString(review.createdAt!),
                       style: TextStyle(
                         color: AppColors.BaseColorWhite,
                         fontSize: 12.0,
