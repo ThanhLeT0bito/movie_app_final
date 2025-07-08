@@ -39,7 +39,7 @@ class AuthProvider extends ChangeNotifier {
     });
   }
 
-  final databaseReference = FirebaseDatabase.instance.reference();
+  final databaseReference = FirebaseDatabase.instance.ref();
 
   void TestFirebase() {
     databaseReference.child('alooo').set("Nghia Dan");
@@ -205,34 +205,34 @@ class AuthProvider extends ChangeNotifier {
 //// send otp
 
   Future<void> requestOTP(String phoneNumber) async {
+    print('CHECK CURRENT PHONE');
+    print(phoneNumber);
     try {
       await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: "+84$phoneNumber",
         verificationCompleted: (PhoneAuthCredential credential) async {
-          await FirebaseAuth.instance.signInWithCredential(credential);
-          print('Đăng nhập thành công');
+          try {
+            await FirebaseAuth.instance.signInWithCredential(credential);
+            print('Đăng nhập thành công');
+          } catch (e) {
+            print('Lỗi khi đăng nhập tự động: $e');
+          }
         },
         verificationFailed: (FirebaseAuthException e) {
-          if (e.code == 'invalid-phone-number') {
-            print('Số điện thoại không hợp lệ');
-          } else {
-            print('Lỗi không xác định: ${e.message}');
-          }
+          print('Lỗi xác thực: \\${e.code} - \\${e.message}');
         },
         codeSent: (String verificationId, [int? resendToken]) {
           localVerificationId = verificationId;
-          print(verificationId);
+          print('VerificationId: $verificationId');
         },
         codeAutoRetrievalTimeout: (String verificationId) {
-          // Mã xác minh đã hết hạn
           print('Mã xác minh đã hết hạn');
         },
-        timeout: Duration(
-            seconds: 120), // Thời gian chờ để nhận mã OTP (tính bằng giây)
+        timeout: const Duration(seconds: 120),
       );
-    } catch (e) {
+    } catch (e, stack) {
       print('Yêu cầu gửi mã OTP thất bại: $e');
-      // Xử lý lỗi khi yêu cầu gửi mã OTP thất bại
+      print('Stacktrace: $stack');
     }
   }
 

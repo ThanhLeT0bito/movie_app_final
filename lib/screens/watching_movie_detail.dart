@@ -45,19 +45,25 @@ class WatchingDetailsScreens extends StatefulWidget {
 class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
   int _selectedIndex = 0;
   late List<CustomItemBottomBar> bottomNavBarItems;
-  int indexHeaderWatching = 0;
 
   bool _isPlaying = false;
+
+  late Widget _headerWidget;
+
+  late String movieId;
+  bool _isInit = false, _isFirst = true;
+
+  late MovieModel? _movie;
+
+  Duration startAt = Duration.zero;
+
+  void saveDuration(Duration newDuration) {
+    startAt = newDuration;
+  }
 
   @override
   void initState() {
     super.initState();
-    indexHeaderWatching = 0;
-    void _playVideo() {
-      setState(() {
-        _isPlaying = true;
-      });
-    }
 
     ///Item bottom navigation
     bottomNavBarItems = [
@@ -79,40 +85,52 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
     ];
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  void updateIndexWatching() {
-    setState(() {
-      indexHeaderWatching = indexHeaderWatching == 0 ? 1 : 0;
-    });
-  }
-
   @override
-  Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    var dataMovie = Provider.of<Movieproviders>(context);
-    late String movieId;
+  void didChangeDependencies() {
     if (ModalRoute.of(context)!.settings.arguments is String) {
       movieId = ModalRoute.of(context)!.settings.arguments as String;
     } else {
       movieId = "662672c978a71af977967c0f";
     }
 
+    var dataMovie = Provider.of<Movieproviders>(context);
+
     //Provider.of<ReviewProvider>(context).findReviewsByMovieId(movieId);
-    MovieModel? movie = dataMovie.findMovieById(movieId);
-    //dataMovie.printMovieModelProperties(movie!);
-    List<Widget> headerWatching = [
-      HeaderImageWatching(
-        movie: movie!,
-      ),
-      ShowVideoScreen(
-        movie: movie,
-      )
-    ];
+    _movie = dataMovie.findMovieById(movieId);
+
+    _headerWidget = HeaderImageWatching(
+      movie: _movie!,
+    );
+
+    super.didChangeDependencies();
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  void updatePlayStatus() {
+    setState(() {
+      if (_isFirst) {
+        _headerWidget = ShowVideoScreen(
+          movie: _movie!,
+          startAt: Duration.zero,
+          onVideoPositionChanged: (Duration newDuration) {
+            saveDuration(newDuration);
+          },
+        );
+        _isFirst = false;
+      }
+
+      _isPlaying = !_isPlaying;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: AppColors.BaseColorBlackGround,
@@ -121,18 +139,21 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
           SingleChildScrollView(
             child: Column(
               children: [
+                const SizedBox(height: 70),
                 GestureDetector(
-                  onTap: () {
-                    updateIndexWatching();
-                  },
-                  child: headerWatching[indexHeaderWatching],
-                ),
+                    onTap: () {
+                      updatePlayStatus();
+                    },
+                    child: _headerWidget),
                 MainContent(
-                  movie: movie,
+                  movie: _movie!,
                   screenWidth: screenWidth,
                   bottomNavBarItems: bottomNavBarItems,
                   onItemTapped: _onItemTapped,
-                  callback: updateIndexWatching,
+                  callback: () {
+                    updatePlayStatus();
+                  },
+                  isPlaying: _isPlaying,
                 ),
               ],
             ),
@@ -141,7 +162,9 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
             top: 0,
             left: 5,
             right: 0,
-            child: CustomAppBar(),
+            child: CustomAppBar(
+              margin: EdgeInsets.only(top: Dimens.MarginTopAppbarIPhone),
+            ),
           )
         ],
       ),
@@ -227,6 +250,7 @@ class MainContent extends StatefulWidget {
     required this.onItemTapped,
     required this.callback,
     required this.movie,
+    required this.isPlaying,
   }) : super(key: key);
 
   final double screenWidth;
@@ -234,6 +258,7 @@ class MainContent extends StatefulWidget {
   final Function(int) onItemTapped;
   final VoidCallback callback;
   final MovieModel movie;
+  final bool isPlaying;
   @override
   State<MainContent> createState() => _MainContentState();
 }
@@ -304,8 +329,9 @@ class _MainContentState extends State<MainContent> {
                 ),
                 const SizedBox(height: 20),
                 CustomTextButton(
-                  text: "Play",
-                  icon: Icons.play_circle,
+                  text: widget.isPlaying ? "Pause" : "Play",
+                  icon:
+                      widget.isPlaying ? Icons.pause_circle : Icons.play_circle,
                   onPressed: widget.callback,
                 ),
 
@@ -318,8 +344,8 @@ class _MainContentState extends State<MainContent> {
                       trimLines: 4,
                       colorClickableText: AppColors.BaseColorTextMain,
                       trimMode: TrimMode.Line,
-                      trimCollapsedText: 'see more!',
-                      trimExpandedText: 'hide!',
+                      trimCollapsedText: 'See more',
+                      trimExpandedText: 'Hide',
                       style: const TextStyle(
                         fontSize: 16,
                         color: AppColors.BaseColorWhite,

@@ -40,11 +40,14 @@ import 'package:movie_app_final/screens/ticket_screens.dart';
 import 'package:movie_app_final/screens/watching_movie_detail.dart';
 import 'package:movie_app_final/screens/list_category.dart';
 import 'package:provider/provider.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  //await UserPreferences.setUserId('66117c988b3a5f94e2eed80a');
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await UserPreferences.setUserId('66117c988b3a5f94e2eed80a');
   final preferences = await UserPreferences.getUserId();
   runApp(MyApp(preferences: preferences));
 }
@@ -75,8 +78,9 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'MOviE',
           // ignore: unrelated_type_equality_checks
-          initialRoute: //SignIn_SignUp_Screens.routeName,
-              //    HomeScreen.routeName,
+          initialRoute:
+              //SignIn_SignUp_Screens.routeName,
+              // HomeScreen.routeName,
               manager.startScreen,
           routes: {
             HomeScreen.routeName: (context) => HomeScreen(),

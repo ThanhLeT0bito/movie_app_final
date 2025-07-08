@@ -9,6 +9,7 @@ class CustomAppBar extends StatelessWidget {
   final VoidCallback? onPressedRight;
   final VoidCallback? onPressedBack;
   final bool showBackButton;
+  final EdgeInsetsGeometry? margin;
 
   const CustomAppBar({
     Key? key,
@@ -18,12 +19,13 @@ class CustomAppBar extends StatelessWidget {
     this.onPressedRight,
     this.onPressedBack,
     this.showBackButton = true,
+    this.margin = const EdgeInsets.only(top: Dimens.MarginTopAppbar),
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: Dimens.MarginTopAppbar),
+      margin: margin,
       //color: AppColors.BaseColorBlackGround,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,

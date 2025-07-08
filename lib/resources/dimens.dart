@@ -16,6 +16,7 @@ class Dimens {
 
   // App bar
   static const double MarginTopAppbar = 40;
+  static const double MarginTopAppbarIPhone = 30;
 
   ///radius
   static const double RadiusButton = 30;
