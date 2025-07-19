@@ -11,8 +11,9 @@ class ConverterGloabal {
     List<String> parts = trimmedText.split(",");
     return parts;
   }
-  static String ConvertDateTimeToString(DateTime date){
+
+  static String ConvertDateTimeToString(DateTime date) {
     String formattedDate = DateFormat('yyyy/MM/dd').format(date);
-  return formattedDate;
+    return formattedDate;
   }
 }

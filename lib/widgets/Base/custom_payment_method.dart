@@ -28,13 +28,15 @@ class _PaymentMethodState extends State<PaymentMethod> {
         width: 500,
         height: 100,
         decoration: BoxDecoration(
-          color:widget.isSelected ? AppColors.BackgroundSelectCinema: Colors.grey.shade900,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: widget.isSelected ? AppColors.BaseColorMain : Colors.grey.shade900,
-            width: 2
-          )
-        ),
+            color: widget.isSelected
+                ? AppColors.BackgroundSelectCinema
+                : Colors.grey.shade900,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+                color: widget.isSelected
+                    ? AppColors.BaseColorMain
+                    : Colors.grey.shade900,
+                width: 2)),
         padding: EdgeInsets.all(20),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,

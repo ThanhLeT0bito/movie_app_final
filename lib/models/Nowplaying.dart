@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Nowplaying with ChangeNotifier{
+class Nowplaying with ChangeNotifier {
   final String? Name;
   final String? Star;
   final String? Time;

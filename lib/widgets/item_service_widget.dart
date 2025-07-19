@@ -21,14 +21,16 @@ class ItemServiceWidget extends StatelessWidget {
             height: 80,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.transparent, // Đặt màu nền là trong suốt để hình tròn hiển thị đúng
+              color: Colors
+                  .transparent, // Đặt màu nền là trong suốt để hình tròn hiển thị đúng
             ),
             child: ClipOval(
               child: Image.asset(
                 img,
                 width: 80,
                 height: 80,
-                fit: BoxFit.cover, // Đảm bảo hình ảnh phù hợp với kích thước hình tròn
+                fit: BoxFit
+                    .cover, // Đảm bảo hình ảnh phù hợp với kích thước hình tròn
               ),
             ),
           ),

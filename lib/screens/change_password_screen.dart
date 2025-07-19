@@ -43,7 +43,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   bottom: 0,
                   child: IconButton(
                     icon: Icon(
-                      obscureNewPassword ? Icons.visibility : Icons.visibility_off,
+                      obscureNewPassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
                       color: Colors.white,
                     ),
                     onPressed: () {
@@ -68,7 +70,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   bottom: 0,
                   child: IconButton(
                     icon: Icon(
-                      obscureConfirmPassword ? Icons.visibility : Icons.visibility_off,
+                      obscureConfirmPassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
                       color: Colors.white,
                     ),
                     onPressed: () {
@@ -97,7 +101,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   Widget buildTextField(String labelText, {void Function(String)? onChanged}) {
     return TextField(
       onChanged: onChanged,
-      obscureText: labelText == 'New password' ? obscureNewPassword : obscureConfirmPassword,
+      obscureText: labelText == 'New password'
+          ? obscureNewPassword
+          : obscureConfirmPassword,
       decoration: InputDecoration(
         labelText: labelText,
         border: OutlineInputBorder(),

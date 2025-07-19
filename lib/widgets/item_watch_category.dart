@@ -4,11 +4,11 @@ import 'package:movie_app_final/resources/app_color.dart';
 class ItemWatchCategory extends StatelessWidget {
   const ItemWatchCategory({
     Key? key,
-   required this.title,
+    required this.title,
     required this.image,
   }) : super(key: key);
 
- final String title;
+  final String title;
   final String image;
 
   @override

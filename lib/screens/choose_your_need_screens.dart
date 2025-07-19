@@ -16,10 +16,12 @@ class ChooseNeed extends StatefulWidget {
 class _ChooseNeedState extends State<ChooseNeed> {
   @override
   void initState() {
-    Provider.of<AuthProvider>(context, listen: false).fetchUsers();
-    Provider.of<AuthProvider>(context, listen: false).getCurrentUser();
-    Provider.of<ManagerAllWidget>(context, listen: false).setBottomItem(0);
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<AuthProvider>(context, listen: false).fetchUsers();
+      Provider.of<AuthProvider>(context, listen: false).getCurrentUser();
+      Provider.of<ManagerAllWidget>(context, listen: false).setBottomItem(0);
+    });
   }
 
   Widget _buildModeBox({

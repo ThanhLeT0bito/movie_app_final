@@ -5,23 +5,43 @@ import 'package:movie_app_final/models/movie_model.dart';
 import 'package:video_player/video_player.dart';
 
 class ShowVideoScreen extends StatefulWidget {
-  ShowVideoScreen(
-      {super.key,
-      required this.movie,
-      this.startAt = Duration.zero,
-      this.onVideoPositionChanged});
+  ShowVideoScreen({
+    Key? key,
+    required this.movie,
+    this.startAt = Duration.zero,
+    this.onVideoPositionChanged,
+  }) : super(key: key);
+
   static const routeName = '/show_video';
+
   final MovieModel movie;
-  Duration startAt;
+  late Duration startAt = Duration.zero;
   final Function(Duration)? onVideoPositionChanged;
 
   @override
-  State<ShowVideoScreen> createState() => _ShowVideoScreenState();
+  ShowVideoScreenState createState() => ShowVideoScreenState();
 }
 
-class _ShowVideoScreenState extends State<ShowVideoScreen> {
+class ShowVideoScreenState extends State<ShowVideoScreen> {
   late final VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
+
+  void play() {
+    if (!_videoPlayerController.value.isPlaying) {
+      _videoPlayerController.play();
+    }
+  }
+
+  void pause() {
+    if (_videoPlayerController.value.isPlaying) {
+      _videoPlayerController.pause();
+    }
+  }
+
+  void disposeVideo() {
+    _chewieController?.dispose();
+    _videoPlayerController.dispose();
+  }
 
   @override
   void initState() {
@@ -42,7 +62,9 @@ class _ShowVideoScreenState extends State<ShowVideoScreen> {
     widget.startAt = _videoPlayerController.value.position;
     _chewieController?.dispose();
     _videoPlayerController.dispose();
-    widget.onVideoPositionChanged!(widget.startAt);
+    if (widget.onVideoPositionChanged != null) {
+      widget.onVideoPositionChanged!(widget.startAt);
+    }
     super.dispose();
   }
 

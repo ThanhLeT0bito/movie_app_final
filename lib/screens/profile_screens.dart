@@ -77,8 +77,10 @@ class _ProfileScreensState extends State<HomeProfileScreens> {
                   .getCurrentUser();
               await Provider.of<AuthProvider>(context, listen: false)
                   .fetchUsers();
-              currentUser =
-                  Provider.of<AuthProvider>(context, listen: false).CurrentUser;
+
+              setState(() {
+                currentUser = data.CurrentUser;
+              });
             },
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),

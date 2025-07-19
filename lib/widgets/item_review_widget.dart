@@ -25,19 +25,21 @@ class ItemReviewWidget extends StatefulWidget {
 }
 
 class _ItemReviewWidgetState extends State<ItemReviewWidget> {
-
-  void showBottomSheet(BuildContext context){
-    showModalBottomSheet(context: context,isScrollControlled: true,
+  void showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
         builder: (BuildContext context) {
           return CustomBottomSheetReview(
             img: "assets/images/cat.jpg",
             name: "Angelia",
             time: "12 second",
             title: "Nice movie",
-            onButtonPressed: (){},
-            );
+            onButtonPressed: () {},
+          );
         });
   }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -62,7 +64,7 @@ class _ItemReviewWidgetState extends State<ItemReviewWidget> {
             ),
             InkWell(
               onTap: () {
-                  showBottomSheet(context);
+                showBottomSheet(context);
               },
               child: Row(
                 children: [

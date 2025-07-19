@@ -41,53 +41,53 @@ class ItemMovieWithTitle extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
               child: isWatching!
                   ? Stack(
-                children: [
-                  Image.asset(
-                    img,
-                    width: width,
-                    height: height,
-                    fit: BoxFit.cover,
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: LinearProgressIndicator(
-                      value: progressValue,
-                      backgroundColor: Colors.grey[300],
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                          AppColors.BaseColorMain), // Màu cam cho tiến trình
-                      borderRadius: BorderRadius.vertical(
-                          bottom: Radius.circular(16)),
-                    ),
-                  ),
-                ],
-              )
+                      children: [
+                        Image.asset(
+                          img,
+                          width: width,
+                          height: height,
+                          fit: BoxFit.cover,
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: LinearProgressIndicator(
+                            value: progressValue,
+                            backgroundColor: Colors.grey[300],
+                            valueColor: AlwaysStoppedAnimation<Color>(AppColors
+                                .BaseColorMain), // Màu cam cho tiến trình
+                            borderRadius: BorderRadius.vertical(
+                                bottom: Radius.circular(16)),
+                          ),
+                        ),
+                      ],
+                    )
                   : Image.asset(
-                img,
-                width: width,
-                height: height,
-                fit: BoxFit.cover,
-              ),
+                      img,
+                      width: width,
+                      height: height,
+                      fit: BoxFit.cover,
+                    ),
             ),
             const SizedBox(height: 5),
             isShowTitle!
                 ? Container(
-              width: 230,
-              padding: const EdgeInsets.all(5),
-              child: SizedBox(
-                height: 50,
-                child: Text(
-                  title,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  style: const TextStyle(
-                    color: AppColors.BaseColorTextMain,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-            )
+                    width: 230,
+                    padding: const EdgeInsets.all(5),
+                    child: SizedBox(
+                      height: 50,
+                      child: Text(
+                        title,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: const TextStyle(
+                          color: AppColors.BaseColorTextMain,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  )
                 : const SizedBox(),
           ],
         ),

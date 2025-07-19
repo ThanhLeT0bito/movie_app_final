@@ -21,13 +21,15 @@ class _DeleteAccountScreensState extends State<DeleteAccountScreens> {
       SizedBox(height: 30),
       _buildNumberedText(
           'We will delete your personal information including: '
-              'phone number, Name, Email from the application platform '
-              'within 14 days, except information related to payment and '
-              'financial control according to the provisions of law.', 2),
+          'phone number, Name, Email from the application platform '
+          'within 14 days, except information related to payment and '
+          'financial control according to the provisions of law.',
+          2),
       SizedBox(height: 30),
       _buildNumberedText(
           'We will delete any tickets you booked for '
-              'upcoming shows that will no longer be valid', 3),
+          'upcoming shows that will no longer be valid',
+          3),
     ];
 
     return Container(
@@ -86,8 +88,7 @@ class _DeleteAccountScreensState extends State<DeleteAccountScreens> {
                     ),
                     Text('Angelina',
                         style: TextStyle(
-                            fontSize: 30,
-                            color: AppColors.BaseColorWhite)),
+                            fontSize: 30, color: AppColors.BaseColorWhite)),
                   ],
                 ),
               ],
@@ -128,7 +129,8 @@ class _DeleteAccountScreensState extends State<DeleteAccountScreens> {
             ),
             SizedBox(height: 10),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20), // Điều chỉnh padding theo ý muốn của bạn
+              padding: EdgeInsets.symmetric(
+                  horizontal: 20), // Điều chỉnh padding theo ý muốn của bạn
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -144,7 +146,8 @@ class _DeleteAccountScreensState extends State<DeleteAccountScreens> {
                         },
                         activeColor: AppColors.BaseColorMain,
                         checkColor: AppColors.BaseColorBlack,
-                        side: BorderSide(color: AppColors.BaseColorMain, width: 2),
+                        side: BorderSide(
+                            color: AppColors.BaseColorMain, width: 2),
                       ),
                       Flexible(
                         child: Text(
@@ -167,7 +170,8 @@ class _DeleteAccountScreensState extends State<DeleteAccountScreens> {
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.BaseColorBlack,
-                            side: BorderSide(color: AppColors.BaseColorMain, width: 2),
+                            side: BorderSide(
+                                color: AppColors.BaseColorMain, width: 2),
                           ),
                           child: Text(
                             'Cancel',
@@ -185,7 +189,8 @@ class _DeleteAccountScreensState extends State<DeleteAccountScreens> {
                             // Xử lý khi nút Delete account được nhấn
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.BaseColorMain, // Màu nền của nút Delete Account
+                            backgroundColor: AppColors
+                                .BaseColorMain, // Màu nền của nút Delete Account
                           ),
                           child: Text(
                             'Delete account',

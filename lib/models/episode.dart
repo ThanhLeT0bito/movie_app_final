@@ -1,4 +1,4 @@
-class EpisodeModel{
+class EpisodeModel {
   int? id;
   String? name;
   int? time;

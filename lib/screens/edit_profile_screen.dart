@@ -143,6 +143,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   onPressed: () async {
                     await data.updateUser(data.currentUserId,
                         nameController.text, _image?.path ?? '');
+                    Provider.of<AuthProvider>(context, listen: false)
+                        .getCurrentUser();
                     Navigator.pop(context);
                   },
                 ),

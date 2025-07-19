@@ -6,7 +6,6 @@ import 'package:movie_app_final/widgets/item_category.dart';
 
 import '../widgets/Base/custom_app_bar.dart';
 
-
 class CategoryScreens extends StatefulWidget {
   static const routeName = '/category-list';
 
@@ -19,11 +18,13 @@ class CategoryScreens extends StatefulWidget {
 class _CategoryScreensState extends State<CategoryScreens> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: BodyWidget(),);
+    return Scaffold(
+      body: BodyWidget(),
+    );
   }
 }
 
-class BodyWidget extends StatelessWidget{
+class BodyWidget extends StatelessWidget {
   const BodyWidget({super.key});
 
   @override

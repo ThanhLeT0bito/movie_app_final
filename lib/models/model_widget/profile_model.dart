@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Profile with ChangeNotifier{
+class Profile with ChangeNotifier {
   final String Name;
   final String Email;
   final String SDT;

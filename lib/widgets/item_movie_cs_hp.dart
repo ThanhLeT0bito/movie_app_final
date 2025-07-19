@@ -33,7 +33,7 @@ class ItemMovieWidget extends StatelessWidget {
               height: 200,
             ),
           ),
-           SizedBox(
+          SizedBox(
             width: 150,
             child: Padding(
               padding: EdgeInsets.all(5.0),
@@ -48,7 +48,7 @@ class ItemMovieWidget extends StatelessWidget {
               ),
             ),
           ),
-           SizedBox(
+          SizedBox(
             width: 150,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -68,7 +68,7 @@ class ItemMovieWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 5),
-           SizedBox(
+          SizedBox(
             width: 150,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,

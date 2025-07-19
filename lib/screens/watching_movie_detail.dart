@@ -23,6 +23,7 @@ import 'package:movie_app_final/screens/select_seat_screen.dart';
 import 'package:movie_app_final/screens/show_video.dart';
 import 'package:movie_app_final/widgets/Base/custom_app_bar.dart';
 import 'package:movie_app_final/widgets/Base/custom_text_button.dart';
+import 'package:movie_app_final/widgets/bottom_sheet_review_movie.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 import '../widgets/Base/custom_bottom_navigator.dart';
@@ -48,7 +49,12 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
 
   bool _isPlaying = false;
 
-  late Widget _headerWidget;
+  late Widget _headerWidget = HeaderImageWatching(
+    movie: _movie!,
+  );
+  ShowVideoScreen? _videoScreen;
+  final GlobalKey<ShowVideoScreenState> _videoKey =
+      GlobalKey<ShowVideoScreenState>();
 
   late String movieId;
   bool _isInit = false, _isFirst = true;
@@ -59,6 +65,14 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
 
   void saveDuration(Duration newDuration) {
     startAt = newDuration;
+  }
+
+  void playVideo(bool isPlaying) {
+    if (isPlaying) {
+      _videoKey.currentState?.play();
+    } else {
+      _videoKey.currentState?.pause();
+    }
   }
 
   @override
@@ -98,10 +112,6 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
     //Provider.of<ReviewProvider>(context).findReviewsByMovieId(movieId);
     _movie = dataMovie.findMovieById(movieId);
 
-    _headerWidget = HeaderImageWatching(
-      movie: _movie!,
-    );
-
     super.didChangeDependencies();
   }
 
@@ -114,17 +124,22 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
   void updatePlayStatus() {
     setState(() {
       if (_isFirst) {
-        _headerWidget = ShowVideoScreen(
+        _videoScreen = ShowVideoScreen(
+          key: _videoKey,
           movie: _movie!,
           startAt: Duration.zero,
           onVideoPositionChanged: (Duration newDuration) {
             saveDuration(newDuration);
           },
         );
+
+        _headerWidget = _videoScreen!;
+        _videoKey.currentState?.play();
         _isFirst = false;
       }
 
       _isPlaying = !_isPlaying;
+      playVideo(_isPlaying);
     });
   }
 
@@ -136,27 +151,38 @@ class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
       backgroundColor: AppColors.BaseColorBlackGround,
       body: Stack(
         children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(height: 70),
-                GestureDetector(
-                    onTap: () {
-                      updatePlayStatus();
-                    },
-                    child: _headerWidget),
-                MainContent(
-                  movie: _movie!,
-                  screenWidth: screenWidth,
-                  bottomNavBarItems: bottomNavBarItems,
-                  onItemTapped: _onItemTapped,
-                  callback: () {
-                    updatePlayStatus();
-                  },
-                  isPlaying: _isPlaying,
+          Column(
+            children: [
+              const SizedBox(height: 70),
+              GestureDetector(
+                child: _headerWidget,
+                onTap: updatePlayStatus,
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      MainContent(
+                        movie: _movie!,
+                        screenWidth: screenWidth,
+                        bottomNavBarItems: bottomNavBarItems,
+                        onItemTapped: _onItemTapped,
+                        callback: () {
+                          updatePlayStatus();
+                        },
+                        isPlaying: _isPlaying,
+                        onBottomSheetOpened: () {
+                          playVideo(false);
+                        },
+                        onBottomSheetClosed: () {
+                          playVideo(true);
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           const Positioned(
             top: 0,
@@ -251,6 +277,8 @@ class MainContent extends StatefulWidget {
     required this.callback,
     required this.movie,
     required this.isPlaying,
+    this.onBottomSheetOpened,
+    this.onBottomSheetClosed,
   }) : super(key: key);
 
   final double screenWidth;
@@ -259,6 +287,8 @@ class MainContent extends StatefulWidget {
   final VoidCallback callback;
   final MovieModel movie;
   final bool isPlaying;
+  final VoidCallback? onBottomSheetOpened;
+  final VoidCallback? onBottomSheetClosed;
   @override
   State<MainContent> createState() => _MainContentState();
 }
@@ -529,8 +559,11 @@ class _MainContentState extends State<MainContent> {
 
   Widget _buildBody(BuildContext context, String imagePath, String movieId) {
     return GestureDetector(
-      onTap: () {
-        showModalBottomSheet(
+      onTap: () async {
+        if (widget.onBottomSheetOpened != null) {
+          widget.onBottomSheetOpened!();
+        }
+        await showModalBottomSheet(
           isScrollControlled: true,
           context: context,
           builder: (BuildContext context) {
@@ -539,288 +572,15 @@ class _MainContentState extends State<MainContent> {
             );
           },
         );
+        if (widget.onBottomSheetClosed != null) {
+          widget.onBottomSheetClosed!();
+        }
       },
       child: SizedBox(
+        width: widget.screenWidth,
         child: CommentWidget(
           movieId: widget.movie.id!,
         ),
-      ),
-    );
-  }
-}
-
-class BottomSheetReviewMovie extends StatefulWidget {
-  const BottomSheetReviewMovie({
-    super.key,
-    required this.movieId,
-  });
-  final String movieId;
-
-  @override
-  State<BottomSheetReviewMovie> createState() => _BottomSheetReviewMovieState();
-}
-
-class _BottomSheetReviewMovieState extends State<BottomSheetReviewMovie> {
-  late List<ReviewModel> reviews = [];
-
-  double _bottomInset = 0;
-  late StreamSubscription<bool> _keyboardVisibilitySubscription;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _keyboardVisibilitySubscription =
-        KeyboardVisibilityController().onChange.listen((bool visible) {
-      updateInset(visible);
-    });
-  }
-
-  void updateInset(bool visible) {
-    setState(() {
-      _bottomInset = visible ? 330 : 0;
-    });
-  }
-
-  @override
-  void dispose() {
-    _keyboardVisibilitySubscription.cancel();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final reviewData = Provider.of<ReviewProvider>(context);
-    reviews = reviewData.reviewsOfMovie;
-    final dataAuth = Provider.of<AuthProvider>(context);
-    final user = dataAuth.CurrentUser;
-    TextEditingController edt = TextEditingController();
-    return Container(
-      color: Colors.black,
-      height: MediaQuery.of(context).size.height * 0.7,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            alignment: Alignment.center,
-            width: MediaQuery.of(context).size.width / 6,
-            height: 5,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(40),
-              color: AppColors.BaseColorMain,
-            ),
-          ),
-          SizedBox(height: 10),
-          Text(
-            'Review',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 25,
-                color: AppColors.BaseColorWhite,
-                fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 5),
-          reviews.isEmpty
-              ? Expanded(
-                  child: Center(
-                    child: Container(
-                      width: 150,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          Image(
-                            image: AssetImage('assets/images/empty-folder.png'),
-                            fit: BoxFit.cover,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-              : Expanded(
-                  child: ListView.builder(
-                    itemCount: reviews.length,
-                    itemBuilder: (context, index) {
-                      return ItemDetailReview(
-                        review: reviews[index],
-                      );
-                    },
-                  ),
-                ),
-          user == null
-              ? const SizedBox()
-              : Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                  decoration: BoxDecoration(
-                      color: AppColors.BackgroundTextFieldReview,
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: edt,
-                          style:
-                              const TextStyle(color: AppColors.BaseColorWhite),
-                          decoration: const InputDecoration(
-                            hintText: 'write something!',
-                            hintStyle: TextStyle(
-                              color: AppColors.BaseColorWhite,
-                              fontSize: 16,
-                            ),
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                      TextButton(
-                          onPressed: () async {
-                            String userId = await UserPreferences.getUserId();
-                            ReviewModel review = ReviewModel(
-                                movieId: widget.movieId,
-                                userId: userId,
-                                comment: edt.text);
-                            await reviewData.addReviewMovie(review);
-                            await reviewData
-                                .findReviewsByMovieId(widget.movieId);
-                            edt.text = '';
-                            setState(() {});
-                          },
-                          child: const Text(
-                            'Review',
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: AppColors.BaseColorMain,
-                                fontWeight: FontWeight.bold),
-                          )),
-                    ],
-                  ),
-                ),
-          SizedBox(height: _bottomInset),
-        ], // Removed extra closing square bracket here
-      ),
-    );
-  }
-}
-
-class ItemDetailReview extends StatelessWidget {
-  const ItemDetailReview({
-    super.key,
-    required this.review,
-  });
-
-  final ReviewModel review;
-
-  @override
-  Widget build(BuildContext context) {
-    print(review.createdAt.toString());
-    final dataAuth = Provider.of<AuthProvider>(context);
-    final user = dataAuth.users.firstWhereOrNull((e) => e.id == review.userId);
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipOval(
-            child: user!.urlImage == null
-                ? Image.asset(
-                    'assets/images/avatar.jpg',
-                    width: 78.0,
-                    height: 78.0,
-                    fit: BoxFit.cover,
-                  )
-                : Image.file(
-                    File(user.urlImage!),
-                    width: 78.0,
-                    height: 78.0,
-                    fit: BoxFit.cover,
-                  ),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      user!.name,
-                      style: const TextStyle(
-                        color: AppColors.BaseColorMain,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      ConverterGloabal.ConvertDateTimeToString(
-                          review.createdAt!),
-                      style: TextStyle(
-                        color: AppColors.BaseColorWhite,
-                        fontSize: 12.0,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 4.0),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    review.comment,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: AppColors.BaseColorWhite,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10.0),
-                const Row(
-                  children: [
-                    Text(
-                      'Love',
-                      style: TextStyle(
-                        color: AppColors.BaseColorGrey,
-                        fontSize: 12.0,
-                      ),
-                    ),
-                    SizedBox(width: 20.0),
-                    Text(
-                      'Comment',
-                      style: TextStyle(
-                        color: AppColors.BaseColorGrey,
-                        fontSize: 12.0,
-                      ),
-                    ),
-                    SizedBox(height: 8.0),
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          ClipOval(
-                            child: Icon(
-                              Icons.favorite_border,
-                              color: AppColors.BaseColorWhite,
-                              size: 20.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

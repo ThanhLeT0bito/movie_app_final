@@ -65,7 +65,9 @@ class _ProfileItemWidgetState extends State<ProfileItemWidget> {
                           border: Border.all(color: Colors.white, width: 2),
                         ),
                         child: ClipOval(
-                          child: widget.currentUser.urlImage != null
+                          child: (widget.currentUser.urlImage != null ||
+                                  !File(widget.currentUser.urlImage!)
+                                      .existsSync())
                               ? Image.file(
                                   file,
                                   fit: BoxFit.cover,

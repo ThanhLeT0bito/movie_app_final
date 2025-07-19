@@ -89,7 +89,7 @@ class ItemEpisodeWidget extends StatelessWidget {
                       Text(
                         episodeTitle,
                         style:
-                        const TextStyle(fontSize: 16, color: Colors.white),
+                            const TextStyle(fontSize: 16, color: Colors.white),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -97,7 +97,7 @@ class ItemEpisodeWidget extends StatelessWidget {
                       Text(
                         time,
                         style:
-                        const TextStyle(fontSize: 16, color: Colors.white),
+                            const TextStyle(fontSize: 16, color: Colors.white),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
