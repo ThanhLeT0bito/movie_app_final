@@ -30,7 +30,13 @@ class _BottomSheetRateMovieState extends State<BottomSheetRateMovie> {
     final dataAuth = Provider.of<AuthProvider>(context);
     final user = dataAuth.CurrentUser;
     return Container(
-      color: Colors.black,
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
       height: MediaQuery.of(context).size.height * 0.7,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -48,17 +54,14 @@ class _BottomSheetRateMovieState extends State<BottomSheetRateMovie> {
           const Text(
             'Rates',
             textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 25,
-                color: AppColors.BaseColorWhite,
-                fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 25, color: AppColors.BaseColorMain, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 5),
           reviews.isEmpty
               ? const Expanded(
                   child: Center(
                     child: Text(
-                      "EMPTY",
+                      "No Comments",
                       style: TextStyle(color: Colors.white),
                     ),
                   ),

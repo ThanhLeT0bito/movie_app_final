@@ -62,7 +62,7 @@ class _CommentWidgetState extends State<RateMovieWidget> {
           //Center(child: CircularProgressIndicator()),
           Center(
             child: Text(
-              "EMPTY!",
+              "No Comments!",
               style: TextStyle(color: Colors.white),
             ),
           )
@@ -71,8 +71,7 @@ class _CommentWidgetState extends State<RateMovieWidget> {
     }
 
     final dataAuth = Provider.of<AuthProvider>(context);
-    final user =
-        dataAuth.users.firstWhereOrNull((e) => e.id == firstReview!.userId);
+    final user = dataAuth.users.firstWhereOrNull((e) => e.id == firstReview!.userId);
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,

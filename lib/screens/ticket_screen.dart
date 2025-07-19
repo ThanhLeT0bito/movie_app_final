@@ -98,12 +98,9 @@ class _TicketScreenState extends State<TicketScreen> {
               Container(
                 width: screenWidth - 40,
                 height: screenheight * 0.75,
-                decoration: BoxDecoration(
-                    color: AppColors.BaseColorWhite,
-                    borderRadius: BorderRadius.circular(10)),
+                decoration: BoxDecoration(color: AppColors.BaseColorWhite, borderRadius: BorderRadius.circular(10)),
                 child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Column(
                     children: [
                       ImageAndTitleWidget(
@@ -134,8 +131,7 @@ class _TicketScreenState extends State<TicketScreen> {
                 left: 0,
                 bottom: 165,
                 child: CustomPaint(
-                  size:
-                      const Size(double.infinity, 1), // Kích thước của gạch đứt
+                  size: const Size(double.infinity, 1), // Kích thước của gạch đứt
                   painter: DashedLinePainter(),
                 ),
               ),
@@ -169,8 +165,7 @@ class _TicketScreenState extends State<TicketScreen> {
           CustomTextButton(
               text: "Rate Movie",
               onPressed: () {
-                Navigator.pushNamed(context, RateScreen.routeName,
-                    arguments: movie);
+                Navigator.pushNamed(context, RateScreen.routeName, arguments: movie);
               }),
           const SizedBox(height: 5)
         ]),
@@ -223,15 +218,12 @@ class HalfCirclePainter extends CustomPainter {
     final double centerX = isRight ? size.width : 0.0;
     final double centerY = size.height / 2;
 
-    final Rect rect =
-        Rect.fromCircle(center: Offset(centerX, centerY), radius: radius);
+    final Rect rect = Rect.fromCircle(center: Offset(centerX, centerY), radius: radius);
 
     if (isRight) {
-      canvas.drawArc(
-          rect, -math.pi / 2, math.pi, true, paint); // Vẽ nửa bên phải
+      canvas.drawArc(rect, -math.pi / 2, math.pi, true, paint); // Vẽ nửa bên phải
     } else {
-      canvas.drawArc(
-          rect, math.pi / 2, math.pi, true, paint); // Vẽ nửa bên trái
+      canvas.drawArc(rect, math.pi / 2, math.pi, true, paint); // Vẽ nửa bên trái
     }
   }
 
@@ -261,10 +253,7 @@ class PriceLocationAndNoteWidget extends StatelessWidget {
             const SizedBox(width: 10),
             Text(
               ConverterGloabal.formatPrice(order.prices),
-              style: const TextStyle(
-                  color: AppColors.BaseColorBlack,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
+              style: const TextStyle(color: AppColors.BaseColorBlack, fontSize: 18, fontWeight: FontWeight.bold),
             )
           ],
         ),
@@ -277,8 +266,7 @@ class PriceLocationAndNoteWidget extends StatelessWidget {
               size: 27,
             ),
             const SizedBox(width: 10),
-            SizedBox(
-              width: 310,
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -286,18 +274,14 @@ class PriceLocationAndNoteWidget extends StatelessWidget {
                     order.nameCinema,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        color: AppColors.BaseColorBlack,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
+                    style: const TextStyle(color: AppColors.BaseColorBlack, fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
                   Text(
                     order.locationCinema,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        fontSize: 15, color: AppColors.BaseColorBlack),
+                    style: const TextStyle(fontSize: 15, color: AppColors.BaseColorBlack),
                   )
                 ],
               ),
@@ -313,8 +297,7 @@ class PriceLocationAndNoteWidget extends StatelessWidget {
               size: 27,
             ),
             SizedBox(width: 10),
-            SizedBox(
-              width: 300,
+            Expanded(
               child: Text(
                 "Show this QR code to the ticket counter to receive your ticket",
                 style: TextStyle(
@@ -341,10 +324,8 @@ class ImageAndTitleWidget extends StatelessWidget {
     List<String> splitTime = time.split("h");
     int hours = int.parse(splitTime[0]);
     int minutes = int.parse(splitTime[1].replaceAll("'", ""));
-
     String hourString = hours == 1 ? "hour" : "hours";
     String minuteString = minutes == 1 ? "minute" : "minutes";
-
     return "$hours $hourString  $minutes $minuteString";
   }
 
@@ -368,17 +349,11 @@ class ImageAndTitleWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 30),
-              SizedBox(
-                width: 170,
-                child: Text(
-                  movie.name,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                      fontSize: 21,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.BaseColorBlack),
-                ),
+              Text(
+                movie.name,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(fontSize: 21, fontWeight: FontWeight.bold, color: AppColors.BaseColorBlack),
               ),
               const SizedBox(height: 10),
               Row(
@@ -388,14 +363,12 @@ class ImageAndTitleWidget extends StatelessWidget {
                     size: 25,
                   ),
                   const SizedBox(width: 10),
-                  SizedBox(
-                    width: 170,
+                  Expanded(
                     child: Text(
                       convertTime(movie.duration),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontSize: 15, color: AppColors.BaseColorBlack),
+                      style: const TextStyle(fontSize: 15, color: AppColors.BaseColorBlack),
                     ),
                   )
                 ],
@@ -408,14 +381,12 @@ class ImageAndTitleWidget extends StatelessWidget {
                     size: 25,
                   ),
                   const SizedBox(width: 10),
-                  SizedBox(
-                    width: 170,
+                  Expanded(
                     child: Text(
                       movie.category,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontSize: 15, color: AppColors.BaseColorBlack),
+                      style: const TextStyle(fontSize: 15, color: AppColors.BaseColorBlack),
                     ),
                   )
                 ],
@@ -438,7 +409,6 @@ class TimeAndSeatWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var screenWidth = MediaQuery.of(context).size.width;
     return Row(
       children: [
         Expanded(
@@ -450,24 +420,24 @@ class TimeAndSeatWidget extends StatelessWidget {
                 color: AppColors.BaseColorBlack,
               ),
               const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    order.timeMovie,
-                    style: const TextStyle(
-                        fontSize: 15,
-                        color: AppColors.BaseColorBlack,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    order.dateMovie,
-                    style: const TextStyle(
-                        fontSize: 15,
-                        color: AppColors.BaseColorBlack,
-                        fontWeight: FontWeight.bold),
-                  )
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      order.timeMovie,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 15, color: AppColors.BaseColorBlack, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      order.dateMovie,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 15, color: AppColors.BaseColorBlack, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
               )
             ],
           ),
@@ -481,26 +451,21 @@ class TimeAndSeatWidget extends StatelessWidget {
                 color: AppColors.BaseColorBlack,
               ),
               const SizedBox(width: 10),
-              Container(
-                width: 110,
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "Section ${order.section}",
-                      style: const TextStyle(
-                          fontSize: 15,
-                          color: AppColors.BaseColorBlack,
-                          fontWeight: FontWeight.bold),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 15, color: AppColors.BaseColorBlack, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       "Seat ${order.seats}",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontSize: 15,
-                          color: AppColors.BaseColorBlack,
-                          fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontSize: 15, color: AppColors.BaseColorBlack, fontWeight: FontWeight.bold),
                     )
                   ],
                 ),

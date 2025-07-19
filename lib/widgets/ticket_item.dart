@@ -14,17 +14,14 @@ class TicketItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        margin: const EdgeInsets.symmetric(
-            vertical: Dimens.MarginTicketItem,
-            horizontal: Dimens.MarginTicketItem),
+        margin: const EdgeInsets.symmetric(vertical: Dimens.MarginTicketItem, horizontal: Dimens.MarginTicketItem),
         decoration: BoxDecoration(
           color: AppColors.Background,
           borderRadius: BorderRadius.circular(Dimens.circular),
         ),
         child: GestureDetector(
           onTap: () {
-            Navigator.pushNamed(context, TicketScreen.routeName,
-                arguments: ticket.id as String);
+            Navigator.pushNamed(context, TicketScreen.routeName, arguments: ticket.id as String);
           },
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,9 +66,9 @@ class TicketItem extends StatelessWidget {
                           const SizedBox(width: Dimens.Sizedbox),
                           Text(
                             ticket.DateTime,
-                            style: const TextStyle(
-                                fontSize: Dimens.fontsize,
-                                color: AppColors.BaseColorWhite),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(fontSize: Dimens.fontsize, color: AppColors.BaseColorWhite),
                           ),
                         ],
                       ),
@@ -86,8 +83,8 @@ class TicketItem extends StatelessWidget {
                           Expanded(
                             child: Text(
                               ticket.TheaterLocation,
-                              overflow: TextOverflow
-                                  .ellipsis, // Cắt văn bản nếu quá dài
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                 fontSize: Dimens.fontsize,
                                 color: AppColors.BaseColorWhite,

@@ -44,23 +44,20 @@ class WatchingDetailsScreens extends StatefulWidget {
 }
 
 class _WatchingDetailsScreensState extends State<WatchingDetailsScreens> {
-  int _selectedIndex = 0;
-  late List<CustomItemBottomBar> bottomNavBarItems;
+  final GlobalKey<ShowVideoScreenState> _videoKey = GlobalKey<ShowVideoScreenState>();
 
+  int _selectedIndex = 0;
   bool _isPlaying = false;
 
+  late List<CustomItemBottomBar> bottomNavBarItems;
+  late MovieModel? _movie;
+  late String movieId;
   late Widget _headerWidget = HeaderImageWatching(
     movie: _movie!,
   );
+
   ShowVideoScreen? _videoScreen;
-  final GlobalKey<ShowVideoScreenState> _videoKey =
-      GlobalKey<ShowVideoScreenState>();
-
-  late String movieId;
-  bool _isInit = false, _isFirst = true;
-
-  late MovieModel? _movie;
-
+  bool _isFirst = true;
   Duration startAt = Duration.zero;
 
   void saveDuration(Duration newDuration) {
@@ -215,9 +212,7 @@ class HeaderImageWatching extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.transparent, // Thay đổi màu thành trong suốt
           //borderRadius: BorderRadius.circular(10),
-          image: DecorationImage(
-              image: NetworkImage(movie.thumbnailLandscape),
-              fit: BoxFit.fitWidth)),
+          image: DecorationImage(image: NetworkImage(movie.thumbnailLandscape), fit: BoxFit.fitWidth)),
       child: const Center(
         child: Icon(
           Icons.play_circle_outline_rounded,
@@ -233,9 +228,7 @@ class ItemWithLineTopWidget extends StatelessWidget {
   final String text;
   final bool hasBar;
 
-  const ItemWithLineTopWidget(
-      {Key? key, required this.text, required this.hasBar})
-      : super(key: key);
+  const ItemWithLineTopWidget({Key? key, required this.text, required this.hasBar}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -249,9 +242,7 @@ class ItemWithLineTopWidget extends StatelessWidget {
             height: 5,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: hasBar
-                  ? AppColors.BaseColorMain
-                  : AppColors.BaseColorTransparent,
+              color: hasBar ? AppColors.BaseColorMain : AppColors.BaseColorTransparent,
             ),
           ),
           const SizedBox(height: 5),
@@ -307,15 +298,12 @@ class _MainContentState extends State<MainContent> {
     final dataActor = Provider.of<ActorProviders>(context);
     final listAllActor = dataActor.actors;
 
-    final director =
-        listAllActor.firstWhereOrNull((x) => x.id == widget.movie.director);
+    final director = listAllActor.firstWhereOrNull((x) => x.id == widget.movie.director);
 
-    final listIdActor =
-        ConverterGloabal.removeSpacesAndSplit(widget.movie.actor);
+    final listIdActor = ConverterGloabal.removeSpacesAndSplit(widget.movie.actor);
     List<String> names = [];
     for (String id in listIdActor) {
-      Actor? actor =
-          listAllActor.firstWhereOrNull((element) => element.id == id);
+      Actor? actor = listAllActor.firstWhereOrNull((element) => element.id == id);
       if (actor != null) {
         names.add(actor.name);
       }
@@ -325,8 +313,7 @@ class _MainContentState extends State<MainContent> {
       children: [
         SingleChildScrollView(
           child: Padding(
-            padding:
-                const EdgeInsets.only(top: 10, right: 15, left: 15, bottom: 10),
+            padding: const EdgeInsets.only(top: 10, right: 15, left: 15, bottom: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -339,29 +326,21 @@ class _MainContentState extends State<MainContent> {
                       widget.movie.name,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          decoration: TextDecoration.none,
-                          fontSize: 25,
-                          color: AppColors.BaseColorWhite,
-                          fontWeight: FontWeight.bold),
+                      style: const TextStyle(decoration: TextDecoration.none, fontSize: 25, color: AppColors.BaseColorWhite, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 5,
                     ),
                     Text(
                       "${widget.movie.startTime.year} * ${widget.movie.duration} * ${widget.movie.censorship}",
-                      style: const TextStyle(
-                          color: AppColors.BaseColorAroundWhite,
-                          fontSize: 15,
-                          decoration: TextDecoration.none),
+                      style: const TextStyle(color: AppColors.BaseColorAroundWhite, fontSize: 15, decoration: TextDecoration.none),
                     ),
                   ],
                 ),
                 const SizedBox(height: 20),
                 CustomTextButton(
                   text: widget.isPlaying ? "Pause" : "Play",
-                  icon:
-                      widget.isPlaying ? Icons.pause_circle : Icons.play_circle,
+                  icon: widget.isPlaying ? Icons.pause_circle : Icons.play_circle,
                   onPressed: widget.callback,
                 ),
 
@@ -483,8 +462,7 @@ class _MainContentState extends State<MainContent> {
                   selectedIndex: 0, // Chỉ số này có thể được thay
                 ),
                 const SizedBox(height: 20),
-                _buildBody(
-                    context, "assets/images/img_1.jpg", widget.movie.id!),
+                _buildBody(context, "assets/images/img_1.jpg", widget.movie.id!),
                 const SizedBox(height: 20),
                 // content tab view preview movie
                 _buildTabBar(),
@@ -514,32 +492,26 @@ class _MainContentState extends State<MainContent> {
       onTap: () => _onItemTapped(index),
       child: Container(
         padding: const EdgeInsets.only(right: 40),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 50,
-                height: 4,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: _selectedIndex == index
-                      ? AppColors.BaseColorMain
-                      : AppColors.BaseColorTransparent,
-                ),
+        child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Container(
+            width: 50,
+            height: 4,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: _selectedIndex == index ? AppColors.BaseColorMain : AppColors.BaseColorTransparent,
+            ),
+          ),
+          const SizedBox(height: 10),
+          SizedBox(
+            child: Text(
+              title,
+              style: TextStyle(
+                color: _selectedIndex == index ? Colors.yellow : Colors.white,
+                fontSize: 16,
               ),
-              const SizedBox(height: 10),
-              SizedBox(
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    color:
-                        _selectedIndex == index ? Colors.yellow : Colors.white,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ]),
+            ),
+          ),
+        ]),
       ),
     );
   }

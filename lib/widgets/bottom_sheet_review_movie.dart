@@ -31,8 +31,7 @@ class _BottomSheetReviewMovieState extends State<BottomSheetReviewMovie> {
   void initState() {
     super.initState();
 
-    _keyboardVisibilitySubscription =
-        KeyboardVisibilityController().onChange.listen((bool visible) {
+    _keyboardVisibilitySubscription = KeyboardVisibilityController().onChange.listen((bool visible) {
       updateInset(visible);
     });
   }
@@ -61,7 +60,13 @@ class _BottomSheetReviewMovieState extends State<BottomSheetReviewMovie> {
     TextEditingController edt = TextEditingController();
 
     return Container(
-      color: Colors.black,
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
       height: MediaQuery.of(context).size.height * 0.7,
       width: double.infinity,
       child: Column(
@@ -80,10 +85,7 @@ class _BottomSheetReviewMovieState extends State<BottomSheetReviewMovie> {
           Text(
             'Review',
             textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 25,
-                color: AppColors.BaseColorWhite,
-                fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 25, color: AppColors.BaseColorWhite, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 5),
           reviews.isEmpty
@@ -121,20 +123,15 @@ class _BottomSheetReviewMovieState extends State<BottomSheetReviewMovie> {
           user == null
               ? const SizedBox()
               : Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                  margin:
-                      const EdgeInsets.only(bottom: 20, left: 10, right: 10),
-                  decoration: BoxDecoration(
-                      color: AppColors.BackgroundTextFieldReview,
-                      borderRadius: BorderRadius.circular(15)),
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                  margin: const EdgeInsets.only(bottom: 20, left: 10, right: 10),
+                  decoration: BoxDecoration(color: AppColors.BackgroundTextFieldReview, borderRadius: BorderRadius.circular(15)),
                   child: Row(
                     children: [
                       Expanded(
                         child: TextField(
                           controller: edt,
-                          style:
-                              const TextStyle(color: AppColors.BaseColorWhite),
+                          style: const TextStyle(color: AppColors.BaseColorWhite),
                           decoration: const InputDecoration(
                             hintText: 'Write Comment!',
                             hintStyle: TextStyle(
@@ -148,22 +145,15 @@ class _BottomSheetReviewMovieState extends State<BottomSheetReviewMovie> {
                       TextButton(
                           onPressed: () async {
                             String userId = await UserPreferences.getUserId();
-                            ReviewModel review = ReviewModel(
-                                movieId: widget.movieId,
-                                userId: userId,
-                                comment: edt.text);
+                            ReviewModel review = ReviewModel(movieId: widget.movieId, userId: userId, comment: edt.text);
                             await reviewData.addReviewMovie(review);
-                            await reviewData
-                                .findReviewsByMovieId(widget.movieId);
+                            await reviewData.findReviewsByMovieId(widget.movieId);
                             edt.text = '';
                             setState(() {});
                           },
                           child: const Text(
                             'Review',
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: AppColors.BaseColorMain,
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: 16, color: AppColors.BaseColorMain, fontWeight: FontWeight.bold),
                           )),
                     ],
                   ),

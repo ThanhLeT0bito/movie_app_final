@@ -43,7 +43,7 @@ class CommentWidget extends StatelessWidget {
             SizedBox(height: 20.0),
             Center(
               child: Text(
-                "EMPTY!",
+                "No Comments!",
                 style: TextStyle(color: Colors.white),
               ),
             )
@@ -53,8 +53,7 @@ class CommentWidget extends StatelessWidget {
     }
 
     final dataAuth = Provider.of<AuthProvider>(context);
-    final user =
-        dataAuth.users.firstWhereOrNull((e) => e.id == firstReview.userId);
+    final user = dataAuth.users.firstWhereOrNull((e) => e.id == firstReview.userId);
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5.0),
@@ -87,8 +86,7 @@ class CommentWidget extends StatelessWidget {
           Row(
             children: [
               ClipOval(
-                child: (user?.urlImage == null ||
-                        !File(user!.urlImage!).existsSync())
+                child: (user?.urlImage == null || !File(user!.urlImage!).existsSync())
                     ? Image.asset(
                         'assets/images/avatar.jpg',
                         width: 78.0,
@@ -119,8 +117,7 @@ class CommentWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          ConverterGloabal.ConvertDateTimeToString(
-                              firstReview.createdAt ?? DateTime.now()),
+                          ConverterGloabal.ConvertDateTimeToString(firstReview.createdAt ?? DateTime.now()),
                           style: const TextStyle(
                             color: AppColors.BaseColorWhite,
                             fontSize: 12.0,

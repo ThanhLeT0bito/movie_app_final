@@ -1,5 +1,10 @@
 {
     "editor.wordWrapColumn": 80,
     "editor.wordWrap": "off",
-    "html.format.wrapLineLength": 0
+    "html.format.wrapLineLength": 0,
+    "dart.lineLength": 200,
+    "[dart]": {
+        "editor.wordWrap": "off",
+    },
+    "editor.formatOnSave": true
 }
