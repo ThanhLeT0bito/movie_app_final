@@ -43,9 +43,10 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
               GestureDetector(
                   onTap: () {
                     data.changeStartModeTemp(index);
+                    data.SaveStartMode();
+                    widget.onPressed?.call();
                   },
-                  child: ItemRadioCustom(widget.groupRadio[index],
-                      groupRadio1[index].isSelected!)),
+                  child: ItemRadioCustom(widget.groupRadio[index], groupRadio1[index].isSelected!)),
               const SizedBox(height: 15),
               index < widget.groupRadio.length - 1
                   ? const Padding(
@@ -71,21 +72,13 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
         children: [
           // Hiển thị hình ảnh nếu có
           if (customRadioButton.img != null) ...[
-            CircleAvatar(
-                backgroundColor: Colors.transparent,
-                child:
-                    Image.asset(customRadioButton.img!, width: 40, height: 40)),
+            CircleAvatar(backgroundColor: Colors.transparent, child: Image.asset(customRadioButton.img!, width: 40, height: 40)),
             const SizedBox(width: 10),
           ],
           //Hiển thị văn bản
           Text(
             customRadioButton.text!,
-            style: TextStyle(
-                color: isSelected
-                    ? AppColors.BaseColorTextMain
-                    : AppColors.BaseColorWhite,
-                fontSize: Dimens.FontSizeCustomItemRadio,
-                fontWeight: FontWeight.bold),
+            style: TextStyle(color: isSelected ? AppColors.BaseColorTextMain : AppColors.BaseColorWhite, fontSize: Dimens.FontSizeCustomItemRadio, fontWeight: FontWeight.bold),
           ),
           const Spacer(),
           // Hiển thị CustomRadioButton
@@ -96,9 +89,7 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: customRadioButton.isSelected!
-                    ? AppColors.Border_Radio
-                    : AppColors.BaseColorWhite, // Màu viền
+                color: customRadioButton.isSelected! ? AppColors.Border_Radio : AppColors.BaseColorWhite, // Màu viền
                 width: 2.0,
               ),
               color: Colors.transparent, // Màu nền
@@ -108,8 +99,7 @@ class _CustomItemRadioState extends State<CustomItemRadio> {
                     alignment: Alignment.center,
                     width: Dimens.WidthHeightRadioChild,
                     height: Dimens.WidthHeightRadioChild,
-                    decoration: const BoxDecoration(
-                        color: AppColors.BaseColorMain, shape: BoxShape.circle),
+                    decoration: const BoxDecoration(color: AppColors.BaseColorMain, shape: BoxShape.circle),
                     child: const SizedBox(),
                   )
                 : null,

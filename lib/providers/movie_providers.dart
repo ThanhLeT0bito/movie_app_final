@@ -21,7 +21,7 @@ class Movieproviders extends ChangeNotifier {
 
   List<ItemCarouselWidget> _listCarousel = [];
 
-  List<ItemCarouselWidget> get listCarousel => _listCarousel;
+  List<ItemCarouselWidget> get listCarousel => _listCarousel.reversed.toList();
 
   var isNowplaySelected = false;
 
@@ -60,8 +60,7 @@ class Movieproviders extends ChangeNotifier {
   Future<void> initSeats() async {
     for (var i in _listAllMovie) {
       int randomNumber = Random().nextInt(15) + 1;
-      SeatModel seat = SeatModel(
-          movieId: i.id ?? '', reserved: '', service: randomNumber.toString());
+      SeatModel seat = SeatModel(movieId: i.id ?? '', reserved: '', service: randomNumber.toString());
       await insertSeat(seat);
     }
   }
@@ -91,16 +90,17 @@ class Movieproviders extends ChangeNotifier {
 
   Future<void> fetchAllMovies() async {
     try {
+      int limit = 20;
+      int page = 1;
       final response = await http.get(
-        Uri.parse('$urlApi/getAllMovies'),
+        Uri.parse('$urlApi/getAllMovies?limit=$limit&page=$page'),
       );
 
       if (response.statusCode == 200) {
         // Nếu thành công, chuyển đổi dữ liệu JSON thành danh sách các bộ phim
         List<dynamic> data = json.decode(response.body);
         //print(data);
-        List<MovieModel> movies =
-            data.map((json) => MovieModel.fromJson(json)).toList();
+        List<MovieModel> movies = data.map((json) => MovieModel.fromJson(json)).toList();
         _listAllMovie = movies;
         //printMovieModelProperties(listAllMovie[0]);
         notifyListeners(); // Thông báo cho các người nghe rằng danh sách phim đã được cập nhật
@@ -358,8 +358,7 @@ class Movieproviders extends ChangeNotifier {
         createdBy: "Admin",
         createdAt: DateTime.now(),
         isWatching: false,
-        videoUrl:
-            "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/videos%2Fcai_gia_cua_hanh_phuc.mp4?alt=media&token=6e3700ae-889a-4dc7-bfb8-489e4f59e1ff",
+        videoUrl: "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/videos%2Fcai_gia_cua_hanh_phuc.mp4?alt=media&token=6e3700ae-889a-4dc7-bfb8-489e4f59e1ff",
         thumbnailLandscape:
             "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhngang%2Fcai_gia_cua_hanh_phuc.png?alt=media&token=914b57a7-99b8-4eb1-ab77-6341fadaef2c"),
 
@@ -371,8 +370,7 @@ class Movieproviders extends ChangeNotifier {
             "'Luca's Summer tells the story of young Luca's journey to the beautiful island of Portorosso, located in the Mediterranean Sea in Italy. Here, he meets and befriends new small friends and enjoys a sunny summer.",
         content:
             "'Mùa Hè Của Luca' tells the story of Luca's journey on the beautiful island of Portorosso in the Mediterranean Sea in Italy. Here, he makes friends and bonds with new small friends and enjoys a summer full of sunshine, Gelato ice cream, and the famous Italian pasta.",
-        thumbnail:
-            "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhdoc%2Fmua_he_cua_luca.png?alt=media&token=7d920a70-946a-475b-b499-5af3932da4f9",
+        thumbnail: "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhdoc%2Fmua_he_cua_luca.png?alt=media&token=7d920a70-946a-475b-b499-5af3932da4f9",
         category: "Comedy, Cartoon",
         director: "6622b094a48e47dcc7cb57d8",
         actor: "6622b094a48e47dcc7cb57d2",
@@ -386,8 +384,7 @@ class Movieproviders extends ChangeNotifier {
         createdBy: "Admin",
         createdAt: DateTime.now(),
         isWatching: false,
-        videoUrl:
-            "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/videos%2FWatch%20Luca%20Full%20Movie.mp4?alt=media&token=8ef72ae1-9ac9-442a-8182-0697ecccc582",
+        videoUrl: "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/videos%2FWatch%20Luca%20Full%20Movie.mp4?alt=media&token=8ef72ae1-9ac9-442a-8182-0697ecccc582",
         thumbnailLandscape:
             "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhngang%2Fmua_he_cua_luca.png?alt=media&token=3f20a7e8-3ab1-42b2-9759-a46d0f3bc916"),
 
@@ -395,8 +392,7 @@ class Movieproviders extends ChangeNotifier {
         name: "Anh hùng bàn phím",
         slug: "slug",
         trailerUrl: "https://www.youtube.com/watch?v=fX0pDW1PD94",
-        description:
-            "The movie delves deep into the hot topic of social manipulation through unethical tactics that has been rampant recently.",
+        description: "The movie delves deep into the hot topic of social manipulation through unethical tactics that has been rampant recently.",
         content:
             "Im Sang-jin - a social affairs reporter, was suspended from work after a biased investigative report about the controversies of the Manjun conglomerate. Thinking he had to bear the injustice for life, Im Sang-jin suddenly received anonymous information asserting that he was not wrong, but everything was manipulated by an online 'army'.",
         thumbnail:
@@ -427,8 +423,7 @@ class Movieproviders extends ChangeNotifier {
             "That's the journey of Hua Quang Han searching for his first love in the movie 'Youth 18x2: Journey Back to You.' It's a journey back to the past, yet it makes people look forward to the future.",
         content:
             "Memories of first love flood back when Jimmy receives a postcard from Ami. He decides to board a train to Japan alone to reunite with the girl he missed 18 years ago. Will their youthful romance find a happy ending when they reunite?",
-        thumbnail:
-            "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhdoc%2Fthanh-xuan-poster.png?alt=media&token=3ca38df6-033d-4094-aeaf-d97aee79dc24",
+        thumbnail: "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhdoc%2Fthanh-xuan-poster.png?alt=media&token=3ca38df6-033d-4094-aeaf-d97aee79dc24",
         category: "Romantic",
         director: "6622b094a48e47dcc7cb57d8",
         actor: "6622b094a48e47dcc7cb57d2",
@@ -497,8 +492,7 @@ class Movieproviders extends ChangeNotifier {
         createdBy: "Admin",
         createdAt: DateTime.now(),
         isWatching: false,
-        videoUrl:
-            "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/videos%2Fnha-ba-nu.mp4?alt=media&token=186aa3b2-38db-4a6d-97f2-a77d0c610002",
+        videoUrl: "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/videos%2Fnha-ba-nu.mp4?alt=media&token=186aa3b2-38db-4a6d-97f2-a77d0c610002",
         thumbnailLandscape:
             "https://firebasestorage.googleapis.com/v0/b/movie-app-e8f16.appspot.com/o/images%2Fmovie%2Fanhngang%2Fcai_gia_cua_hanh_phuc.png?alt=media&token=914b57a7-99b8-4eb1-ab77-6341fadaef2c"),
   ];

@@ -61,9 +61,7 @@ class ManagerAllWidget extends ChangeNotifier {
     print(userId);
     currentUserId = userId;
 
-    startScreen = userId.isNotEmpty
-        ? ChooseNeed.routeName
-        : SignIn_SignUp_Screens.routeName;
+    startScreen = userId.isNotEmpty ? ChooseNeed.routeName : SignIn_SignUp_Screens.routeName;
     notifyListeners();
     return userId;
   }
@@ -71,8 +69,7 @@ class ManagerAllWidget extends ChangeNotifier {
   void setBottomItem(int index) {
     print(index);
     _selectedIndex = index;
-    bottomNavBarItems =
-        startMode == 0 ? bottomNavBarItemsBooking : bottomNavBarItemsWatching;
+    bottomNavBarItems = startMode == 0 ? bottomNavBarItemsBooking : bottomNavBarItemsWatching;
     for (var i = 0; i < bottomNavBarItems.length; i++) {
       bottomNavBarItems[i] = CustomItemBottomBar(
         icon: bottomNavBarItems[i].icon,
@@ -114,14 +111,8 @@ class ManagerAllWidget extends ChangeNotifier {
   }
 
   late List<ItemRadio> listItemCustom = [
-    ItemRadio(
-        isSelected: true,
-        text: "Booking Ticket",
-        img: "assets/images/booking.png"),
-    ItemRadio(
-        isSelected: false,
-        text: "Watching Movie",
-        img: "assets/images/watching.png"),
+    ItemRadio(isSelected: true, text: "Booking Ticket", img: "assets/images/booking.png"),
+    ItemRadio(isSelected: false, text: "Watching Movie", img: "assets/images/watching.png"),
   ];
 
   // ignore: non_constant_identifier_names
@@ -136,7 +127,12 @@ class ManagerAllWidget extends ChangeNotifier {
             subTitle: 'which mode do you want to use?',
             textButton: "Use it",
             onButtonPressed: () => changeMode,
-            widget: CustomItemRadio(groupRadio: listItemCustom),
+            widget: CustomItemRadio(
+              groupRadio: listItemCustom,
+              onPressed: () => {
+                Navigator.pop(context),
+              },
+            ),
           );
         });
     notifyListeners();

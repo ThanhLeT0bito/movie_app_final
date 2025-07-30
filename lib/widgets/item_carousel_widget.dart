@@ -73,9 +73,7 @@ class ItemCarouselWidget extends StatelessWidget {
                 Icons.star,
                 color: AppColors.BaseColorMain,
               ),
-            SizedBox(
-                width:
-                    5), // Adjust the spacing between the star icon and the text
+            SizedBox(width: 5), // Adjust the spacing between the star icon and the text
             Text(
               '$star',
               style: TextStyle(

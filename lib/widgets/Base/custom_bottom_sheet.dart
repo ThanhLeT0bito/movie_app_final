@@ -11,6 +11,7 @@ class CustomBottomSheet extends StatelessWidget {
   final Widget widget;
   final String textButton;
   final VoidCallback onButtonPressed;
+  final bool? isShowButton;
 
   const CustomBottomSheet({
     Key? key,
@@ -19,6 +20,7 @@ class CustomBottomSheet extends StatelessWidget {
     required this.widget,
     required this.textButton,
     required this.onButtonPressed,
+    this.isShowButton = false,
   }) : super(key: key);
 
   @override
@@ -43,19 +45,14 @@ class CustomBottomSheet extends StatelessWidget {
           ListTile(
             title: Text(
               title,
-              style: const TextStyle(
-                  color: AppColors.BaseColorWhite,
-                  fontSize: Dimens.FontSizeBottomSheetTitle,
-                  fontWeight: FontWeight.bold),
+              style: const TextStyle(color: AppColors.BaseColorWhite, fontSize: Dimens.FontSizeBottomSheetTitle, fontWeight: FontWeight.bold),
             ),
             subtitle: subTitle != null
                 ? Padding(
                     padding: const EdgeInsets.only(top: 5, left: 5),
                     child: Text(
                       subTitle!,
-                      style: const TextStyle(
-                          fontSize: Dimens.FontSizeBottomSheetSubTitle,
-                          color: AppColors.BaseColorWhite),
+                      style: const TextStyle(fontSize: Dimens.FontSizeBottomSheetSubTitle, color: AppColors.BaseColorWhite),
                     ),
                   )
                 : null,
@@ -64,15 +61,19 @@ class CustomBottomSheet extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(child: widget),
           ),
-          CustomTextButton(
-            onPressed: () {
-              data.SaveStartMode();
-              //onButtonPressed;
-              Navigator.of(context).pop();
-            },
-            text: textButton,
-          ),
-          const SizedBox(height: 10)
+          isShowButton == true
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: CustomTextButton(
+                    onPressed: () {
+                      data.SaveStartMode();
+                      onButtonPressed();
+                      Navigator.of(context).pop();
+                    },
+                    text: textButton,
+                  ),
+                )
+              : const SizedBox(),
         ],
       ),
     );
@@ -119,10 +120,7 @@ class CustomBottomSheetReview extends StatelessWidget {
             child: Center(
               child: Text(
                 title,
-                style: const TextStyle(
-                    color: AppColors.BaseColorWhite,
-                    fontSize: Dimens.FontSizeBottomSheetTitle,
-                    fontWeight: FontWeight.bold),
+                style: const TextStyle(color: AppColors.BaseColorWhite, fontSize: Dimens.FontSizeBottomSheetTitle, fontWeight: FontWeight.bold),
               ),
             ),
           ),

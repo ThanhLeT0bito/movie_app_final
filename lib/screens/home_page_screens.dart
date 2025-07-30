@@ -25,7 +25,7 @@ class HomepageScreens extends StatelessWidget {
   Widget build(BuildContext context) {
     final data = Provider.of<ManagerAllWidget>(context);
     var dataMovie = Provider.of<Movieproviders>(context);
-    List<ItemCarouselWidget> listCarousel = dataMovie.listCarousel;
+    List<ItemCarouselWidget> listCarousel = dataMovie.listCarousel.reversed.toList();
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
@@ -56,8 +56,7 @@ class HomepageScreens extends StatelessWidget {
                     const SizedBox(height: 10),
                     //carousel
                     Container(
-                      height: MediaQuery.of(context).size.height *
-                          0.6, // Đặt chiều cao cố định cho Container
+                      height: MediaQuery.of(context).size.height * 0.6,
                       child: CarouselWidget(
                         listCarousel: listCarousel,
                       ), // Bọc CarouselWidget trong Container
@@ -119,18 +118,13 @@ class HomepageScreens extends StatelessWidget {
                                     ),
                                     Text(
                                       "OFF",
-                                      style: TextStyle(
-                                          color: AppColors.BaseColorTextMain,
-                                          fontSize: 45,
-                                          fontWeight: FontWeight.bold),
+                                      style: TextStyle(color: AppColors.BaseColorTextMain, fontSize: 45, fontWeight: FontWeight.bold),
                                     )
                                   ],
                                 ),
                                 Text(
                                   "Movie voucher free",
-                                  style: TextStyle(
-                                      color: AppColors.BaseColorWhite,
-                                      fontSize: 17),
+                                  style: TextStyle(color: AppColors.BaseColorWhite, fontSize: 17),
                                 ),
                               ],
                             ))
@@ -176,13 +170,11 @@ class HomepageScreens extends StatelessWidget {
                       child: Row(children: [
                         ItemMovieWithTitle(
                           img: "assets/images/2023.png",
-                          title:
-                              "When The Batman 2 Starts Filming Reportedly Revealed",
+                          title: "When The Batman 2 Starts Filming Reportedly Revealed",
                         ),
                         ItemMovieWithTitle(
                           img: "assets/images/2024.png",
-                          title:
-                              "6 Epic Hulk Fights That Can Happen In The MCU's Future.",
+                          title: "6 Epic Hulk Fights That Can Happen In The MCU's Future.",
                         ),
                       ]),
                     )
